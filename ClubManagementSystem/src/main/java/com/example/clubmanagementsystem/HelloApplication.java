@@ -20,6 +20,7 @@ public class HelloApplication extends Application {
             stage.show();
         }catch (Exception E){
             E.printStackTrace();
+            System.out.println("Hello World !!!");
         }
 
     }
