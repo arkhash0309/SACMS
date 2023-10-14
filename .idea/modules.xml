@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ClubManagementSystem/ClubManagementSystem.iml" filepath="$PROJECT_DIR$/ClubManagementSystem/ClubManagementSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/OOD-Coursework.iml" filepath="$PROJECT_DIR$/.idea/OOD-Coursework.iml" />
     </modules>
   </component>
