@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
         }catch (Exception E){
             E.printStackTrace();
             System.out.println("Hello World !!!");
-            System.out.println("Deelaka");
+            System.out.println("Lakshan");
         }
 
     }
