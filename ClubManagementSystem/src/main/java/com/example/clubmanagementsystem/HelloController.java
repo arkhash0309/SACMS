@@ -49,6 +49,8 @@ public class HelloController {
         System.out.println("Deelaka and Pramuditha Niggas");
         System.out.println("Joke ekak bn" + 23);
 
+        System.out.println("Deelaka Dias is the greatest");
+
 
     }
 }
