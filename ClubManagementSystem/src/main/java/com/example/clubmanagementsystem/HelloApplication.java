@@ -12,16 +12,14 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ClubAdvisorDashboard.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1100, 600);
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 430, 650);
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
         }catch (Exception E){
             E.printStackTrace();
-            System.out.println("Hello World !!!");
-            System.out.println("Lakshan");
         }
 
     }
