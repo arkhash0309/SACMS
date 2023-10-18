@@ -3,12 +3,16 @@ package com.example.clubmanagementsystem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClubAdvisorDashboardControlller {
     @FXML
     private Label welcomeText;
+
+    @FXML
+    private AnchorPane justAnchor;
 
     private double xPosition;
 

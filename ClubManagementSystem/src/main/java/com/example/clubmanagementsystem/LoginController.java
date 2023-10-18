@@ -3,6 +3,7 @@ package com.example.clubmanagementsystem;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
@@ -12,7 +13,7 @@ public class LoginController {
     private double yPosition;
 
     @FXML
-    private AnchorPane LoginPane;
+    private StackPane LoginPane;
 
     @FXML
     void LoginDragDetected(MouseEvent event) {

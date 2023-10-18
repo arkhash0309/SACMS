@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
-
-<AnchorPane fx:id="LoginPane" onMouseDragged="#LoginDragDetected" onMousePressed="#LoginPanePressed" prefHeight="650.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clubmanagementsystem.LoginController">
-
-</AnchorPane>
+<StackPane fx:id="LoginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#LoginDragDetected" onMousePressed="#LoginPanePressed" prefHeight="650.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clubmanagementsystem.LoginController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+   </children>
+    <stylesheets>
+        <URL value="@Login.css" />
+    </stylesheets>
+</StackPane>
