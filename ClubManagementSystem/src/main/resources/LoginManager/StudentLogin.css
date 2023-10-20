@@ -1,0 +1,99 @@
+#studentLoginLabel{
+    -fx-background-color: #052149;
+}
+
+.panebutton{
+    -fx-background-color: white;
+}
+
+.panebutton:hover{
+    -fx-background-color: #699393;
+    -fx-cursor: hand;
+}
+
+.panebutton:pressed{
+    -fx-background-color: #9cdeff;
+    -fx-cursor: hand;
+}
+
+#registrationUnderliner{
+    -fx-background-color: #040413;
+}
+
+#signInLeftPane{
+    -fx-background-color: linear-gradient(#506075, #d2ffeb, #5d7588);
+}
+
+#backbutton{
+    -fx-background-color: #52525d;
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#backbutton:hover{
+    -fx-background-color: #201325;
+    -fx-text-fill: white;
+}
+
+#signinImage{
+    -fx-background-radius: 200px;
+}
+
+#backbutton:pressed{
+    -fx-background-color: #5e5e5e;
+    -fx-text-fill: #fcf9f9;
+}
+
+#studentLoginButton{
+    -fx-background-color: #52525d;
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#studentLoginButton:hover{
+    -fx-background-color: #201325;
+    -fx-text-fill: white;
+}
+
+#studentLoginButton:pressed{
+    -fx-background-color: #5e5e5e;
+    -fx-text-fill: #fcf9f9;
+}
+
+#registorButton{
+    -fx-background-color: #52525d;
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+
+#registorButton:hover{
+    -fx-background-color: #201325;
+    -fx-text-fill: white;
+}
+
+#studentLoginPane{
+    -fx-background-color: linear-gradient( #edfaea, #b4b49d, #f6f6e4, #b2ae9d);
+    -fx-background-radius: 20px;
+    -fx-border-width: 5px;
+    -fx-border-color: #9a9797;
+    -fx-border-radius: 20px;
+}
+
+.studentButtonClass:hover{
+    -fx-background-color: #201325;
+    -fx-text-fill: white;
+}
+
+.logintextfield{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+
+#registorButton:pressed{
+    -fx-background-color: #5e5e5e;
+    -fx-text-fill: #fcf9f9;
+}

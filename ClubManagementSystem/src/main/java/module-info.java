@@ -8,4 +8,8 @@ module com.example.clubmanagementsystem {
     exports com.example.clubmanagementsystem;
     exports LoginManager;
     opens LoginManager to javafx.fxml;
+    exports StudentManager;
+    opens StudentManager to javafx.fxml;
+    exports ClubAdvisorManager;
+    opens ClubAdvisorManager to javafx.fxml;
 }
