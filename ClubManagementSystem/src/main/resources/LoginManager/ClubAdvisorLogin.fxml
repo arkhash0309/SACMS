@@ -29,7 +29,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutX="582.0" layoutY="8.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="38.0" styleClass="controlButtons" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="8.0">
+                        <Button fx:id="ClubAdvisorLoginMinimizer" layoutX="582.0" layoutY="8.0" mnemonicParsing="false" onAction="#MinimizeClubAdvisorLogin" prefHeight="28.0" prefWidth="38.0" styleClass="controlButtons" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="8.0">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -38,7 +38,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="625.0" layoutY="9.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="36.0" styleClass="controlButtons" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0">
+                        <Button fx:id="ClubAdvisorCloseButton" layoutX="625.0" layoutY="9.0" mnemonicParsing="false" onAction="#ClubAdvisorLoginExit" prefHeight="29.0" prefWidth="36.0" styleClass="controlButtons" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0">
                            <graphic>
                               <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

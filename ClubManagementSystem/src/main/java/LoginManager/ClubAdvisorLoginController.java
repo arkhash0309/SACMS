@@ -38,6 +38,9 @@ public class ClubAdvisorLoginController {
     private double xPosition;
 
     private double yPosition;
+
+    @FXML
+    private Button ClubAdvisorLoginMinimizer;
     @FXML
     void DirectToStartPane(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -58,5 +61,18 @@ public class ClubAdvisorLoginController {
     void clubAdvisorPanePressDetector(MouseEvent event) {
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
+    }
+
+    @FXML
+    void MinimizeClubAdvisorLogin(ActionEvent event) {
+        Stage stage = (Stage) ClubAdvisorLoginMinimizer.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+
+    @FXML
+    void ClubAdvisorLoginExit(ActionEvent event) {
+        LoginNavigator loginNavigator = new LoginNavigator();
+        loginNavigator.close();
     }
 }
