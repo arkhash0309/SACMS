@@ -29,7 +29,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutX="643.0" layoutY="8.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="38.0" styleClass="panebutton">
+                        <Button layoutX="643.0" layoutY="8.0" mnemonicParsing="false" onAction="#ExitTheProgram" prefHeight="33.0" prefWidth="38.0" styleClass="panebutton">
                            <graphic>
                               <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -38,12 +38,14 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="600.0" layoutY="8.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="38.0" />
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="606.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/minimize.jpg" />
-                           </image>
-                        </ImageView>
+                        <Button fx:id="studentLoginMinimizeButton" layoutX="600.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizeTheProgram" prefHeight="33.0" prefWidth="38.0">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/minimize.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
                      </children>
                   </AnchorPane>
                </top>
