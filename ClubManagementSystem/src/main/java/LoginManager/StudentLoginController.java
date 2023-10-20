@@ -1,16 +1,22 @@
 package LoginManager;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class StudentLoginController {
     private Scene scene;
@@ -24,6 +30,9 @@ public class StudentLoginController {
 
     @FXML
     private StackPane StudentLoginForm;
+
+    @FXML
+    private Button studentLoginButton;
     @FXML
     void DirectToStartPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -44,5 +53,24 @@ public class StudentLoginController {
     void studentLoginPanePressedDetected(MouseEvent event) {
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
+    }
+
+    @FXML
+    void minimizeTheProgram(ActionEvent event) {
+       Stage stage = (Stage) studentLoginButton.getScene().getWindow();
+       stage.setIconified(true);
+    }
+
+    @FXML
+    void ExitTheProgram(ActionEvent event) {
+        Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        exitAlert.initModality(Modality.APPLICATION_MODAL);
+        exitAlert.setTitle("Club Management System");
+        exitAlert.setHeaderText("Do you really want to exit the program ?");
+
+        Optional<ButtonType> resultExit = exitAlert.showAndWait();
+        if(resultExit.get() == ButtonType.OK){
+            Platform.exit();
+        }
     }
 }

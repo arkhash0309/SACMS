@@ -1,0 +1,48 @@
+#clubAdvisorLoginLabel{
+    -fx-background-color: #052149;
+}
+
+.clubAdvisorLoginButtons{
+    -fx-background-color: #24242c;
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.clubAdvisorLoginButtons:hover{
+    -fx-background-color: #201325;
+    -fx-text-fill: white;
+}
+
+.clubAdvisorLoginButtons:pressed{
+    -fx-background-color: #5e5e5e;
+    -fx-text-fill: #fcf9f9;
+}
+#clubAdvisorLoginAnchorPane{
+    -fx-background-color: linear-gradient(#9cdeff, #104a5b, #82e7d9);
+}
+
+#clubAdvisorLoginPane{
+    -fx-background-color: linear-gradient(#fce38e, #f6d59a, #fff4d1);
+    -fx-border-width: 5px;
+    -fx-border-color: #696867;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.clubAdvisorLoginTextField{
+    -fx-background-radius: 20px;
+}
+
+.controlButtons{
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+.controlButtons:hover{
+    -fx-background-color: #9cdeff;
+}
+
+.controlButtons:pressed{
+    -fx-background-color: #c5eaff;
+}
