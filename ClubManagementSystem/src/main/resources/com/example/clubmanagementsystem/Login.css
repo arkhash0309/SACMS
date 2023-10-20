@@ -1,3 +1,50 @@
+@font-face {
+    font-family: 'Roboto', sans-serif;
+}
+
 #LoginPane{
-    -fx-background-color: green;
+    -fx-background-color: #caf5ee;
+
+}
+
+#LoginAnchorPane{
+    -fx-background-color: #82e8ff;
+}
+
+#studentDirectButton{
+    -fx-background-radius: 20px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+#ClubAdvisorButton{
+    -fx-background-radius: 20px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+#taskBarLogin{
+    -fx-background-color: white;
+}
+
+#studentDirectButton:hover{
+    -fx-background-color: #104a5b;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#ClubAdvisorButton:hover{
+    -fx-background-color: #104a5b;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.LoginButtons:pressed{
+    -fx-background-color: #1d2c31;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#PersonalLabel{
+
 }

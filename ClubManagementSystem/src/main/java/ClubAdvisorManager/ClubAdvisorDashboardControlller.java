@@ -1,4 +1,4 @@
-package com.example.clubmanagementsystem;
+package ClubAdvisorManager;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

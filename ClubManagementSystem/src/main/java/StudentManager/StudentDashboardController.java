@@ -1,4 +1,4 @@
-package com.example.clubmanagementsystem;
+package StudentManager;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
