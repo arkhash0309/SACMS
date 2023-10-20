@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorManager.ClubAdvisorDashboardControlller">
-   <children>
-      <AnchorPane fx:id="justAnchor" prefHeight="200.0" prefWidth="200.0" />
-   </children>
     <stylesheets>
         <URL value="@ClubAdvisorDashboard.css" />
     </stylesheets>
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <BorderPane prefHeight="600.0" prefWidth="1100.0">
+               <top>
+                  <AnchorPane prefHeight="46.0" prefWidth="1113.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="22.0" layoutY="8.0" prefHeight="31.0" prefWidth="350.0" text="School Activity Club Management">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </top>
+               <left>
+                  <AnchorPane prefHeight="554.0" prefWidth="257.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER" />
+               </left>
+               <center>
+                  <AnchorPane prefHeight="554.0" prefWidth="853.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
 </StackPane>

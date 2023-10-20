@@ -104,7 +104,7 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="studentLoginButton" layoutX="69.0" layoutY="270.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login">
+                              <Button fx:id="studentLoginButton" layoutX="69.0" layoutY="270.0" mnemonicParsing="false" onAction="#DirectToStudentDashboard" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
