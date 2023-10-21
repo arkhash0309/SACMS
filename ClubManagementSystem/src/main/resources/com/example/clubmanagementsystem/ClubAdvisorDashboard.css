@@ -1,3 +1,19 @@
-#justAnchor{
-    -fx-background-color: yellow;
+#clubAdvisorLeftPane{
+    -fx-background-color: linear-gradient(#104a5b, #4d708a, #104a5b);
+}
+
+.leftpanebuttons{
+    -fx-background-color: linear-gradient(#e9f9ff, #ffffff, #e0f7ff);
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.leftpanebuttons:hover{
+    -fx-background-color: #ffd884;
+    -fx-text-fill: black;
+}
+
+.leftpanebuttons:pressed{
+    -fx-background-color: #ffd597;
+    -fx-text-fill: black;
 }
