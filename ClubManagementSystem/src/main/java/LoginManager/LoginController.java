@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class LoginController {
+public class LoginController implements Initializable {
     private double xPosition;
 
     private double yPosition;
@@ -38,6 +38,9 @@ public class LoginController {
 
     @FXML
     private Circle clubAdvisorCircle;
+
+    @FXML
+    private Circle studentCircle;
 
     @FXML
     void LoginDragDetected(MouseEvent event) {
@@ -72,4 +75,22 @@ public class LoginController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        String filePath = new File("").getAbsolutePath();
+        String clubAdvisorImagePath = filePath + "/src/main/resources/Images/lecturer.jpeg";
+        String studentImagePath = filePath + "/src/main/resources/Images/student.jpeg";
+
+        Image imgClubAdvisor = new Image(clubAdvisorImagePath);
+        clubAdvisorCircle.setFill(new ImagePattern(imgClubAdvisor));
+
+        Image imgStudent = new Image(studentImagePath);
+        studentCircle.setFill(new ImagePattern(imgStudent));
+
+    }
+
 }
+
+
+
+

@@ -31,7 +31,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label layoutX="14.0" layoutY="12.0" text="Club Management System" textFill="WHITE">
+                        <Label layoutX="14.0" layoutY="12.0" text="School Activity Club Management " textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -56,19 +56,19 @@
                               <Image url="@../../../Images/wallpaper1.jpg" />
                            </image>
                         </ImageView>
-                        <Button layoutX="422.0" layoutY="300.0" mnemonicParsing="false" onAction="#DirectStudent" prefHeight="72.0" prefWidth="248.0" styleClass="loginButtons" text="Student">
+                        <Button layoutX="431.0" layoutY="300.0" mnemonicParsing="false" onAction="#DirectStudent" prefHeight="72.0" prefWidth="248.0" styleClass="loginButtons" text="Student">
                            <font>
-                              <Font name="System Bold" size="28.0" />
+                              <Font name="Berlin Sans FB Demi Bold" size="28.0" />
                            </font>
                         </Button>
                         <Button layoutX="85.0" layoutY="301.0" mnemonicParsing="false" onAction="#DirectClubAdvisor" prefHeight="70.0" prefWidth="245.0" styleClass="loginButtons" text="Club Advisor">
                            <font>
-                              <Font name="System Bold" size="28.0" />
+                              <Font name="Berlin Sans FB Demi Bold" size="28.0" />
                            </font>
                         </Button>
                         <ImageView fitHeight="235.0" fitWidth="234.0" layoutX="91.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
-                        <Circle fx:id="clubAdvisorCircle" fill="#1f93ff" layoutX="208.0" layoutY="166.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Circle fill="DODGERBLUE" layoutX="555.0" layoutY="166.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fx:id="clubAdvisorCircle" fill="#1f93ff" layoutX="208.0" layoutY="176.0" radius="106.0" stroke="#dddddd" strokeType="INSIDE" strokeWidth="7.0" />
+                        <Circle fx:id="studentCircle" fill="DODGERBLUE" layoutX="545.0" layoutY="176.0" radius="106.0" stroke="#dddddd" strokeType="INSIDE" strokeWidth="7.0" />
                      </children>
                   </AnchorPane>
                </center>
