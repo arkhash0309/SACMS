@@ -56,14 +56,14 @@
                               <Image url="@../../../Images/wallpaper1.jpg" />
                            </image>
                         </ImageView>
-                        <Button layoutX="431.0" layoutY="300.0" mnemonicParsing="false" onAction="#DirectStudent" prefHeight="72.0" prefWidth="248.0" styleClass="loginButtons" text="Student">
+                        <Button layoutX="445.0" layoutY="307.0" mnemonicParsing="false" onAction="#DirectStudent" prefHeight="59.0" prefWidth="200.0" styleClass="loginButtons" text="Student">
                            <font>
-                              <Font name="Berlin Sans FB Demi Bold" size="28.0" />
+                              <Font name="Berlin Sans FB Demi Bold" size="22.0" />
                            </font>
                         </Button>
-                        <Button layoutX="85.0" layoutY="301.0" mnemonicParsing="false" onAction="#DirectClubAdvisor" prefHeight="70.0" prefWidth="245.0" styleClass="loginButtons" text="Club Advisor">
+                        <Button layoutX="108.0" layoutY="307.0" mnemonicParsing="false" onAction="#DirectClubAdvisor" prefHeight="59.0" prefWidth="200.0" styleClass="loginButtons" text="Club Advisor">
                            <font>
-                              <Font name="Berlin Sans FB Demi Bold" size="28.0" />
+                              <Font name="Berlin Sans FB Demi Bold" size="22.0" />
                            </font>
                         </Button>
                         <ImageView fitHeight="235.0" fitWidth="234.0" layoutX="91.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
