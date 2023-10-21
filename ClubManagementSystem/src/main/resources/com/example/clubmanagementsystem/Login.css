@@ -1,51 +1,35 @@
-@font-face {
-    font-family: 'Roboto', sans-serif;
+#NavigatorLogin{
+    -fx-background-color: #052149;
 }
 
 #LoginPane{
-    -fx-background-color: #caf5ee;
-
+    -fx-background-color: #050528;
 }
 
-#LoginAnchorPane{
-    -fx-background-color: #82e8ff;
-}
-
-#studentDirectButton{
-    -fx-background-radius: 20px;
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-}
-
-#ClubAdvisorButton{
-    -fx-background-radius: 20px;
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-}
-
-#taskBarLogin{
-    -fx-background-color: white;
-}
-
-#studentDirectButton:hover{
-    -fx-background-color: #104a5b;
-    -fx-text-fill: white;
+.loginButtons{
+    -fx-background-radius: 30px;
+    -fx-background-color: #b4fff4;
+    -fx-border-width: 5px;
+    -fx-border-radius: 20px;
     -fx-cursor: hand;
 }
 
-#ClubAdvisorButton:hover{
-    -fx-background-color: #104a5b;
-    -fx-text-fill: white;
-    -fx-cursor: hand;
+.loginButtons:hover{
+        -fx-font-weight: bold;
+        -fx-background-color: rgb(0, 0, 0);
+        -fx-background-radius: 22;
+        -fx-text-fill: #a8d8e0;
+        -fx-border-color: #c7fff6;
+        -fx-border-radius: 20;
+        -fx-border-width:3;
+         -fx-text-fill: white;
 }
 
-.LoginButtons:pressed{
-    -fx-background-color: #1d2c31;
-    -fx-text-fill: white;
-    -fx-cursor: hand;
+.loginButtons:pressed{
+      -fx-font-size: 27px;
 }
 
 
-#PersonalLabel{
 
-}
+
+
