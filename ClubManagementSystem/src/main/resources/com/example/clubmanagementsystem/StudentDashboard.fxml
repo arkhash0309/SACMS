@@ -5,7 +5,11 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentDashboardDragDetected" onMousePressed="#StudentPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManager.StudentDashboardController">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentDashboardDragDetected" onMousePressed="#StudentPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManager.StudentDashboardController">
    <stylesheets>
       <URL value="@ClubAdvisorDashboard.css" />
    </stylesheets>
@@ -139,9 +143,9 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
+                              <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane" visible="false">
                                  <children>
                                     <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="163.0" prefWidth="250.0" styleClass="paneStatistics">
                                        <children>
@@ -229,6 +233,79 @@
                                           </BarChart>
                                        </children>
                                     </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="566.4" prefWidth="861.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane prefHeight="566.0" prefWidth="375.0">
+                                 <children>
+                                    <Label layoutX="148.0" layoutY="51.0" text="Join Club" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox layoutX="84.0" layoutY="159.0" prefHeight="26.0" prefWidth="206.0" />
+                                    <Label layoutX="39.0" layoutY="109.0" text="Select the name of the club: ">
+                                       <font>
+                                          <Font name="System Italic" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="153.0" layoutY="219.0" mnemonicParsing="false" text="Submit">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Label layoutX="39.0" layoutY="305.0" text="Club ID: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="39.0" layoutY="388.0" text="Club Advisor Name: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="39.0" layoutY="345.0" text="Club  Name: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="151.0" layoutY="445.0" mnemonicParsing="false" text="Confirm">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <TextField layoutX="187.0" layoutY="303.0" />
+                                    <TextField layoutX="187.0" layoutY="342.0" />
+                                    <TextField layoutX="187.0" layoutY="385.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="375.0" prefHeight="566.0" prefWidth="486.0">
+                                 <children>
+                                    <TableView layoutX="61.0" layoutY="104.0" prefHeight="200.0" prefWidth="364.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="Club ID" />
+                                        <TableColumn prefWidth="211.19998168945312" text="Club Name" />
+                                          <TableColumn prefWidth="75.0" text="Leave club" />
+                                      </columns>
+                                    </TableView>
+                                    <Label layoutX="197.0" layoutY="49.0" text="Leave Club" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="141.0" layoutY="335.0" text="Check the club you want to leave.">
+                                       <font>
+                                          <Font name="System Italic" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="217.0" layoutY="387.0" mnemonicParsing="false" text="Leave">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </children>
