@@ -59,3 +59,18 @@
 .navigatorButtons:pressed{
     -fx-background-color: #fa5555;
 }
+
+#updateClubLabel{
+    -fx-background-color: linear-gradient(#538491, #619bab, #6c9798, #9baeb4);
+    -fx-background-radius: 3px;
+}
+
+.updateClubLabels{
+    -fx-background-color: linear-gradient(#538491, #619bab, #6c9798, #9baeb4);
+    -fx-background-radius: 3px;
+}
+
+#clubLogo{
+    -fx-background-color: linear-gradient(grey, #a8acaf);
+    -fx-background-radius: 5px;
+}
