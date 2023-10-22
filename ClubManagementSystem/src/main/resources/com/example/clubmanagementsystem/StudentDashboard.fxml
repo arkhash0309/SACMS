@@ -212,7 +212,7 @@
                                                 <CategoryAxis side="BOTTOM" />
                                              </xAxis>
                                              <yAxis>
-                                                <NumberAxis side="LEFT" />
+                                                <NumberAxis prefHeight="243.0" prefWidth="33.0" side="LEFT" />
                                              </yAxis>
                                           </BarChart>
                                        </children>
