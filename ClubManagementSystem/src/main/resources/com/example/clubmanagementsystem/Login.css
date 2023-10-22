@@ -1,9 +1,10 @@
 #NavigatorLogin{
-    -fx-background-color: #052149;
+    -fx-background-color: #cbcbcb;
+    -fx-cursor: hand;
 }
 
 #LoginPane{
-    -fx-background-color: #050528;
+    -fx-background-color: linear-gradient(#104a5b, #4d708a, #104a5b);
 }
 
 .loginButtons{
@@ -12,21 +13,35 @@
     -fx-border-width: 5px;
     -fx-border-radius: 20px;
     -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-family: "System";
 }
 
 .loginButtons:hover{
         -fx-font-weight: bold;
-        -fx-background-color: rgb(0, 0, 0);
+        -fx-background-color: rgb(14, 21, 49);
         -fx-background-radius: 22;
-        -fx-text-fill: #a8d8e0;
         -fx-border-color: #c7fff6;
         -fx-border-radius: 20;
         -fx-border-width:3;
-         -fx-text-fill: white;
+        -fx-text-fill: white;
+        -fx-font-size: 22px;
+        -fx-font-family: "System";
 }
 
 .loginButtons:pressed{
-      -fx-font-size: 22px;
+    -fx-background-color: rgb(34, 46, 68);
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-family: "System";
+}
+
+.navigatorButtons:hover{
+    -fx-background-color: #f36868;
+}
+
+.navigatorButtons:pressed{
+    -fx-background-color: #fa5555;
 }
 
 
