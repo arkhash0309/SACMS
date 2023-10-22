@@ -1,19 +1,6 @@
-#studentLoginLabel{
-    -fx-background-color: #052149;
-}
 
 .panebutton{
     -fx-background-color: white;
-}
-
-.panebutton:hover{
-    -fx-background-color: #699393;
-    -fx-cursor: hand;
-}
-
-.panebutton:pressed{
-    -fx-background-color: #9cdeff;
-    -fx-cursor: hand;
 }
 
 #registrationUnderliner{
@@ -97,3 +84,4 @@
     -fx-background-color: #5e5e5e;
     -fx-text-fill: #fcf9f9;
 }
+

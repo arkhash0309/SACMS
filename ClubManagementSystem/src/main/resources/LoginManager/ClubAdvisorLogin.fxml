@@ -22,31 +22,36 @@
          <children>
             <BorderPane prefHeight="550.0" prefWidth="696.0">
                <top>
-                  <AnchorPane fx:id="clubAdvisorLoginLabel" prefHeight="46.0" prefWidth="696.0" BorderPane.alignment="CENTER">
+                  <AnchorPane fx:id="clubAdvisorLoginLabel" prefHeight="36.0" prefWidth="696.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="School Activity Club Management System" textFill="WHITE">
+                        <Label layoutX="42.0" layoutY="5.0" text="School Activity Club Management System">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Button fx:id="ClubAdvisorLoginMinimizer" layoutX="582.0" layoutY="8.0" mnemonicParsing="false" onAction="#MinimizeClubAdvisorLogin" prefHeight="28.0" prefWidth="38.0" styleClass="controlButtons" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="8.0">
+                        <Button fx:id="ClubAdvisorLoginMinimizer" layoutX="598.0" mnemonicParsing="false" onAction="#MinimizeClubAdvisorLogin" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="4.0">
                            <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/minimize.jpg" />
+                                    <Image url="@../Images/minimizing-removebg-preview.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="ClubAdvisorCloseButton" layoutX="625.0" layoutY="9.0" mnemonicParsing="false" onAction="#ClubAdvisorLoginExit" prefHeight="29.0" prefWidth="36.0" styleClass="controlButtons" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0">
+                        <Button fx:id="ClubAdvisorCloseButton" layoutX="646.0" layoutY="4.0" mnemonicParsing="false" onAction="#ClubAdvisorLoginExit" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="4.0">
                            <graphic>
-                              <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/close.png" />
+                                    <Image url="@../Images/close-removebg-preview.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
+                        <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/school-removebg-preview.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </top>
@@ -55,7 +60,7 @@
                      <children>
                         <ImageView fitHeight="157.0" fitWidth="147.0" layoutX="69.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Images/user.png" />
+                              <Image url="@../Images/user-removebg-preview.png" />
                            </image>
                         </ImageView>
                         <Label layoutX="16.0" layoutY="216.0" text="Club Advisor Account" textFill="WHITE">
@@ -96,7 +101,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </CheckBox>
-                              <Button layoutX="115.0" layoutY="291.0" mnemonicParsing="false" styleClass="clubAdvisorLoginButtons" text="Login" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="48.399" AnchorPane.topAnchor="270.0">
+                              <Button layoutX="115.0" layoutY="291.0" mnemonicParsing="false" onAction="#DirectToStudentDashBoard" styleClass="clubAdvisorLoginButtons" text="Login" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="48.399" AnchorPane.topAnchor="270.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
