@@ -3,17 +3,59 @@
 }
 
 .leftpanebuttons{
-    -fx-background-color: linear-gradient(#e9f9ff, #ffffff, #e0f7ff);
+    -fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);
     -fx-background-radius: 10px;
     -fx-cursor: hand;
 }
 
 .leftpanebuttons:hover{
-    -fx-background-color: #ffd884;
+    -fx-background-color: #ffd26d;
     -fx-text-fill: black;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-border-color: linear-gradient(#fdae6f, #e0be8d, #fdae6f);
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
 }
 
 .leftpanebuttons:pressed{
     -fx-background-color: #ffd597;
     -fx-text-fill: black;
+}
+
+#logoutLabel{
+    -fx-background-color: linear-gradient(#538491, #4d708a, #4f7986);
+    -fx-background-radius: 50px;
+    -fx-cursor: hand;
+}
+
+#logoutLabel:hover{
+    -fx-background-color: linear-gradient(#78aab6, #75a6c0, #75a3b0);
+}
+
+#logoutLabel:pressed{
+    -fx-background-color: #f36868;
+}
+
+.dashboardPane{
+    -fx-background-color: rgba(255, 255, 255, 0.8) 10 10 10px;
+    -fx-background-radius: 10px;
+}
+
+.paneStatistics{
+    -fx-background-color: linear-gradient(#538491, #4d708a, #4f7986);
+    -fx-background-radius: 3px;
+}
+
+#ClubManagementNavigator{
+    -fx-background-color: #cbcbcb;
+    -fx-cursor: hand;
+}
+
+.navigatorButtons:hover{
+    -fx-background-color: #f36868;
+}
+
+.navigatorButtons:pressed{
+    -fx-background-color: #fa5555;
 }
