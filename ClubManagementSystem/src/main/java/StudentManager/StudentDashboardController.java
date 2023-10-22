@@ -23,4 +23,10 @@ public class StudentDashboardController {
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
     }
+
+    public void StudentDashboardDetected(MouseEvent mouseEvent) {
+    }
+
+    public void StudentPanePressed(MouseEvent mouseEvent) {
+    }
 }

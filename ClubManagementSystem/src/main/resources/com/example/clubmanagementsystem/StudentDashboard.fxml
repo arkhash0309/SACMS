@@ -1,34 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="StudentDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentDashboardDragDetected" onMousePressed="#StudentDashboardPressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManager.StudentDashboardController">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentDashboardDetected" onMousePressed="#StudentPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManager.StudentDashboardController">
+   <stylesheets>
+      <URL value="@ClubAdvisorDashboard.css" />
+   </stylesheets>
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <BorderPane prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <BorderPane prefHeight="600.0" prefWidth="1100.0">
                <top>
-                  <TextField prefHeight="46.0" prefWidth="1100.0" text="  Student Dashboard" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </TextField>
+                  <AnchorPane fx:id="ClubManagementNavigator" prefHeight="33.0" prefWidth="1113.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="41.0" layoutY="1.0" prefHeight="31.0" prefWidth="350.0" text="School Activity Club Management">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="18.0" layoutX="12.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Images/school-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="1024.0" layoutY="7.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" styleClass="navigatorButtons" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="4.0">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/close-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button layoutX="980.0" layoutY="3.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" styleClass="navigatorButtons" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="4.0">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/minimizing-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
                </top>
                <left>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER" />
+                  <AnchorPane fx:id="clubAdvisorLeftPane" prefHeight="560.0" prefWidth="230.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane layoutX="-1.0" prefHeight="221.0" prefWidth="239.0">
+                           <children>
+                              <ImageView fitHeight="96.0" fitWidth="93.0" layoutX="66.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/user-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="97.0" layoutY="115.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="116.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="109.0" prefHeight="40.0" prefWidth="209.0" text="    Lakshan2023" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="116.85711669921875" layoutX="107.0" layoutY="159.0" startX="-92.28570556640625" stroke="WHITE" strokeLineCap="BUTT" strokeWidth="2.0" AnchorPane.leftAnchor="14.71429443359375" AnchorPane.rightAnchor="15.14288330078125" />
+                              <Button fx:id="dashboardButton" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="        Dashboard" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="39.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/catalogue-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <Button layoutX="10.0" layoutY="296.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Join Event" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="ManageclubButton" layoutX="10.0" layoutY="234.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="            Join/ Leave Club" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="56.0" fitWidth="60.0" layoutX="85.0" layoutY="497.0" pickOnBounds="true" preserveRatio="true" />
+                        <AnchorPane fx:id="logoutLabel" layoutX="76.0" layoutY="491.0" prefHeight="68.0" prefWidth="77.0">
+                           <children>
+                              <ImageView fitHeight="49.0" fitWidth="48.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/signOut-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Images/club-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="31.0" layoutX="36.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Images/event-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="9.0" layoutY="357.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Messages">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="38.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Images/message.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
                </left>
                <center>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
+                                 <children>
+                                    <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="163.0" prefWidth="250.0" styleClass="paneStatistics">
+                                       <children>
+                                          <Label layoutX="72.0" layoutY="125.0" />
+                                          <Label layoutX="154.0" layoutY="41.0" prefHeight="75.0" prefWidth="93.0" text="0" textFill="#fefefe">
+                                             <font>
+                                                <Font name="System Bold" size="52.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="51.0" layoutY="119.0" text="Enrolled Clubs" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="84.0" fitWidth="84.0" layoutX="30.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../Images/createclub-removebg-preview.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="297.0" layoutY="14.0" prefHeight="163.0" prefWidth="250.0" styleClass="paneStatistics">
+                                       <children>
+                                          <Label layoutX="43.0" layoutY="119.0" text="Upcoming Events" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="96.0" fitWidth="95.0" layoutX="21.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../Images/event-removebg-preview.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label layoutX="143.0" layoutY="44.0" prefHeight="75.0" prefWidth="93.0" text="0" textFill="#fefefe">
+                                             <font>
+                                                <Font name="System Bold" size="52.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="566.0" layoutY="14.0" prefHeight="163.0" prefWidth="250.0" styleClass="paneStatistics">
+                                       <children>
+                                          <Label layoutX="42.0" layoutY="119.0" text="Next Event Date" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="74.0" layoutY="44.0" prefHeight="75.0" prefWidth="168.0" text="     2022/10/30" textFill="#fefefe">
+                                             <font>
+                                                <Font name="System Bold" size="23.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="71.0" fitWidth="62.0" layoutX="20.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../Images/eventdate-removebg-preview.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="14.0" layoutY="233.0" prefHeight="325.0" prefWidth="833.0" styleClass="dashboardPane">
+                                 <children>
+                                    <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="301.0" prefWidth="410.0">
+                                       <children>
+                                          <BarChart layoutX="-1.0" layoutY="-1.0" prefHeight="306.0" prefWidth="445.0" title="Attendance Percentage">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="473.0" layoutY="15.0" prefHeight="295.0" prefWidth="346.0">
+                                       <children>
+                                          <BarChart layoutX="-5.0" prefHeight="362.0" prefWidth="390.0" title="Male Female Student Rate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
                </center>
             </BorderPane>
-         </children></AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
-    <stylesheets>
-        <URL value="@StudentDashboard.css" />
-    </stylesheets>
 </StackPane>
