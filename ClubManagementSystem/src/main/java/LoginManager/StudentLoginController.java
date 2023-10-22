@@ -69,7 +69,7 @@ public class StudentLoginController {
 
     @FXML
     void DirectToStudentDashboard(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
