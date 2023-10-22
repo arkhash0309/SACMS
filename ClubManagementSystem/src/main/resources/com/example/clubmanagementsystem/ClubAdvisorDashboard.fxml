@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorManager.ClubAdvisorDashboardControlller">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorManager.ClubAdvisorDashboardControlller">
     <stylesheets>
         <URL value="@ClubAdvisorDashboard.css" />
     </stylesheets>
@@ -82,7 +82,7 @@
                                  </font>
                               </Label>
                               <Line endX="116.85711669921875" layoutX="107.0" layoutY="159.0" startX="-92.28570556640625" stroke="WHITE" strokeLineCap="BUTT" strokeWidth="2.0" AnchorPane.leftAnchor="14.71429443359375" AnchorPane.rightAnchor="15.14288330078125" />
-                              <Button fx:id="dashboardButton" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="Dashboard" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <Button fx:id="dashboardButton" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Dashboard" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -94,7 +94,7 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <Button layoutX="10.0" layoutY="432.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="leftpanebuttons" text="   Create Club" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button layoutX="10.0" layoutY="432.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="leftpanebuttons" text="      Messages" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -104,7 +104,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="329.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="            View Attendance" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button layoutX="10.0" layoutY="329.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="         Attendance" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -114,7 +114,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="ManageclubButton" layoutX="10.0" layoutY="221.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="     Manage Club" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button fx:id="ManageclubButton" layoutX="10.0" layoutY="221.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Manage Club" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -151,7 +151,7 @@
                         </ImageView>
                         <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="34.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../Images/createclub-removebg-preview.png" />
+                              <Image url="@../../../Images/message.png" />
                            </image>
                         </ImageView>
                      </children></AnchorPane>
