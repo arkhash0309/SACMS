@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="clubAdvisorStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#clubAdvisorPaneDragDetector" onMousePressed="#clubAdvisorPanePressDetector" prefHeight="550.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginManager.ClubAdvisorLoginController">
+<StackPane fx:id="clubAdvisorStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#clubAdvisorPaneDragDetector" onMousePressed="#clubAdvisorPanePressDetector" prefHeight="550.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginManager.ClubAdvisorLoginController">
    <stylesheets>
       <URL value="@ClubAdvisorLogin.css" />
    </stylesheets>
@@ -58,17 +58,17 @@
                <left>
                   <AnchorPane fx:id="clubAdvisorLoginAnchorPane" prefHeight="504.0" prefWidth="284.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="157.0" fitWidth="147.0" layoutX="69.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="157.0" fitWidth="147.0" layoutX="69.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Images/user-removebg-preview.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="16.0" layoutY="216.0" text="Club Advisor Account" textFill="WHITE">
+                        <Label layoutX="15.0" layoutY="239.0" text="Club Advisor Account" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Button fx:id="signinLeftPane" layoutX="34.0" layoutY="278.0" mnemonicParsing="false" onAction="#DirectToStartPane" prefHeight="39.0" prefWidth="217.0" styleClass="clubAdvisorLoginButtons" text="Back">
+                        <Button fx:id="signinLeftPane" layoutX="33.0" layoutY="376.0" mnemonicParsing="false" onAction="#DirectToStartPane" prefHeight="39.0" prefWidth="217.0" styleClass="clubAdvisorLoginButtons" text="Back">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -79,7 +79,7 @@
                <center>
                   <AnchorPane prefHeight="504.0" prefWidth="457.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="clubAdvisorLoginPane" layoutX="16.0" layoutY="5.0" prefHeight="492.0" prefWidth="381.0">
+                        <AnchorPane fx:id="clubAdvisorLoginPane" layoutX="16.0" layoutY="8.0" prefHeight="493.0" prefWidth="382.0">
                            <children>
                               <Label layoutX="105.0" layoutY="37.0" text="Sign In Account">
                                  <font>
@@ -96,7 +96,7 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </TextField>
-                              <CheckBox layoutX="53.0" layoutY="231.0" mnemonicParsing="false" text="Show Password" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="144.59" AnchorPane.topAnchor="224.0">
+                              <CheckBox layoutX="70.0" layoutY="232.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="179.0" text="Show Password" AnchorPane.bottomAnchor="237.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="222.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

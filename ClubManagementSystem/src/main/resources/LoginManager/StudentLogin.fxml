@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="StudentLoginForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentLoginPaneDragDetected" onMousePressed="#studentLoginPanePressedDetected" prefHeight="550.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginManager.StudentLoginController">
+<StackPane fx:id="StudentLoginForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentLoginPaneDragDetected" onMousePressed="#studentLoginPanePressedDetected" prefHeight="550.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginManager.StudentLoginController">
    <stylesheets>
       <URL value="@StudentLogin.css" />
    </stylesheets>
@@ -24,7 +24,7 @@
                <top>
                   <AnchorPane fx:id="studentLoginLabel" prefHeight="46.0" prefWidth="696.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="14.0" layoutY="9.0" text="School Activity Club Management" textFill="WHITE">
+                        <Label layoutX="14.0" layoutY="9.0" text="School Activity Club Management">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -54,19 +54,19 @@
                      <children>
                         <AnchorPane fx:id="signInLeftPane" prefHeight="505.0" prefWidth="285.0">
                            <children>
-                              <ImageView fx:id="signinImage" fitHeight="157.0" fitWidth="147.0" layoutX="69.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="signinImage" fitHeight="157.0" fitWidth="147.0" layoutX="69.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../Images/user.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="backbutton" layoutX="34.0" layoutY="281.0" mnemonicParsing="false" onAction="#DirectToStartPage" prefHeight="39.0" prefWidth="217.0" styleClass="studentButtonClass" text="Back">
+                              <Button fx:id="backbutton" layoutX="33.0" layoutY="376.0" mnemonicParsing="false" onAction="#DirectToStartPage" prefHeight="0.0" prefWidth="218.0" styleClass="studentButtonClass" text="Back">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Button>
-                              <Label layoutX="31.0" layoutY="208.0" text="Student Account">
+                              <Label layoutX="44.0" layoutY="217.0" text="Student Account">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="System Bold" size="25.0" />
                                  </font>
                               </Label>
                            </children>
