@@ -52,6 +52,19 @@ public class ClubAdvisorDashboardControlller {
     private AnchorPane AttendancePane;
 
     @FXML
+    private Button dashboardButton;
+
+    @FXML
+    private Button ScheduleEventsButton;
+
+    @FXML
+    private Button AttendanceButton;
+
+    @FXML
+    private Button GenerateReportsButton;
+
+
+    @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
        stage.setX(event.getScreenX()- xPosition);
@@ -95,16 +108,26 @@ public class ClubAdvisorDashboardControlller {
         GenerateReportsPane.setVisible(false);
     }
 
+    public void makeAllButtonsColoured(){
+        dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        AttendanceButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+    }
+
     @FXML
     void GoToDashBoardClubAdvisor(ActionEvent event) {
        makeAllClubAdvisorPanesInvisible();
+       makeAllButtonsColoured();
        dashboardMainPane.setVisible(true);
-
+       dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
     @FXML
     void GoToManageClubPane(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
+        makeAllButtonsColoured();
         ManageClubPane.setVisible(true);
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
@@ -112,18 +135,24 @@ public class ClubAdvisorDashboardControlller {
     @FXML
     void GoToScheduleEvents(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
+        makeAllButtonsColoured();
         ScheduleEventsPane.setVisible(true);
+        ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
     @FXML
     void GoToTrackAttendance(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
+        makeAllButtonsColoured();
         AttendancePane.setVisible(true);
+        AttendanceButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
     @FXML
     void GoToGenerateReports(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
+        makeAllButtonsColoured();
         GenerateReportsPane.setVisible(true);
+        GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 }

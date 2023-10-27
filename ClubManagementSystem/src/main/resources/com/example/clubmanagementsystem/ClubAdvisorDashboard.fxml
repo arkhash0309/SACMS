@@ -103,17 +103,17 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="276.0" mnemonicParsing="false" onAction="#GoToScheduleEvents" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Schedule Events" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button fx:id="ScheduleEventsButton" layoutX="10.0" layoutY="276.0" mnemonicParsing="false" onAction="#GoToScheduleEvents" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Schedule Events" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="329.0" mnemonicParsing="false" onAction="#GoToTrackAttendance" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="         Attendance" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button fx:id="AttendanceButton" layoutX="10.0" layoutY="329.0" mnemonicParsing="false" onAction="#GoToTrackAttendance" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="         Attendance" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="379.0" mnemonicParsing="false" onAction="#GoToGenerateReports" prefHeight="40.0" prefWidth="220.0" styleClass="leftpanebuttons" text="           Generate Reports" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button fx:id="GenerateReportsButton" layoutX="10.0" layoutY="379.0" mnemonicParsing="false" onAction="#GoToGenerateReports" prefHeight="40.0" prefWidth="220.0" styleClass="leftpanebuttons" text="           Generate Reports" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
