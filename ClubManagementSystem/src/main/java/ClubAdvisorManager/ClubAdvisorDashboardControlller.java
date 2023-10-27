@@ -63,7 +63,6 @@ public class ClubAdvisorDashboardControlller {
     @FXML
     private Button GenerateReportsButton;
 
-
     @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();

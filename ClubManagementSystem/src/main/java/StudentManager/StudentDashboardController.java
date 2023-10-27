@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -34,6 +35,15 @@ public class StudentDashboardController {
 
     @FXML
     private AnchorPane StudentDashBoardPane;
+
+    @FXML
+    private Button dashboardButton;
+
+    @FXML
+    private Button ViewEventButton;
+
+    @FXML
+    private Button ManageclubButton;
 
     @FXML
     void StudentLogout(MouseEvent event) throws IOException {
@@ -78,17 +88,29 @@ public class StudentDashboardController {
     @FXML
     void GoToDashBoard(ActionEvent event) {
         makeAllStudentDashBoardPanesInvisible();
+        makeAllStudentButtonsColoured();
         StudentDashBoardPane.setVisible(true);
+        dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
     @FXML
     public void GoToJoinLeaveClub(ActionEvent actionEvent) {
         makeAllStudentDashBoardPanesInvisible();
+        makeAllStudentButtonsColoured();
         JoinLeaveClubPane.setVisible(true);
+        ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
     @FXML
     public void GoToEvents(ActionEvent actionEvent) {
         makeAllStudentDashBoardPanesInvisible();
+        makeAllStudentButtonsColoured();
         EventStudentPane.setVisible(true);
+        ViewEventButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+    }
+
+    public void makeAllStudentButtonsColoured(){
+        dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        ViewEventButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 }

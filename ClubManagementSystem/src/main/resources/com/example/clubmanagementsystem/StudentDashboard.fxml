@@ -99,7 +99,7 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <Button layoutX="10.0" layoutY="296.0" mnemonicParsing="false" onAction="#GoToEvents" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="    Events" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button fx:id="ViewEventButton" layoutX="10.0" layoutY="296.0" mnemonicParsing="false" onAction="#GoToEvents" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="    Events" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
