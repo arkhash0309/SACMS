@@ -91,7 +91,7 @@
                                     <Font name="System Bold" size="21.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="registorButton" layoutX="70.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="246.0" styleClass="panebutton" text="Register">
+                              <Button fx:id="registorButton" layoutX="70.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="246.0" styleClass="panebutton" text="Register" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="60.399" AnchorPane.topAnchor="402.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -111,7 +111,7 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="studentLoginButton" layoutX="69.0" layoutY="270.0" mnemonicParsing="false" onAction="#DirectToStudentDashboard" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login">
+                              <Button fx:id="studentLoginButton" layoutX="69.0" layoutY="270.0" mnemonicParsing="false" onAction="#DirectToStudentDashboard" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="270.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>

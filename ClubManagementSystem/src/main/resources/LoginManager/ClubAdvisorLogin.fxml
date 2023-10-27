@@ -103,7 +103,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </CheckBox>
-                              <Button layoutX="115.0" layoutY="291.0" mnemonicParsing="false" onAction="#DirectToStudentDashBoard" styleClass="clubAdvisorLoginButtons" text="Login" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="48.399" AnchorPane.topAnchor="270.0">
+                              <Button layoutX="115.0" layoutY="291.0" mnemonicParsing="false" onAction="#DirectToStudentDashBoard" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Login" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="270.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -113,7 +113,7 @@
                                     <Font name="System Bold" size="21.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="71.0" layoutY="400.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Register">
+                              <Button layoutX="81.0" layoutY="402.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Register" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="60.399" AnchorPane.topAnchor="402.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
