@@ -1,5 +1,7 @@
 package ClubAdvisorManager;
 
+import com.example.clubmanagementsystem.ApplicationController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -32,6 +34,14 @@ public class ClubAdvisorDashboardControlller {
     @FXML
     private StackPane ClubAdvisorDashboard;
 
+    @FXML
+    private AnchorPane dashboardMainPane;
+
+    @FXML
+    private AnchorPane ManageClubPane;
+
+    @FXML
+    private AnchorPane ScheduleEventsPane;
 
     @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
@@ -55,4 +65,37 @@ public class ClubAdvisorDashboardControlller {
         stage.centerOnScreen();
         stage.show();
     }
+
+    @FXML
+    void MinimizePane(ActionEvent event) {
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.MinimizeApp(ClubAdvisorDashboard);
+    }
+
+
+    @FXML
+    void ClosePane(ActionEvent event) {
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.closingApp();
+    }
+
+    public void makeAllClubAdvisorPanesInvisible(){
+        dashboardMainPane.setVisible(false);
+        ManageClubPane.setVisible(false);
+        ScheduleEventsPane.setVisible(false);
+    }
+
+    @FXML
+    void GoToDashBoardClubAdvisor(ActionEvent event) {
+       makeAllClubAdvisorPanesInvisible();
+       dashboardMainPane.setVisible(true);
+
+    }
+
+    @FXML
+    void GoToManageClubPane(ActionEvent event) {
+        makeAllClubAdvisorPanesInvisible();
+        ManageClubPane.setVisible(true);
+    }
+
 }

@@ -1,5 +1,6 @@
 package LoginManager;
 
+import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,19 +18,6 @@ import java.io.IOException;
 public class ClubAdvisorLoginController {
     @FXML
     private StackPane clubAdvisorStackPane;
-
-    @FXML
-    private AnchorPane clubAdvisorLoginLabel;
-
-    @FXML
-    private AnchorPane clubAdvisorLoginAnchorPane;
-
-    @FXML
-    private Button signinLeftPane;
-
-    @FXML
-    private AnchorPane clubAdvisorLoginPane;
-
     private Scene scene;
     private Stage stage;
 
@@ -41,6 +29,8 @@ public class ClubAdvisorLoginController {
 
     @FXML
     private Button ClubAdvisorLoginMinimizer;
+
+
     @FXML
     void DirectToStartPane(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -65,15 +55,15 @@ public class ClubAdvisorLoginController {
 
     @FXML
     void MinimizeClubAdvisorLogin(ActionEvent event) {
-        Stage stage = (Stage) ClubAdvisorLoginMinimizer.getScene().getWindow();
-        stage.setIconified(true);
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.MinimizeApp(clubAdvisorStackPane);
     }
 
 
     @FXML
     void ClubAdvisorLoginExit(ActionEvent event) {
-        LoginNavigator loginNavigator = new LoginNavigator();
-        loginNavigator.close();
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.closingApp();
     }
 
     @FXML
@@ -85,4 +75,6 @@ public class ClubAdvisorLoginController {
         stage.centerOnScreen();
         stage.show();
     }
+
+
 }

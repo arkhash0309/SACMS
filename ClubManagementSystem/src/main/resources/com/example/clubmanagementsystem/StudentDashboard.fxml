@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentDashboardDragDetected" onMousePressed="#StudentPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManager.StudentDashboardController">
+<StackPane fx:id="StudentDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentDashboardDragDetected" onMousePressed="#StudentPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManager.StudentDashboardController">
    <stylesheets>
       <URL value="@ClubAdvisorDashboard.css" />
       <URL value="@StudentDashboard.css" />
@@ -40,7 +40,7 @@
                               <Image url="@../../../Images/school-removebg-preview.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="1024.0" layoutY="7.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" styleClass="navigatorButtons" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="4.0">
+                        <Button layoutX="1024.0" layoutY="7.0" mnemonicParsing="false" onAction="#ClosePane" prefHeight="25.0" prefWidth="35.0" styleClass="navigatorButtons" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="4.0">
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -49,7 +49,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="980.0" layoutY="3.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" styleClass="navigatorButtons" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="4.0">
+                        <Button layoutX="980.0" layoutY="3.0" mnemonicParsing="false" onAction="#MinimizePane" prefHeight="25.0" prefWidth="35.0" styleClass="navigatorButtons" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="4.0">
                            <graphic>
                               <ImageView fitHeight="15.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

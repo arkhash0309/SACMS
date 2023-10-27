@@ -1,5 +1,7 @@
 package StudentManager;
 
+import com.example.clubmanagementsystem.ApplicationController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,5 +44,18 @@ public class StudentDashboardController {
     public void StudentPanePressed(MouseEvent mouseEvent) {
         xPosition = mouseEvent.getSceneX();
         yPosition = mouseEvent.getSceneY();
+    }
+
+    @FXML
+    void MinimizePane(ActionEvent event) {
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.MinimizeApp(StudentDashboard);
+    }
+
+
+    @FXML
+    void ClosePane(ActionEvent event) {
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.closingApp();
     }
 }

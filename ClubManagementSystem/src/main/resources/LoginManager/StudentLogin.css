@@ -88,3 +88,11 @@
 .navigatorPlane{
     -fx-background-color: #cbcbcb;
 }
+
+.panebutton:hover{
+    -fx-background-color: #f36868;
+}
+
+.panebutton:pressed{
+    -fx-background-color: #fa5555;
+}
