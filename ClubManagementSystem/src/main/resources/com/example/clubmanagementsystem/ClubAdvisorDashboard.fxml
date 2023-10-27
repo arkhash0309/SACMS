@@ -103,17 +103,17 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="276.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Schedule Events" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button layoutX="10.0" layoutY="276.0" mnemonicParsing="false" onAction="#GoToScheduleEvents" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="          Schedule Events" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="329.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="         Attendance" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button layoutX="10.0" layoutY="329.0" mnemonicParsing="false" onAction="#GoToTrackAttendance" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="         Attendance" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="379.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="leftpanebuttons" text="           Generate Reports" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button layoutX="10.0" layoutY="379.0" mnemonicParsing="false" onAction="#GoToGenerateReports" prefHeight="40.0" prefWidth="220.0" styleClass="leftpanebuttons" text="           Generate Reports" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -163,7 +163,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
                                  <children>
@@ -257,7 +257,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="ManageClubPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ManageClubPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="23.0" layoutY="14.0" prefHeight="285.0" prefWidth="823.0" styleClass="dashboardPane">
                                  <children>
@@ -336,7 +336,8 @@
                               </AnchorPane>
                            </children></AnchorPane>
                         <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" style="-fx-background-color: green;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <AnchorPane prefHeight="567.0" prefWidth="862.0" style="-fx-background-color: blue;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" style="-fx-background-color: blue;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </center>

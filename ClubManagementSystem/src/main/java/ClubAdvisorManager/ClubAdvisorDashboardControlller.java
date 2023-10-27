@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,7 +22,6 @@ public class ClubAdvisorDashboardControlller {
 
     @FXML
     private AnchorPane justAnchor;
-
     private double xPosition;
 
     private double yPosition;
@@ -42,6 +42,14 @@ public class ClubAdvisorDashboardControlller {
 
     @FXML
     private AnchorPane ScheduleEventsPane;
+
+    @FXML
+    private AnchorPane GenerateReportsPane;
+
+    @FXML
+    private Button ManageclubButton;
+    @FXML
+    private AnchorPane AttendancePane;
 
     @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
@@ -83,6 +91,8 @@ public class ClubAdvisorDashboardControlller {
         dashboardMainPane.setVisible(false);
         ManageClubPane.setVisible(false);
         ScheduleEventsPane.setVisible(false);
+        AttendancePane.setVisible(false);
+        GenerateReportsPane.setVisible(false);
     }
 
     @FXML
@@ -96,6 +106,24 @@ public class ClubAdvisorDashboardControlller {
     void GoToManageClubPane(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
         ManageClubPane.setVisible(true);
+        ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
+    @FXML
+    void GoToScheduleEvents(ActionEvent event) {
+        makeAllClubAdvisorPanesInvisible();
+        ScheduleEventsPane.setVisible(true);
+    }
+
+    @FXML
+    void GoToTrackAttendance(ActionEvent event) {
+        makeAllClubAdvisorPanesInvisible();
+        AttendancePane.setVisible(true);
+    }
+
+    @FXML
+    void GoToGenerateReports(ActionEvent event) {
+        makeAllClubAdvisorPanesInvisible();
+        GenerateReportsPane.setVisible(true);
+    }
 }

@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -24,6 +25,15 @@ public class StudentDashboardController {
     private Stage stage;
 
     private Parent root;
+
+    @FXML
+    private AnchorPane EventStudentPane;
+
+    @FXML
+    private AnchorPane JoinLeaveClubPane;
+
+    @FXML
+    private AnchorPane StudentDashBoardPane;
 
     @FXML
     void StudentLogout(MouseEvent event) throws IOException {
@@ -57,5 +67,28 @@ public class StudentDashboardController {
     void ClosePane(ActionEvent event) {
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
+    }
+
+    public void makeAllStudentDashBoardPanesInvisible(){
+       EventStudentPane.setVisible(false);
+       JoinLeaveClubPane.setVisible(false);
+       StudentDashBoardPane.setVisible(false);
+    }
+
+    @FXML
+    void GoToDashBoard(ActionEvent event) {
+        makeAllStudentDashBoardPanesInvisible();
+        StudentDashBoardPane.setVisible(true);
+    }
+    @FXML
+    public void GoToJoinLeaveClub(ActionEvent actionEvent) {
+        makeAllStudentDashBoardPanesInvisible();
+        JoinLeaveClubPane.setVisible(true);
+    }
+
+    @FXML
+    public void GoToEvents(ActionEvent actionEvent) {
+        makeAllStudentDashBoardPanesInvisible();
+        EventStudentPane.setVisible(true);
     }
 }

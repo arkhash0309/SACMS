@@ -65,12 +65,12 @@
                            <children>
                               <Circle fx:id="studentCircle" fill="DODGERBLUE" layoutX="531.0" layoutY="203.0" radius="85.0" stroke="#dddddd" strokeType="INSIDE" strokeWidth="7.0" AnchorPane.leftAnchor="446.0" AnchorPane.topAnchor="118.0" />
                               <Circle fx:id="clubAdvisorCircle" fill="#1f93ff" layoutX="195.0" layoutY="203.0" radius="85.0" stroke="#dddddd" strokeType="INSIDE" strokeWidth="7.0" AnchorPane.topAnchor="118.0" />
-                              <Button layoutX="98.0" layoutY="326.0" mnemonicParsing="false" onAction="#DirectClubAdvisor" prefHeight="58.0" prefWidth="195.0" styleClass="loginButtons" text="Club Advisor" AnchorPane.topAnchor="326.0">
+                              <Button layoutX="98.0" layoutY="326.0" mnemonicParsing="false" onAction="#DirectClubAdvisor" prefHeight="50.0" prefWidth="195.0" styleClass="loginButtons" text="Club Advisor" AnchorPane.topAnchor="330.0">
                                  <font>
                                     <Font name="Berlin Sans FB Demi Bold" size="22.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="434.0" layoutY="326.0" mnemonicParsing="false" onAction="#DirectStudent" prefHeight="58.0" prefWidth="195.0" styleClass="loginButtons" text="Student" AnchorPane.topAnchor="326.0">
+                              <Button layoutX="434.0" layoutY="326.0" mnemonicParsing="false" onAction="#DirectStudent" prefHeight="50.0" prefWidth="195.0" styleClass="loginButtons" text="Student" AnchorPane.topAnchor="330.0">
                                  <font>
                                     <Font name="Berlin Sans FB Demi Bold" size="22.0" />
                                  </font>

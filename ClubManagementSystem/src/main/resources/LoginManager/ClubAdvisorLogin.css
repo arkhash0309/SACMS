@@ -19,15 +19,15 @@
 }
 
 #clubAdvisorLoginPane{
-    -fx-background-color: linear-gradient(#fce38e, #f6d59a, #fff4d1);
-    -fx-border-width: 5px;
-    -fx-border-color: #696867;
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
+    -fx-background-color: linear-gradient( #edfaea, #b4b49d, #f6f6e4, #b2ae9d);
+    -fx-border-width: 3px;
+    -fx-border-color:  #9a9797;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
 }
 
 .clubAdvisorLoginTextField{
-    -fx-background-radius: 20px;
+    -fx-background-radius: 10px;
 }
 
 .controlButtons{
