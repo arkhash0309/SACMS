@@ -1,5 +1,6 @@
 package LoginManager;
 
+import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,6 +86,20 @@ public class LoginController implements Initializable {
         studentCircle.setFill(new ImagePattern(imgStudent));
 
     }
+
+    @FXML
+    void ClosePane(ActionEvent event) {
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.closingApp();
+    }
+
+    @FXML
+    void MinimizePane(ActionEvent event) {
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.MinimizeApp(LoginPane);
+    }
+
+
 
 }
 

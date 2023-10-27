@@ -1,5 +1,6 @@
 package LoginManager;
 
+import com.example.clubmanagementsystem.ApplicationController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,14 +58,14 @@ public class StudentLoginController {
 
     @FXML
     void minimizeTheProgram(ActionEvent event) {
-       Stage stage = (Stage) studentLoginButton.getScene().getWindow();
-       stage.setIconified(true);
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.MinimizeApp(StudentLoginForm);
     }
 
     @FXML
     void ExitTheProgram(ActionEvent event) {
-       LoginNavigator loginNavigator = new LoginNavigator();
-       loginNavigator.close();
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.closingApp();
     }
 
     @FXML

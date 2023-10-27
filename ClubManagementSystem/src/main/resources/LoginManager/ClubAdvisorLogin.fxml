@@ -81,29 +81,29 @@
                <center>
                   <AnchorPane prefHeight="504.0" prefWidth="457.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="clubAdvisorLoginPane" layoutX="16.0" layoutY="5.0" prefHeight="492.0" prefWidth="381.0">
+                        <AnchorPane fx:id="clubAdvisorLoginPane" layoutX="16.0" layoutY="5.0" prefHeight="492.0" prefWidth="370.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="13.0">
                            <children>
-                              <Label layoutX="105.0" layoutY="37.0" text="Sign In Account">
+                              <Label layoutX="105.0" layoutY="37.0" text="Sign In Account" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="32.0">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="47.0" layoutY="87.0" prefHeight="48.0" prefWidth="269.0" promptText="User Name" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="26.399" AnchorPane.topAnchor="86.0">
+                              <TextField layoutX="46.0" layoutY="90.0" prefHeight="40.0" prefWidth="292.0" promptText="User Name" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="86.0">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </TextField>
-                              <TextField layoutX="47.0" layoutY="159.0" prefHeight="48.0" prefWidth="269.0" promptText="Password" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="278.2" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="156.0">
+                              <TextField layoutX="47.0" layoutY="159.0" prefHeight="40.0" prefWidth="292.0" promptText="Password" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="156.0">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </TextField>
-                              <CheckBox layoutX="53.0" layoutY="231.0" mnemonicParsing="false" text="Show Password" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="144.59" AnchorPane.topAnchor="224.0">
+                              <CheckBox layoutX="62.0" layoutY="216.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="179.0" text="Show Password" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="216.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </CheckBox>
-                              <Button layoutX="115.0" layoutY="291.0" mnemonicParsing="false" onAction="#DirectToStudentDashBoard" styleClass="clubAdvisorLoginButtons" text="Login" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="48.399" AnchorPane.topAnchor="270.0">
+                              <Button layoutX="115.0" layoutY="291.0" mnemonicParsing="false" onAction="#DirectToStudentDashBoard" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Login" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="270.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -113,12 +113,12 @@
                                     <Font name="System Bold" size="21.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="71.0" layoutY="400.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Register">
+                              <Button layoutX="81.0" layoutY="402.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Register" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="60.399" AnchorPane.topAnchor="402.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <PasswordField layoutX="53.0" layoutY="161.0" prefHeight="51.0" prefWidth="298.0" promptText="Password" styleClass="clubAdvisorLoginTextField">
+                              <PasswordField layoutX="52.0" layoutY="162.0" prefHeight="40.0" prefWidth="292.0" promptText="Password" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="294.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="156.0">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>

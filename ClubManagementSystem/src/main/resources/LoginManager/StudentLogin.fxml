@@ -84,24 +84,24 @@
                <center>
                   <AnchorPane prefHeight="504.0" prefWidth="457.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="studentLoginPane" layoutX="27.0" layoutY="11.0" prefHeight="479.0" prefWidth="370.0">
+                        <AnchorPane fx:id="studentLoginPane" layoutX="21.0" layoutY="13.0" prefHeight="492.0" prefWidth="370.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="13.0">
                            <children>
                               <Label layoutX="66.0" layoutY="353.0" text="Don't have an Account ?">
                                  <font>
                                     <Font name="System Bold" size="21.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="registorButton" layoutX="70.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="246.0" styleClass="panebutton" text="Register">
+                              <Button fx:id="registorButton" layoutX="70.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="246.0" styleClass="panebutton" text="Register" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="60.399" AnchorPane.topAnchor="402.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Button>
-                              <TextField layoutX="47.0" layoutY="86.0" prefHeight="43.0" prefWidth="292.0" promptText="User Name" styleClass="logintextfield">
+                              <TextField layoutX="47.0" layoutY="86.0" prefHeight="40.0" prefWidth="292.0" promptText="User Name" styleClass="logintextfield" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="86.0">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </TextField>
-                              <PasswordField layoutX="48.0" layoutY="156.0" prefHeight="40.0" prefWidth="290.0" promptText="Password" styleClass="logintextfield">
+                              <PasswordField layoutX="48.0" layoutY="156.0" prefHeight="40.0" prefWidth="292.0" promptText="Password" styleClass="logintextfield" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="156.0">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -111,17 +111,17 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="studentLoginButton" layoutX="69.0" layoutY="270.0" mnemonicParsing="false" onAction="#DirectToStudentDashboard" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login">
+                              <Button fx:id="studentLoginButton" layoutX="69.0" layoutY="270.0" mnemonicParsing="false" onAction="#DirectToStudentDashboard" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="270.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Button>
-                              <CheckBox layoutX="56.0" layoutY="224.0" mnemonicParsing="false" text="Show Password">
+                              <CheckBox layoutX="66.0" layoutY="222.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="183.0" text="Show Password" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="222.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </CheckBox>
-                              <Label layoutX="90.0" layoutY="29.0" text="Sign In Account">
+                              <Label layoutX="91.0" layoutY="32.0" text="Sign In Account" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="32.0">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>

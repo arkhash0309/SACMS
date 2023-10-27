@@ -2,3 +2,28 @@
     -fx-background-color: linear-gradient(#104a5b, #4d708a, #104a5b);
 }
 
+#joinClubDetailPane{
+    -fx-background-color: linear-gradient(#fffaf7, #f1f1f1, #f6f5f5);
+    -fx-background-radius: 6px;
+}
+
+#joinButton{
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-border-radius: 2px;
+    -fx-background-color: linear-gradient(#538491, #4d708a, #4f7986);
+}
+
+#joinButton:hover{
+    -fx-border-color: linear-gradient(#fdae6f, #e0be8d, #fdae6f);
+}
+
+#LeaveButton{
+    -fx-background-color: linear-gradient(#538491, #4d708a, #4f7986);
+    -fx-background-radius: 10px;
+}
+
+#LeaveClubPane{
+    -fx-background-color: linear-gradient(#fffaf7, #f1f1f1, #f6f5f5);
+    -fx-background-radius: 6px;
+}
