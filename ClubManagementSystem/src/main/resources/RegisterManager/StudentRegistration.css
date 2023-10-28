@@ -64,10 +64,10 @@
 
 #studentLoginPane{
     -fx-background-color: linear-gradient( #edfaea, #b4b49d, #f6f6e4, #b2ae9d);
-    -fx-background-radius: 10px;
-    -fx-border-width: 3px;
+    -fx-background-radius: 20px;
+    -fx-border-width: 5px;
     -fx-border-color: #9a9797;
-    -fx-border-radius: 10px;
+    -fx-border-radius: 20px;
 }
 
 .studentButtonClass:hover{
@@ -76,10 +76,8 @@
 }
 
 .logintextfield{
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
-    -fx-border-color:#9a9797;
-
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
 }
 
 #registorButton:pressed{
@@ -89,12 +87,4 @@
 
 .navigatorPlane{
     -fx-background-color: #cbcbcb;
-}
-
-.panebutton:hover{
-    -fx-background-color: #f36868;
-}
-
-.panebutton:pressed{
-    -fx-background-color: #fa5555;
 }
