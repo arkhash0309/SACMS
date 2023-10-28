@@ -37,7 +37,7 @@ public class StudentDashboardController {
     private AnchorPane StudentDashBoardPane;
 
     @FXML
-    private Button dashboardButton;
+    public Button dashboardButton;
 
     @FXML
     private Button ViewEventButton;

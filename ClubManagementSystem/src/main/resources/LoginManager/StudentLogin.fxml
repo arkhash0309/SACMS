@@ -84,7 +84,7 @@
                <center>
                   <AnchorPane prefHeight="504.0" prefWidth="457.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="studentLoginPane" layoutX="21.0" layoutY="13.0" prefHeight="492.0" prefWidth="370.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="13.0">
+                        <AnchorPane fx:id="studentLoginPane" layoutX="21.0" layoutY="8.0" prefHeight="492.0" prefWidth="370.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="8.0">
                            <children>
                               <Label layoutX="66.0" layoutY="353.0" text="Don't have an Account ?">
                                  <font>

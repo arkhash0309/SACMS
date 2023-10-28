@@ -52,7 +52,7 @@ public class ClubAdvisorDashboardControlller {
     private AnchorPane AttendancePane;
 
     @FXML
-    private Button dashboardButton;
+    public Button dashboardButton;
 
     @FXML
     private Button ScheduleEventsButton;

@@ -68,7 +68,11 @@ public class ClubAdvisorLoginController {
 
     @FXML
     void DirectToStudentDashBoard(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
+        Parent root = loader.load();
+        ClubAdvisorManager.ClubAdvisorDashboardControlller clubAdvisorDashboardControlller = loader.getController();
+        clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
