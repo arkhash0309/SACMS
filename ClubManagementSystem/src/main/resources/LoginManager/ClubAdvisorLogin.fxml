@@ -81,7 +81,7 @@
                <center>
                   <AnchorPane prefHeight="504.0" prefWidth="457.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="clubAdvisorLoginPane" layoutX="16.0" layoutY="5.0" prefHeight="492.0" prefWidth="370.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="13.0">
+                        <AnchorPane fx:id="clubAdvisorLoginPane" layoutX="21.0" layoutY="9.0" prefHeight="488.0" prefWidth="370.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="9.0">
                            <children>
                               <Label layoutX="105.0" layoutY="37.0" text="Sign In Account" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="32.0">
                                  <font>
