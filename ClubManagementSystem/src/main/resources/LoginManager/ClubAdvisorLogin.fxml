@@ -60,8 +60,6 @@
                   <AnchorPane fx:id="clubAdvisorLoginAnchorPane" prefHeight="504.0" prefWidth="284.0" BorderPane.alignment="CENTER">
                      <children>
 
-                        <ImageView fitHeight="157.0" fitWidth="147.0" layoutX="69.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
-
                         <Circle fill="WHITE" layoutX="141.0" layoutY="113.0" radius="89.0" stroke="#bbbbbb" strokeType="INSIDE" strokeWidth="3.0" />
                         <ImageView fitHeight="131.0" fitWidth="127.0" layoutX="82.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
 

@@ -61,7 +61,6 @@
                         <AnchorPane fx:id="signInLeftPane" prefHeight="517.0" prefWidth="285.0">
                            <children>
 
-                              <ImageView fx:id="signinImage" fitHeight="157.0" fitWidth="147.0" layoutX="69.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
 
                               <Circle fill="WHITE" layoutX="143.0" layoutY="114.0" radius="89.0" stroke="#d0cece" strokeType="INSIDE" strokeWidth="3.0" />
                               <ImageView fx:id="signinImage" fitHeight="147.0" fitWidth="151.0" layoutX="77.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
