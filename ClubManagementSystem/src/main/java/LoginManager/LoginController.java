@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -75,16 +76,22 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String filePath = new File("").getAbsolutePath();
-        String clubAdvisorImagePath = filePath + "/src/main/resources/Images/lecturer.jpeg";
-        String studentImagePath = filePath + "/src/main/resources/Images/student.jpeg";
+        try {
+            String filePath = new File("").getAbsolutePath();
+            String clubAdvisorImagePath = filePath + "/src/main/resources/Images/lecturer.jpeg";
+            String studentImagePath = filePath + "/src/main/resources/Images/student.jpeg";
 
-        Image imgClubAdvisor = new Image(clubAdvisorImagePath);
-        clubAdvisorCircle.setFill(new ImagePattern(imgClubAdvisor));
+            URL clubAdvisorImageUrl = new File(clubAdvisorImagePath).toURI().toURL();
+            URL studentImageUrl = new File(studentImagePath).toURI().toURL();
 
-        Image imgStudent = new Image(studentImagePath);
-        studentCircle.setFill(new ImagePattern(imgStudent));
+            Image imgClubAdvisor = new Image(clubAdvisorImageUrl.toString());
+            Image imgStudent = new Image(studentImageUrl.toString());
 
+            clubAdvisorCircle.setFill(new ImagePattern(imgClubAdvisor));
+            studentCircle.setFill(new ImagePattern(imgStudent));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

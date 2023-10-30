@@ -5,11 +5,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,7 +14,24 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
 <StackPane fx:id="StudentDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentDashboardDragDetected" onMousePressed="#StudentPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManager.StudentDashboardController">
+
    <stylesheets>
       <URL value="@ClubAdvisorDashboard.css" />
       <URL value="@StudentDashboard.css" />
@@ -144,7 +157,9 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
+
                         <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
                                  <children>
@@ -238,6 +253,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
+
                         <AnchorPane fx:id="JoinLeaveClubPane" prefHeight="566.4" prefWidth="861.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="566.0" prefWidth="375.0">
@@ -338,6 +354,7 @@
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="EventStudentPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
                      </children>
                   </AnchorPane>
                </center>
