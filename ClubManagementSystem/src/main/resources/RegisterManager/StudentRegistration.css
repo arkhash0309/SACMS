@@ -1,90 +1,49 @@
-
-.panebutton{
-    -fx-background-color: white;
-}
-
-#registrationUnderliner{
-    -fx-background-color: #040413;
-}
-
-#signInLeftPane{
-    -fx-background-color: linear-gradient(#506075, #d2ffeb, #5d7588);
-}
-
-#backbutton{
-    -fx-background-color: #52525d;
+.clubAdvisorLoginButtons{
+    -fx-background-color: #24242c;
     -fx-background-radius: 30px;
     -fx-text-fill: white;
     -fx-cursor: hand;
 }
 
-#backbutton:hover{
+.clubAdvisorLoginButtons:hover{
     -fx-background-color: #201325;
     -fx-text-fill: white;
 }
 
-#signinImage{
-    -fx-background-radius: 200px;
-}
-
-#backbutton:pressed{
+.clubAdvisorLoginButtons:pressed{
     -fx-background-color: #5e5e5e;
     -fx-text-fill: #fcf9f9;
 }
-
-#studentLoginButton{
-    -fx-background-color: #52525d;
-    -fx-background-radius: 30px;
-    -fx-text-fill: white;
-    -fx-cursor: hand;
+#clubAdvisorLoginAnchorPane{
+    -fx-background-color: linear-gradient(#104a5b, #4d708a, #104a5b);
 }
 
-#studentLoginButton:hover{
-    -fx-background-color: #201325;
-    -fx-text-fill: white;
-}
-
-#studentLoginButton:pressed{
-    -fx-background-color: #5e5e5e;
-    -fx-text-fill: #fcf9f9;
-}
-
-#registorButton{
-    -fx-background-color: #52525d;
-    -fx-background-radius: 30px;
-    -fx-text-fill: white;
-    -fx-cursor: hand;
-}
-
-
-#registorButton:hover{
-    -fx-background-color: #201325;
-    -fx-text-fill: white;
-}
-
-#studentLoginPane{
-    -fx-background-color: linear-gradient( #edfaea, #b4b49d, #f6f6e4, #b2ae9d);
-    -fx-background-radius: 20px;
+#clubAdvisorLoginPane{
+    -fx-background-color: linear-gradient(#fce38e, #f6d59a, #fff4d1);
     -fx-border-width: 5px;
-    -fx-border-color: #9a9797;
+    -fx-border-color: #696867;
     -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
 }
 
-.studentButtonClass:hover{
-    -fx-background-color: #201325;
-    -fx-text-fill: white;
+.clubAdvisorLoginTextField{
+    -fx-background-radius: 20px;
 }
 
-.logintextfield{
-    -fx-background-radius: 15px;
-    -fx-border-radius: 15px;
+.controlButtons{
+    -fx-background-color: white;
+    -fx-cursor: hand;
 }
 
-#registorButton:pressed{
-    -fx-background-color: #5e5e5e;
-    -fx-text-fill: #fcf9f9;
+.controlButtons:hover{
+    -fx-background-color: #f36868;
 }
 
-.navigatorPlane{
+.controlButtons:pressed{
+    -fx-background-color: #fa5555;
+}
+
+#clubAdvisorLoginLabel{
     -fx-background-color: #cbcbcb;
+    -fx-cursor:hand;
 }

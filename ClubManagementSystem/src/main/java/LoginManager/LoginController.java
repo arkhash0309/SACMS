@@ -91,7 +91,6 @@ public class LoginController implements Initializable {
             studentCircle.setFill(new ImagePattern(imgStudent));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            // Handle the exception (e.g., show an error message) if needed
         }
     }
 

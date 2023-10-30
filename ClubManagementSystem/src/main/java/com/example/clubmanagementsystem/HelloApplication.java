@@ -20,10 +20,10 @@ public class HelloApplication extends Application {
         }catch (Exception E){
             E.printStackTrace();
         }
-
     }
 
     public static void main(String[] args) {
+        System.out.println();
         launch();
     }
 }
