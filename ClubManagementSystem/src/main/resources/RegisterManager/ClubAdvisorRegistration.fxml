@@ -61,7 +61,7 @@
                   <AnchorPane fx:id="clubAdvisorLoginAnchorPane" prefHeight="514.0" prefWidth="246.0" BorderPane.alignment="CENTER">
                      <children>
                         <Circle fill="WHITE" layoutX="123.0" layoutY="129.0" radius="89.0" stroke="#bbbbbb" strokeType="INSIDE" strokeWidth="3.0" />
-                        <ImageView fitHeight="131.0" fitWidth="127.0" layoutX="64.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="131.0" fitWidth="127.0" layoutX="64.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Images/lecturer-removebg-preview.png" />
                            </image>
