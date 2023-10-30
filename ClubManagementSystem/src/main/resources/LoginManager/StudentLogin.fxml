@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="StudentLoginForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentLoginPaneDragDetected" onMousePressed="#studentLoginPanePressedDetected" prefHeight="550.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginManager.StudentLoginController">
+<StackPane fx:id="StudentLoginForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentLoginPaneDragDetected" onMousePressed="#studentLoginPanePressedDetected" prefHeight="550.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginManager.StudentLoginController">
    <stylesheets>
       <URL value="@StudentLogin.css" />
    </stylesheets>
@@ -94,7 +94,7 @@
                                     <Font name="System Bold" size="21.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="registorButton" layoutX="70.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="246.0" styleClass="panebutton" text="Register" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="60.399" AnchorPane.topAnchor="402.0">
+                              <Button fx:id="registorButton" layoutX="70.0" layoutY="395.0" mnemonicParsing="false" onAction="#GoToStudentRegistration" prefHeight="40.0" prefWidth="246.0" styleClass="panebutton" text="Register" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="60.399" AnchorPane.topAnchor="402.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>

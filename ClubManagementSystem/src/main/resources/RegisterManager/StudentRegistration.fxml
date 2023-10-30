@@ -14,7 +14,12 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+<?import java.net.URL?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginManager.StudentLoginController">
+   <stylesheets>
+      <URL value="@StudentRegistration.css" />
+   </stylesheets>
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -27,7 +32,7 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Button fx:id="ClubAdvisorLoginMinimizer" layoutX="595.0" layoutY="5.0" mnemonicParsing="false" onAction="#MinimizeClubAdvisorLogin" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="5.0">
+                        <Button fx:id="ClubAdvisorLoginMinimizer" layoutX="595.0" layoutY="5.0" mnemonicParsing="false" onAction="#minimizeTheProgram" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="5.0">
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -36,7 +41,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="ClubAdvisorCloseButton" layoutX="636.0" layoutY="5.0" mnemonicParsing="false" onAction="#ClubAdvisorLoginExit" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="5.0">
+                        <Button fx:id="ClubAdvisorCloseButton" layoutX="636.0" layoutY="5.0" mnemonicParsing="false" onAction="#ExitTheProgram" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="5.0">
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -62,7 +67,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="signinLeftPane" layoutX="31.0" layoutY="373.0" mnemonicParsing="false" onAction="#DirectToStartPane" prefHeight="39.0" prefWidth="183.0" styleClass="clubAdvisorLoginButtons" text="Back">
+                        <Button fx:id="signinLeftPane" layoutX="31.0" layoutY="373.0" mnemonicParsing="false" onAction="#DirectToStartPage" prefHeight="39.0" prefWidth="183.0" styleClass="clubAdvisorLoginButtons" text="Back">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
