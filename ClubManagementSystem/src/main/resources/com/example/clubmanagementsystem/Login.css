@@ -15,9 +15,11 @@
     -fx-cursor: hand;
     -fx-font-weight: bold;
     -fx-font-family: "System";
+    -fx-font-size: 22px;
 }
 
 .loginButtons:hover{
+        -fx-font-size: 22px;
         -fx-font-weight: bold;
         -fx-background-color: rgb(14, 21, 49);
         -fx-background-radius: 22;
