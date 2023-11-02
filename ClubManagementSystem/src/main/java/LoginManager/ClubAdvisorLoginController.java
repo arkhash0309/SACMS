@@ -30,7 +30,6 @@ public class ClubAdvisorLoginController {
     @FXML
     private Button ClubAdvisorLoginMinimizer;
 
-
     @FXML
     void DirectToStartPane(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -88,6 +87,7 @@ public class ClubAdvisorLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
 
 
 }

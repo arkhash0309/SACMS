@@ -27,3 +27,8 @@
     -fx-background-color: linear-gradient(#fffaf7, #f1f1f1, #f6f5f5);
     -fx-background-radius: 6px;
 }
+
+.paneDirector{
+    -fx-background-radius: 0px;
+    -fx-border-radius: opx;
+}

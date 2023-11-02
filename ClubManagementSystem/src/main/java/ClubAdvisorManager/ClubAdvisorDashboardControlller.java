@@ -64,6 +64,15 @@ public class ClubAdvisorDashboardControlller {
     private Button GenerateReportsButton;
 
     @FXML
+    private AnchorPane ClubActivitiesPane;
+
+    @FXML
+    private AnchorPane EventAttendancePane;
+
+    @FXML
+    private AnchorPane MembershipReportPane;
+
+    @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
        stage.setX(event.getScreenX()- xPosition);
@@ -153,5 +162,30 @@ public class ClubAdvisorDashboardControlller {
         makeAllButtonsColoured();
         GenerateReportsPane.setVisible(true);
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+    }
+
+
+    @FXML
+    void GoToEventAttendance(ActionEvent event) {
+        makeAllPanesInvisibleGeneratingReport();
+        EventAttendancePane.setVisible(true);
+    }
+
+    @FXML
+    void GoToClubActivities(ActionEvent event) {
+        makeAllPanesInvisibleGeneratingReport();
+        ClubActivitiesPane.setVisible(true);
+    }
+
+    @FXML
+    void GoToClubMembership(ActionEvent event) {
+        makeAllPanesInvisibleGeneratingReport();
+        MembershipReportPane.setVisible(true);
+    }
+
+    public void makeAllPanesInvisibleGeneratingReport(){
+        ClubActivitiesPane.setVisible(false);
+        EventAttendancePane.setVisible(false);
+        MembershipReportPane.setVisible(false);
     }
 }

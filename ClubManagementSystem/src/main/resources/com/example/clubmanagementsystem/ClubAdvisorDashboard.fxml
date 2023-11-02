@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -337,7 +338,44 @@
                            </children></AnchorPane>
                         <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane prefHeight="49.0" prefWidth="861.0" styleClass="paneDirector" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#GoToClubMembership" prefHeight="50.0" prefWidth="287.0" styleClass="paneDirector" text="        Club Membership" textAlignment="RIGHT" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="574.0" AnchorPane.topAnchor="0.0">
+                                       <padding>
+                                          <Insets right="40.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="286.0" mnemonicParsing="false" onAction="#GoToEventAttendance" prefHeight="51.0" prefWidth="288.0" styleClass="paneDirector" text="        Event Attendance" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="287.0" AnchorPane.topAnchor="0.0">
+                                       <padding>
+                                          <Insets right="40.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="574.0" mnemonicParsing="false" onAction="#GoToClubActivities" prefHeight="50.0" prefWidth="288.0" styleClass="paneDirector" text="        Club Activities" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="574.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+                                       <padding>
+                                          <Insets right="40.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutY="50.0" prefHeight="519.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                 <children>
+                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" style="-fx-background-color: yellow;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <AnchorPane fx:id="EventAttendancePane" prefHeight="517.0" prefWidth="861.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children></AnchorPane>
                      </children>
                   </AnchorPane>
                </center>
