@@ -338,7 +338,7 @@
                               </AnchorPane>
                            </children></AnchorPane>
                         <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" style="-fx-background-color: red;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="49.0" prefWidth="861.0" styleClass="paneDirector" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -375,24 +375,27 @@
                                     <AnchorPane fx:id="EventAttendancePane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <ComboBox layoutX="38.0" layoutY="70.0" prefHeight="31.0" prefWidth="290.0" />
-                                          <TableView layoutX="38.0" layoutY="123.0" prefHeight="338.0" prefWidth="801.0">
+                                          <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane">
+                                             <children>
+                                                <ComboBox layoutX="25.0" layoutY="58.0" prefHeight="31.0" prefWidth="290.0" />
+                                                <Button layoutX="350.0" layoutY="56.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="121.0" text="Generate Report">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                          <TableView layoutX="47.0" layoutY="123.0" prefHeight="354.0" prefWidth="774.0">
                                             <columns>
                                               <TableColumn prefWidth="75.0" text="C1" />
                                               <TableColumn prefWidth="75.0" text="C2" />
                                             </columns>
                                           </TableView>
-                                          <Button layoutX="379.0" layoutY="68.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="121.0" text="Generate Report">
+                                          <Label layoutX="31.0" layoutY="21.0" prefHeight="38.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report" textFill="WHITE">
                                              <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Label layoutX="38.0" layoutY="15.0" prefHeight="35.0" prefWidth="802.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="475.0" prefWidth="820.0" styleClass="viewPane" />
                                        </children>
                                     </AnchorPane>
                                  </children>

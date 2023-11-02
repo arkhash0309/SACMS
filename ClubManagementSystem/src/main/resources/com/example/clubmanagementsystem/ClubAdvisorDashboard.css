@@ -66,7 +66,7 @@
 }
 
 .updateClubLabels{
-    -fx-background-color: linear-gradient(#538491, #619bab, #6c9798, #9baeb4);
+    -fx-background-color: linear-gradient(to right, #538491, #619bab, #6c9798, #9baeb4);
     -fx-background-radius: 3px;
 }
 
@@ -76,6 +76,10 @@
 }
 
 .viewPane{
-    -fx-background-color: linear-gradient(#fffaf7, #f1f1f1, #f6f5f5);
-    -fx-background-radius: 6px;
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+.paneDirector{
+    -fx-background-color: linear-gradient(to right, #538491, #619bab, #6c9798, #9baeb4);
 }
