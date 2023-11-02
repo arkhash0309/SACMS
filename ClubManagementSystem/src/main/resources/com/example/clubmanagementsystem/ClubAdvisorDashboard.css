@@ -61,13 +61,15 @@
 }
 
 #updateClubLabel{
-    -fx-background-color: linear-gradient(#538491, #619bab, #6c9798, #9baeb4);
+    -fx-background-color: linear-gradient(to top, #538491, #4d708a, #4f7986);
     -fx-background-radius: 3px;
+    -fx-text-fill: #fcfcfc;
 }
 
 .updateClubLabels{
-    -fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc);
+    -fx-background-color: linear-gradient(to top, #538491, #4d708a, #4f7986);
     -fx-background-radius: 3px;
+    -fx-text-fill: #fcfcfc;
 }
 
 #clubLogo{
@@ -146,6 +148,19 @@
     -fx-min-height: 49px;
 }
 
+.selectorColor{
+    -fx-background-color: linear-gradient(to right, #538491, #4d708a, #4f7986);
+}
 
+.CreateClubsButtons{
+    -fx-background-color: linear-gradient(#104a5b, #1c3a44, #104a5b);
+}
 
+#GoToClubMembershipButton{
+    -fx-border-width: 0 1px 0 0px;
+}
+
+#GoToClubActivitiesButton{
+    -fx-border-width: 0 0px 0 1px;
+}
 

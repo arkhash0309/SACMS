@@ -17,6 +17,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -271,7 +273,7 @@
                                     </TableView>
                                     <AnchorPane fx:id="updateClubLabel" layoutX="6.0" layoutY="5.0" prefHeight="38.0" prefWidth="808.0">
                                        <children>
-                                          <Label layoutX="21.0" layoutY="5.0" text="Created Club Details">
+                                          <Label layoutX="21.0" layoutY="5.0" text="Created Club Details" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="19.0" />
                                              </font>
@@ -292,36 +294,42 @@
                               </AnchorPane>
                               <AnchorPane layoutX="21.0" layoutY="312.0" prefHeight="241.0" prefWidth="820.0" styleClass="dashboardPane">
                                  <children>
-                                    <TextField layoutX="28.0" layoutY="80.0" prefHeight="31.0" prefWidth="209.0" promptText="Name" />
-                                    <TextField layoutX="28.0" layoutY="150.0" prefHeight="31.0" prefWidth="209.0" promptText="Name" />
-                                    <TextArea layoutX="261.0" layoutY="80.0" prefHeight="128.0" prefWidth="255.0" />
-                                    <Label layoutX="28.0" layoutY="60.0" prefHeight="17.0" prefWidth="184.0" text="Club Id">
+                                    <TextField layoutX="28.0" layoutY="90.0" prefHeight="31.0" prefWidth="207.0" promptText="Club Id">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font></TextField>
+                                    <TextField layoutX="28.0" layoutY="168.0" prefHeight="31.0" prefWidth="209.0" promptText="Name">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font></TextField>
+                                    <TextArea layoutX="254.0" layoutY="91.0" prefHeight="131.0" prefWidth="262.0" />
+                                    <Label layoutX="28.0" layoutY="60.0" prefHeight="23.0" prefWidth="206.0" styleClass="selectorColor" text=" Club Id" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
                                     <AnchorPane layoutX="8.0" layoutY="8.0" prefHeight="38.0" prefWidth="801.0" styleClass="updateClubLabels">
                                        <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="Create Club">
+                                          <Label layoutX="14.0" layoutY="6.0" text="Create Club" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="19.0" />
                                              </font>
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <Label layoutX="28.0" layoutY="124.0" text="Club Name">
+                                    <Label layoutX="30.0" layoutY="137.0" prefHeight="23.0" prefWidth="206.0" styleClass="selectorColor" text=" Club Name" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="263.0" layoutY="56.0" text="Club Description">
+                                    <Label layoutX="254.0" layoutY="59.0" prefHeight="25.0" prefWidth="259.0" styleClass="selectorColor" text="  Club Description" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <AnchorPane fx:id="clubLogo" layoutX="543.0" layoutY="75.0" prefHeight="138.0" prefWidth="137.0">
+                                    <AnchorPane fx:id="clubLogo" layoutX="543.0" layoutY="80.0" prefHeight="145.0" prefWidth="138.0">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fitHeight="153.0" fitWidth="138.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
                                           <Button layoutY="111.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="138.0" text="Upload Logo">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
@@ -329,7 +337,12 @@
                                           </Button>
                                        </children>
                                     </AnchorPane>
-                                    <Button layoutX="704.0" layoutY="133.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="102.0" text="Create">
+                                    <Button layoutX="695.0" layoutY="88.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" styleClass="CreateClubsButtons" text="Create" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="695.0" layoutY="148.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="113.0" styleClass="CreateClubsButtons" text="Update" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
@@ -343,7 +356,7 @@
                            <children>
                               <AnchorPane prefHeight="49.0" prefWidth="864.0" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button layoutX="8.0" layoutY="10.0" mnemonicParsing="false" onAction="#GoToClubMembership" prefHeight="49.0" prefWidth="291.0" styleClass="paneDirector" text="Club Membership" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="573.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="GoToClubMembershipButton" layoutX="8.0" layoutY="10.0" mnemonicParsing="false" onAction="#GoToClubMembership" prefHeight="49.0" prefWidth="291.0" styleClass="paneDirector" text="Club Membership" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="573.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets right="40.0" />
                                        </padding>
@@ -359,7 +372,7 @@
                                           <Font name="System Bold" size="19.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="580.0" mnemonicParsing="false" onAction="#GoToClubActivities" prefHeight="49.0" prefWidth="284.0" styleClass="paneDirector" text=" Club Activities" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="580.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="GoToClubActivitiesButton" layoutX="580.0" mnemonicParsing="false" onAction="#GoToClubActivities" prefHeight="49.0" prefWidth="284.0" styleClass="paneDirector" text=" Club Activities" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="580.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets right="40.0" />
                                        </padding>
@@ -371,21 +384,106 @@
                               </AnchorPane>
                               <AnchorPane layoutY="50.0" prefHeight="519.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                  <children>
-                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <AnchorPane fx:id="EventAttendancePane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane layoutX="30.0" layoutY="18.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane">
+                                             <children>
+                                                <ComboBox layoutX="27.0" layoutY="99.0" prefHeight="31.0" prefWidth="290.0" />
+                                                <Button layoutX="365.0" layoutY="81.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="151.0" text="Generate Report">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Button>
+                                                <Label layoutX="28.0" layoutY="64.0" prefHeight="26.0" prefWidth="289.0" styleClass="selectorColor" text="   Club Name">
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="1.0" focusAngle="172.91" focusDistance="1.0" proportional="false" radius="1.0">
+                                                         <stops>
+                                                            <Stop color="BLACK" />
+                                                            <Stop color="WHITE" offset="1.0" />
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
+                                                </Label>
+                                                <TableView layoutX="28.0" layoutY="144.0" prefHeight="314.0" prefWidth="777.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="75.0" text="C1" />
+                                                      <TableColumn prefWidth="75.0" text="C2" />
+                                                   </columns>
+                                                </TableView>
+                                                <Label layoutX="8.0" layoutY="7.0" prefHeight="36.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="EventAttendancePane" prefHeight="517.0" prefWidth="861.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane layoutX="22.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane">
+                                             <children>
+                                                <ComboBox layoutX="24.0" layoutY="99.0" prefHeight="30.0" prefWidth="250.0" AnchorPane.topAnchor="102.0" />
+                                                <Button layoutX="633.0" layoutY="84.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="144.0" text="Generate Report">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Button>
+                                                <TableView layoutX="24.0" layoutY="167.0" prefHeight="300.0" prefWidth="774.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="75.0" text="C1" />
+                                                      <TableColumn prefWidth="75.0" text="C2" />
+                                                   </columns>
+                                                </TableView>
+                                                <Label layoutX="8.0" layoutY="6.0" prefHeight="40.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club and Event To Genrate The Report" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="24.0" layoutY="63.0" prefHeight="17.0" prefWidth="250.0" styleClass="selectorColor" text="  Club Name" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox layoutX="332.0" layoutY="102.0" prefHeight="30.0" prefWidth="250.0" AnchorPane.topAnchor="102.0" />
+                                                <Label layoutX="332.0" layoutY="63.0" prefHeight="25.0" prefWidth="250.0" styleClass="selectorColor" text="  Event Name" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane">
                                              <children>
-                                                <ComboBox layoutX="25.0" layoutY="58.0" prefHeight="31.0" prefWidth="290.0" />
-                                                <Button layoutX="350.0" layoutY="56.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="121.0" text="Generate Report">
+                                                <ComboBox layoutX="27.0" layoutY="93.0" prefHeight="31.0" prefWidth="290.0" />
+                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="151.0" text="Generate Report">
                                                    <font>
-                                                      <Font name="System Bold" size="12.0" />
+                                                      <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Button>
+                                                <Label layoutX="27.0" layoutY="59.0" prefHeight="26.0" prefWidth="289.0" styleClass="selectorColor" text="   Club Name">
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="1.0" focusAngle="172.91" focusDistance="1.0" proportional="false" radius="1.0">
+                                                         <stops>
+                                                            <Stop color="BLACK" />
+                                                            <Stop color="WHITE" offset="1.0" />
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
-                                          <TableView layoutX="47.0" layoutY="123.0" prefHeight="354.0" prefWidth="774.0">
+                                          <TableView layoutX="47.0" layoutY="163.0" prefHeight="314.0" prefWidth="784.0">
                                             <columns>
                                               <TableColumn prefWidth="75.0" text="C1" />
                                               <TableColumn prefWidth="75.0" text="C2" />
