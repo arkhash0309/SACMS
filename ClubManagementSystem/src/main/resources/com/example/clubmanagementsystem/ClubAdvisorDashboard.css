@@ -74,3 +74,8 @@
     -fx-background-color: linear-gradient(grey, #a8acaf);
     -fx-background-radius: 5px;
 }
+
+.viewPane{
+    -fx-background-color: linear-gradient(#fffaf7, #f1f1f1, #f6f5f5);
+    -fx-background-radius: 6px;
+}
