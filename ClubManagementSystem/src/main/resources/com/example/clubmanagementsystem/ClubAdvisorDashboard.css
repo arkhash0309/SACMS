@@ -66,7 +66,7 @@
 }
 
 .updateClubLabels{
-    -fx-background-color: linear-gradient(to right, #538491, #619bab, #6c9798, #9baeb4);
+    -fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc);
     -fx-background-radius: 3px;
 }
 
@@ -86,7 +86,7 @@
     -fx-border-radius: 0;
     -fx-padding: 5 10;
     -fx-cursor: hand;
-    -fx-border-width: 1px;
+    -fx-border-width: 0 1px 0 1px;
     -fx-background-radius: 0px;
     -fx-border-color: white;
     -fx-focus-color:transparent;
