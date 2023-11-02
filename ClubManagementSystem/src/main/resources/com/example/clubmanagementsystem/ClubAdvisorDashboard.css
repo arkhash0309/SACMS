@@ -81,5 +81,11 @@
 }
 
 .paneDirector{
-    -fx-background-color: #95adb6;
+    -fx-background-color: #126581;
+    -fx-cursor: hand;
+}
+
+.paneDirector:hover{
+    -fx-background-color: #9ebdd5;
+    -fx-text-fill: #000000;
 }
