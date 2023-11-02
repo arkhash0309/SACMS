@@ -343,7 +343,15 @@
                            <children>
                               <AnchorPane prefHeight="49.0" prefWidth="861.0" styleClass="paneDirector" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#GoToClubMembership" prefHeight="50.0" prefWidth="287.0" styleClass="paneDirector" text="        Club Membership" textAlignment="RIGHT" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="574.0" AnchorPane.topAnchor="0.0">
+                                    <Button mnemonicParsing="false" onAction="#GoToClubMembership" prefHeight="51.0" prefWidth="287.0" styleClass="paneDirector" text="        Club Membership" textAlignment="RIGHT" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="574.0" AnchorPane.topAnchor="0.0">
+                                       <padding>
+                                          <Insets right="40.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="279.0" mnemonicParsing="false" onAction="#GoToEventAttendance" prefHeight="51.0" prefWidth="298.0" styleClass="paneDirector" text="        Event Attendance" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="279.0" AnchorPane.rightAnchor="284.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets right="40.0" />
                                        </padding>
@@ -351,15 +359,7 @@
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="286.0" mnemonicParsing="false" onAction="#GoToEventAttendance" prefHeight="51.0" prefWidth="288.0" styleClass="paneDirector" text="        Event Attendance" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="287.0" AnchorPane.topAnchor="0.0">
-                                       <padding>
-                                          <Insets right="40.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </Button>
-                                    <Button layoutX="574.0" mnemonicParsing="false" onAction="#GoToClubActivities" prefHeight="50.0" prefWidth="288.0" styleClass="paneDirector" text="        Club Activities" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="574.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+                                    <Button layoutX="574.0" mnemonicParsing="false" onAction="#GoToClubActivities" prefHeight="51.0" prefWidth="288.0" styleClass="paneDirector" text="        Club Activities" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="574.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets right="40.0" />
                                        </padding>
