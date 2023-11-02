@@ -81,11 +81,71 @@
 }
 
 .paneDirector{
-    -fx-background-color: #126581;
+    -fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-border-radius: 0;
+    -fx-padding: 5 10;
     -fx-cursor: hand;
+    -fx-border-width: 1px;
+    -fx-background-radius: 0px;
+    -fx-border-color: white;
+    -fx-focus-color:transparent;
 }
 
 .paneDirector:hover{
-    -fx-background-color: #9ebdd5;
-    -fx-text-fill: #000000;
+    -fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);
+    -fx-text-fill: #ffffff;
 }
+
+.paneDirector:pressed{
+    -fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);
+    -fx-text-fill: rgb(255,255,255);
+    -fx-underline: true;
+}
+
+#GoToClubMembership{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+#GoToClubMembership:selected {
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubMembership:pressed {
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToEventAttendance{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+#GoToEventAttendance{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToEventAttendance:pressed{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubActivities{
+    -fx-min-width: 284px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubActivities:selected{
+    -fx-min-width: 284px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubActivities:pressed{
+    -fx-min-width: 284px;
+    -fx-min-height: 49px;
+}
+
+
+
+

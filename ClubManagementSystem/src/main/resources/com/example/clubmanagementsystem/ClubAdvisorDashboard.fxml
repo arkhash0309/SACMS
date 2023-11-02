@@ -341,9 +341,9 @@
                         <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" style="-fx-background-color: red;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane prefHeight="49.0" prefWidth="861.0" styleClass="paneDirector" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane prefHeight="49.0" prefWidth="864.0" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#GoToClubMembership" prefHeight="51.0" prefWidth="287.0" styleClass="paneDirector" text="        Club Membership" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="574.0" AnchorPane.topAnchor="0.0">
+                                    <Button layoutX="8.0" layoutY="10.0" mnemonicParsing="false" onAction="#GoToClubMembership" prefHeight="49.0" prefWidth="291.0" styleClass="paneDirector" text="Club Membership" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="573.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets right="40.0" />
                                        </padding>
@@ -351,7 +351,7 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="279.0" mnemonicParsing="false" onAction="#GoToEventAttendance" prefHeight="51.0" prefWidth="298.0" styleClass="paneDirector" text="        Event Attendance" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="279.0" AnchorPane.rightAnchor="284.0" AnchorPane.topAnchor="0.0">
+                                    <Button layoutX="290.0" layoutY="8.0" mnemonicParsing="false" onAction="#GoToEventAttendance" prefHeight="49.0" prefWidth="291.0" styleClass="paneDirector" text="Event Attendance" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="283.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets right="40.0" />
                                        </padding>
@@ -359,7 +359,7 @@
                                           <Font name="System Bold" size="19.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="574.0" mnemonicParsing="false" onAction="#GoToClubActivities" prefHeight="51.0" prefWidth="288.0" styleClass="paneDirector" text="        Club Activities" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="574.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+                                    <Button layoutX="580.0" mnemonicParsing="false" onAction="#GoToClubActivities" prefHeight="49.0" prefWidth="284.0" styleClass="paneDirector" text=" Club Activities" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="580.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets right="40.0" />
                                        </padding>
@@ -391,7 +391,7 @@
                                               <TableColumn prefWidth="75.0" text="C2" />
                                             </columns>
                                           </TableView>
-                                          <Label layoutX="31.0" layoutY="21.0" prefHeight="38.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report">
+                                          <Label layoutX="31.0" layoutY="21.0" prefHeight="38.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
