@@ -72,6 +72,8 @@ public class ClubAdvisorLoginController {
         Parent root = loader.load();
         ClubAdvisorManager.ClubAdvisorDashboardControlller clubAdvisorDashboardControlller = loader.getController();
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
+        clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
+                "-fx-text-fill: white");
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

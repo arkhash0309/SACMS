@@ -164,3 +164,16 @@
     -fx-border-width: 0 0px 0 1px;
 }
 
+.EventMainPane{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+}
+
+#ViewEventButton{
+    -fx-border-width: 0 1px 0 0px;
+}
+
+#UpdateEventButton{
+    -fx-border-width: 0 0px 0 1px;
+}
+

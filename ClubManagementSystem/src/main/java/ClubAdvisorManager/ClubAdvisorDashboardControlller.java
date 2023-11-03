@@ -85,6 +85,20 @@ public class ClubAdvisorDashboardControlller {
     private AnchorPane UpdatesEventPane;
 
     @FXML
+    public Button ViewEventButton;
+
+    @FXML
+    private Button ScheduleEventButton;
+
+    @FXML
+    private Button CancelEventButton;
+
+    @FXML
+    private Button UpdateEventButton;
+
+    @FXML
+    private Button ScheduleEventInnerButton;
+    @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
        stage.setX(event.getScreenX()- xPosition);
@@ -206,30 +220,46 @@ public class ClubAdvisorDashboardControlller {
        ViewEventsPane.setVisible(false);
        ScheduleEventsInnerPane.setVisible(false);
        CancelEventsPane.setVisible(false);
+       UpdateEventButton.setStyle("-fx-text-fill: black");
+       ViewEventButton.setStyle("-fx-text-fill: black");
+       ScheduleEventButton.setStyle("-fx-text-fill: black");
+       CancelEventButton.setStyle("-fx-text-fill: black");
+       UpdateEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
+       ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
+       ScheduleEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
+       CancelEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
     }
 
     @FXML
     void GoToUpdateEventsPanes(ActionEvent event) {
          makeAllPanesInvisibleEventPane();
-        UpdatesEventPane.setVisible(true);
+         UpdatesEventPane.setVisible(true);
+         UpdateEventButton.setStyle("-fx-text-fill: white; " +
+                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
     @FXML
     void GoToViewEventsPane(ActionEvent event) {
         makeAllPanesInvisibleEventPane();
         ViewEventsPane.setVisible(true);
+        ViewEventButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
     @FXML
     void GoToScheduleEventsPane(ActionEvent event) {
         makeAllPanesInvisibleEventPane();
         ScheduleEventsInnerPane.setVisible(true);
+        ScheduleEventButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
     @FXML
     void GoToCancelEventsPane(ActionEvent event) {
         makeAllPanesInvisibleEventPane();
         CancelEventsPane.setVisible(true);
+        CancelEventButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
 
