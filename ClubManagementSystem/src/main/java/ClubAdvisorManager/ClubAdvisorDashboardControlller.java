@@ -97,7 +97,13 @@ public class ClubAdvisorDashboardControlller {
     private Button UpdateEventButton;
 
     @FXML
-    private Button ScheduleEventInnerButton;
+    public Button GoToClubMembershipButton;
+
+    @FXML
+    private Button GoToEventAttendanceButton;
+
+    @FXML
+    private Button GoToClubActivitiesButton;
     @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
@@ -195,24 +201,36 @@ public class ClubAdvisorDashboardControlller {
     void GoToEventAttendance(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         EventAttendancePane.setVisible(true);
+        GoToEventAttendanceButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
     @FXML
     void GoToClubActivities(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         ClubActivitiesPane.setVisible(true);
+        GoToClubActivitiesButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
     @FXML
     void GoToClubMembership(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         MembershipReportPane.setVisible(true);
+        GoToClubMembershipButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
     public void makeAllPanesInvisibleGeneratingReport(){
         ClubActivitiesPane.setVisible(false);
         EventAttendancePane.setVisible(false);
         MembershipReportPane.setVisible(false);
+        GoToClubMembershipButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+                "-fx-text-fill: black;");
+        GoToEventAttendanceButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+                "-fx-text-fill: black;");
+        GoToClubActivitiesButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+                "-fx-text-fill: black;");
     }
 
     public void makeAllPanesInvisibleEventPane(){
@@ -220,14 +238,14 @@ public class ClubAdvisorDashboardControlller {
        ViewEventsPane.setVisible(false);
        ScheduleEventsInnerPane.setVisible(false);
        CancelEventsPane.setVisible(false);
-       UpdateEventButton.setStyle("-fx-text-fill: black");
-       ViewEventButton.setStyle("-fx-text-fill: black");
-       ScheduleEventButton.setStyle("-fx-text-fill: black");
-       CancelEventButton.setStyle("-fx-text-fill: black");
-       UpdateEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
-       ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
-       ScheduleEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
-       CancelEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);");
+       UpdateEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+               "-fx-text-fill: black;");
+       ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+               "-fx-text-fill: black");
+       ScheduleEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d)" +
+               ";-fx-text-fill: black");
+       CancelEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+               "-fx-text-fill: black");
     }
 
     @FXML
