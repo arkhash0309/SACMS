@@ -73,6 +73,18 @@ public class ClubAdvisorDashboardControlller {
     private AnchorPane MembershipReportPane;
 
     @FXML
+    private AnchorPane ViewEventsPane;
+
+    @FXML
+    private AnchorPane ScheduleEventsInnerPane;
+
+    @FXML
+    private AnchorPane CancelEventsPane;
+
+    @FXML
+    private AnchorPane UpdatesEventPane;
+
+    @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
        stage.setX(event.getScreenX()- xPosition);
@@ -188,4 +200,37 @@ public class ClubAdvisorDashboardControlller {
         EventAttendancePane.setVisible(false);
         MembershipReportPane.setVisible(false);
     }
+
+    public void makeAllPanesInvisibleEventPane(){
+       UpdatesEventPane.setVisible(false);
+       ViewEventsPane.setVisible(false);
+       ScheduleEventsInnerPane.setVisible(false);
+       CancelEventsPane.setVisible(false);
+    }
+
+    @FXML
+    void GoToUpdateEventsPanes(ActionEvent event) {
+         makeAllPanesInvisibleEventPane();
+        UpdatesEventPane.setVisible(true);
+    }
+
+    @FXML
+    void GoToViewEventsPane(ActionEvent event) {
+        makeAllPanesInvisibleEventPane();
+        ViewEventsPane.setVisible(true);
+    }
+
+    @FXML
+    void GoToScheduleEventsPane(ActionEvent event) {
+        makeAllPanesInvisibleEventPane();
+        ScheduleEventsInnerPane.setVisible(true);
+    }
+
+    @FXML
+    void GoToCancelEventsPane(ActionEvent event) {
+        makeAllPanesInvisibleEventPane();
+        CancelEventsPane.setVisible(true);
+    }
+
+
 }
