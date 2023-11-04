@@ -30,7 +30,6 @@ public class ClubAdvisorLoginController {
     @FXML
     private Button ClubAdvisorLoginMinimizer;
 
-
     @FXML
     void DirectToStartPane(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -73,6 +72,10 @@ public class ClubAdvisorLoginController {
         Parent root = loader.load();
         ClubAdvisorManager.ClubAdvisorDashboardControlller clubAdvisorDashboardControlller = loader.getController();
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
+        clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
+                "-fx-text-fill: white");
+        clubAdvisorDashboardControlller.GoToClubMembershipButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
+                "-fx-text-fill: white");
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -88,6 +91,7 @@ public class ClubAdvisorLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
 
 
 }

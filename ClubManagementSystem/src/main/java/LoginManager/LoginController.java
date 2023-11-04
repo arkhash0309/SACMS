@@ -76,22 +76,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            String filePath = new File("").getAbsolutePath();
-            String clubAdvisorImagePath = filePath + "/src/main/resources/Images/lecturer.jpeg";
-            String studentImagePath = filePath + "/src/main/resources/Images/student.jpeg";
 
-            URL clubAdvisorImageUrl = new File(clubAdvisorImagePath).toURI().toURL();
-            URL studentImageUrl = new File(studentImagePath).toURI().toURL();
-
-            Image imgClubAdvisor = new Image(clubAdvisorImageUrl.toString());
-            Image imgStudent = new Image(studentImageUrl.toString());
-
-            clubAdvisorCircle.setFill(new ImagePattern(imgClubAdvisor));
-            studentCircle.setFill(new ImagePattern(imgStudent));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML

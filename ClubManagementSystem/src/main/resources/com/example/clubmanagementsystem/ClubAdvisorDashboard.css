@@ -61,16 +61,119 @@
 }
 
 #updateClubLabel{
-    -fx-background-color: linear-gradient(#538491, #619bab, #6c9798, #9baeb4);
+    -fx-background-color: linear-gradient(to top, #538491, #4d708a, #4f7986);
     -fx-background-radius: 3px;
+    -fx-text-fill: #fcfcfc;
 }
 
 .updateClubLabels{
-    -fx-background-color: linear-gradient(#538491, #619bab, #6c9798, #9baeb4);
+    -fx-background-color: linear-gradient(to top, #538491, #4d708a, #4f7986);
     -fx-background-radius: 3px;
+    -fx-text-fill: #fcfcfc;
 }
 
 #clubLogo{
     -fx-background-color: linear-gradient(grey, #a8acaf);
     -fx-background-radius: 5px;
 }
+
+.viewPane{
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+.paneDirector{
+    -fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-border-radius: 0;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-border-width: 0 1px 0 1px;
+    -fx-background-radius: 0px;
+    -fx-border-color: white;
+    -fx-focus-color:transparent;
+}
+
+.paneDirector:hover{
+    -fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);
+    -fx-text-fill: #ffffff;
+}
+
+.paneDirector:pressed{
+    -fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);
+    -fx-text-fill: rgb(255,255,255);
+    -fx-underline: true;
+}
+
+#GoToClubMembership{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+#GoToClubMembership:selected {
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubMembership:pressed {
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToEventAttendance{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+#GoToEventAttendance{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToEventAttendance:pressed{
+    -fx-min-width: 291px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubActivities{
+    -fx-min-width: 284px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubActivities:selected{
+    -fx-min-width: 284px;
+    -fx-min-height: 49px;
+}
+
+#GoToClubActivities:pressed{
+    -fx-min-width: 284px;
+    -fx-min-height: 49px;
+}
+
+.selectorColor{
+    -fx-background-color: linear-gradient(to right, #538491, #4d708a, #4f7986);
+}
+
+.CreateClubsButtons{
+    -fx-background-color: linear-gradient(#104a5b, #1c3a44, #104a5b);
+}
+
+#GoToClubMembershipButton{
+    -fx-border-width: 0 1px 0 0px;
+}
+
+#GoToClubActivitiesButton{
+    -fx-border-width: 0 0px 0 1px;
+}
+
+.EventMainPane{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+}
+
+#ViewEventButton{
+    -fx-border-width: 0 1px 0 0px;
+}
+
+#UpdateEventButton{
+    -fx-border-width: 0 0px 0 1px;
+}
+
