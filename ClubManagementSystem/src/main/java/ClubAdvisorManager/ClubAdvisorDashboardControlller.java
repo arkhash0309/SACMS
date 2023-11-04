@@ -85,6 +85,11 @@ public class ClubAdvisorDashboardControlller {
     private AnchorPane UpdatesEventPane;
 
     @FXML
+    private AnchorPane UpdateClubDetailPane;
+
+    @FXML
+    private AnchorPane createClubPane;
+    @FXML
     public Button ViewEventButton;
 
     @FXML
@@ -104,6 +109,14 @@ public class ClubAdvisorDashboardControlller {
 
     @FXML
     private Button GoToClubActivitiesButton;
+
+    @FXML
+    public Button CreateClubDirectorButton;
+
+
+    @FXML
+    private Button UpdateClubDirectorButton;
+
     @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
@@ -279,6 +292,34 @@ public class ClubAdvisorDashboardControlller {
         CancelEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
+
+    public void makeAllClubCreationPanesInvisible(){
+        createClubPane.setVisible(false);
+        UpdateClubDetailPane.setVisible(false);
+        CreateClubDirectorButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+                "-fx-text-fill: black;");
+        UpdateClubDirectorButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+                "-fx-text-fill: black;");
+
+    }
+
+    @FXML
+    void GoToCreateClubPane(ActionEvent event) {
+        makeAllClubCreationPanesInvisible();
+        createClubPane.setVisible(true);
+        CreateClubDirectorButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+    }
+
+    @FXML
+    void GoToUpdateClubDetailsPane(ActionEvent event) {
+        makeAllClubCreationPanesInvisible();
+        UpdateClubDetailPane.setVisible(true);
+        UpdateClubDirectorButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+    }
+
 
 
 }

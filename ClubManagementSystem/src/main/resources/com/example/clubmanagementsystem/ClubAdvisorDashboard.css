@@ -77,6 +77,11 @@
     -fx-background-radius: 5px;
 }
 
+#clubLogo1{
+    -fx-background-color: linear-gradient(grey, #a8acaf);
+    -fx-background-radius: 5px;
+}
+
 .viewPane{
     -fx-background-color: white;
     -fx-background-radius: 10px;
@@ -174,6 +179,14 @@
 }
 
 #UpdateEventButton{
+    -fx-border-width: 0 0px 0 1px;
+}
+
+#CreateClubDirectorButton{
+    -fx-border-width: 0 1px 0 0px;
+}
+
+#UpdateClubDirectorButton{
     -fx-border-width: 0 0px 0 1px;
 }
 
