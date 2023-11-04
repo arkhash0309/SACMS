@@ -439,7 +439,7 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="695.0" layoutY="88.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" styleClass="CreateClubsButtons" text="Create" textFill="WHITE">
+                                          <Button layoutX="695.0" layoutY="88.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" styleClass="CreateClubsButtons" text="Update" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
