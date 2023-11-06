@@ -7,7 +7,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.*;
+
 public class HelloApplication extends Application {
+    static Connection connection;
     @Override
     public void start(Stage stage) throws IOException {
         try{
@@ -22,8 +25,31 @@ public class HelloApplication extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Pull Request");
+    public static void main(String[] args) throws SQLException {
+        String URL = "jdbc:mysql://localhost:3306/ClubManagementSystsem";
+        String user = "root";
+        String password = "root";
+        String query = "SELECT * FROM student";
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+           connection = DriverManager.getConnection(URL, user, password);
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            String name;
+            int age;
+            while(result.next()){
+               name = result.getString(1);
+               age = result.getInt(4);
+                System.out.println(name + " " + age);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         launch();
+        connection.close();
     }
 }
