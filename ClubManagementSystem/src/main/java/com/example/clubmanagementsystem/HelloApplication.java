@@ -1,5 +1,6 @@
 package com.example.clubmanagementsystem;
 
+import com.mysql.cj.xdevapi.Result;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -51,5 +52,6 @@ public class HelloApplication extends Application {
 
         launch();
         connection.close();
+        System.out.println("Done and dusted");
     }
 }

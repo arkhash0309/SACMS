@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -67,9 +68,10 @@
                      <children>
                         <AnchorPane layoutX="-1.0" prefHeight="221.0" prefWidth="239.0">
                            <children>
-                              <ImageView fitHeight="96.0" fitWidth="93.0" layoutX="66.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                              <Circle fill="WHITE" layoutX="113.0" layoutY="61.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="72.0" fitWidth="63.0" layoutX="82.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Images/user-removebg-preview.png" />
+                                    <Image url="@../../../Images/student-removebg-preview.png" />
                                  </image>
                               </ImageView>
                               <Label layoutX="97.0" layoutY="115.0" textFill="WHITE">
@@ -88,30 +90,30 @@
                                  </font>
                               </Label>
                               <Line endX="116.85711669921875" layoutX="107.0" layoutY="159.0" startX="-92.28570556640625" stroke="WHITE" strokeLineCap="BUTT" strokeWidth="2.0" AnchorPane.leftAnchor="14.71429443359375" AnchorPane.rightAnchor="15.14288330078125" />
-                              <Button fx:id="dashboardButton" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onAction="#GoToDashBoard" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="        Dashboard" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <Button fx:id="ProfileDirectorButton" layoutX="9.0" layoutY="170.0" mnemonicParsing="false" onAction="#GoToStudentProfile" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="Profile" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="39.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="29.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Images/catalogue-removebg-preview.png" />
+                                    <Image url="@../../../Images/user-removebg-preview.png" />
                                  </image>
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <Button fx:id="ViewEventButton" layoutX="10.0" layoutY="296.0" mnemonicParsing="false" onAction="#GoToEvents" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="    Events" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button fx:id="ViewEventButton" layoutX="10.0" layoutY="341.0" mnemonicParsing="false" onAction="#GoToEvents" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="    Events" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="ManageclubButton" layoutX="10.0" layoutY="234.0" mnemonicParsing="false" onAction="#GoToJoinLeaveClub" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="            Join/ Leave Club" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <Button fx:id="ManageclubButton" layoutX="10.0" layoutY="284.0" mnemonicParsing="false" onAction="#GoToJoinLeaveClub" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="            Join/ Leave Club" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
                         <ImageView fitHeight="56.0" fitWidth="60.0" layoutX="85.0" layoutY="497.0" pickOnBounds="true" preserveRatio="true" />
-                        <AnchorPane fx:id="logoutLabel" layoutX="76.0" layoutY="491.0" onMouseClicked="#StudentLogout" prefHeight="68.0" prefWidth="77.0">
+                        <AnchorPane fx:id="logoutLabel" layoutX="77.0" layoutY="485.0" onMouseClicked="#StudentLogout" prefHeight="68.0" prefWidth="77.0">
                            <children>
                               <ImageView fitHeight="49.0" fitWidth="48.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -120,24 +122,24 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="36.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Images/club-removebg-preview.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="33.0" fitWidth="31.0" layoutX="36.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="33.0" fitWidth="31.0" layoutX="34.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Images/event-removebg-preview.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="9.0" layoutY="357.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="         Messages">
+                        <Button fx:id="dashboardButton" layoutX="12.0" layoutY="223.0" mnemonicParsing="false" onAction="#GoToDashBoard" prefHeight="36.0" prefWidth="220.0" styleClass="leftpanebuttons" text="        Dashboard" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="228.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="38.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="36.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../Images/message.png" />
+                              <Image url="@../../../Images/catalogue-removebg-preview.png" />
                            </image>
                         </ImageView>
                      </children></AnchorPane>
@@ -373,6 +375,112 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
+                        <AnchorPane fx:id="StudentProfilePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane prefHeight="526.0" prefWidth="823.0" styleClass="EventMainPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="16.0">
+                                 <children>
+                                    <AnchorPane layoutX="24.0" layoutY="82.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="29.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text=" Student Id" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <TextField editable="false" layoutX="24.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <AnchorPane layoutX="18.0" layoutY="21.0" prefHeight="36.0" prefWidth="788.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="6.0" text="View and Update Your Profile Details " textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <TextField layoutX="24.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <AnchorPane layoutX="24.0" layoutY="181.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="16.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text="  User Name" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="292.0" layoutY="82.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="20.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text="  First Name" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <TextField layoutX="292.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <AnchorPane layoutX="292.0" layoutY="181.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="37.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text="  Contact Number" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <TextField layoutX="292.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <TextField layoutX="566.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <AnchorPane layoutX="566.0" layoutY="82.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="15.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text=" Last Name" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="31.0" layoutY="376.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="50.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text=" Existing Password" textFill="#fff7f7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <TextField editable="false" layoutX="31.0" layoutY="420.0" prefHeight="30.0" prefWidth="240.0" AnchorPane.topAnchor="420.0" />
+                                    <AnchorPane layoutX="20.0" layoutY="321.0" prefHeight="35.0" prefWidth="784.0" styleClass="updateClubLabels">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="8.0" text="Change Password" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <Button layoutX="591.0" layoutY="272.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Update" />
+                                    <Label layoutX="304.0" layoutY="376.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text=" New Password" textFill="#fff7f7">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="304.0" layoutY="420.0" prefHeight="30.0" prefWidth="240.0" AnchorPane.topAnchor="420.0" />
+                                    <Label layoutX="567.0" layoutY="376.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text=" Confirm Password" textFill="#fff7f7">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="566.0" layoutY="420.0" prefHeight="30.0" prefWidth="240.0" AnchorPane.topAnchor="420.0" />
+                                    <Button layoutX="591.0" layoutY="465.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Change Password" />
+                                    <Label layoutX="566.0" layoutY="181.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text="  Student Grade" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox layoutX="567.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
 
                      </children>
                   </AnchorPane>

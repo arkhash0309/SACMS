@@ -88,6 +88,9 @@ public class ClubAdvisorDashboardControlller {
     private AnchorPane UpdateClubDetailPane;
 
     @FXML
+    private AnchorPane ProfilePane;
+
+    @FXML
     private AnchorPane createClubPane;
     @FXML
     public Button ViewEventButton;
@@ -116,6 +119,11 @@ public class ClubAdvisorDashboardControlller {
 
     @FXML
     private Button UpdateClubDirectorButton;
+
+    @FXML
+    private Button AdvisorProfileButton;
+
+
 
     @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
@@ -159,6 +167,7 @@ public class ClubAdvisorDashboardControlller {
         ScheduleEventsPane.setVisible(false);
         AttendancePane.setVisible(false);
         GenerateReportsPane.setVisible(false);
+        ProfilePane.setVisible(false);
     }
 
     public void makeAllButtonsColoured(){
@@ -167,6 +176,7 @@ public class ClubAdvisorDashboardControlller {
         ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         AttendanceButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 
     @FXML
@@ -209,6 +219,15 @@ public class ClubAdvisorDashboardControlller {
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
+    @FXML
+    void GoToClubAdvisorProfile(ActionEvent event) {
+        makeAllClubAdvisorPanesInvisible();
+        makeAllButtonsColoured();
+        ProfilePane.setVisible(true);
+        AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+
+    }
+
 
     @FXML
     void GoToEventAttendance(ActionEvent event) {
@@ -233,6 +252,7 @@ public class ClubAdvisorDashboardControlller {
         GoToClubMembershipButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
+
 
     public void makeAllPanesInvisibleGeneratingReport(){
         ClubActivitiesPane.setVisible(false);
