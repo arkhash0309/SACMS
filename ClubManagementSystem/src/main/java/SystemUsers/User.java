@@ -104,7 +104,13 @@ abstract public class User{
         String columnName = null;
 
         try {
-            String sql = "SELECT * FROM studentCredentials  WHERE studentUserName = ?";
+            String sql;
+            if(user.equals("student")){
+                sql = "SELECT * FROM studentCredentials  WHERE studentUserName = ?";
+            }else{
+                sql = "SELECT * FROM "
+            }
+
             PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
             preparedStatement.setString(1, this.getUserName());
             ResultSet results = preparedStatement.executeQuery();
