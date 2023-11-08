@@ -1,5 +1,6 @@
 package LoginManager;
 
+import SystemUsers.ClubAdvisor;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ClubAdvisorLoginController {
     @FXML
@@ -51,6 +54,14 @@ public class ClubAdvisorLoginController {
 
     @FXML
     private TextField advisorContactNumber;
+
+    @FXML
+    private Label advisorLabel;
+
+    @FXML
+    private Label advisorIdLabel;
+
+    public static boolean validStat = true;
 
     @FXML
     void DirectToStartPane(ActionEvent event) throws IOException {
@@ -107,8 +118,10 @@ public class ClubAdvisorLoginController {
         stage.show();
     }
 
+
     @FXML
     void GoToRegisterForm(ActionEvent event) throws IOException {
+        ClubAdvisor.advisorIdStatus = "";
         Parent root = FXMLLoader.load(getClass().getResource("/RegisterManager/ClubAdvisorRegistration.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -118,6 +131,10 @@ public class ClubAdvisorLoginController {
 
     @FXML
     void DirectToLoginPane(MouseEvent event) throws IOException {
+        this.goToLoginPage(event);
+    }
+
+    public void goToLoginPage(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/ClubAdvisorLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -126,8 +143,110 @@ public class ClubAdvisorLoginController {
     }
 
     @FXML
-    public void AdvisorRegistrationChecker(ActionEvent event) {
+    public void AdvisorRegistrationChecker(MouseEvent event) throws SQLException, IOException {
+        String firstName = this.advisorFirstName.getText();
+        String lastName = this.advisorLastName.getText();
+        String advisorId = this.advisorId.getText();
+        String contactNum = this.advisorContactNumber.getText();
+        String userName = this.advisorUserName.getText();
+        String password = this.advisorPassword.getText();
+        String confirmPassword = this.advisorConfirmPassword.getText();
 
+        System.out.println(advisorId);
+
+        ClubAdvisor clubAdvisor = new ClubAdvisor(userName, password, firstName, lastName);
+
+        if(!clubAdvisor.validateFirstName()){
+            System.out.println("Wrong First Name");
+            validStat = false;
+        }
+
+        if(!clubAdvisor.validateLastName()){
+            System.out.println("Wrong Last Name");
+            validStat = false;
+        }
+
+        if(!clubAdvisor.validateUserName("registration", "student")){
+            System.out.println("Wrong User Name");
+            validStat = false;
+        }
+
+        try {
+            String tempContactVal = contactNum;
+            Integer.parseInt(contactNum.trim());
+            ClubAdvisor cb = new ClubAdvisor(tempContactVal);
+
+            if (!cb.validateContactNumber()) {
+                validStat = false;
+                System.out.println("Invalid Contact Number 1");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid Contact Number 2");
+            ClubAdvisor.advisorIdStatus = "format";
+            validStat = false;
+        }
+
+
+        try {
+            if(advisorId.isEmpty()){
+                validStat = false;
+                ClubAdvisor.advisorIdStatus ="empty";
+            }
+            int advisorIdValue = Integer.parseInt(advisorId);
+            ClubAdvisor cb2 = new ClubAdvisor(advisorIdValue);
+
+            if (!cb2.validateClubAdvisorId()) {
+                System.out.println("Invalid Advisor Id");
+                validStat = false;
+            }else{
+                ClubAdvisor.advisorIdStatus = "";
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid Advisor Id");
+            validStat = false;
+        }
+
+        displayIdError();
+
+
+        if(!clubAdvisor.validatePassword("registration")){
+            System.out.println("Wrong Password Name");
+            validStat = false;
+        }
+
+        if(!confirmPassword.equals(password)){
+            System.out.println("Wrong Confirm password");
+            validStat = false;
+        }
+
+        if(validStat){
+            ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName,
+                    contactNum, Integer.parseInt(advisorId));
+            this.goToLoginPage(event);
+        }
+        System.out.println("\n\n\n");
+
+    }
+
+    public void displayIdError(){
+        if(ClubAdvisor.advisorIdStatus.equals("empty")){
+            advisorIdLabel.setText("Advisor Id cannot be empty");
+        }else if(ClubAdvisor.advisorIdStatus.equals("length")){
+            advisorIdLabel.setText("Advisor Id should have 6 digits");
+        }else if(ClubAdvisor.advisorIdStatus.equals("exist")){
+            advisorIdLabel.setText("Advisor Id already exists");
+        }else if(ClubAdvisor.advisorIdStatus.equals("format")){
+            advisorIdLabel.setText("Advisor Id should be in numbered format");
+        }else{
+            advisorIdLabel.setText("");
+        }
+    }
+
+    public void clearAllValidateLabels(){
+
+    }
+
+    public void work(){
 
     }
 

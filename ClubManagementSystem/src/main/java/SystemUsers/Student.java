@@ -11,13 +11,13 @@ public class Student extends User{
     private int studentGrade;
     private char Gender;
     public static boolean studentUserNameStat;
-    public static boolean studentFirstName;
-    public static boolean studentLastName;
+    public static boolean studentFirstNameStat;
+    public static boolean studentLastNameStat;
 
 
     public Student(String userName,String password,
                    String firstName, String lastName,
-                   int contactNumber, int studentAdmissionNum,
+                   String contactNumber, int studentAdmissionNum,
                    int studentGrade, char Gender){
         super(userName, password, firstName, lastName, contactNumber);
     }
@@ -48,6 +48,33 @@ public class Student extends User{
 
     public void setGender(char gender) {
         Gender = gender;
+    }
+
+    public boolean validateStudentAdmissionNumber() throws SQLException {
+        if(String.valueOf(this.getStudentAdmissionNum()).isEmpty()){
+            return false;
+        }
+
+        if(String.valueOf(this.getStudentAdmissionNum()).length() > 4){
+            return false;
+        }
+        String dbClubAdvisorId = null;
+        String sql = "SELECT * FROM TeacherInCharge  WHERE teacherInChargeId = ?";
+        PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
+        preparedStatement.setString(1, String.valueOf(this.getStudentAdmissionNum()));
+        ResultSet results = preparedStatement.executeQuery();
+
+        while(results.next()){
+            dbClubAdvisorId = results.getString(1);
+            System.out.println(dbClubAdvisorId);
+        }
+
+        assert dbClubAdvisorId != null;
+        if(this.getStudentAdmissionNum() == Integer.parseInt(dbClubAdvisorId)){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override

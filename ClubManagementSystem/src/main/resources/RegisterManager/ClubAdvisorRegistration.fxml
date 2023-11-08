@@ -88,7 +88,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="311.0" layoutY="362.0" mnemonicParsing="false" onAction="#AdvisorRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
+                              <Button layoutX="311.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#AdvisorRegistrationChecker" onMousePressed="#AdvisorRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -103,7 +103,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <TextField fx:id="advisorLastName" layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor Last Name" AnchorPane.topAnchor="111.0">
+                              <TextField fx:id="advisorLastName" layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor Last Name" AnchorPane.topAnchor="101.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -113,7 +113,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="advisorFirstName" layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="111.0">
+                              <TextField fx:id="advisorFirstName" layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="101.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -123,7 +123,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <Separator layoutX="40.0" layoutY="221.0" prefHeight="38.0" prefWidth="519.0" />
+                              <Separator layoutX="33.0" layoutY="231.0" prefHeight="38.0" prefWidth="519.0" />
                               <AnchorPane layoutX="19.0" layoutY="14.0" prefHeight="39.0" prefWidth="560.0">
                                  <children>
                                     <Label layoutX="60.0" layoutY="6.0" prefHeight="39.0" prefWidth="545.0" styleClass="updateClubLabels" text="  Account Registration" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
@@ -142,7 +142,7 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <Label layoutX="311.0" layoutY="65.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Last Name" textFill="WHITE" AnchorPane.topAnchor="72.0">
+                              <Label layoutX="311.0" layoutY="65.0" prefHeight="25.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Last Name" textFill="WHITE" AnchorPane.topAnchor="72.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -177,6 +177,10 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
+                              <Label fx:id="advisorFirstNameLabel" layoutX="19.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" />
+                              <Label fx:id="advisorFirstNameLabel1" layoutX="311.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" />
+                              <Label fx:id="advisorIdLabel" layoutX="27.0" layoutY="231.0" prefHeight="17.0" prefWidth="242.0" AnchorPane.topAnchor="225.0" />
+                              <Label fx:id="advisorFirstNameLabel111" layoutX="307.0" layoutY="225.0" prefHeight="17.0" prefWidth="242.0" AnchorPane.topAnchor="225.0" />
                            </children>
                         </AnchorPane>
                      </children>
