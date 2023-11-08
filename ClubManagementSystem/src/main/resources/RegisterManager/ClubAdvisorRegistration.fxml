@@ -83,42 +83,42 @@
                      <children>
                         <AnchorPane layoutX="15.0" layoutY="17.0" prefHeight="500.0" prefWidth="585.0" styleClass="EventMainPane">
                            <children>
-                              <TextField layoutX="26.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Username">
+                              <TextField fx:id="advisorUserName" layoutX="26.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Username">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="311.0" layoutY="362.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
+                              <Button layoutX="311.0" layoutY="362.0" mnemonicParsing="false" onAction="#AdvisorRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <PasswordField layoutX="311.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Password">
+                              <PasswordField fx:id="advisorPassword" layoutX="311.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Password">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <PasswordField layoutX="27.0" layoutY="388.0" prefHeight="29.0" prefWidth="242.0" promptText="Confirm Password">
+                              <PasswordField fx:id="advisorConfirmPassword" layoutX="27.0" layoutY="388.0" prefHeight="29.0" prefWidth="242.0" promptText="Confirm Password">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <TextField layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor Last Name" AnchorPane.topAnchor="111.0">
+                              <TextField fx:id="advisorLastName" layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor Last Name" AnchorPane.topAnchor="111.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField layoutX="23.0" layoutY="196.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor  ID" AnchorPane.topAnchor="191.0">
+                              <TextField fx:id="advisorId" layoutX="23.0" layoutY="196.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor  ID" AnchorPane.topAnchor="191.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="111.0">
+                              <TextField fx:id="advisorFirstName" layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="111.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField layoutX="311.0" layoutY="191.0" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" AnchorPane.topAnchor="191.0">
+                              <TextField fx:id="advisorContactNumber" layoutX="311.0" layoutY="191.0" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" AnchorPane.topAnchor="191.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>

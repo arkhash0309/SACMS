@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -29,6 +31,27 @@ public class ClubAdvisorLoginController {
 
     @FXML
     private Button ClubAdvisorLoginMinimizer;
+
+    @FXML
+    private TextField advisorUserName;
+
+    @FXML
+    private PasswordField advisorPassword;
+
+    @FXML
+    private PasswordField advisorConfirmPassword;
+
+    @FXML
+    private TextField advisorLastName;
+
+    @FXML
+    private TextField advisorId;
+
+    @FXML
+    private TextField advisorFirstName;
+
+    @FXML
+    private TextField advisorContactNumber;
 
     @FXML
     void DirectToStartPane(ActionEvent event) throws IOException {
@@ -102,6 +125,13 @@ public class ClubAdvisorLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    void AdvisorRegistrationChecker(ActionEvent event) {
+
+    }
+
+
 
 
 
