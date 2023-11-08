@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -127,9 +126,12 @@ public class ClubAdvisorLoginController {
     }
 
     @FXML
-    void AdvisorRegistrationChecker(ActionEvent event) {
+    public void AdvisorRegistrationChecker(ActionEvent event) {
+
 
     }
+
+
 
 
 

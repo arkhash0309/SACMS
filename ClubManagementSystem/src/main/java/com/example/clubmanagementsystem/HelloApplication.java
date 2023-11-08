@@ -1,5 +1,6 @@
 package com.example.clubmanagementsystem;
 
+import SystemUsers.Student;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,7 +11,9 @@ import java.io.IOException;
 import java.sql.*;
 
 public class HelloApplication extends Application {
-    static Connection connection;
+    public static Connection connection;
+
+    public static Statement statement;
     @Override
     public void start(Stage stage) throws IOException {
         try{
@@ -32,8 +35,8 @@ public class HelloApplication extends Application {
         String query = "SELECT * FROM student";
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-           connection = DriverManager.getConnection(URL, user, password);
-            Statement statement = connection.createStatement();
+            connection = DriverManager.getConnection(URL, user, password);
+            statement = connection.createStatement();
             ResultSet result = statement.executeQuery(query);
 
             String name;
@@ -43,6 +46,10 @@ public class HelloApplication extends Application {
                age = result.getInt(4);
                 System.out.println(name + " " + age);
             }
+
+            Student student = new Student();
+            student.validateUserName("registration", "Student");
+            student.validatePassword("registration");
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);

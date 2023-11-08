@@ -18,4 +18,14 @@ public class ClubAdvisor extends User{
     public void setClubAdvisorId(int clubAdvisorId) {
         this.clubAdvisorId = clubAdvisorId;
     }
+
+    @Override
+    public boolean validateUserName(String requiredWork, String user) {
+        return super.validateUserName(requiredWork, user);
+    }
+
+    @Override
+    public boolean validatePassword(String requiredWork) {
+        return false;
+    }
 }

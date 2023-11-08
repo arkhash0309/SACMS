@@ -55,6 +55,9 @@ public class StudentLoginController {
     private ComboBox<?> studentGender;
 
     @FXML
+    public Label usernameLabel;
+
+    @FXML
     void DirectToStartPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -124,7 +127,6 @@ public class StudentLoginController {
     void StudentRegistrationChecker(ActionEvent event) {
 
     }
-
 
 
 }
