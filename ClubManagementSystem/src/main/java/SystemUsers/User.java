@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-abstract public class User{
+public class User{
     private String userName;
     private String password;
     private String firstName;
@@ -86,10 +86,11 @@ abstract public class User{
 
     public boolean validateFirstName(){
         if(this.firstName.isEmpty()){
-            fNameValidateStatus = "Empty";
+            fNameValidateStatus = "empty";
             return false;
         }else{
             if(containsSpecialCharactersAndDigits(this.firstName)){
+                fNameValidateStatus = "format";
                 return false;
             }else{
                 return true;
@@ -99,9 +100,11 @@ abstract public class User{
 
     public  boolean validateLastName(){
         if(this.lastName.isEmpty()){
+            lNameValidateStatus = "empty";
             return false;
         }else{
             if(containsSpecialCharactersAndDigits(this.lastName)){
+                lNameValidateStatus = "format";
                 return false;
             }else{
                 return true;
@@ -114,6 +117,7 @@ abstract public class User{
         int contactLength = String.valueOf(this.contactNumber).length();
         System.out.println(contactLength);
         if(contactLength != 10){
+            contactNumberValidateStatus = "length";
             System.out.println("Not up to the length !!!");
             return false;
         }else{
@@ -159,20 +163,21 @@ abstract public class User{
 
             if (requiredWork.equals("registration")) {
                 if (columnName != null && columnName.equals(this.getUserName())) {
+                    userNameValidateStatus = "exist";
                     System.out.println("That user name already exists !!!");
-                    if(user.equals("student")){
-                        Student.studentUserNameStat = true;
-                    }
                     return false;
-                } else if (this.getUserName().isEmpty() || this.getUserName().contains(" ")) {
-                    if(user.equals("student")){
-                        Student.studentUserNameStat = true;
-                    }
+                } else if (this.getUserName().isEmpty()) {
+                    userNameValidateStatus = "empty";
+                    System.out.println("Empty !!!");
                     return false;
-                } else if (this.getUserName().length() > 10) {
-                    if(user.equals("student")){
-                        Student.studentUserNameStat = true;
-                    }
+                } else if ( this.getUserName().contains(" ")) {
+                    userNameValidateStatus = "blank";
+                    System.out.println("Blank !!!!");
+                    return false;
+                } else if (this.getUserName().length() > 10 || this.getUserName().length() < 5) {
+                    System.out.println(this.getUserName().length());
+                    userNameValidateStatus = "length";
+                    System.out.println("Lenght !!");
                     return false;
                 } else {
                     return true;
@@ -180,17 +185,12 @@ abstract public class User{
             } else if (requiredWork.equals("login")) {
                 if (columnName != null && columnName.equals(this.getUserName())) {
                     System.out.println("That user name already exists !!!");
-                    if(user.equals("student")){
-                        Student.studentUserNameStat = true;
-                    }
-                    return false;
-                } else {
                     return true;
+                } else {
+                    userNameValidateStatus = "exist";
+                    return false;
                 }
             } else {
-                if(user.equals("student")){
-                    Student.studentUserNameStat = true;
-                }
                 return false;
             }
         } catch (SQLException e) {
@@ -199,10 +199,44 @@ abstract public class User{
         }
     }
 
-    abstract public boolean validatePassword(String requiredWork) throws SQLException;
+    public boolean validatePassword(String requiredWork) throws SQLException{
+        System.out.println("Gyma Gyma");
+        if(requiredWork.equals("registration")){
+            if(this.getPassword().isEmpty()){
+                System.out.println("Empty empty !!!!!!!");
+                passwordValidateStatus = "empty";
+                return false;
+            }
+            if(checkPasswordIsValid(this.getPassword())){
+                return true;
+            }else{
+                passwordValidateStatus = "format";
+                return false;
+            }
+        }else{
+            // login and edit password
+            return false;
+        }
+    }
+
+    protected static boolean checkPasswordIsValid(String password) {
+        // at least 8 digits, can add chars, numbers
+        String pattern = "^(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
+
+        // compile the given pattern by ignoring the case
+        Pattern compilePattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+
+        // Check password checks the given regex pattern
+        Matcher matcher = compilePattern.matcher(password);
+
+        // return result
+        return matcher.matches();
+    }
 
     {
-        userName = "Lakshan23";
-        password = "Thanuja1234";
+       fNameValidateStatus = "";
+       lNameValidateStatus = "";
+       contactNumberValidateStatus = "";
+        userNameValidateStatus = "";
     }
 }

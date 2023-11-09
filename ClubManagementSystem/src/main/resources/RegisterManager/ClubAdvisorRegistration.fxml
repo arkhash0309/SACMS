@@ -88,7 +88,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="311.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#AdvisorRegistrationChecker" onMousePressed="#AdvisorRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
+                              <Button layoutX="311.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#AdvisorRegistrationChecker" onMousePressed="#AdvisorRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -172,15 +172,42 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="backtoLoginAdvisor" layoutX="171.0" layoutY="439.0" onMouseClicked="#DirectToLoginPane" onMousePressed="#DirectToLoginPane" prefHeight="21.0" prefWidth="257.0" text="Have an Account ? Click me to login">
+                              <Label fx:id="backtoLoginAdvisor" layoutX="171.0" layoutY="451.0" onMouseClicked="#DirectToLoginPane" onMousePressed="#DirectToLoginPane" prefHeight="21.0" prefWidth="257.0" text="Have an Account ? Click me to login">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="advisorFirstNameLabel" layoutX="19.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" />
-                              <Label fx:id="advisorFirstNameLabel1" layoutX="311.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" />
-                              <Label fx:id="advisorIdLabel" layoutX="27.0" layoutY="231.0" prefHeight="17.0" prefWidth="242.0" AnchorPane.topAnchor="225.0" />
-                              <Label fx:id="advisorFirstNameLabel111" layoutX="307.0" layoutY="225.0" prefHeight="17.0" prefWidth="242.0" AnchorPane.topAnchor="225.0" />
+                              <Label fx:id="advisorFirstNameLabel" layoutX="19.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="advisorLastNameLabel" layoutX="311.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="advisorIdLabel" layoutX="27.0" layoutY="231.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="225.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="contactNumberLabel" layoutX="307.0" layoutY="225.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="225.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="userNameLabel" layoutX="27.0" layoutY="328.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="330.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="passwordLabel" layoutX="305.0" layoutY="330.0" prefHeight="52.0" prefWidth="264.0" textAlignment="JUSTIFY" textFill="#781616">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="confirmPasswordLabel" layoutX="27.0" layoutY="418.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="422.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children>

@@ -1,6 +1,5 @@
 package com.example.clubmanagementsystem;
 
-import SystemUsers.Student;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,32 +31,17 @@ public class HelloApplication extends Application {
         String URL = "jdbc:mysql://localhost:3306/ClubManagementSystsem";
         String user = "root";
         String password = "root";
-        String query = "SELECT * FROM student";
+
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL, user, password);
             statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(query);
-
-            String name;
-            int age;
-            while(result.next()){
-               name = result.getString(1);
-               age = result.getInt(4);
-                System.out.println(name + " " + age);
-            }
-
-            Student student = new Student();
-            student.validateUserName("registration", "Student");
-            student.validatePassword("registration");
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-
-
         launch();
         connection.close();
-        System.out.println("Done and dusted");
+
     }
 }

@@ -1,6 +1,7 @@
 package LoginManager;
 
 import SystemUsers.ClubAdvisor;
+import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -56,10 +54,38 @@ public class ClubAdvisorLoginController {
     private TextField advisorContactNumber;
 
     @FXML
-    private Label advisorLabel;
+    private Label advisorIdLabel;
 
     @FXML
-    private Label advisorIdLabel;
+    private Label advisorFirstNameLabel;
+
+    @FXML
+    private Label advisorLastNameLabel;
+
+    @FXML
+    private Label contactNumberLabel;
+
+    @FXML
+    private Label userNameLabel;
+
+    @FXML
+    private Label passwordLabel;
+
+    @FXML
+    private Label confirmPasswordLabel;
+
+    @FXML
+    private CheckBox showPassword;
+
+    @FXML
+    private PasswordField PasswordFieldLogin;
+
+    @FXML
+    private TextField PasswordTextField;
+
+    @FXML
+    private Label passwordCommentLogin;
+
 
     public static boolean validStat = true;
 
@@ -144,6 +170,7 @@ public class ClubAdvisorLoginController {
 
     @FXML
     public void AdvisorRegistrationChecker(MouseEvent event) throws SQLException, IOException {
+        validStat = true;
         String firstName = this.advisorFirstName.getText();
         String lastName = this.advisorLastName.getText();
         String advisorId = this.advisorId.getText();
@@ -161,67 +188,102 @@ public class ClubAdvisorLoginController {
             validStat = false;
         }
 
+        displayNameError("Fname");
+
         if(!clubAdvisor.validateLastName()){
             System.out.println("Wrong Last Name");
             validStat = false;
         }
+        displayNameError("Lname");
 
-        if(!clubAdvisor.validateUserName("registration", "student")){
-            System.out.println("Wrong User Name");
-            validStat = false;
-        }
 
         try {
             String tempContactVal = contactNum;
-            Integer.parseInt(contactNum.trim());
+            if(tempContactVal.isEmpty()){
+                User.contactNumberValidateStatus = "empty";
+                throw new Exception();
+            }
+
+            Double.parseDouble(contactNum.trim());
             ClubAdvisor cb = new ClubAdvisor(tempContactVal);
 
             if (!cb.validateContactNumber()) {
                 validStat = false;
                 System.out.println("Invalid Contact Number 1");
+            }else{
+                User.contactNumberValidateStatus ="";
             }
-        } catch (Exception e) {
+        }catch(NumberFormatException e){
             System.out.println("Invalid Contact Number 2");
-            ClubAdvisor.advisorIdStatus = "format";
+            User.contactNumberValidateStatus = "format";
             validStat = false;
         }
+        catch (Exception e) {
+            validStat = false;
+        }
+        displayContactValError();
 
 
         try {
             if(advisorId.isEmpty()){
                 validStat = false;
                 ClubAdvisor.advisorIdStatus ="empty";
+                throw new Exception();
             }
             int advisorIdValue = Integer.parseInt(advisorId);
             ClubAdvisor cb2 = new ClubAdvisor(advisorIdValue);
 
             if (!cb2.validateClubAdvisorId()) {
-                System.out.println("Invalid Advisor Id");
+                System.out.println("Invalid Advisor Id 111");
                 validStat = false;
             }else{
                 ClubAdvisor.advisorIdStatus = "";
             }
-        } catch (Exception e) {
+        }catch(NumberFormatException e){
+            ClubAdvisor.advisorIdStatus ="format";
             System.out.println("Invalid Advisor Id");
+            validStat = false;
+        }
+        catch (Exception e) {
             validStat = false;
         }
 
         displayIdError();
 
+        if(!clubAdvisor.validateUserName("registration", "student")){
+            System.out.println("Wrong User Name");
+            validStat = false;
+        }else{
+            User.userNameValidateStatus = "";
+        }
+
+        displayUserNameError();
+
 
         if(!clubAdvisor.validatePassword("registration")){
             System.out.println("Wrong Password Name");
             validStat = false;
+        }else{
+            User.passwordValidateStatus = "";
         }
+        displayPasswordError();
 
-        if(!confirmPassword.equals(password)){
-            System.out.println("Wrong Confirm password");
+        if(confirmPassword.isEmpty()){
             validStat = false;
+            confirmPasswordLabel.setText("Confirm password cannot be empty");
+        } else if (!confirmPassword.equals(password)){
+            confirmPasswordLabel.setText("Wrong confirm password ");
+            validStat = false;
+        }else{
+            confirmPasswordLabel.setText(" ");
         }
 
+        System.out.println(validStat + " : Valid Stat");
         if(validStat){
             ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName,
                     contactNum, Integer.parseInt(advisorId));
+            ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisorData);
+
             this.goToLoginPage(event);
         }
         System.out.println("\n\n\n");
@@ -241,6 +303,83 @@ public class ClubAdvisorLoginController {
             advisorIdLabel.setText("");
         }
     }
+
+    public void displayNameError(String nameType){
+        if(nameType.equals("Fname")){
+            if(ClubAdvisor.fNameValidateStatus.equals("empty")){
+                advisorFirstNameLabel.setText("First name cannot be empty");
+            }else if(ClubAdvisor.fNameValidateStatus.equals("format")){
+                advisorFirstNameLabel.setText("First name can contain only letters");
+            }else{
+                advisorFirstNameLabel.setText("");
+            }
+        }else if (nameType.equals("Lname")){
+            if(ClubAdvisor.lNameValidateStatus.equals("empty")){
+                advisorLastNameLabel.setText("Last name cannot be empty");
+            }else if(ClubAdvisor.lNameValidateStatus.equals("format")){
+                advisorLastNameLabel.setText("Last name contain only letters");
+            }else{
+                advisorLastNameLabel.setText("");
+            }
+        }
+    }
+
+    public void displayContactValError(){
+        if(User.contactNumberValidateStatus.equals("empty")){
+            contactNumberLabel.setText("Contact Number cannot be empty");
+        } else if (User.contactNumberValidateStatus.equals("length")) {
+            contactNumberLabel.setText("Contact Number should have 10 numbers.");
+        }else if(User.contactNumberValidateStatus.equals("format")){
+            contactNumberLabel.setText("it should consist with only numbers");
+        }else{
+            contactNumberLabel.setText("");
+        }
+    }
+
+    public void displayUserNameError(){
+        if(User.userNameValidateStatus.equals("empty")){
+           userNameLabel.setText("User name cannot be empty");
+        }else if(User.userNameValidateStatus.equals("exist")){
+            userNameLabel.setText("User name already exists");
+        }else if(User.userNameValidateStatus.equals("blank")){
+            userNameLabel.setText("User name cannot contain spaces");
+        } else if (User.userNameValidateStatus.equals("length")) {
+            userNameLabel.setText("length should be 5 to 10 digits");
+        }else{
+            userNameLabel.setText("");
+        }
+    }
+
+    public void displayPasswordError(){
+        if(User.passwordValidateStatus.equals("empty")){
+            passwordLabel.setText("Password cannot be empty");
+        }else if(User.passwordValidateStatus.equals("format"))
+        {
+            passwordLabel.setText("""
+                    Password should consist with at least 8
+                    characters including numbers and special
+                    characters""");
+            passwordLabel.setStyle("-fx-text-alignment: justify;");
+        }else{
+            passwordLabel.setText("");
+        }
+    }
+
+    @FXML
+    void showTypedPassword(ActionEvent event) {
+        if(showPassword.isSelected()){
+            PasswordFieldLogin.setVisible(false);
+            PasswordTextField.setVisible(true);
+            PasswordTextField.setText(PasswordFieldLogin.getText());
+        }else{
+            PasswordTextField.setVisible(false);
+            PasswordFieldLogin.setVisible(true);
+            PasswordFieldLogin.setText(PasswordTextField.getText());
+        }
+
+    }
+
+
 
     public void clearAllValidateLabels(){
 

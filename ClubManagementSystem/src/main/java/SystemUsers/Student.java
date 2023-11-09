@@ -5,21 +5,22 @@ import com.example.clubmanagementsystem.HelloApplication;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Student extends User{
     private int studentAdmissionNum;
     private int studentGrade;
     private char Gender;
-    public static boolean studentUserNameStat;
-    public static boolean studentFirstNameStat;
-    public static boolean studentLastNameStat;
-
+    public static ArrayList<Student> studentDetailArray = new ArrayList<>();
 
     public Student(String userName,String password,
                    String firstName, String lastName,
                    String contactNumber, int studentAdmissionNum,
                    int studentGrade, char Gender){
         super(userName, password, firstName, lastName, contactNumber);
+        this.studentAdmissionNum = studentAdmissionNum;
+        this.studentGrade = studentGrade;
+        this.Gender = Gender;
     }
 
     public Student(){
@@ -77,28 +78,9 @@ public class Student extends User{
         }
     }
 
-    @Override
-    public boolean validateUserName(String requiredWork, String user) {
-        return super.validateUserName(requiredWork, user);
-    }
 
-    @Override
-    public boolean validatePassword(String requiredWork) throws SQLException {
-        if(requiredWork.equals("Login")){
-            String dbPasswordName = null;
-            String sql = "SELECT * FROM studentCredentials  WHERE studentUserName = ?";
-            PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
-            preparedStatement.setString(1, this.getUserName());
-            ResultSet results = preparedStatement.executeQuery();
-            while(results.next()){
-                dbPasswordName = results.getString(2);
-                System.out.println(dbPasswordName);
-            }
-            return false;
-        }else{
-            return false;
-        }
-    }
+
+    
 
 
 }
