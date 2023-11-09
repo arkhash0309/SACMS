@@ -73,5 +73,41 @@ public class Student extends User{
         }
     }
 
+    // fName, lName, ContactNum, UserName, Password, admissionNum, Gender - done already with validation
+    // Grade- to be validated
+    public boolean validateGrade(int studentGrade) {
+        String studentGradeInString = String.valueOf(this.studentGrade);
+        if (!studentGradeInString.matches("\\d+")) {
+            System.out.println("Please enter only numbers.");
+            return false;
+        } else {
+            System.out.println("Valid input!");
+            return true;
+        }
+
+    }
+
+    public boolean validateAdmissionNumber(int studentAdmissionNum) {
+        int admissionNumLength = String.valueOf(this.studentAdmissionNum).length();
+        if (admissionNumLength != 4) {
+            System.out.println("Please enter four digits.");
+            return false;
+        } else if (!String.valueOf(this.studentAdmissionNum).matches("\\d+")) {
+            System.out.println("Please enter only numeric values");
+            return false;
+        } else {
+            System.out.println("Entered correctly.");
+            return true;
+        }
+    }
+
+    public boolean validateGender(char gender) {
+        String genderInput = Character.toString(gender);
+        if ((!genderInput.equals("M")) && !genderInput.equals("F")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }

@@ -68,7 +68,9 @@ abstract public class User{
     public boolean validateFirstName(){
         if(this.firstName.isEmpty()){
             return false;
-        }else{
+        }else if (!firstName.matches("[a-zA-Z ]+")){
+            return false;
+        } else {
             return true;
         }
     }
@@ -76,7 +78,9 @@ abstract public class User{
     public  boolean validateLastName(){
         if(this.lastName.isEmpty()){
             return false;
-        }else{
+        }else if (!lastName.matches("[a-zA-Z ]+")){
+            return false;
+        }else {
             return true;
         }
     }
@@ -85,7 +89,9 @@ abstract public class User{
         int contactLength = String.valueOf(this.contactNumber).length();
         if(contactLength != 10){
             return false;
-        }else{
+        }else if (!String.valueOf(this.contactNumber).matches("\\d+")){
+            return false;
+        } else{
             return true;
         }
     }
