@@ -1,5 +1,6 @@
 package SystemUsers;
 
+import SystemUserValidator.StudentValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
 import java.sql.PreparedStatement;
@@ -7,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Student extends User{
+public class Student extends User implements StudentValidator {
     private int studentAdmissionNum;
     private int studentGrade;
     private char Gender;
@@ -51,6 +52,7 @@ public class Student extends User{
         Gender = gender;
     }
 
+    @Override
     public boolean validateStudentAdmissionNumber() throws SQLException {
         if(String.valueOf(this.getStudentAdmissionNum()).isEmpty()){
             return false;
@@ -80,7 +82,7 @@ public class Student extends User{
 
 
 
-    
+
 
 
 }

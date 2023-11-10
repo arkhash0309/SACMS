@@ -1,5 +1,6 @@
 package SystemUsers;
 
+import SystemUserValidator.UserValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
 import java.sql.PreparedStatement;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class User{
+public class User implements UserValidator {
     private String userName;
     private String password;
     private String firstName;
@@ -84,6 +85,7 @@ public class User{
         this.contactNumber = contactNumber;
     }
 
+    @Override
     public boolean validateFirstName(){
         if(this.firstName.isEmpty()){
             fNameValidateStatus = "empty";
@@ -98,6 +100,7 @@ public class User{
         }
     }
 
+    @Override
     public  boolean validateLastName(){
         if(this.lastName.isEmpty()){
             lNameValidateStatus = "empty";
@@ -112,6 +115,7 @@ public class User{
         }
     }
 
+    @Override
     public boolean validateContactNumber(){
         System.out.println(this.contactNumber);
         int contactLength = String.valueOf(this.contactNumber).length();
@@ -141,6 +145,7 @@ public class User{
 
     }
 
+    @Override
     public boolean validateUserName(String requiredWork, String user){
 
         String columnName = null;
@@ -198,9 +203,8 @@ public class User{
             return false;
         }
     }
-
+    @Override
     public boolean validatePassword(String requiredWork) throws SQLException{
-        System.out.println("Gyma Gyma");
         if(requiredWork.equals("registration")){
             if(this.getPassword().isEmpty()){
                 System.out.println("Empty empty !!!!!!!");

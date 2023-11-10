@@ -1,5 +1,6 @@
 package SystemUsers;
 
+import SystemUserValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
 import java.sql.PreparedStatement;
@@ -7,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ClubAdvisor extends User{
+public class ClubAdvisor extends User implements ClubAdvisorValidator {
     private int clubAdvisorId;
     public static ArrayList<ClubAdvisor> clubAdvisorDetailsList = new ArrayList<>();
     public static String advisorIdStatus = "";
@@ -46,6 +47,7 @@ public class ClubAdvisor extends User{
 
     }
 
+    @Override
     public boolean validateClubAdvisorId() throws SQLException {
         if(String.valueOf(this.getClubAdvisorId()).isEmpty()){
             advisorIdStatus = "empty";
@@ -58,7 +60,6 @@ public class ClubAdvisor extends User{
             System.out.println("more than 6");
             return false;
         }
-
 
         String sql = "SELECT * FROM TeacherInCharge  WHERE teacherInChargeId = ?";
         PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
