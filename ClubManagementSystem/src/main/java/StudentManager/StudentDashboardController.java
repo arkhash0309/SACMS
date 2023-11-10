@@ -8,6 +8,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -49,6 +52,19 @@ public class StudentDashboardController {
 
     @FXML
     private Button ProfileDirectorButton;
+
+    @FXML
+    private TextField studentUpdateID, studentUpdateFName, studentUpdateLName,
+            studentUpdateUserName, studentUpdateContactNum, studentUpdateExistingPassword,
+            studentUpdateNewPassword, studentUpdateNewPasswordConfirm,
+            studentJoinClubID, studentJoinClubName, studentJoinAdvisorName, studentLeaveClubSearch,
+            studentEventSearch;
+
+    @FXML
+    private Label studentEnrolledClubsCount, studentUpcomingEventsCountLabel, studentNextEventDateLabel;
+
+    @FXML
+    private TableView studentEventsTable;
 
     @FXML
     void StudentLogout(MouseEvent event) throws IOException {

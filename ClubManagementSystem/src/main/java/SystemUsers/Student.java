@@ -1,6 +1,10 @@
 package SystemUsers;
 
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,6 +77,11 @@ public class Student extends User{
         }
     }
 
+    private TextField studentFName, studentLName, studentAdmissionNumber, studentContactNumber,
+    studentUserName, studentPassword, studentConfirmPassword;
+
+
+
     // fName, lName, ContactNum, UserName, Password, admissionNum, Gender - done already with validation
     // Grade- to be validated
     public boolean validateGrade(int studentGrade) {
@@ -84,7 +93,6 @@ public class Student extends User{
             System.out.println("Valid input!");
             return true;
         }
-
     }
 
     public boolean validateAdmissionNumber(int studentAdmissionNum) {
