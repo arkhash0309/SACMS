@@ -1,4 +1,4 @@
-package SystemUserValidator;
+package SystemDataValidator;
 
 import java.sql.SQLException;
 
