@@ -25,6 +25,11 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         super(contactNumber);
     }
 
+    @Override
+    public void registerToSystem() {
+
+    }
+
     public ClubAdvisor(String userName,String password,
                        String firstName, String lastName){
         super(userName, password, firstName, lastName);
