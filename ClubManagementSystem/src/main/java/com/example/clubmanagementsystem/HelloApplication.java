@@ -40,6 +40,7 @@ public class HelloApplication extends Application {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+
         launch();
         connection.close();
 

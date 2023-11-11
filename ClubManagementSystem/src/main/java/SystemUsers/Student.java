@@ -1,6 +1,6 @@
 package SystemUsers;
 
-import SystemUserValidator.StudentValidator;
+import SystemDataValidator.StudentValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
 import java.sql.PreparedStatement;
@@ -11,20 +11,25 @@ import java.util.ArrayList;
 public class Student extends User implements StudentValidator {
     private int studentAdmissionNum;
     private int studentGrade;
-    private char Gender;
+    private char studentGender;
     public static ArrayList<Student> studentDetailArray = new ArrayList<>();
 
     public Student(String userName,String password,
                    String firstName, String lastName,
                    String contactNumber, int studentAdmissionNum,
-                   int studentGrade, char Gender){
+                   int studentGrade, char studentGender){
         super(userName, password, firstName, lastName, contactNumber);
         this.studentAdmissionNum = studentAdmissionNum;
         this.studentGrade = studentGrade;
-        this.Gender = Gender;
+        this.studentGender = studentGender;
     }
 
     public Student(){
+
+    }
+
+    @Override
+    public void registerToSystem() {
 
     }
 
@@ -45,11 +50,11 @@ public class Student extends User implements StudentValidator {
     }
 
     public char getGender() {
-        return Gender;
+        return studentGender;
     }
 
-    public void setGender(char gender) {
-        Gender = gender;
+    public void setGender(char studentGender) {
+        this.studentGender = studentGender;
     }
 
     @Override

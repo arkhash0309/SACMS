@@ -1,6 +1,6 @@
 package SystemUsers;
 
-import SystemUserValidator.ClubAdvisorValidator;
+import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
 import java.sql.PreparedStatement;
@@ -23,6 +23,11 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     public ClubAdvisor(String contactNumber){
         super(contactNumber);
+    }
+
+    @Override
+    public void registerToSystem() {
+
     }
 
     public ClubAdvisor(String userName,String password,

@@ -1,4 +1,4 @@
-package LoginManager;
+package LoginDashboardManager;
 
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
@@ -8,17 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -58,7 +52,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void DirectClubAdvisor(ActionEvent event) throws IOException {System.out.println("Direct to club Advisor");
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/ClubAdvisorLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -68,7 +62,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void DirectStudent(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/StudentLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

@@ -1,6 +1,6 @@
 package SystemUsers;
 
-import SystemUserValidator.UserValidator;
+import SystemDataValidator.UserValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class User implements UserValidator {
+abstract public class User implements UserValidator {
     private String userName;
     private String password;
     private String firstName;
@@ -85,6 +85,12 @@ public class User implements UserValidator {
         this.contactNumber = contactNumber;
     }
 
+    abstract public void registerToSystem();
+
+    public void loginToSystem(){
+
+    }
+
     @Override
     public boolean validateFirstName(){
         if(this.firstName.isEmpty()){
@@ -134,15 +140,6 @@ public class User implements UserValidator {
         Pattern compiledPattern = Pattern.compile(patterCheck);
         Matcher matcher = compiledPattern.matcher(value);
         return matcher.find();
-    }
-
-
-    public void registerToSystem(){
-
-    }
-
-    public void loginToSystem(){
-
     }
 
     @Override
