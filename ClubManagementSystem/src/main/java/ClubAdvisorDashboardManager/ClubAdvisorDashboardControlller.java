@@ -1,4 +1,4 @@
-package ClubAdvisorManager;
+package ClubAdvisorDashboardManager;
 
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
@@ -85,6 +85,14 @@ public class ClubAdvisorDashboardControlller {
     private AnchorPane UpdatesEventPane;
 
     @FXML
+    private AnchorPane UpdateClubDetailPane;
+
+    @FXML
+    private AnchorPane ProfilePane;
+
+    @FXML
+    private AnchorPane createClubPane;
+    @FXML
     public Button ViewEventButton;
 
     @FXML
@@ -104,6 +112,19 @@ public class ClubAdvisorDashboardControlller {
 
     @FXML
     private Button GoToClubActivitiesButton;
+
+    @FXML
+    public Button CreateClubDirectorButton;
+
+
+    @FXML
+    private Button UpdateClubDirectorButton;
+
+    @FXML
+    private Button AdvisorProfileButton;
+
+
+
     @FXML
     void ClubAdvisorDashboardDetected(MouseEvent event) {
        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
@@ -119,7 +140,7 @@ public class ClubAdvisorDashboardControlller {
 
     @FXML
     void dashBoardLogOut(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/ClubAdvisorLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -146,6 +167,7 @@ public class ClubAdvisorDashboardControlller {
         ScheduleEventsPane.setVisible(false);
         AttendancePane.setVisible(false);
         GenerateReportsPane.setVisible(false);
+        ProfilePane.setVisible(false);
     }
 
     public void makeAllButtonsColoured(){
@@ -154,6 +176,7 @@ public class ClubAdvisorDashboardControlller {
         ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         AttendanceButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 
     @FXML
@@ -196,6 +219,15 @@ public class ClubAdvisorDashboardControlller {
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
+    @FXML
+    void GoToClubAdvisorProfile(ActionEvent event) {
+        makeAllClubAdvisorPanesInvisible();
+        makeAllButtonsColoured();
+        ProfilePane.setVisible(true);
+        AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+
+    }
+
 
     @FXML
     void GoToEventAttendance(ActionEvent event) {
@@ -220,6 +252,7 @@ public class ClubAdvisorDashboardControlller {
         GoToClubMembershipButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
+
 
     public void makeAllPanesInvisibleGeneratingReport(){
         ClubActivitiesPane.setVisible(false);
@@ -279,6 +312,34 @@ public class ClubAdvisorDashboardControlller {
         CancelEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
+
+    public void makeAllClubCreationPanesInvisible(){
+        createClubPane.setVisible(false);
+        UpdateClubDetailPane.setVisible(false);
+        CreateClubDirectorButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+                "-fx-text-fill: black;");
+        UpdateClubDirectorButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
+                "-fx-text-fill: black;");
+
+    }
+
+    @FXML
+    void GoToCreateClubPane(ActionEvent event) {
+        makeAllClubCreationPanesInvisible();
+        createClubPane.setVisible(true);
+        CreateClubDirectorButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+    }
+
+    @FXML
+    void GoToUpdateClubDetailsPane(ActionEvent event) {
+        makeAllClubCreationPanesInvisible();
+        UpdateClubDetailPane.setVisible(true);
+        UpdateClubDirectorButton.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+    }
+
 
 
 }

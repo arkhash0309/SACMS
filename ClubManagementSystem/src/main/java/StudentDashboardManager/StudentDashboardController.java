@@ -1,4 +1,4 @@
-package StudentManager;
+package StudentDashboardManager;
 
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
@@ -37,6 +37,8 @@ public class StudentDashboardController {
     private AnchorPane StudentDashBoardPane;
 
     @FXML
+    private AnchorPane StudentProfilePane;
+    @FXML
     public Button dashboardButton;
 
     @FXML
@@ -46,8 +48,11 @@ public class StudentDashboardController {
     private Button ManageclubButton;
 
     @FXML
+    private Button ProfileDirectorButton;
+
+    @FXML
     void StudentLogout(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/StudentLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -83,6 +88,7 @@ public class StudentDashboardController {
        EventStudentPane.setVisible(false);
        JoinLeaveClubPane.setVisible(false);
        StudentDashBoardPane.setVisible(false);
+        StudentProfilePane.setVisible(false);
     }
 
     @FXML
@@ -108,9 +114,19 @@ public class StudentDashboardController {
         ViewEventButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
+    @FXML
+    void GoToStudentProfile(ActionEvent event) {
+        makeAllStudentDashBoardPanesInvisible();
+        makeAllStudentButtonsColoured();
+        StudentProfilePane.setVisible(true);
+        ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+
+    }
+
     public void makeAllStudentButtonsColoured(){
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ViewEventButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
+        ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 }
