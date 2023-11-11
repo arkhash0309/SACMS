@@ -1,5 +1,6 @@
-package LoginManager;
+package LoginDashboardManager;
 
+import SystemUsers.Student;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -96,7 +97,7 @@ public class StudentLoginController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
-        StudentManager.StudentDashboardController studentDashboardController = loader.getController();
+        StudentDashboardManager.StudentDashboardController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1100, 600);
@@ -116,7 +117,7 @@ public class StudentLoginController {
 
     @FXML
     void DirectToLoginPane(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/StudentLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -125,6 +126,7 @@ public class StudentLoginController {
 
     @FXML
     void StudentRegistrationChecker(ActionEvent event) {
+         Student student = new Student();
 
     }
 

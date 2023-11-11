@@ -1,4 +1,4 @@
-package ClubAdvisorManager;
+package ClubAdvisorDashboardManager;
 
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
@@ -140,7 +140,7 @@ public class ClubAdvisorDashboardControlller {
 
     @FXML
     void dashBoardLogOut(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/ClubAdvisorLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

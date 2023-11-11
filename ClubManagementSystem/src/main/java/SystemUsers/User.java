@@ -1,6 +1,6 @@
 package SystemUsers;
 
-import SystemUserValidator.UserValidator;
+import SystemDataValidator.UserValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
 import java.sql.PreparedStatement;
