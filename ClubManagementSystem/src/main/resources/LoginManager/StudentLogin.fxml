@@ -99,7 +99,7 @@
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Button>
-                              <TextField layoutX="47.0" layoutY="86.0" prefHeight="40.0" prefWidth="292.0" promptText="User Name" styleClass="logintextfield" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="86.0">
+                              <TextField fx:id="LoginStudentUserName" layoutX="47.0" layoutY="86.0" prefHeight="40.0" prefWidth="292.0" promptText="User Name" styleClass="logintextfield" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="86.0">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -114,7 +114,7 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="studentLoginButton" layoutX="69.0" layoutY="270.0" mnemonicParsing="false" onAction="#DirectToStudentDashboard" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="270.0">
+                              <Button fx:id="studentLoginButton" layoutX="73.0" layoutY="272.0" mnemonicParsing="false" onAction="#DirectToStudentDashboard" prefHeight="44.0" prefWidth="248.0" styleClass="panebutton" text="Login" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="272.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>

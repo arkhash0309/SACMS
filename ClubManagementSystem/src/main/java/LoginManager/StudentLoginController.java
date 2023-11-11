@@ -1,23 +1,18 @@
 package LoginManager;
 
 import com.example.clubmanagementsystem.ApplicationController;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.Optional;
+
 
 public class StudentLoginController {
     private Scene scene;
@@ -34,6 +29,34 @@ public class StudentLoginController {
 
     @FXML
     private Button studentLoginButton;
+
+    @FXML
+    private PasswordField studentPassword;
+
+    @FXML
+    private PasswordField studentConfirmPassword;
+
+    @FXML
+    private TextField studentLastName;
+
+    @FXML
+    private TextField studentAdmissionNumber;
+
+    @FXML
+    private TextField studentFirstName;
+
+    @FXML
+    private TextField studentContactNumber;
+
+    @FXML
+    private ComboBox<?> studentGrade;
+
+    @FXML
+    private ComboBox<?> studentGender;
+
+    @FXML
+    public Label usernameLabel;
+
     @FXML
     void DirectToStartPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -90,5 +113,20 @@ public class StudentLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    void DirectToLoginPane(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginManager/StudentLogin.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void StudentRegistrationChecker(ActionEvent event) {
+
+    }
+
 
 }

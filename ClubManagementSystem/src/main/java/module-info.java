@@ -2,6 +2,7 @@ module com.example.clubmanagementsystem {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires mysql.connector.java;
 
 
     opens com.example.clubmanagementsystem to javafx.fxml;
