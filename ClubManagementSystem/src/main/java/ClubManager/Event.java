@@ -1,5 +1,6 @@
 package ClubManager;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
@@ -10,6 +11,8 @@ public class Event {
     private String eventLocation;
     private String eventType;
     private String eventDeliveryType;
+    Club clubDetails;
+    public static ArrayList<Event> evenDetails = new ArrayList<>();
 
     public int getEventId() {
         return eventId;

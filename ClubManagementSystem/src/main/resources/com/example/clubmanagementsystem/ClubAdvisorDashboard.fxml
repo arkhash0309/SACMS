@@ -541,15 +541,15 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
-                                                <TextField fx:id="scheduleEventNameTextField" layoutX="15.0" layoutY="141.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="141.0">
+                                                <TextField fx:id="scheduleEventNameTextField" layoutX="15.0" layoutY="141.0" onKeyTyped="#CheckNameError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="141.0">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font></TextField>
-                                                <TextField fx:id="scheduleEventsLocationTextField" layoutX="249.0" layoutY="83.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="70.0">
+                                                <TextField fx:id="scheduleEventsLocationTextField" layoutX="249.0" layoutY="83.0" onKeyTyped="#CheckLocationError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="70.0">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font></TextField>
-                                                <ComboBox fx:id="scheduleEventTypeCombo" layoutX="249.0" layoutY="169.0" prefHeight="20.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="140.0" />
+                                                <ComboBox fx:id="scheduleEventTypeCombo" layoutX="249.0" layoutY="169.0" onAction="#CheckEventTypeError" prefHeight="20.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="140.0" />
                                                 <Button fx:id="scheduleEventScheduleButton" layoutX="701.0" layoutY="143.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Schedule">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
@@ -580,13 +580,13 @@
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <DatePicker fx:id="scheduleEventDatePicker" layoutX="15.0" layoutY="217.0" prefHeight="16.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="217.0" />
+                                                <DatePicker fx:id="scheduleEventDatePicker" layoutX="15.0" layoutY="217.0" onAction="#checkSelectedEventDate" prefHeight="16.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="217.0" />
                                                 <Label layoutX="248.0" layoutY="191.0" prefHeight="21.0" prefWidth="209.0" styleClass="updateClubLabels" text=" Event Delivery Type" AnchorPane.topAnchor="191.0">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox fx:id="ScheduleEventsDeliveryType" layoutX="247.0" layoutY="217.0" prefHeight="20.0" prefWidth="212.0" styleClass="eventField" AnchorPane.topAnchor="217.0" />
+                                                <ComboBox fx:id="ScheduleEventsDeliveryType" layoutX="247.0" layoutY="217.0" onAction="#checkDeliveryTypeError" prefHeight="20.0" prefWidth="212.0" styleClass="eventField" AnchorPane.topAnchor="217.0" />
                                                 <TextArea fx:id="scheduleEventDescriptionTextField" layoutX="475.0" layoutY="77.0" prefHeight="158.0" prefWidth="210.0" styleClass="eventField">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
@@ -604,32 +604,32 @@
                                                 <ComboBox fx:id="acheduleEventsClubName" layoutX="15.0" layoutY="73.0" prefHeight="25.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="70.0" />
                                                 <Label fx:id="scheduleErrorLabelClubName" layoutX="15.0" layoutY="98.0" prefHeight="17.0" prefWidth="206.0">
                                                    <font>
-                                                      <Font size="13.0" />
+                                                      <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
                                                 <Label fx:id="scheduleErrorLabelEventName" layoutX="16.0" layoutY="171.0" prefHeight="17.0" prefWidth="206.0">
                                                    <font>
-                                                      <Font size="13.0" />
+                                                      <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
                                                 <Label fx:id="scheduleErrorLabelEventDate" layoutX="16.0" layoutY="247.0" prefHeight="17.0" prefWidth="206.0">
                                                    <font>
-                                                      <Font size="13.0" />
+                                                      <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="scheduleErrorLabelEventLocation" layoutX="251.0" layoutY="97.0" prefHeight="17.0" prefWidth="206.0">
+                                                <Label fx:id="scheduleErrorLabelEventLocation" layoutX="251.0" layoutY="97.0" prefHeight="17.0" prefWidth="206.0" AnchorPane.topAnchor="98.0">
                                                    <font>
-                                                      <Font size="13.0" />
+                                                      <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
                                                 <Label fx:id="scheduleErrorLabelEventType" layoutX="251.0" layoutY="171.0" prefHeight="17.0" prefWidth="206.0">
                                                    <font>
-                                                      <Font size="13.0" />
+                                                      <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
                                                 <Label fx:id="scheduleErrorLabelEventDeliveryType" layoutX="250.0" layoutY="247.0" prefHeight="17.0" prefWidth="206.0">
                                                    <font>
-                                                      <Font size="13.0" />
+                                                      <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
                                                 <Label fx:id="scheduleErrorLabelEventDescription" layoutX="477.0" layoutY="239.0" prefHeight="17.0" prefWidth="206.0">
@@ -670,7 +670,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="CancelEventsPane" prefHeight="522.0" prefWidth="864.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="CancelEventsPane" prefHeight="522.0" prefWidth="864.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="25.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -717,7 +717,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="UpdatesEventPane" prefHeight="522.0" prefWidth="864.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="UpdatesEventPane" prefHeight="522.0" prefWidth="864.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="17.0" layoutY="255.0" prefHeight="263.0" prefWidth="837.0" styleClass="EventMainPane" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="255.0">
                                              <children>
@@ -730,9 +730,9 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
-                                                <TextField fx:id="updateEventNameTextField" layoutX="16.0" layoutY="143.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="143.0" />
-                                                <TextField fx:id="updateEventLocationTextField" layoutX="249.0" layoutY="83.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="68.0" />
-                                                <ComboBox fx:id="updateEventTypeCombo" layoutX="249.0" layoutY="169.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="142.0" />
+                                                <TextField fx:id="updateEventNameTextField" layoutX="16.0" layoutY="143.0" onKeyTyped="#CheckNameError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="143.0" />
+                                                <TextField fx:id="updateEventLocationTextField" layoutX="249.0" layoutY="83.0" onKeyTyped="#CheckLocationError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="68.0" />
+                                                <ComboBox fx:id="updateEventTypeCombo" layoutX="249.0" layoutY="169.0" onAction="#CheckEventTypeError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="142.0" />
                                                 <Button layoutX="701.0" layoutY="143.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Update">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
@@ -763,15 +763,15 @@
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <DatePicker fx:id="updateEventDateDatePicker" layoutX="16.0" layoutY="215.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="215.0" />
-                                                <Label layoutX="248.0" layoutY="191.0" prefHeight="21.0" prefWidth="209.0" styleClass="updateClubLabels" text=" Event Delivery Type" AnchorPane.topAnchor="191.0">
+                                                <DatePicker fx:id="updateEventDateDatePicker" layoutX="16.0" layoutY="215.0" onAction="#checkSelectedEventDate" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="215.0" />
+                                                <Label layoutX="475.0" layoutY="43.0" prefHeight="21.0" prefWidth="209.0" styleClass="updateClubLabels" text=" Event Delivery Type" AnchorPane.topAnchor="43.0">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox fx:id="updateEventDeliveryTypeCombo" layoutX="247.0" layoutY="220.0" prefHeight="31.0" prefWidth="212.0" styleClass="eventField" AnchorPane.topAnchor="215.0" />
-                                                <TextArea fx:id="updateEventDescription" layoutX="475.0" layoutY="78.0" prefHeight="157.0" prefWidth="210.0" styleClass="eventField" AnchorPane.topAnchor="68.0" />
-                                                <Label layoutX="474.0" layoutY="50.0" prefHeight="21.0" prefWidth="212.0" styleClass="updateClubLabels" text=" Event Description" AnchorPane.topAnchor="43.0">
+                                                <ComboBox fx:id="updateEventDeliveryTypeCombo" layoutX="475.0" layoutY="68.0" onAction="#checkDeliveryTypeError" prefHeight="31.0" prefWidth="212.0" styleClass="eventField" AnchorPane.topAnchor="68.0" />
+                                                <TextArea fx:id="updateEventDescription" layoutX="475.0" layoutY="144.0" prefHeight="104.0" prefWidth="210.0" styleClass="eventField" AnchorPane.topAnchor="144.0" />
+                                                <Label layoutX="475.0" layoutY="118.0" prefHeight="21.0" prefWidth="212.0" styleClass="updateClubLabels" text=" Event Description" AnchorPane.topAnchor="118.0">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
@@ -806,7 +806,7 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="updateErrorLabelDeliveryType" layoutX="249.0" layoutY="247.0" prefHeight="17.0" prefWidth="209.0" AnchorPane.topAnchor="247.0">
+                                                <Label fx:id="updateErrorLabelDeliveryType" layoutX="477.0" layoutY="98.0" prefHeight="17.0" prefWidth="209.0" AnchorPane.topAnchor="98.0">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
@@ -817,6 +817,13 @@
                                                    </font>
                                                 </Label>
                                                 <ComboBox fx:id="updateEventClubCombo" layoutX="16.0" layoutY="68.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" />
+                                                <Label layoutX="249.0" layoutY="191.0" prefHeight="21.0" prefWidth="207.0" styleClass="updateClubLabels" text=" Event Starting Time">
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox layoutX="249.0" layoutY="215.0" prefHeight="19.0" prefWidth="97.0" styleClass="eventField" />
+                                                <ComboBox layoutX="354.0" layoutY="215.0" prefHeight="25.0" prefWidth="103.0" styleClass="eventField" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane prefHeight="235.0" prefWidth="833.0" styleClass="EventMainPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">

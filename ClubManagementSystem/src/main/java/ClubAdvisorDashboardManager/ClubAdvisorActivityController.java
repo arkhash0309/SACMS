@@ -1,17 +1,22 @@
 package ClubAdvisorDashboardManager;
-
+import com.jfoenix.controls.JFXTimePicker;
+import ClubManager.EventManager;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
 
@@ -41,6 +46,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleEventDatePicker.setValue(null);
         scheduleEventTypeCombo.getSelectionModel().selectFirst();
         ScheduleEventsDeliveryType.getSelectionModel().selectFirst();
+        clearAllScheduleEventLabels();
     }
 
    @Override
@@ -52,7 +58,162 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventNameTextField.setText("");
         updateEventDescription.setText("");
         updateEventDateDatePicker.setValue(null);
+        clearAllUpdateEventLabels();
     }
+
+    @FXML
+    void CheckNameError(KeyEvent event) {
+        String targetName = "TextField[id=scheduleEventNameTextField, styleClass=text-input text-field eventField]";
+        String eventName;
+        EventManager eventManager = new EventManager();
+
+        if(String.valueOf(event.getTarget()).equals(targetName)){
+            eventName = scheduleEventNameTextField.getText();
+
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventName(eventName)){
+                scheduleErrorLabelEventName.setText("Event name cannot be empty");
+            }else{
+                scheduleErrorLabelEventName.setText("");
+            }
+        }else{
+            eventName = updateEventNameTextField.getText();
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventName(eventName)){
+                updateErrorLabelEventName.setText("Event name cannot be empty");
+            }else{
+                updateErrorLabelEventName.setText(" ");
+            }
+        }
+    }
+
+    @FXML
+    void CheckLocationError(KeyEvent event) {
+        String targetLocation = "TextField[id=scheduleEventsLocationTextField, styleClass=text-input text-field eventField]";
+        String eventLocation;
+        EventManager eventManager = new EventManager();
+        if(String.valueOf(event.getTarget()).equals(targetLocation)){
+            eventLocation = scheduleEventsLocationTextField.getText();
+
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventLocation(eventLocation)){
+                scheduleErrorLabelEventLocation.setText("Event Location cannot be empty");
+            }else{
+                scheduleErrorLabelEventLocation.setText(" ");
+            }
+        }else{
+            eventLocation = updateEventLocationTextField.getText();
+            if(!eventManager.validateEventLocation(eventLocation)){
+                updateErrorLabelEventLocation.setText("Event Location cannot be empty");
+            }else{
+                updateErrorLabelEventLocation.setText(" ");
+            }
+        }
+    }
+
+    @FXML
+    void CheckEventTypeError(ActionEvent event) {
+        String targetType = "ComboBox[id=scheduleEventTypeCombo, styleClass=combo-box-base combo-box eventField]";
+        String selectedOption;
+        EventManager eventManager = new EventManager();
+        if(String.valueOf(event.getTarget()).equals(targetType)){
+            selectedOption = scheduleEventTypeCombo.getSelectionModel().getSelectedItem();
+            System.out.println(event.getTarget());
+            if(eventManager.validateEventType(selectedOption)){
+                System.out.println("Hello1");
+                scheduleErrorLabelEventType.setText("Event type cannot be None");
+            }else{
+                System.out.println("Hello2");
+                scheduleErrorLabelEventType.setText(" ");
+            }
+        }else{
+            selectedOption = updateEventTypeCombo.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedOption)){
+                System.out.println("Hello1");
+                updateErrorLabelEventType.setText("Event type cannot be None");
+            }else{
+                System.out.println("Hello2");
+                updateErrorLabelEventType.setText(" ");
+            }
+        }
+    }
+
+    @FXML
+    void checkDeliveryTypeError(ActionEvent event) {
+        String targetDelivery= "ComboBox[id=ScheduleEventsDeliveryType, styleClass=combo-box-base combo-box eventField]";
+        String selectedOption;
+        EventManager eventManager = new EventManager();
+        System.out.println(event.getTarget());
+        if(String.valueOf(event.getTarget()).equals(targetDelivery)){
+            selectedOption= ScheduleEventsDeliveryType.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedOption)){
+                scheduleErrorLabelEventDeliveryType.setText("Event delivery type cannot be None");
+            }else{
+                scheduleErrorLabelEventDeliveryType.setText(" ");
+            }
+        }else{
+            selectedOption= updateEventDeliveryTypeCombo.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedOption)){
+                updateErrorLabelDeliveryType.setText("Event delivery type cannot be None");
+            }else{
+                updateErrorLabelDeliveryType.setText(" ");
+            }
+        }
+
+    }
+
+    @FXML
+    void checkSelectedEventDate(ActionEvent event) {
+        String targetDate = "DatePicker[id=scheduleEventDatePicker, styleClass=combo-box-base date-picker eventField]";
+        LocalDate selectedDate;
+        EventManager eventManager = new EventManager();
+
+        if(String.valueOf(event.getTarget()).equals(targetDate)){
+            selectedDate = scheduleEventDatePicker.getValue();
+
+            System.out.println(event.getTarget());
+            if(eventManager.validateEventDate(selectedDate)){
+                scheduleErrorLabelEventDate.setText("Event date cannot be a past date");
+            }else{
+                scheduleErrorLabelEventDate.setText(" ");
+            }
+        }else{
+            selectedDate = updateEventDateDatePicker.getValue();
+
+            System.out.println(event.getTarget());
+            if(eventManager.validateEventDate(selectedDate)){
+                updateErrorLabelEventDate.setText("Event date cannot be a past date");
+            }else{
+                updateErrorLabelEventDate.setText(" ");
+            }
+
+        }
+
+    }
+
+    public void clearAllScheduleEventLabels(){
+        scheduleErrorLabelEventName.setText("");
+        scheduleErrorLabelEventLocation.setText(" ");
+        scheduleErrorLabelEventDate.setText(" ");
+        scheduleErrorLabelEventDeliveryType.setText(" ");
+        scheduleErrorLabelEventType.setText(" ");
+    }
+
+    public void clearAllUpdateEventLabels(){
+        updateErrorLabelEventDate.setText(" ");
+        updateErrorLabelDeliveryType.setText(" ");
+        updateErrorLabelEventType.setText(" ");
+        updateErrorLabelEventLocation.setText(" ");
+        updateErrorLabelEventName.setText(" ");
+    }
+
+
+
+
+
+
+
+
 
 
 

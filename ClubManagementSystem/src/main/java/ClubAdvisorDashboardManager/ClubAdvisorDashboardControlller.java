@@ -1,4 +1,5 @@
 package ClubAdvisorDashboardManager;
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +11,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import com.jfoenix.controls.JFXTimePicker;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
 
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
+
+    @FXML
+    private JFXDatePicker dtpicker;
     @FXML
     protected Label welcomeText;
     @FXML
