@@ -1,0 +1,4 @@
+package ClubAdvisorDashboardManager;
+
+public class AdvisorProfileController extends ClubAdvisorDashboardControlller{
+}
