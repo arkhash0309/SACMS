@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorDashboardControlller">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
     <stylesheets>
         <URL value="@ClubAdvisorDashboard.css" />
     </stylesheets>
@@ -171,7 +171,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
                                  <children>
@@ -466,7 +466,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="52.0" prefWidth="873.0" AnchorPane.bottomAnchor="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -494,7 +494,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="47.0" prefHeight="520.0" prefWidth="864.0">
                                  <children>
-                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0">
+                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0" visible="false">
                                        <children>
                                           <AnchorPane layoutX="19.0" layoutY="20.0" prefHeight="487.0" prefWidth="826.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -528,7 +528,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="ScheduleEventsInnerPane" prefHeight="525.0" prefWidth="874.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="ScheduleEventsInnerPane" prefHeight="525.0" prefWidth="874.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="242.0" prefWidth="835.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="263.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -549,7 +549,7 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="scheduleEventClearButton" layoutX="701.0" layoutY="91.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" text="Clear">
+                                                <Button fx:id="scheduleEventClearButton" layoutX="701.0" layoutY="91.0" mnemonicParsing="false" onAction="#clearScheduleEventFields" prefHeight="30.0" prefWidth="105.0" text="Clear">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font>

@@ -125,11 +125,11 @@ public class ClubAdvisorLoginController {
     }
 
     @FXML
-    void DirectToStudentDashBoard(ActionEvent event) throws IOException {
+    public void DirectToStudentDashBoard(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
         Parent root = loader.load();
-        ClubAdvisorDashboardManager.ClubAdvisorDashboardControlller clubAdvisorDashboardControlller = loader.getController();
+        ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
                 "-fx-text-fill: white");
