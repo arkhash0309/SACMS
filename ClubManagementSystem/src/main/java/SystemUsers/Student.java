@@ -12,6 +12,7 @@ public class Student extends User implements StudentValidator {
     private int studentAdmissionNum;
     private int studentGrade;
     private char studentGender;
+    public static String admissionNumStatus = "";
     public static ArrayList<Student> studentDetailArray = new ArrayList<>();
 
     public Student(String userName,String password,
@@ -27,6 +28,20 @@ public class Student extends User implements StudentValidator {
     public Student(){
 
     }
+
+    public Student(String userName, String password, String firstName, String lastName) {
+        super(userName, password, firstName, lastName);
+    }
+
+    public Student(String contactNumber){
+        super(contactNumber);
+    }
+
+    public Student(int admissionNumValue) {
+        super();
+        this.studentAdmissionNum = admissionNumValue;
+    }
+
 
     @Override
     public void registerToSystem() {
@@ -65,10 +80,14 @@ public class Student extends User implements StudentValidator {
     @Override
     public boolean validateStudentAdmissionNumber() throws SQLException {
         if(String.valueOf(this.getStudentAdmissionNum()).isEmpty()){
+            admissionNumStatus = "empty";
+            System.out.println("Empty");
             return false;
         }
 
         if(String.valueOf(this.getStudentAdmissionNum()).length() > 4){
+            admissionNumStatus = "length";
+            System.out.println("more than 4");
             return false;
         }
         String dbClubAdvisorId = null;
