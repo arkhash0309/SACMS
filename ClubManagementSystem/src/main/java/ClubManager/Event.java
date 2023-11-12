@@ -13,7 +13,6 @@ public class Event {
     private String eventDeliveryType;
     Club clubDetails;
     public static ArrayList<Event> evenDetails = new ArrayList<>();
-
     public int getEventId() {
         return eventId;
     }

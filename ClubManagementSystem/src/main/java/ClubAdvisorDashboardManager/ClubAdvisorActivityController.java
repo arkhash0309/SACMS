@@ -25,6 +25,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
         populateComboBoxes();
+
+
     }
 
     public void populateComboBoxes(){
@@ -36,6 +38,27 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventTypeCombo.getSelectionModel().selectFirst();
         updateEventDeliveryTypeCombo.getItems().addAll("None", "Online", "Physical");
         updateEventDeliveryTypeCombo.getSelectionModel().selectFirst();
+
+        for (int hour = 0; hour < 24; hour++) {
+            updateHourComboBox.getItems().add(String.format("%02d", hour));
+        }
+        updateHourComboBox.getSelectionModel().selectFirst();
+
+        for(int minutes = 0; minutes < 60; minutes++){
+            updateMinuteComboBox.getItems().add(String.format("%02d", minutes));
+        }
+        updateMinuteComboBox.getSelectionModel().selectFirst();
+
+        for (int hour = 0; hour < 24; hour++) {
+            scheduleEventHour.getItems().add(String.format("%02d", hour));
+        }
+        scheduleEventHour.getSelectionModel().selectFirst();
+
+
+        for(int minutes = 0; minutes < 60; minutes++){
+            scheduleEventMinutes.getItems().add(String.format("%02d", minutes));
+        }
+        scheduleEventMinutes.getSelectionModel().selectFirst();
     }
 
     @Override
@@ -46,6 +69,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleEventDatePicker.setValue(null);
         scheduleEventTypeCombo.getSelectionModel().selectFirst();
         ScheduleEventsDeliveryType.getSelectionModel().selectFirst();
+        scheduleEventMinutes.getSelectionModel().selectFirst();
+        scheduleEventHour.getSelectionModel().selectFirst();
         clearAllScheduleEventLabels();
     }
 
@@ -58,6 +83,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventNameTextField.setText("");
         updateEventDescription.setText("");
         updateEventDateDatePicker.setValue(null);
+        updateHourComboBox.getSelectionModel().selectFirst();
+        updateMinuteComboBox.getSelectionModel().selectFirst();
         clearAllUpdateEventLabels();
     }
 
@@ -190,6 +217,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
 
     }
+
+
 
     public void clearAllScheduleEventLabels(){
         scheduleErrorLabelEventName.setText("");

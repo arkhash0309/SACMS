@@ -7,7 +7,7 @@ public class Club {
     private String clubName;
     private String clubDescription;
     private String clubLogo;
-    
+
     public static ArrayList<Club> clubDetailArray = new ArrayList<>();
 
     public int getClubId() {
