@@ -1,5 +1,7 @@
 package LoginDashboardManager;
 
+import StudentDashboardManager.StudentActivityController;
+import StudentDashboardManager.StudentDashboardController;
 import SystemUsers.Student;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
@@ -97,7 +99,7 @@ public class StudentLoginController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
-        StudentDashboardManager.StudentDashboardController studentDashboardController = loader.getController();
+        StudentDashboardManager.StudentActivityController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1100, 600);

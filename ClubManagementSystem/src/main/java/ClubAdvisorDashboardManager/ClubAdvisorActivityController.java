@@ -241,20 +241,20 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
 
-    @FXML
+    @Override
     void ClubAdvisorDashboardDetected(MouseEvent event) {
         Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
         stage.setX(event.getScreenX()- xPosition);
         stage.setY(event.getScreenY() - yPosition);
     }
 
-    @FXML
+    @Override
     void ClubAdvisorPanePressed(MouseEvent event) {
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
     }
 
-    @FXML
+    @Override
     void dashBoardLogOut(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -264,19 +264,20 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         stage.show();
     }
 
-    @FXML
+    @Override
     void MinimizePane(ActionEvent event) {
         ApplicationController applicationController = new ApplicationController();
         applicationController.MinimizeApp(ClubAdvisorDashboard);
     }
 
 
-    @FXML
+    @Override
     void ClosePane(ActionEvent event) {
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
 
+    @Override
     public void makeAllClubAdvisorPanesInvisible(){
         dashboardMainPane.setVisible(false);
         ManageClubPane.setVisible(false);
@@ -286,6 +287,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ProfilePane.setVisible(false);
     }
 
+    @Override
     public void makeAllButtonsColoured(){
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
@@ -295,7 +297,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 
-    @FXML
+    @Override
     void GoToDashBoardClubAdvisor(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
         makeAllButtonsColoured();
@@ -303,7 +305,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
-    @FXML
+    @Override
     void GoToManageClubPane(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
         makeAllButtonsColoured();
@@ -311,7 +313,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
-    @FXML
+    @Override
     void GoToScheduleEvents(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
         makeAllButtonsColoured();
@@ -319,7 +321,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
-    @FXML
+    @Override
     void GoToTrackAttendance(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
         makeAllButtonsColoured();
@@ -327,7 +329,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         AttendanceButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
-    @FXML
+    @Override
     void GoToGenerateReports(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
         makeAllButtonsColoured();
@@ -335,7 +337,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
-    @FXML
+    @Override
     void GoToClubAdvisorProfile(ActionEvent event) {
         makeAllClubAdvisorPanesInvisible();
         makeAllButtonsColoured();
@@ -345,7 +347,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-    @FXML
+    @Override
     void GoToEventAttendance(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         EventAttendancePane.setVisible(true);
@@ -353,7 +355,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @FXML
+    @Override
     void GoToClubActivities(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         ClubActivitiesPane.setVisible(true);
@@ -361,7 +363,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @FXML
+    @Override
     void GoToClubMembership(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         MembershipReportPane.setVisible(true);
@@ -369,7 +371,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-
+    @Override
     public void makeAllPanesInvisibleGeneratingReport(){
         ClubActivitiesPane.setVisible(false);
         EventAttendancePane.setVisible(false);
@@ -382,6 +384,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-text-fill: black;");
     }
 
+    @Override
     public void makeAllPanesInvisibleEventPane(){
         UpdatesEventPane.setVisible(false);
         ViewEventsPane.setVisible(false);
@@ -397,7 +400,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-text-fill: black");
     }
 
-    @FXML
+    @Override
     void GoToUpdateEventsPanes(ActionEvent event) {
         makeAllPanesInvisibleEventPane();
         UpdatesEventPane.setVisible(true);
@@ -405,7 +408,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @FXML
+    @Override
     void GoToViewEventsPane(ActionEvent event) {
         makeAllPanesInvisibleEventPane();
         ViewEventsPane.setVisible(true);
@@ -413,7 +416,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @FXML
+    @Override
     void GoToScheduleEventsPane(ActionEvent event) {
         makeAllPanesInvisibleEventPane();
         ScheduleEventsInnerPane.setVisible(true);
@@ -421,7 +424,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @FXML
+    @Override
     void GoToCancelEventsPane(ActionEvent event) {
         makeAllPanesInvisibleEventPane();
         CancelEventsPane.setVisible(true);
@@ -429,6 +432,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    @Override
     public void makeAllClubCreationPanesInvisible(){
         createClubPane.setVisible(false);
         UpdateClubDetailPane.setVisible(false);
@@ -439,7 +443,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
-    @FXML
+    @Override
     void GoToCreateClubPane(ActionEvent event) {
         makeAllClubCreationPanesInvisible();
         createClubPane.setVisible(true);
@@ -447,7 +451,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @FXML
+    @Override
     void GoToUpdateClubDetailsPane(ActionEvent event) {
         makeAllClubCreationPanesInvisible();
         UpdateClubDetailPane.setVisible(true);
