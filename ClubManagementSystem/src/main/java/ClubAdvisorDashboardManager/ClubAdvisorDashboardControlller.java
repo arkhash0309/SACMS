@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     protected Label welcomeText;
@@ -43,7 +44,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected AnchorPane AttendancePane;
-
     @FXML
     public Button dashboardButton;
 
@@ -154,7 +154,14 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     private TextArea scheduleEventDescriptionTextField;
-
+    @FXML
+    private Label clubIdError;
+    @FXML
+    private Label clubLogoError;
+    @FXML
+    private Label clubNameError;
+    @FXML
+    private Label clubDescriptionError;
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 
@@ -220,7 +227,5 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     abstract void GoToUpdateClubDetailsPane(ActionEvent event);
-
-
 
 }
