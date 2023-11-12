@@ -52,8 +52,6 @@ abstract public class StudentDashboardController implements Initializable {
 
     @FXML
     protected Button ProfileDirectorButton;
-
-
     @FXML
     abstract void StudentLogout(MouseEvent event) throws IOException;
 

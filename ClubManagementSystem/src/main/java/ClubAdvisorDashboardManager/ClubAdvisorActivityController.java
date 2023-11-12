@@ -2,7 +2,6 @@ package ClubAdvisorDashboardManager;
 
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,13 +17,48 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        scheduleEventDatePicker.setEditable(false);
+        updateEventDateDatePicker.setEditable(false);
+        populateComboBoxes();
     }
 
-    @FXML
+    public void populateComboBoxes(){
+        scheduleEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
+        scheduleEventTypeCombo.getSelectionModel().selectFirst();
+        ScheduleEventsDeliveryType.getItems().addAll("None", "Online", "Physical");
+        ScheduleEventsDeliveryType.getSelectionModel().selectFirst();
+        updateEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
+        updateEventTypeCombo.getSelectionModel().selectFirst();
+        updateEventDeliveryTypeCombo.getItems().addAll("None", "Online", "Physical");
+        updateEventDeliveryTypeCombo.getSelectionModel().selectFirst();
+    }
+
+    @Override
     protected void clearScheduleEventFields(ActionEvent event){
-
+        scheduleEventNameTextField.setText("");
+        scheduleEventsLocationTextField.setText("");
+        scheduleEventDescriptionTextField.setText("");
+        scheduleEventDatePicker.setValue(null);
+        scheduleEventTypeCombo.getSelectionModel().selectFirst();
+        ScheduleEventsDeliveryType.getSelectionModel().selectFirst();
     }
+
+   @Override
+    protected void clearUpdateEventFields(ActionEvent event){
+        updateEventClubCombo.getSelectionModel().selectFirst();
+        updateEventTypeCombo.getSelectionModel().selectFirst();
+        updateEventDeliveryTypeCombo.getSelectionModel().selectFirst();
+        updateEventLocationTextField.setText("");
+        updateEventNameTextField.setText("");
+        updateEventDescription.setText("");
+        updateEventDateDatePicker.setValue(null);
+    }
+
+
+
+
+
+
 
 
 
@@ -459,5 +493,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
 
     }
+
 
 }
