@@ -48,6 +48,11 @@ public class Student extends User implements StudentValidator {
 
     }
 
+    @Override
+    public void loginToSystem() {
+
+    }
+
     public int getStudentAdmissionNum() {
         return studentAdmissionNum;
     }
