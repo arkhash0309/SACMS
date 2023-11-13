@@ -86,7 +86,7 @@ public class EventManager implements EventValidator {
 
     public boolean validateAllEventDetails(String eventName, String eventLocation,
         String eventType, String eventDeliveryType, LocalDate eventDate, String clubName,
-        String eventHour,  String eventMinutes, String status){
+        String eventHour,  String eventMinutes, String status, String eventDescription){
 
         eventNameStatus = validateEventName(eventName);
         System.out.println("Name" + eventNameStatus);
@@ -111,7 +111,8 @@ public class EventManager implements EventValidator {
                 EventManager.eventDateStatus && EventManager.eventClubNameStatus){
             LocalTime eventTime = makeDateTime(eventHour, eventMinutes);
             if(status.equals("create")){
-                ClubAdvisor.createEvent(eventName,eventLocation, eventType, eventDeliveryType, eventDate, eventTime,clubName);
+                ClubAdvisor.createEvent(eventName,eventLocation, eventType, eventDeliveryType, eventDate,
+                        eventTime,clubName, eventDescription);
                 return true;
             }
         }

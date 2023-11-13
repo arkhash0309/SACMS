@@ -3,7 +3,6 @@ package ClubManager;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Event {
     private String eventName;
@@ -13,17 +12,29 @@ public class Event {
     private String eventLocation;
     private String eventType;
     private String eventDeliveryType;
-    Club hostingClub;
+    private Club hostingClub;
+    String hostingClubName;
 
     public Event(String eventName, String eventLocation, String eventType,
-                 String eventDeliveryType, LocalDate eventDate, LocalTime eventTime, Club hostingClub){
+                 String eventDeliveryType, LocalDate eventDate, LocalTime eventTime, Club hostingClub,
+                 String eventDescription){
         this.eventName  = eventName;
         this.eventLocation = eventLocation;
         this.eventType = eventType;
         this.eventDeliveryType = eventDeliveryType;
         this.eventDate = eventDate;
-        this.eventTime = eventTime;
-        this.hostingClub = hostingClub;
+        this.setEventTime(eventTime);
+        this.setHostingClub(hostingClub);
+        this.eventDescription = eventDescription;
+        hostingClubName = getClubName();
+    }
+
+    public String getClubName() {
+        if(hostingClub != null){
+            return hostingClub.getClubName();
+        }else{
+            return null;
+        }
     }
     public static ArrayList<Event> evenDetails = new ArrayList<>();
 
@@ -73,5 +84,21 @@ public class Event {
 
     public void setEventDeliveryType(String eventDeliveryType) {
         this.eventDeliveryType = eventDeliveryType;
+    }
+
+    public LocalTime getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(LocalTime eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public Club getHostingClub() {
+        return hostingClub;
+    }
+
+    public void setHostingClub(Club hostingClub) {
+        this.hostingClub = hostingClub;
     }
 }

@@ -1,23 +1,20 @@
 package ClubAdvisorDashboardManager;
 
+import ClubManager.Club;
+import ClubManager.Event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import ClubManager.Event;
 
 
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
@@ -142,9 +139,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TextField scheduleCreatedEventsSearchBar;
 
     @FXML
-    protected TableView<?> scheduleCreatedEventTable;
-
-    @FXML
     protected Button scheduleCreatedEventsSearchButton;
 
     @FXML
@@ -248,6 +242,30 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected ComboBox<String> scheduleEventMinutes;
     @FXML
     public ComboBox<String> scheduleEventsClubName;
+
+    @FXML
+    protected TableView<Event> scheduleCreatedEventTable;
+
+    @FXML
+    protected TableColumn<Event, String> createEventClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventDescriptionColumn;
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 

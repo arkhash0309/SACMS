@@ -171,7 +171,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
                                  <children>
@@ -466,7 +466,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="52.0" prefWidth="873.0" AnchorPane.bottomAnchor="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -494,7 +494,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="47.0" prefHeight="520.0" prefWidth="864.0">
                                  <children>
-                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0" visible="false">
+                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0">
                                        <children>
                                           <AnchorPane layoutX="19.0" layoutY="20.0" prefHeight="487.0" prefWidth="826.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -528,7 +528,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="ScheduleEventsInnerPane" prefHeight="525.0" prefWidth="874.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="ScheduleEventsInnerPane" prefHeight="525.0" prefWidth="874.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="270.0" prefWidth="835.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="14.0">
                                              <children>
@@ -637,7 +637,7 @@
                                                       <Font size="13.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutX="250.0" layoutY="191.0" prefHeight="21.0" prefWidth="207.0" styleClass="updateClubLabels" text=" Event Date">
+                                                <Label layoutX="250.0" layoutY="191.0" prefHeight="21.0" prefWidth="207.0" styleClass="updateClubLabels" text=" Event Starting Time">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
@@ -658,10 +658,15 @@
                                           </AnchorPane>
                                           <AnchorPane layoutX="20.0" layoutY="290.0" prefHeight="227.0" prefWidth="833.0" styleClass="EventMainPane">
                                              <children>
-                                                <TableView fx:id="scheduleCreatedEventTable" layoutX="10.0" layoutY="87.0" prefHeight="136.0" prefWidth="808.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="87.0">
+                                                <TableView fx:id="scheduleCreatedEventTable" layoutX="6.0" layoutY="87.0" prefHeight="133.0" prefWidth="823.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="87.0">
                                                   <columns>
-                                                    <TableColumn prefWidth="75.0" text="C1" />
-                                                    <TableColumn prefWidth="75.0" text="C2" />
+                                                    <TableColumn fx:id="createEventClubNameColumn" prefWidth="119.28570556640625" styleClass="column1" text="Club Name" />
+                                                    <TableColumn fx:id="createEventEventNameColumn" prefWidth="133.85711669921875" styleClass="column2" text="Event Name" />
+                                                      <TableColumn fx:id="createEventEventDateColumn" prefWidth="125.5714111328125" styleClass="column1" text="Event Date" />
+                                                      <TableColumn fx:id="createEventLocationColumn" prefWidth="115.4285888671875" styleClass="column2" text="Event Location" />
+                                                      <TableColumn fx:id="createEventTypeColumn" prefWidth="85.85711669921875" styleClass="column1" text="Event Type" />
+                                                      <TableColumn fx:id="createEventDeliveryTypeColumn" prefWidth="120.00006103515625" styleClass="column2" text="Event Delivery Type" />
+                                                      <TableColumn fx:id="createEventDescriptionColumn" minWidth="7.5714111328125" prefWidth="118.99993896484375" styleClass="column1" text="Event Description" />
                                                   </columns>
                                                 </TableView>
                                                 <AnchorPane layoutX="10.0" layoutY="14.0" prefHeight="26.0" prefWidth="809.0" styleClass="updateClubLabels">

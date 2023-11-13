@@ -1,13 +1,16 @@
 package ClubAdvisorDashboardManager;
 import ClubManager.Club;
+import ClubManager.Event;
 import ClubManager.EventManager;
 import com.example.clubmanagementsystem.ApplicationController;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -57,6 +60,33 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             scheduleEventMinutes.getItems().add(String.format("%02d", minutes));
         }
         scheduleEventMinutes.getSelectionModel().selectFirst();
+
+        createEventClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        createEventEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        createEventEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
+        createEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        createEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        createEventDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
+        createEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+    }
+
+    public void populateScheduleCreatedEventsTable(){
+       if(Event.evenDetails == null){
+           return;
+       }
+
+        scheduleCreatedEventTable.getItems().clear();
+
+       for(Event value : Event.evenDetails){
+           Club hostingClub = value.getHostingClub();
+           Event event = new Event(value.getEventName(), value.getEventLocation(),
+                   value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
+                   value.getEventTime(), hostingClub, value.getEventDescription());
+
+           ObservableList<Event> viewUpdateDetails = scheduleCreatedEventTable.getItems();
+           viewUpdateDetails.add(event);
+           scheduleCreatedEventTable.setItems(viewUpdateDetails);
+       }
     }
 
     @Override
@@ -300,12 +330,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String clubName = scheduleEventsClubName.getValue();
         String eventStartHour = scheduleEventHour.getValue();
         String eventStartMinute = scheduleEventMinutes.getValue();
+        String eventDescription = scheduleEventDescriptionTextField.getText();
 
         EventManager eventManager = new EventManager();
         boolean stat = eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,
-                eventDate, clubName, eventStartHour, eventStartMinute, "create");
+                eventDate, clubName, eventStartHour, eventStartMinute, "create", eventDescription);
         if(stat){
             clearEventScheduleFieldsDefault();
+            populateScheduleCreatedEventsTable();
         }
         DisplayEventErrorsCreation();
         System.out.println("\n\n");
@@ -370,6 +402,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateErrorLabelEventName.setText(" ");
         updateErrorLabelClubName.setText(" ");
     }
+
+
 
 
 

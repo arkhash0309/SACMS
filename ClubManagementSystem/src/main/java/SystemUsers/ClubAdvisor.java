@@ -45,11 +45,13 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     public static void createEvent(String eventName, String eventLocation,
                             String eventType, String eventDeliveryType,
                             LocalDate eventDate, LocalTime eventTime,
-                            String clubName){
+                            String clubName, String eventDescription){
         Club selectedClub = EventManager.userSelectedClubChooser(clubName);
-        Event event = new Event(eventName, eventLocation, eventType,eventDeliveryType, eventDate, eventTime, selectedClub);
+
+        Event event = new Event(eventName, eventLocation, eventType,eventDeliveryType, eventDate, eventTime,
+                selectedClub, eventDescription);
         Event.evenDetails.add(event);
-        System.out.println("Event successfully Created !!!");
+        System.out.println("Event successfully Scheduled !!!");
 
         Alert eventCreateAlert = new Alert(Alert.AlertType.INFORMATION);
         eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
