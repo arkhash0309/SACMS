@@ -1,19 +1,27 @@
 package ClubAdvisorDashboardManager;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
 
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
+
     @FXML
     protected Label welcomeText;
     @FXML
@@ -96,7 +104,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected Button UpdateEventButton;
-
     @FXML
     public Button GoToClubMembershipButton;
 
@@ -117,10 +124,10 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected Button AdvisorProfileButton;
 
     @FXML
-    private TextField scheduleEventNameTextField;
+    protected TextField scheduleEventNameTextField;
 
     @FXML
-    private TextField scheduleEventsLocationTextField;
+    protected TextField scheduleEventsLocationTextField;
 
     @FXML
     protected Button scheduleEventScheduleButton;
@@ -147,13 +154,16 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected Button ViewCreatedEventsSearchButton;
 
     @FXML
-    private ComboBox<?> scheduleEventTypeCombo;
+    protected ComboBox<String> scheduleEventTypeCombo;
 
     @FXML
-    private ComboBox<?> ScheduleEventsDeliveryType;
+    protected ComboBox<String> ScheduleEventsDeliveryType;
 
     @FXML
-    private TextArea scheduleEventDescriptionTextField;
+    public ComboBox<String> updateEventClubCombo;
+
+    @FXML
+    protected TextArea scheduleEventDescriptionTextField;
     @FXML
     private Label clubIdError;
     @FXML
@@ -162,6 +172,82 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     private Label clubNameError;
     @FXML
     private Label clubDescriptionError;
+
+    @FXML
+    protected Label updateErrorLabelEventLocation;
+
+    @FXML
+    protected Label updateErrorLabelEventName;
+
+    @FXML
+    protected Label updateErrorLabelEventType;
+
+    @FXML
+    protected Label updateErrorLabelEventDate;
+
+    @FXML
+    protected Label updateErrorLabelDeliveryType;
+
+    @FXML
+    protected Label updateErrorLabelEventDescription;
+
+    @FXML
+    protected Label scheduleErrorLabelClubName;
+
+    @FXML
+    protected Label scheduleErrorLabelEventName;
+
+    @FXML
+    protected Label scheduleErrorLabelEventDate;
+
+    @FXML
+    protected Label scheduleErrorLabelEventLocation;
+
+    @FXML
+    protected Label scheduleErrorLabelEventType;
+
+    @FXML
+    protected Label scheduleErrorLabelEventDeliveryType;
+
+    @FXML
+    protected Label scheduleErrorLabelEventDescription;
+
+    @FXML
+    protected TextField updateEventLocationTextField;
+
+    @FXML
+    protected TextField updateEventNameTextField;
+
+    @FXML
+    protected  ComboBox<String> updateEventTypeCombo;
+
+    @FXML
+    protected DatePicker updateEventDateDatePicker;
+
+    @FXML
+    protected ComboBox<String> updateEventDeliveryTypeCombo;
+
+    @FXML
+    protected  TextArea updateEventDescription;
+
+    @FXML
+    protected Label updateErrorLabelClubName;
+
+    @FXML
+    protected ComboBox<String> updateHourComboBox;
+
+    @FXML
+    protected ComboBox<String> updateMinuteComboBox;
+    @FXML
+    private TextField updateEventClubTextField;
+
+    @FXML
+    protected ComboBox<String> scheduleEventHour;
+
+    @FXML
+    protected ComboBox<String> scheduleEventMinutes;
+    @FXML
+    public ComboBox<String> scheduleEventsClubName;
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 
@@ -227,5 +313,11 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     abstract void GoToUpdateClubDetailsPane(ActionEvent event);
+
+    @FXML
+    abstract protected void clearUpdateEventFields(ActionEvent event);
+
+    @FXML
+    abstract void scheduleEventController(ActionEvent event);
 
 }

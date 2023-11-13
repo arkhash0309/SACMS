@@ -1,5 +1,6 @@
 package ClubAdvisorDashboardManager;
-
+import ClubManager.Club;
+import ClubManager.EventManager;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,24 +8,379 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        scheduleEventDatePicker.setEditable(false);
+        updateEventDateDatePicker.setEditable(false);
+        populateComboBoxes();
+    }
+
+    public void populateComboBoxes(){
+        scheduleEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
+        scheduleEventTypeCombo.getSelectionModel().selectFirst();
+        ScheduleEventsDeliveryType.getItems().addAll("None", "Online", "Physical");
+        ScheduleEventsDeliveryType.getSelectionModel().selectFirst();
+        updateEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
+        updateEventTypeCombo.getSelectionModel().selectFirst();
+        updateEventDeliveryTypeCombo.getItems().addAll("None", "Online", "Physical");
+        updateEventDeliveryTypeCombo.getSelectionModel().selectFirst();
+
+        for (int hour = 0; hour < 24; hour++) {
+            updateHourComboBox.getItems().add(String.format("%02d", hour));
+        }
+        updateHourComboBox.getSelectionModel().selectFirst();
+
+        for(int minutes = 0; minutes < 60; minutes++){
+            updateMinuteComboBox.getItems().add(String.format("%02d", minutes));
+        }
+        updateMinuteComboBox.getSelectionModel().selectFirst();
+
+        for (int hour = 0; hour < 24; hour++) {
+            scheduleEventHour.getItems().add(String.format("%02d", hour));
+        }
+        scheduleEventHour.getSelectionModel().selectFirst();
+
+
+        for(int minutes = 0; minutes < 60; minutes++){
+            scheduleEventMinutes.getItems().add(String.format("%02d", minutes));
+        }
+        scheduleEventMinutes.getSelectionModel().selectFirst();
+    }
+
+    @Override
+    public void clearScheduleEventFields(ActionEvent event){
+        clearEventScheduleFieldsDefault();
+    }
+
+    public void clearEventScheduleFieldsDefault(){
+        scheduleEventNameTextField.setText("");
+        scheduleEventsLocationTextField.setText("");
+        scheduleEventDescriptionTextField.setText("");
+        scheduleEventDatePicker.setValue(null);
+        scheduleEventTypeCombo.getSelectionModel().selectFirst();
+        ScheduleEventsDeliveryType.getSelectionModel().selectFirst();
+        scheduleEventMinutes.getSelectionModel().selectFirst();
+        scheduleEventHour.getSelectionModel().selectFirst();
+        scheduleEventsClubName.getSelectionModel().selectFirst();
+        clearAllScheduleEventLabels();
+    }
+
+   @Override
+    protected void clearUpdateEventFields(ActionEvent event){
+        updateEventClubCombo.getSelectionModel().selectFirst();
+        updateEventTypeCombo.getSelectionModel().selectFirst();
+        updateEventDeliveryTypeCombo.getSelectionModel().selectFirst();
+        updateEventLocationTextField.setText("");
+        updateEventNameTextField.setText("");
+        updateEventDescription.setText("");
+        updateEventDateDatePicker.setValue(null);
+        updateHourComboBox.getSelectionModel().selectFirst();
+        updateMinuteComboBox.getSelectionModel().selectFirst();
+        updateEventClubCombo.getSelectionModel().selectFirst();
+        updateEventClubCombo.getSelectionModel().selectFirst();
+        clearAllUpdateEventLabels();
+    }
+
+    @FXML
+    void CheckNameError(KeyEvent event) {
+        String targetName = "TextField[id=scheduleEventNameTextField, styleClass=text-input text-field eventField]";
+        String eventName;
+        EventManager eventManager = new EventManager();
+
+        if(String.valueOf(event.getTarget()).equals(targetName)){
+            eventName = scheduleEventNameTextField.getText();
+
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventName(eventName)){
+                scheduleErrorLabelEventName.setText("Event name cannot be empty");
+            }else{
+                scheduleErrorLabelEventName.setText("");
+            }
+        }else{
+            eventName = updateEventNameTextField.getText();
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventName(eventName)){
+                updateErrorLabelEventName.setText("Event name cannot be empty");
+            }else{
+                updateErrorLabelEventName.setText(" ");
+            }
+        }
+    }
+
+    @FXML
+    void CheckLocationError(KeyEvent event) {
+        String targetLocation = "TextField[id=scheduleEventsLocationTextField, styleClass=text-input text-field eventField]";
+        String eventLocation;
+        EventManager eventManager = new EventManager();
+        if(String.valueOf(event.getTarget()).equals(targetLocation)){
+            eventLocation = scheduleEventsLocationTextField.getText();
+
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventLocation(eventLocation)){
+                scheduleErrorLabelEventLocation.setText("Event Location cannot be empty");
+            }else{
+                scheduleErrorLabelEventLocation.setText(" ");
+            }
+        }else{
+            eventLocation = updateEventLocationTextField.getText();
+            if(!eventManager.validateEventLocation(eventLocation)){
+                updateErrorLabelEventLocation.setText("Event Location cannot be empty");
+            }else{
+                updateErrorLabelEventLocation.setText(" ");
+            }
+        }
+    }
+
+    @FXML
+    void CheckEventTypeError(ActionEvent event) {
+        String targetType = "ComboBox[id=scheduleEventTypeCombo, styleClass=combo-box-base combo-box eventField]";
+        String selectedOption;
+        EventManager eventManager = new EventManager();
+        if(String.valueOf(event.getTarget()).equals(targetType)){
+            selectedOption = scheduleEventTypeCombo.getSelectionModel().getSelectedItem();
+            System.out.println(event.getTarget());
+            if(eventManager.validateEventType(selectedOption)){
+                System.out.println("Hello1");
+                scheduleErrorLabelEventType.setText("Event type cannot be None");
+            }else{
+                System.out.println("Hello2");
+                scheduleErrorLabelEventType.setText(" ");
+            }
+        }else{
+            selectedOption = updateEventTypeCombo.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedOption)){
+                System.out.println("Hello1");
+                updateErrorLabelEventType.setText("Event type cannot be None");
+            }else{
+                System.out.println("Hello2");
+                updateErrorLabelEventType.setText(" ");
+            }
+        }
+    }
+
+    @FXML
+    void checkDeliveryTypeError(ActionEvent event) {
+        String targetDelivery= "ComboBox[id=ScheduleEventsDeliveryType, styleClass=combo-box-base combo-box eventField]";
+        String selectedOption;
+        EventManager eventManager = new EventManager();
+        System.out.println(event.getTarget());
+        if(String.valueOf(event.getTarget()).equals(targetDelivery)){
+            selectedOption= ScheduleEventsDeliveryType.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedOption)){
+                scheduleErrorLabelEventDeliveryType.setText("Event delivery type cannot be None");
+            }else{
+                scheduleErrorLabelEventDeliveryType.setText(" ");
+            }
+        }else{
+            selectedOption= updateEventDeliveryTypeCombo.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedOption)){
+                updateErrorLabelDeliveryType.setText("Event delivery type cannot be None");
+            }else{
+                updateErrorLabelDeliveryType.setText(" ");
+            }
+        }
 
     }
 
     @FXML
-    protected void clearScheduleEventFields(ActionEvent event){
+    void checkSelectedEventDate(ActionEvent event) {
+        String targetDate = "DatePicker[id=scheduleEventDatePicker, styleClass=combo-box-base date-picker eventField]";
+        LocalDate selectedDate;
+        EventManager eventManager = new EventManager();
+
+        if(String.valueOf(event.getTarget()).equals(targetDate)){
+            selectedDate = scheduleEventDatePicker.getValue();
+
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventDate(selectedDate)){
+                scheduleErrorLabelEventDate.setText("Event date cannot be a past date");
+            }else{
+                scheduleErrorLabelEventDate.setText(" ");
+            }
+        }else{
+            selectedDate = updateEventDateDatePicker.getValue();
+
+            System.out.println(event.getTarget());
+            if(!eventManager.validateEventDate(selectedDate)){
+                updateErrorLabelEventDate.setText("Event date cannot be a past date");
+            }else{
+                updateErrorLabelEventDate.setText(" ");
+            }
+
+        }
 
     }
+
+
+    @FXML
+    void checkClubName(ActionEvent event) {
+        String targetClub = "ComboBox[id=scheduleEventsClubName, styleClass=combo-box-base combo-box eventField]";
+        String selectedClub;
+        EventManager eventManager = new EventManager();
+        System.out.println(event.getTarget());
+
+        if(String.valueOf(event.getTarget()).equals(targetClub)){
+            selectedClub= scheduleEventsClubName.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedClub)){
+                scheduleErrorLabelClubName.setText("Club Name cannot be None");
+            }else{
+                scheduleErrorLabelClubName.setText(" ");
+            }
+        }else{
+            System.out.println("Hello World !!!");
+            selectedClub = updateEventClubCombo.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedClub)){
+                 updateErrorLabelClubName.setText("Club Name cannot be None");
+            }else{
+                 updateErrorLabelClubName.setText(" ");
+            }
+        }
+        System.out.println(event.getTarget());
+    }
+
+
+    public void getCreatedClubs(){
+        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+        Club.clubDetailsList.add(club1);
+        Club club2 = new Club(0002, "IEEE", "Done with the work", "lkt.img");
+
+        Club.clubDetailsList.add(club2);
+
+        if(!scheduleEventsClubName.getItems().contains("None")){
+            scheduleEventsClubName.getItems().add("None");
+        }
+
+        if(!updateEventClubCombo.getItems().contains("None")){
+            updateEventClubCombo.getItems().add("None");
+        }
+
+        for(Club club: Club.clubDetailsList){
+            String clubName;
+            clubName = club.getClubName();
+            boolean scheduleContainStatus =  scheduleEventsClubName.getItems().contains(clubName);
+            boolean updateContainsStatus =   updateEventClubCombo.getItems().contains(clubName);
+
+            if(!scheduleContainStatus){
+                scheduleEventsClubName.getItems().add(clubName);
+            }
+
+            if(!updateContainsStatus){
+                updateEventClubCombo.getItems().add(clubName);
+            }
+
+        }
+
+        scheduleEventsClubName.getSelectionModel().selectFirst();
+        scheduleErrorLabelClubName.setText(" ");
+
+        updateEventClubCombo.getSelectionModel().selectFirst();
+        updateErrorLabelClubName.setText(" ");
+    }
+
+
+    @Override
+    void scheduleEventController(ActionEvent event) {
+        String eventName = scheduleEventNameTextField.getText();
+        String eventLocation = scheduleEventsLocationTextField.getText();
+        LocalDate eventDate = scheduleEventDatePicker.getValue();
+        String deliveryType = ScheduleEventsDeliveryType.getValue();
+        String eventType = scheduleEventTypeCombo.getValue();
+        String clubName = scheduleEventsClubName.getValue();
+        String eventStartHour = scheduleEventHour.getValue();
+        String eventStartMinute = scheduleEventMinutes.getValue();
+
+        EventManager eventManager = new EventManager();
+        boolean stat = eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,
+                eventDate, clubName, eventStartHour, eventStartMinute, "create");
+        if(stat){
+            clearEventScheduleFieldsDefault();
+        }
+        DisplayEventErrorsCreation();
+        System.out.println("\n\n");
+    }
+
+    public void DisplayEventErrorsCreation(){
+        if(!EventManager.eventDateStatus){
+            scheduleErrorLabelEventDate.setText("It is compulsory to set a future date");
+        }else{
+            scheduleErrorLabelEventDate.setText(" ");
+        }
+
+        if(!EventManager.eventTypeStatus){
+            scheduleErrorLabelEventType.setText("Event type cannot be None");
+        }else{
+            scheduleErrorLabelEventType.setText(" ");
+        }
+
+        if(!EventManager.eventDeliveryTypeStatus){
+            scheduleErrorLabelEventDeliveryType.setText("Event delivery type cannot be None");
+        }else{
+            scheduleErrorLabelEventDeliveryType.setText(" ");
+        }
+
+        if(!EventManager.eventLocationStatus){
+            scheduleErrorLabelEventLocation.setText("Event Location cannot be empty");
+        }else{
+            scheduleErrorLabelEventLocation.setText(" ");
+        }
+
+        if(!EventManager.eventNameStatus){
+            scheduleErrorLabelEventName.setText("Event name cannot be empty");
+        }else{
+            scheduleErrorLabelEventName.setText(" ");
+        }
+
+        EventManager eventManager = new EventManager();
+        String clubName = scheduleEventsClubName.getValue();
+        if(!eventManager.validateClubNameEvent(clubName)){
+            updateErrorLabelClubName.setText("Club Name cannot be None");
+        }else{
+            updateErrorLabelClubName.setText(" ");
+        }
+    }
+
+
+
+    public void clearAllScheduleEventLabels(){
+        scheduleErrorLabelEventName.setText("");
+        scheduleErrorLabelEventLocation.setText(" ");
+        scheduleErrorLabelEventDate.setText(" ");
+        scheduleErrorLabelEventDeliveryType.setText(" ");
+        scheduleErrorLabelEventType.setText(" ");
+        scheduleErrorLabelClubName.setText(" ");
+    }
+
+    public void clearAllUpdateEventLabels(){
+        updateErrorLabelEventDate.setText(" ");
+        updateErrorLabelDeliveryType.setText(" ");
+        updateErrorLabelEventType.setText(" ");
+        updateErrorLabelEventLocation.setText(" ");
+        updateErrorLabelEventName.setText(" ");
+        updateErrorLabelClubName.setText(" ");
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -319,6 +675,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         ScheduleEventsPane.setVisible(true);
         ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        getCreatedClubs();
+        clearAllUpdateEventLabels();
+        clearAllScheduleEventLabels();
     }
 
     @Override
@@ -406,6 +765,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         UpdatesEventPane.setVisible(true);
         UpdateEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+        getCreatedClubs();
+        clearAllUpdateEventLabels();
     }
 
     @Override
@@ -422,6 +783,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ScheduleEventsInnerPane.setVisible(true);
         ScheduleEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+        getCreatedClubs();
+        clearAllScheduleEventLabels();
     }
 
     @Override
@@ -459,5 +822,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
 
     }
+
 
 }
