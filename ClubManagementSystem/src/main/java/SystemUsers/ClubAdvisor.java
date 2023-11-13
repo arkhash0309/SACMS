@@ -55,7 +55,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
         eventCreateAlert.setTitle("School Club Management System");
         eventCreateAlert.setHeaderText("Event successfully created !!!");
-        eventCreateAlert.close();
+        eventCreateAlert.show();
 
     }
 
