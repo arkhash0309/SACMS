@@ -68,14 +68,23 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         createEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         createEventDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
         createEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
+        updateClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        updateEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        updateEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
+        updateEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        updateEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        updateDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
+        updateEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
     }
 
-    public void populateScheduleCreatedEventsTable(){
+    public void EventsTables(){
        if(Event.evenDetails == null){
            return;
        }
 
         scheduleCreatedEventTable.getItems().clear();
+        updateEventTable.getItems().clear();
 
        for(Event value : Event.evenDetails){
            Club hostingClub = value.getHostingClub();
@@ -83,11 +92,17 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                    value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
                    value.getEventTime(), hostingClub, value.getEventDescription());
 
-           ObservableList<Event> viewUpdateDetails = scheduleCreatedEventTable.getItems();
-           viewUpdateDetails.add(event);
-           scheduleCreatedEventTable.setItems(viewUpdateDetails);
+           ObservableList<Event> viewScheduledEvents = scheduleCreatedEventTable.getItems();
+           viewScheduledEvents.add(event);
+           scheduleCreatedEventTable.setItems(viewScheduledEvents );
+
+           ObservableList<Event> updateScheduledEvents = updateEventTable.getItems();
+           updateScheduledEvents.add(event);
+           updateEventTable.setItems(updateScheduledEvents );
        }
     }
+
+
 
     @Override
     public void clearScheduleEventFields(ActionEvent event){
@@ -337,7 +352,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 eventDate, clubName, eventStartHour, eventStartMinute, "create", eventDescription);
         if(stat){
             clearEventScheduleFieldsDefault();
-            populateScheduleCreatedEventsTable();
+            EventsTables();
         }
         DisplayEventErrorsCreation();
         System.out.println("\n\n");
