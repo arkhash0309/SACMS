@@ -251,10 +251,16 @@ public class StudentLoginController {
 
     }
 
+    @FXML
+    public void studentUpdateChecker(MouseEvent mouseEvent) throws SQLException, IOException {
+
+    }
+
     public void displayNameError(String nameType) {
         if (nameType.equals("FName")) {
             if(Student.fNameValidateStatus.equals("empty")) {
                 System.out.println("First name cannot be empty.");
+                System.out.println("Please try again.");
             } else if (Student.fNameValidateStatus.equals("format")) {
                 System.out.println("First name can only contain letters.");
             } else {
@@ -320,6 +326,8 @@ public class StudentLoginController {
             System.out.println(" ");
         }
     }
+
+
 
 
 
