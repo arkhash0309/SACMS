@@ -1,5 +1,5 @@
 package ClubAdvisorDashboardManager;
-import com.jfoenix.controls.JFXTimePicker;
+import ClubManager.Club;
 import ClubManager.EventManager;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
@@ -25,8 +25,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
         populateComboBoxes();
-
-
     }
 
     public void populateComboBoxes(){
@@ -71,6 +69,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ScheduleEventsDeliveryType.getSelectionModel().selectFirst();
         scheduleEventMinutes.getSelectionModel().selectFirst();
         scheduleEventHour.getSelectionModel().selectFirst();
+        scheduleEventsClubName.getSelectionModel().selectFirst();
         clearAllScheduleEventLabels();
     }
 
@@ -85,6 +84,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventDateDatePicker.setValue(null);
         updateHourComboBox.getSelectionModel().selectFirst();
         updateMinuteComboBox.getSelectionModel().selectFirst();
+        updateEventClubCombo.getSelectionModel().selectFirst();
+        updateEventClubCombo.getSelectionModel().selectFirst();
         clearAllUpdateEventLabels();
     }
 
@@ -219,6 +220,68 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    @FXML
+    void checkClubName(ActionEvent event) {
+        String targetClub = "ComboBox[id=scheduleEventsClubName, styleClass=combo-box-base combo-box eventField]";
+        String selectedClub;
+        EventManager eventManager = new EventManager();
+        System.out.println(event.getTarget());
+
+        if(String.valueOf(event.getTarget()).equals(targetClub)){
+            selectedClub= scheduleEventsClubName.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedClub)){
+                scheduleErrorLabelClubName.setText("Event delivery type cannot be None");
+            }else{
+                scheduleErrorLabelClubName.setText(" ");
+            }
+        }else{
+            selectedClub = updateEventClubCombo.getSelectionModel().getSelectedItem();
+            if(eventManager.validateEventType(selectedClub)){
+                 updateErrorLabelClubName.setText("Event delivery type cannot be None");
+            }else{
+                 updateErrorLabelClubName.setText(" ");
+            }
+        }
+        System.out.println(event.getTarget());
+    }
+
+    public void getCreatedClubs(){
+        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+        Club.clubDetailsList.add(club1);
+        Club club2 = new Club(0002, "IEEE", "Done with the work", "lkt.img");
+
+        Club.clubDetailsList.add(club2);
+
+        if(!scheduleEventsClubName.getItems().contains("None")){
+            scheduleEventsClubName.getItems().add("None");
+        }
+
+        if(!updateEventClubCombo.getItems().contains("None")){
+            updateEventClubCombo.getItems().add("None");
+        }
+
+        for(Club club: Club.clubDetailsList){
+            String clubName;
+            clubName = club.getClubName();
+            boolean scheduleContainStatus =  scheduleEventsClubName.getItems().contains(clubName);
+            boolean updateContainsStatus =   updateEventClubCombo.getItems().contains(clubName);
+
+            if(!scheduleContainStatus){
+                scheduleEventsClubName.getItems().add(clubName);
+            }
+
+            if(!updateContainsStatus){
+                updateEventClubCombo.getItems().add(clubName);
+            }
+
+        }
+
+        scheduleEventsClubName.getSelectionModel().selectFirst();
+        updateEventClubCombo.getSelectionModel().selectFirst();
+
+    }
+
+
 
     public void clearAllScheduleEventLabels(){
         scheduleErrorLabelEventName.setText("");
@@ -235,9 +298,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateErrorLabelEventLocation.setText(" ");
         updateErrorLabelEventName.setText(" ");
     }
-
-
-
 
 
 
@@ -543,6 +603,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         ScheduleEventsPane.setVisible(true);
         ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        getCreatedClubs();
     }
 
     @Override
@@ -630,6 +691,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         UpdatesEventPane.setVisible(true);
         UpdateEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+        getCreatedClubs();
     }
 
     @Override
@@ -646,6 +708,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ScheduleEventsInnerPane.setVisible(true);
         ScheduleEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+        getCreatedClubs();
     }
 
     @Override

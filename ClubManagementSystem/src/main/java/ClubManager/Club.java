@@ -1,14 +1,23 @@
 package ClubManager;
 
+import SystemDataValidator.ClubValidator;
+
 import java.util.ArrayList;
 
-public class Club {
+public class Club implements ClubValidator {
     private int clubId;
     private String clubName;
     private String clubDescription;
     private String clubLogo;
 
-    public static ArrayList<Club> clubDetailArray = new ArrayList<>();
+    public Club(int clubId, String clubName, String clubDescription, String clubLogo){
+        this.clubId = clubId;
+        this.clubName = clubName;
+        this.clubDescription = clubDescription;
+        this.clubLogo = clubLogo;
+    }
+
+    public static ArrayList<Club> clubDetailsList = new ArrayList<>();
 
     public int getClubId() {
         return clubId;
@@ -41,4 +50,9 @@ public class Club {
     public void setClubLogo(String clubLogo) {
         this.clubLogo = clubLogo;
     }
+
+    public static String clubNameValidateStatus;
+
+
+
 }
