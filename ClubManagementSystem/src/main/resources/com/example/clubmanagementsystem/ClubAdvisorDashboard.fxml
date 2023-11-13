@@ -528,7 +528,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="ScheduleEventsInnerPane" prefHeight="525.0" prefWidth="874.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="ScheduleEventsInnerPane" prefHeight="525.0" prefWidth="874.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="270.0" prefWidth="835.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="14.0">
                                              <children>
@@ -601,7 +601,7 @@
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox fx:id="acheduleEventsClubName" layoutX="15.0" layoutY="73.0" prefHeight="25.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="70.0" />
+                                                <ComboBox fx:id="scheduleEventsClubName" layoutX="15.0" layoutY="73.0" onAction="#checkClubName" prefHeight="25.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="70.0" />
                                                 <Label fx:id="scheduleErrorLabelClubName" layoutX="15.0" layoutY="98.0" prefHeight="17.0" prefWidth="206.0">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
@@ -734,7 +734,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="UpdatesEventPane" prefHeight="522.0" prefWidth="864.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="UpdatesEventPane" prefHeight="522.0" prefWidth="864.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="17.0" layoutY="255.0" prefHeight="263.0" prefWidth="837.0" styleClass="EventMainPane" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="255.0">
                                              <children>

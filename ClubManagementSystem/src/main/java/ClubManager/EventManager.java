@@ -3,7 +3,7 @@ package ClubManager;
 import SystemDataValidator.EventValidator;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class EventManager implements EventValidator {
 
@@ -44,5 +44,11 @@ public class EventManager implements EventValidator {
             return true;
         }
     }
+
+    @Override
+    public boolean validateClubNameEvent(String ClubName) {
+        return (ClubName.equals("None"));
+    }
+
 
 }

@@ -10,5 +10,6 @@ public interface EventValidator {
     boolean validateEventType(String EventType);
     boolean validateEventDeliveryType(String EventDeliveryType);
     boolean validateEventDate(LocalDate EventDate);
+    boolean validateClubNameEvent(String ClubName);
 
 }
