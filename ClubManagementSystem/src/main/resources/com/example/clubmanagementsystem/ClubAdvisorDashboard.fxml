@@ -550,7 +550,7 @@
                                                       <Font name="System Bold" size="13.0" />
                                                    </font></TextField>
                                                 <ComboBox fx:id="scheduleEventTypeCombo" layoutX="249.0" layoutY="169.0" onAction="#CheckEventTypeError" prefHeight="20.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="140.0" />
-                                                <Button fx:id="scheduleEventScheduleButton" layoutX="701.0" layoutY="143.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Schedule">
+                                                <Button fx:id="scheduleEventScheduleButton" layoutX="701.0" layoutY="143.0" mnemonicParsing="false" onAction="#scheduleEventController" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Schedule">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
@@ -833,7 +833,7 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox fx:id="updateEventClubCombo" layoutX="16.0" layoutY="68.0" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" />
+                                                <ComboBox fx:id="updateEventClubCombo" layoutX="16.0" layoutY="68.0" onAction="#checkClubName" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" />
                                                 <Label layoutX="249.0" layoutY="191.0" prefHeight="21.0" prefWidth="207.0" styleClass="updateClubLabels" text=" Event Starting Time">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />

@@ -1,25 +1,30 @@
 package ClubManager;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
-    private int eventId;
     private String eventName;
     private String eventDescription;
     private Date eventDate;
+    private LocalTime eventTime;
     private String eventLocation;
     private String eventType;
     private String eventDeliveryType;
-    Club clubDetails;
-    public static ArrayList<Event> evenDetails = new ArrayList<>();
-    public int getEventId() {
-        return eventId;
-    }
+    Club hostingClub;
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public Event(String eventName, String eventLocation, String eventType,
+                 String eventDeliveryType, Date eventDate, LocalTime eventTime, Club hostingClub){
+        this.eventName  = eventName;
+        this.eventLocation = eventLocation;
+        this.eventType = eventType;
+        this.eventDeliveryType = eventDeliveryType;
+        this.eventDate = eventDate;
+        this.eventTime = eventTime;
+        this.hostingClub = hostingClub;
     }
+    public static ArrayList<Event> evenDetails = new ArrayList<>();
 
     public String getEventName() {
         return eventName;
