@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="StudentLoginForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentLoginPaneDragDetected" onMousePressed="#studentLoginPanePressedDetected" prefHeight="570.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginDashboardManager.StudentLoginController">
+<StackPane fx:id="StudentLoginForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#StudentLoginPaneDragDetected" onMousePressed="#studentLoginPanePressedDetected" prefHeight="570.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginDashboardManager.StudentLoginController">
    <stylesheets>
       <URL value="@StudentRegistration.css" />
    </stylesheets>
@@ -84,42 +84,42 @@
                      <children>
                         <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="510.0" prefWidth="585.0" styleClass="EventMainPane">
                            <children>
-                              <TextField fx:id="studentUserName" layoutX="27.0" layoutY="345.0" prefHeight="29.0" prefWidth="242.0" promptText="Username">
+                              <TextField fx:id="studentRegisterUserName" layoutX="27.0" layoutY="345.0" prefHeight="29.0" prefWidth="242.0" promptText="Username">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="307.0" layoutY="413.0" mnemonicParsing="false" onAction="#StudentRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
+                              <Button layoutX="307.0" layoutY="413.0" mnemonicParsing="false" onMouseClicked="#StudentRegistrationChecker" onMousePressed="#StudentRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <PasswordField fx:id="studentPassword" layoutX="307.0" layoutY="345.0" prefHeight="29.0" prefWidth="242.0" promptText="Password">
+                              <PasswordField fx:id="studentRegisterPassword" layoutX="307.0" layoutY="345.0" prefHeight="29.0" prefWidth="242.0" promptText="Password">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <PasswordField fx:id="studentConfirmPassword" layoutX="27.0" layoutY="432.0" prefHeight="29.0" prefWidth="242.0" promptText="Confirm Password">
+                              <PasswordField fx:id="studentRegisterConfirmPassword" layoutX="27.0" layoutY="432.0" prefHeight="29.0" prefWidth="242.0" promptText="Confirm Password">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <TextField fx:id="studentLastName" layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Last Name" AnchorPane.topAnchor="95.0">
+                              <TextField fx:id="studentRegisterLastName" layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Last Name" AnchorPane.topAnchor="95.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="studentAdmissionNumber" layoutX="23.0" layoutY="196.0" prefHeight="29.0" prefWidth="242.0" promptText="Admission Number" AnchorPane.topAnchor="180.0">
+                              <TextField fx:id="studentRegisterAdmissionNumber" layoutX="23.0" layoutY="196.0" prefHeight="29.0" prefWidth="242.0" promptText="Admission Number" AnchorPane.topAnchor="180.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="studentFirstName" layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="95.0">
+                              <TextField fx:id="studentRegisterFirstName" layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="95.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="studentContactNumber" layoutX="311.0" layoutY="191.0" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" AnchorPane.topAnchor="180.0">
+                              <TextField fx:id="studentRegisterContactNumber" layoutX="311.0" layoutY="191.0" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" AnchorPane.topAnchor="180.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -183,13 +183,13 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="studentGrade" layoutX="27.0" layoutY="257.0" prefHeight="29.0" prefWidth="242.0" />
+                              <ComboBox fx:id="studentRegisterGrade" layoutX="27.0" layoutY="257.0" prefHeight="29.0" prefWidth="242.0" />
                               <Label layoutX="311.0" layoutY="220.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Gender" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="studentGender" layoutX="311.0" layoutY="257.0" prefHeight="29.0" prefWidth="242.0" />
+                              <ComboBox fx:id="studentRegisterGender" layoutX="311.0" layoutY="257.0" prefHeight="29.0" prefWidth="242.0" />
                               <Label fx:id="usernameLabel" layoutX="26.0" layoutY="375.0" prefHeight="17.0" prefWidth="242.0" />
                            </children>
                         </AnchorPane>

@@ -4,6 +4,7 @@ import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,119 +15,69 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class StudentDashboardController {
-    private double xPosition;
+abstract public class StudentDashboardController implements Initializable {
+    protected double xPosition;
 
-    private double yPosition;
+    protected double yPosition;
     @FXML
-    private StackPane StudentDashboard;
+    protected StackPane StudentDashboard;
 
-    private Scene scene;
-    private Stage stage;
+    protected Scene scene;
+    protected Stage stage;
 
     private Parent root;
 
     @FXML
-    private AnchorPane EventStudentPane;
+    protected AnchorPane EventStudentPane;
 
     @FXML
-    private AnchorPane JoinLeaveClubPane;
+    protected AnchorPane JoinLeaveClubPane;
 
     @FXML
-    private AnchorPane StudentDashBoardPane;
+    protected AnchorPane StudentDashBoardPane;
 
     @FXML
-    private AnchorPane StudentProfilePane;
+    protected AnchorPane StudentProfilePane;
     @FXML
     public Button dashboardButton;
 
     @FXML
-    private Button ViewEventButton;
+    protected Button ViewEventButton;
 
     @FXML
-    private Button ManageclubButton;
+    protected Button ManageclubButton;
 
     @FXML
-    private Button ProfileDirectorButton;
+    protected Button ProfileDirectorButton;
+    @FXML
+    abstract void StudentLogout(MouseEvent event) throws IOException;
+
+    abstract public void StudentDashboardDragDetected(MouseEvent mouseEvent);
+
+    abstract public void StudentPanePressed(MouseEvent mouseEvent);
 
     @FXML
-    void StudentLogout(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public void StudentDashboardDragDetected(MouseEvent mouseEvent) {
-        Stage stage =  (Stage)StudentDashboard.getScene().getWindow();
-        stage.setX(mouseEvent.getScreenX()- xPosition);
-        stage.setY(mouseEvent.getScreenY() - yPosition);
-    }
-
-    public void StudentPanePressed(MouseEvent mouseEvent) {
-        xPosition = mouseEvent.getSceneX();
-        yPosition = mouseEvent.getSceneY();
-    }
-
-    @FXML
-    void MinimizePane(ActionEvent event) {
-        ApplicationController applicationController = new ApplicationController();
-        applicationController.MinimizeApp(StudentDashboard);
-    }
+    abstract void MinimizePane(ActionEvent event);
 
 
     @FXML
-    void ClosePane(ActionEvent event) {
-        ApplicationController applicationController = new ApplicationController();
-        applicationController.closingApp();
-    }
+    abstract void ClosePane(ActionEvent event);
 
-    public void makeAllStudentDashBoardPanesInvisible(){
-       EventStudentPane.setVisible(false);
-       JoinLeaveClubPane.setVisible(false);
-       StudentDashBoardPane.setVisible(false);
-        StudentProfilePane.setVisible(false);
-    }
+    abstract public void makeAllStudentDashBoardPanesInvisible();
+    @FXML
+    abstract void GoToDashBoard(ActionEvent event);
+    @FXML
+    abstract public void GoToJoinLeaveClub(ActionEvent actionEvent);
 
     @FXML
-    void GoToDashBoard(ActionEvent event) {
-        makeAllStudentDashBoardPanesInvisible();
-        makeAllStudentButtonsColoured();
-        StudentDashBoardPane.setVisible(true);
-        dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-    }
-    @FXML
-    public void GoToJoinLeaveClub(ActionEvent actionEvent) {
-        makeAllStudentDashBoardPanesInvisible();
-        makeAllStudentButtonsColoured();
-        JoinLeaveClubPane.setVisible(true);
-        ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-    }
+    abstract public void GoToEvents(ActionEvent actionEvent);
 
     @FXML
-    public void GoToEvents(ActionEvent actionEvent) {
-        makeAllStudentDashBoardPanesInvisible();
-        makeAllStudentButtonsColoured();
-        EventStudentPane.setVisible(true);
-        ViewEventButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-    }
+    abstract void GoToStudentProfile(ActionEvent event);
 
-    @FXML
-    void GoToStudentProfile(ActionEvent event) {
-        makeAllStudentDashBoardPanesInvisible();
-        makeAllStudentButtonsColoured();
-        StudentProfilePane.setVisible(true);
-        ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+    abstract public void makeAllStudentButtonsColoured();
 
-    }
-
-    public void makeAllStudentButtonsColoured(){
-        dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
-        ViewEventButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
-        ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
-        ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
-    }
 }
