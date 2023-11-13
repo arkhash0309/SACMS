@@ -1,20 +1,20 @@
 package ClubManager;
 
 import SystemDataValidator.EventValidator;
+import SystemUsers.ClubAdvisor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
 public class EventManager implements EventValidator {
-
-    static boolean eventNameStatus;
-    static boolean eventLocationStatus;
-    static boolean eventTypeStatus;
-    static boolean eventDeliveryTypeStatus;
-    static boolean eventDateStatus;
-    static boolean eventClubNameStatus;
-    static String selectedClubName;
+    public static boolean eventNameStatus;
+    public static boolean eventLocationStatus;
+    public static boolean eventTypeStatus;
+    public static boolean eventDeliveryTypeStatus;
+    public static boolean eventDateStatus;
+    public static boolean eventClubNameStatus;
+    static Club userSelectedClub;
 
     public EventManager(){
 
@@ -84,8 +84,9 @@ public class EventManager implements EventValidator {
     }
 
 
-    public void validateAllEventDetails(String eventName, String eventLocation,
-        String eventType, String eventDeliveryType, LocalDate eventDate, String clubName){
+    public boolean validateAllEventDetails(String eventName, String eventLocation,
+        String eventType, String eventDeliveryType, LocalDate eventDate, String clubName,
+        String eventHour,  String eventMinutes, String status){
 
         eventNameStatus = validateEventName(eventName);
         System.out.println("Name" + eventNameStatus);
@@ -105,6 +106,29 @@ public class EventManager implements EventValidator {
         eventClubNameStatus = !validateClubNameEvent(clubName);
         System.out.println("Club" + eventClubNameStatus);
 
+        if(EventManager.eventNameStatus && EventManager.eventLocationStatus &&
+                EventManager.eventTypeStatus && EventManager.eventDeliveryTypeStatus &&
+                EventManager.eventDateStatus && EventManager.eventClubNameStatus){
+            LocalTime eventTime = makeDateTime(eventHour, eventMinutes);
+            if(status.equals("create")){
+                ClubAdvisor.createEvent(eventName,eventLocation, eventType, eventDeliveryType, eventDate, eventTime,clubName);
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+
+    public static Club userSelectedClubChooser(String clubName){
+        for(Club club : Club.clubDetailsList){
+            if(club.getClubName().equals(clubName)){
+                return club;
+            }
+        }
+
+        return null;
     }
 
 }

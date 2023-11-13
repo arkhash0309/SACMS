@@ -60,7 +60,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     @Override
-    protected void clearScheduleEventFields(ActionEvent event){
+    public void clearScheduleEventFields(ActionEvent event){
+        clearEventScheduleFieldsDefault();
+    }
+
+    public void clearEventScheduleFieldsDefault(){
         scheduleEventNameTextField.setText("");
         scheduleEventsLocationTextField.setText("");
         scheduleEventDescriptionTextField.setText("");
@@ -294,12 +298,57 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String deliveryType = ScheduleEventsDeliveryType.getValue();
         String eventType = scheduleEventTypeCombo.getValue();
         String clubName = scheduleEventsClubName.getValue();
+        String eventStartHour = scheduleEventHour.getValue();
+        String eventStartMinute = scheduleEventMinutes.getValue();
 
         EventManager eventManager = new EventManager();
-        eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,eventDate, clubName);
-
+        boolean stat = eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,
+                eventDate, clubName, eventStartHour, eventStartMinute, "create");
+        if(stat){
+            clearEventScheduleFieldsDefault();
+        }
+        DisplayEventErrorsCreation();
         System.out.println("\n\n");
+    }
 
+    public void DisplayEventErrorsCreation(){
+        if(!EventManager.eventDateStatus){
+            scheduleErrorLabelEventDate.setText("It is compulsory to set a future date");
+        }else{
+            scheduleErrorLabelEventDate.setText(" ");
+        }
+
+        if(!EventManager.eventTypeStatus){
+            scheduleErrorLabelEventType.setText("Event type cannot be None");
+        }else{
+            scheduleErrorLabelEventType.setText(" ");
+        }
+
+        if(!EventManager.eventDeliveryTypeStatus){
+            scheduleErrorLabelEventDeliveryType.setText("Event delivery type cannot be None");
+        }else{
+            scheduleErrorLabelEventDeliveryType.setText(" ");
+        }
+
+        if(!EventManager.eventLocationStatus){
+            scheduleErrorLabelEventLocation.setText("Event Location cannot be empty");
+        }else{
+            scheduleErrorLabelEventLocation.setText(" ");
+        }
+
+        if(!EventManager.eventNameStatus){
+            scheduleErrorLabelEventName.setText("Event name cannot be empty");
+        }else{
+            scheduleErrorLabelEventName.setText(" ");
+        }
+
+        EventManager eventManager = new EventManager();
+        String clubName = scheduleEventsClubName.getValue();
+        if(!eventManager.validateClubNameEvent(clubName)){
+            updateErrorLabelClubName.setText("Club Name cannot be None");
+        }else{
+            updateErrorLabelClubName.setText(" ");
+        }
     }
 
 

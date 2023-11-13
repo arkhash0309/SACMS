@@ -1,11 +1,18 @@
 package SystemUsers;
 
+import ClubManager.Club;
+import ClubManager.Event;
+import ClubManager.EventManager;
 import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class ClubAdvisor extends User implements ClubAdvisorValidator {
@@ -35,7 +42,20 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
-    public void createEvent(){
+    public static void createEvent(String eventName, String eventLocation,
+                            String eventType, String eventDeliveryType,
+                            LocalDate eventDate, LocalTime eventTime,
+                            String clubName){
+        Club selectedClub = EventManager.userSelectedClubChooser(clubName);
+        Event event = new Event(eventName, eventLocation, eventType,eventDeliveryType, eventDate, eventTime, selectedClub);
+        Event.evenDetails.add(event);
+        System.out.println("Event successfully Created !!!");
+
+        Alert eventCreateAlert = new Alert(Alert.AlertType.INFORMATION);
+        eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
+        eventCreateAlert.setTitle("School Club Management System");
+        eventCreateAlert.setHeaderText("Event successfully created !!!");
+        eventCreateAlert.close();
 
     }
 

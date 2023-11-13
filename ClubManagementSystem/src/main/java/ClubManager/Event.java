@@ -1,5 +1,6 @@
 package ClubManager;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.Date;
 public class Event {
     private String eventName;
     private String eventDescription;
-    private Date eventDate;
+    private LocalDate eventDate;
     private LocalTime eventTime;
     private String eventLocation;
     private String eventType;
@@ -15,7 +16,7 @@ public class Event {
     Club hostingClub;
 
     public Event(String eventName, String eventLocation, String eventType,
-                 String eventDeliveryType, Date eventDate, LocalTime eventTime, Club hostingClub){
+                 String eventDeliveryType, LocalDate eventDate, LocalTime eventTime, Club hostingClub){
         this.eventName  = eventName;
         this.eventLocation = eventLocation;
         this.eventType = eventType;
@@ -42,11 +43,11 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public Date getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(LocalDate eventDate) {
         this.eventDate = eventDate;
     }
 
