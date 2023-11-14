@@ -84,7 +84,7 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="109.0" prefHeight="40.0" prefWidth="209.0" text="    Lakshan2023" textFill="WHITE">
+                              <Label layoutX="20.0" layoutY="109.0" prefHeight="40.0" prefWidth="209.0" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="23.0" />
                                  </font>
@@ -148,7 +148,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
 
-                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
@@ -244,7 +244,7 @@
                            </children>
                         </AnchorPane>
 
-                        <AnchorPane fx:id="JoinLeaveClubPane" prefHeight="566.4" prefWidth="861.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="JoinLeaveClubPane" prefHeight="566.4" prefWidth="861.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="566.0" prefWidth="375.0">
                                  <children>
@@ -257,20 +257,20 @@
                                                       <Font name="System Bold" size="17.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField editable="false" layoutX="25.0" layoutY="182.0" prefHeight="30.0" prefWidth="280.0" />
+                                                <TextField fx:id="studentClubAdvisorName" editable="false" layoutX="25.0" layoutY="182.0" prefHeight="30.0" prefWidth="280.0" />
                                                 <Label layoutX="25.0" layoutY="14.0" prefHeight="26.0" prefWidth="239.0" text="Club Id :" AnchorPane.leftAnchor="25.0">
                                                    <font>
                                                       <Font name="System Bold" size="17.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField editable="false" layoutX="25.0" layoutY="111.0" prefHeight="30.0" prefWidth="280.0" />
+                                                <TextField fx:id="studentJoinClubName" editable="false" layoutX="25.0" layoutY="111.0" prefHeight="30.0" prefWidth="280.0" />
                                                 <Label layoutX="28.0" layoutY="85.0" prefHeight="26.0" prefWidth="233.0" text="Club Name :" AnchorPane.leftAnchor="28.0">
                                                    <font>
                                                       <Font name="System Bold" size="17.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField editable="false" layoutX="25.0" layoutY="40.0" prefHeight="30.0" prefWidth="280.0" />
-                                                <Button fx:id="joinButton" layoutX="86.0" layoutY="241.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Join" textFill="WHITE">
+                                                <TextField fx:id="studentJoinClubID" editable="false" layoutX="25.0" layoutY="40.0" prefHeight="30.0" prefWidth="280.0" />
+                                                <Button fx:id="joinButton" layoutX="86.0" layoutY="241.0" mnemonicParsing="false" onAction="#SendDataToDataBase" prefHeight="37.0" prefWidth="150.0" text="Join" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
@@ -291,7 +291,7 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox layoutX="43.0" layoutY="112.0" prefHeight="30.0" prefWidth="280.0" />
+                                          <ComboBox fx:id="studentJoinClubDropDownList" layoutX="43.0" layoutY="112.0" prefHeight="30.0" prefWidth="280.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -315,7 +315,7 @@
                                                 <Font name="System Bold" size="15.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="LeaveButton" layoutX="140.0" layoutY="414.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Leave" textFill="#fffdfd">
+                                          <Button fx:id="LeaveButton" layoutX="140.0" layoutY="414.0" mnemonicParsing="false" onAction="#RemoveStudentDataFromDataBase" prefHeight="37.0" prefWidth="150.0" text="Leave" textFill="#fffdfd">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -327,7 +327,7 @@
                                               <TableColumn prefWidth="155.142822265625" text="Club Name" />
                                             </columns>
                                           </TableView>
-                                          <TextField layoutX="26.0" layoutY="107.0" prefHeight="29.0" prefWidth="212.0" />
+                                          <TextField fx:id="studentLeaveClubSearchClub" layoutX="26.0" layoutY="107.0" prefHeight="29.0" prefWidth="212.0" />
                                           <Button layoutX="192.0" layoutY="107.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="47.0">
                                              <graphic>
                                                 <ImageView fitHeight="16.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">

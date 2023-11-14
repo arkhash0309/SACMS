@@ -1,10 +1,21 @@
 package ClubManager;
 
 import SystemDataValidator.ClubValidator;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Club implements ClubValidator {
+
+    String clubAdvisorName;
+    @FXML
+    private TextField studentJoinClubID;
+    @FXML
+    private TextField studentJoinClubName;
+    @FXML
+    private TextField studentClubAdvisorName;
     private int clubId;
     private String clubName;
     private String clubDescription;

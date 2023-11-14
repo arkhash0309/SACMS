@@ -23,6 +23,9 @@ import java.sql.SQLException;
 
 
 public class StudentLoginController {
+    static boolean loginStatus;
+    String studentLoginPageUserName;
+    String studentLoginPagePassword;
     private Scene scene;
     private Stage stage;
 
@@ -31,6 +34,18 @@ public class StudentLoginController {
     private double xPosition;
 
     private double yPosition;
+
+    private String confirmPassword;
+    @FXML
+    private Label studentLoginUserNameErrorLabel;
+    @FXML
+    private Label studentConfirmPasswordLabel;
+
+    @FXML
+    private Label studentLoginPasswordErrorLabel;
+
+    @FXML
+    private CheckBox showPasswordCheckBox;
 
     @FXML
     private StackPane StudentLoginForm;
@@ -46,6 +61,8 @@ public class StudentLoginController {
 
     @FXML
     private TextField studentRegisterLastName;
+    @FXML
+    private TextField PasswordTextField;
 
     @FXML
     private TextField studentRegisterAdmissionNumber;
@@ -58,6 +75,11 @@ public class StudentLoginController {
 
     @FXML
     private TextField studentRegisterUserName;
+    @FXML
+    private TextField LoginStudentUserName;
+    @FXML
+    private TextField studentLoginPassword;
+
 
     @FXML
     private ComboBox<String> studentRegisterGrade;
@@ -105,8 +127,41 @@ public class StudentLoginController {
         applicationController.closingApp();
     }
 
+    boolean fieldsChecker() {
+        loginStatus = true;
+        studentLoginPageUserName = LoginStudentUserName.getText();
+        studentLoginPagePassword = studentLoginPassword.getText();
+        if(studentLoginPageUserName.isEmpty()){
+            loginStatus = false;
+            studentLoginUserNameErrorLabel.setText("This field cannot be empty");
+        }
+        if(studentLoginPagePassword.isEmpty()){
+            loginStatus = false;
+            studentLoginPasswordErrorLabel.setText("This field cannot be empty");
+        }
+        return loginStatus;
+    }
+
+    public void showTypedPassword() {
+        if(showPasswordCheckBox.isSelected()){
+            studentLoginPassword.setVisible(false);
+            PasswordTextField.setVisible(true);
+            PasswordTextField.setText(studentLoginPassword.getText());
+        }else{
+            PasswordTextField.setVisible(false);
+            studentLoginPassword.setVisible(true);
+            studentLoginPassword.setText(PasswordTextField.getText());
+        }
+    }
+
+
     @FXML
     void DirectToStudentDashboard(ActionEvent event) throws IOException {
+
+        if(!fieldsChecker()){
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
@@ -230,15 +285,15 @@ public class StudentLoginController {
         }
         displayPasswordError();
 
-//        if(passwordConfirm.isEmpty()){
-//            validStat = false;
-//            studentConfirmPasswordLabel.setText("Confirm password cannot be empty");
-//        } else if (!confirmPassword.equals(password)){
-//            studentConfirmPasswordLabel.setText("Wrong confirm password ");
-//            validStat = false;
-//        }else{
-//            studentConfirmPasswordLabel.setText(" ");
-//        }
+        if(passwordConfirm.isEmpty()){
+            validStat = false;
+            studentConfirmPasswordLabel.setText("Confirm password cannot be empty");
+        } else if (!confirmPassword.equals(password)){
+            studentConfirmPasswordLabel.setText("Wrong confirm password ");
+            validStat = false;
+        }else{
+            studentConfirmPasswordLabel.setText(" ");
+        }
 
         System.out.println(validStat + " : Valid Stat");
         if (validStat) {

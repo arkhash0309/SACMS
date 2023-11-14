@@ -98,7 +98,7 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </TextField>
-                              <CheckBox fx:id="showPassword" layoutX="62.0" layoutY="216.0" mnemonicParsing="false" onAction="#showTypedPassword" prefHeight="38.0" prefWidth="179.0" text="Show Password" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="216.0">
+                              <CheckBox fx:id="showPassword" layoutX="71.0" layoutY="225.0" mnemonicParsing="false" onAction="#showTypedPassword" prefHeight="33.0" prefWidth="209.0" text="Show Password" AnchorPane.bottomAnchor="254.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="222.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
