@@ -375,7 +375,6 @@ public class ClubAdvisorLoginController {
             PasswordFieldLogin.setVisible(true);
             PasswordFieldLogin.setText(PasswordTextField.getText());
         }
-
     }
 
 
