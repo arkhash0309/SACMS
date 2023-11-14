@@ -494,7 +494,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="47.0" prefHeight="520.0" prefWidth="864.0">
                                  <children>
-                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0">
+                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0" visible="false">
                                        <children>
                                           <AnchorPane layoutX="19.0" layoutY="20.0" prefHeight="487.0" prefWidth="826.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -749,7 +749,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="UpdatesEventPane" prefHeight="522.0" prefWidth="864.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="UpdatesEventPane" prefHeight="522.0" prefWidth="864.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="17.0" layoutY="255.0" prefHeight="263.0" prefWidth="837.0" styleClass="EventMainPane" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="255.0">
                                              <children>
@@ -765,12 +765,12 @@
                                                 <TextField fx:id="updateEventNameTextField" layoutX="16.0" layoutY="143.0" onKeyTyped="#CheckNameError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="143.0" />
                                                 <TextField fx:id="updateEventLocationTextField" layoutX="249.0" layoutY="83.0" onKeyTyped="#CheckLocationError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="68.0" />
                                                 <ComboBox fx:id="updateEventTypeCombo" layoutX="249.0" layoutY="169.0" onAction="#CheckEventTypeError" prefHeight="31.0" prefWidth="207.0" styleClass="eventField" AnchorPane.topAnchor="142.0" />
-                                                <Button layoutX="701.0" layoutY="143.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Update">
+                                                <Button fx:id="updateEventFieldButton" layoutX="701.0" layoutY="143.0" mnemonicParsing="false" onAction="#updateEventsController" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Update">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button layoutX="701.0" layoutY="91.0" mnemonicParsing="false" onAction="#clearUpdateEventFields" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Clear">
+                                                <Button fx:id="clearEventFieldButton" layoutX="701.0" layoutY="91.0" mnemonicParsing="false" onAction="#clearUpdateEventFields" prefHeight="30.0" prefWidth="105.0" styleClass="button2" text="Clear">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font>
@@ -879,7 +879,7 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
-                                                <TableView fx:id="updateEventTable" layoutX="13.0" layoutY="83.0" prefHeight="140.0" prefWidth="810.0" AnchorPane.topAnchor="83.0">
+                                                <TableView fx:id="updateEventTable" layoutX="13.0" layoutY="83.0" onMouseClicked="#updateRowSelection" prefHeight="146.0" prefWidth="810.0" AnchorPane.topAnchor="83.0">
                                                    <columns>
                                                       <TableColumn fx:id="updateClubNameColumn" prefWidth="119.0" text="Club Name" />
                                                       <TableColumn fx:id="updateEventNameColumn" prefWidth="133.85711669921875" text="Event Name" />

@@ -42,6 +42,11 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
+    @Override
+    public void viewEvent() {
+
+    }
+
     public static void createEvent(String eventName, String eventLocation,
                             String eventType, String eventDeliveryType,
                             LocalDate eventDate, LocalTime eventTime,
@@ -58,7 +63,16 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         eventCreateAlert.setTitle("School Club Management System");
         eventCreateAlert.setHeaderText("Event successfully created !!!");
         eventCreateAlert.show();
+    }
 
+
+    public static void updateEventDetails(Event event, int eventId){
+          Event.evenDetails.set(eventId, event);
+          Alert eventUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+          eventUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+          eventUpdateAlert.setTitle("School Club Management System");
+          eventUpdateAlert.setHeaderText("Event details successfully updated!!!");
+          eventUpdateAlert.show();
     }
 
     public ClubAdvisor(String userName,String password,

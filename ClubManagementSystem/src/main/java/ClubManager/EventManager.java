@@ -16,6 +16,8 @@ public class EventManager implements EventValidator {
     public static boolean eventClubNameStatus;
     static Club userSelectedClub;
 
+    public static String selectedEventName;
+
     public EventManager(){
 
     }
@@ -111,8 +113,11 @@ public class EventManager implements EventValidator {
                 EventManager.eventDateStatus && EventManager.eventClubNameStatus){
             LocalTime eventTime = makeDateTime(eventHour, eventMinutes);
             if(status.equals("create")){
+
                 ClubAdvisor.createEvent(eventName,eventLocation, eventType, eventDeliveryType, eventDate,
                         eventTime,clubName, eventDescription);
+                return true;
+            } else if (status.equals("update")) {
                 return true;
             }
         }
