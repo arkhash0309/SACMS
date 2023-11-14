@@ -290,6 +290,54 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<Event, String> updateEventDescriptionColumn;
+
+    @FXML
+    protected TableView<Event> cancelEventTable;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventDescriptionColumn;
+
+    @FXML
+    protected TableView<Event> viewCreatedEventsTable;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventDescriptionColumn;
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 

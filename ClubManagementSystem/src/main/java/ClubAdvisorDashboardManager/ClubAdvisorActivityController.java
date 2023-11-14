@@ -10,9 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -76,15 +78,34 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         updateDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
         updateEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
+        cancelEventClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        cancelEventEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        cancelEventEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
+        cancelEventEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        cancelEventEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        cancelEventDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
+        cancelEventEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
+        viewEventClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        viewEventEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        viewEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
+        viewEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        viewEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        viewEventDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
+        viewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
     }
 
-    public void EventsTables(){
+    public void populateEventsTables(){
        if(Event.evenDetails == null){
            return;
        }
 
         scheduleCreatedEventTable.getItems().clear();
         updateEventTable.getItems().clear();
+        cancelEventTable.getItems().clear();
+        viewCreatedEventsTable.getItems().clear();
+
 
        for(Event value : Event.evenDetails){
            Club hostingClub = value.getHostingClub();
@@ -99,6 +120,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
            ObservableList<Event> updateScheduledEvents = updateEventTable.getItems();
            updateScheduledEvents.add(event);
            updateEventTable.setItems(updateScheduledEvents );
+
+           ObservableList<Event> cancelScheduledEvents = cancelEventTable.getItems();
+           cancelScheduledEvents.add(event);
+           cancelEventTable.setItems(cancelScheduledEvents );
+
+           ObservableList<Event> viewCreatedScheduledEvents = viewCreatedEventsTable.getItems();
+           viewCreatedScheduledEvents.add(event);
+           viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
        }
     }
 
@@ -352,7 +381,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 eventDate, clubName, eventStartHour, eventStartMinute, "create", eventDescription);
         if(stat){
             clearEventScheduleFieldsDefault();
-            EventsTables();
+            populateEventsTables();
+        }else{
+            Alert eventCreateAlert = new Alert(Alert.AlertType.WARNING);
+            eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
+            eventCreateAlert.setTitle("School Club Management System");
+            eventCreateAlert.setHeaderText("Please enter values properly to create an event!!!");
+            eventCreateAlert.show();
         }
         DisplayEventErrorsCreation();
         System.out.println("\n\n");
@@ -391,10 +426,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         EventManager eventManager = new EventManager();
         String clubName = scheduleEventsClubName.getValue();
-        if(!eventManager.validateClubNameEvent(clubName)){
-            updateErrorLabelClubName.setText("Club Name cannot be None");
+        if(eventManager.validateClubNameEvent(clubName)){
+            scheduleErrorLabelClubName.setText("Club Name cannot be None");
         }else{
-            updateErrorLabelClubName.setText(" ");
+            scheduleErrorLabelClubName.setText(" ");
         }
     }
 
