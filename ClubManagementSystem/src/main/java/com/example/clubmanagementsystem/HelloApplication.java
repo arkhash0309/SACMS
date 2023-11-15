@@ -1,5 +1,6 @@
 package com.example.clubmanagementsystem;
 
+import ClubManager.Club;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -40,6 +41,12 @@ public class HelloApplication extends Application {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+
+        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+        Club.clubDetailsList.add(club1);
+        Club club2 = new Club(0002, "IEEE", "Done with the work", "lkt.img");
+
+        Club.clubDetailsList.add(club2);
 
         launch();
         connection.close();

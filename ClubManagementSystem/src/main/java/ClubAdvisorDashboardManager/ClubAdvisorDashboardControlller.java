@@ -14,6 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalTime;
+
 import ClubManager.Event;
 
 
@@ -273,6 +275,9 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Event, String> createEventDescriptionColumn;
 
     @FXML
+    protected TableColumn<Event, LocalTime> createEventTimeColumn;
+
+    @FXML
     protected TableView<Event> updateEventTable;
 
     @FXML
@@ -295,6 +300,9 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<Event, String> updateEventDescriptionColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalTime> updateEventTimeColumn;
 
     @FXML
     protected TableView<Event> cancelEventTable;
@@ -321,6 +329,9 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Event, String> cancelEventEventDescriptionColumn;
 
     @FXML
+    protected TableColumn<Event, LocalTime> cancelEventTimeColumn;
+
+    @FXML
     protected TableView<Event> viewCreatedEventsTable;
 
     @FXML
@@ -343,6 +354,37 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<Event, String> viewEventDescriptionColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalTime> viewEventTimeColumn;
+
+    @FXML
+    protected TextField cancelEventSearchBar;
+
+    @FXML
+    protected TextField updateEventSearchBar;
+
+    @FXML
+    protected Button scheduleEventSearchButton;
+
+    @FXML
+    protected TextField createdEventSearchBar;
+
+    @FXML
+    protected Label numberOfScheduledEvents;
+
+    @FXML
+    protected Label nextEventDate;
+
+    @FXML
+    protected Label numberOfClubs;
+
+    @FXML
+    protected Button GoToRegistrationButton;
+
+    @FXML
+    protected AnchorPane RegistrationReportPane;
+
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 
@@ -414,5 +456,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     abstract void scheduleEventController(ActionEvent event);
+    @FXML
+    abstract void GoToRegistration(ActionEvent event);
 
 }
