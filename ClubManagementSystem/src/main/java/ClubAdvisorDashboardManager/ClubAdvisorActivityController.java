@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -148,6 +149,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
            ObservableList<Event> viewCreatedScheduledEvents = viewCreatedEventsTable.getItems();
            viewCreatedScheduledEvents.add(event);
            viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
+           viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
        }
     }
 
@@ -361,11 +363,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             updateEventClubCombo.getItems().add("None");
         }
 
+        if(!viewCreatedEventsSortComboBox.getItems().contains("All Clubs")){
+            viewCreatedEventsSortComboBox.getItems().add("All Clubs");
+        }
+
         for(Club club: Club.clubDetailsList){
             String clubName;
             clubName = club.getClubName();
             boolean scheduleContainStatus =  scheduleEventsClubName.getItems().contains(clubName);
             boolean updateContainsStatus =   updateEventClubCombo.getItems().contains(clubName);
+            boolean viewContainsStatus = viewCreatedEventsSortComboBox.getItems().contains(clubName);
 
             if(!scheduleContainStatus){
                 scheduleEventsClubName.getItems().add(clubName);
@@ -375,6 +382,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 updateEventClubCombo.getItems().add(clubName);
             }
 
+            if(!viewContainsStatus){
+                viewCreatedEventsSortComboBox.getItems().add(clubName);
+            }
+
         }
 
         scheduleEventsClubName.getSelectionModel().selectFirst();
@@ -382,6 +393,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         updateEventClubCombo.getSelectionModel().selectFirst();
         updateErrorLabelClubName.setText(" ");
+
+        viewCreatedEventsSortComboBox.getSelectionModel().selectFirst();
     }
 
 
@@ -720,6 +733,37 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     public void displayNumberOfClubAdvisors(){
         numberOfClubs.setText(String.valueOf(Club.clubDetailsList.size()));
+    }
+
+    @FXML
+    void filterSelectedClubEvents(ActionEvent event) {
+          viewCreatedEventsTable.getItems().clear();
+          ArrayList<Event> filteredEvents = new ArrayList<>();
+          String selectedClub = viewCreatedEventsSortComboBox.getSelectionModel().getSelectedItem();
+          System.out.println(selectedClub + " bro");
+
+          if(selectedClub.equals("All Clubs")){
+              populateEventsTables();
+              return;
+          }else{
+              for(Event events : Event.eventDetails){
+                  if(events.getClubName().equals(selectedClub)){
+                      filteredEvents.add(events);
+                  }
+              }
+          }
+
+          for(Event value : filteredEvents){
+              Club hostingClubDetail = value.getHostingClub();
+              Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
+                      value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
+                      value.getEventTime(), hostingClubDetail, value.getEventDescription());
+
+              ObservableList<Event> viewScheduledEvents = viewCreatedEventsTable.getItems();
+              viewScheduledEvents.add(requiredEvent);
+              viewCreatedEventsTable.setItems(viewScheduledEvents );
+          }
+
     }
 
 

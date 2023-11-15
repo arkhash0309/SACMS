@@ -520,7 +520,7 @@
                                                       <TableColumn fx:id="viewEventDescriptionColumn" prefWidth="154.0" styleClass="column" text="Event Description" />
                                                   </columns>
                                                 </TableView>
-                                                <ComboBox layoutX="14.0" layoutY="82.0" prefHeight="29.0" prefWidth="226.0" />
+                                                <ComboBox fx:id="viewCreatedEventsSortComboBox" layoutX="14.0" layoutY="82.0" onAction="#filterSelectedClubEvents" prefHeight="29.0" prefWidth="226.0" styleClass="eventField" />
                                              </children>
                                           </AnchorPane>
                                        </children>

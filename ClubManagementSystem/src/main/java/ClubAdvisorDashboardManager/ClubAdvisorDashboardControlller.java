@@ -157,6 +157,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     public ComboBox<String> updateEventClubCombo;
+    @FXML
+    public ComboBox<String> viewCreatedEventsSortComboBox;
 
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
