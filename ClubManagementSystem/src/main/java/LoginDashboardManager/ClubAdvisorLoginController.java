@@ -3,6 +3,7 @@ package LoginDashboardManager;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
+import com.example.clubmanagementsystem.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,14 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ClubAdvisorLoginController {
+    static boolean loginStatus;
+    private String clubAdvisortLoginPageUserName;
+    private String clubAdvisorLoginPagePassword;
     @FXML
     private StackPane clubAdvisorStackPane;
     private Scene scene;
@@ -31,6 +37,10 @@ public class ClubAdvisorLoginController {
 
     @FXML
     private Button ClubAdvisorLoginMinimizer;
+    @FXML
+    private TextField advisorLoginUserName;
+    @FXML
+    private TextField advisorLoginPassword;
 
     @FXML
     private TextField advisorUserName;
@@ -73,6 +83,14 @@ public class ClubAdvisorLoginController {
 
     @FXML
     private Label confirmPasswordLabel;
+
+    @FXML
+    private Label clubAdvisorIncorrectCredential;
+    @FXML
+    private Label advisorUserNameEmpty;
+    @FXML
+    private Label advisorPasswordEmpty;
+
 
     @FXML
     private CheckBox showPassword;
@@ -123,9 +141,54 @@ public class ClubAdvisorLoginController {
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
+    boolean fieldsChecker() {
+        loginStatus = true;
+        clubAdvisortLoginPageUserName = advisorLoginUserName.getText();
+        clubAdvisorLoginPagePassword = advisorLoginPassword.getText();
+        if(clubAdvisortLoginPageUserName.isEmpty()){
+            loginStatus = false;
+            advisorUserNameEmpty.setText("This field cannot be empty");
+        }
+        if(clubAdvisorLoginPagePassword.isEmpty()){
+            loginStatus = false;
+            advisorPasswordEmpty.setText("This field cannot be empty");
+        }
+        return loginStatus;
+    }
+
+    //advisorCredentialsChecker will check whether entered credentials are correct according to the given values
+    boolean advisorCredentialsChecker() {
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "SELECT teacherPassword FROM TeacherCredentials WHERE teacherUserName = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
+            preparedStatement.setString(1, clubAdvisortLoginPageUserName); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("teacherPassword"); // get the password
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        loginStatus = true;
+        if(!clubAdvisorLoginPagePassword.equals(correctPassword)){
+            loginStatus = false;
+            clubAdvisorIncorrectCredential.setText("User name or Password Incorrect");
+        }
+        return loginStatus;
+    }
 
     @FXML
-    public void DirectToStudentDashBoard(ActionEvent event) throws IOException {
+    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException {
+        if(!fieldsChecker()){
+            return;
+        }
+        if(!advisorCredentialsChecker()){
+            return;
+        }
+
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
         Parent root = loader.load();
@@ -367,15 +430,14 @@ public class ClubAdvisorLoginController {
     @FXML
     void showTypedPassword(ActionEvent event) {
         if(showPassword.isSelected()){
-            PasswordFieldLogin.setVisible(false);
+            advisorLoginPassword.setVisible(false);
             PasswordTextField.setVisible(true);
-            PasswordTextField.setText(PasswordFieldLogin.getText());
+            PasswordTextField.setText(advisorLoginPassword.getText());
         }else{
             PasswordTextField.setVisible(false);
-            PasswordFieldLogin.setVisible(true);
-            PasswordFieldLogin.setText(PasswordTextField.getText());
+            advisorLoginPassword.setVisible(true);
+            advisorLoginPassword.setText(PasswordTextField.getText());
         }
-
     }
 
 
@@ -387,12 +449,4 @@ public class ClubAdvisorLoginController {
     public void work(){
 
     }
-
-
-
-
-
-
-
-
 }

@@ -5,21 +5,26 @@ import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class StudentActivityController extends StudentDashboardController{
     public static boolean validStat = true;
     static int studentAdmissionNum;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (int grade = 0; grade<13; grade++) {
@@ -81,11 +86,15 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     public void GoToJoinLeaveClub(ActionEvent actionEvent) {
+
+
+
         makeAllStudentDashBoardPanesInvisible();
         makeAllStudentButtonsColoured();
         JoinLeaveClubPane.setVisible(true);
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
+
 
     @Override
     public void GoToEvents(ActionEvent actionEvent) {
@@ -96,7 +105,9 @@ public class StudentActivityController extends StudentDashboardController{
     }
 
     @Override
+
     void GoToStudentProfile(MouseEvent mouseEvent) throws SQLException {
+
         makeAllStudentDashBoardPanesInvisible();
         makeAllStudentButtonsColoured();
         StudentProfilePane.setVisible(true);
@@ -273,4 +284,14 @@ public class StudentActivityController extends StudentDashboardController{
     }
 
 
+    @FXML
+    void studentJoinClub(){
+
+    }
+
+
+    @FXML
+    void studentLeaveClub(){
+
+    }
 }

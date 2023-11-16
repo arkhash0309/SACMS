@@ -3,6 +3,7 @@ package LoginDashboardManager;
 import SystemUsers.Student;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
+import com.example.clubmanagementsystem.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +19,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import static com.example.clubmanagementsystem.HelloApplication.statement;
 
 
 public class StudentLoginController implements Initializable {
+
+    private ArrayList<StudentLoginController> studentCredentialList = new ArrayList<StudentLoginController>();// this array list to store only student credentials from database
+
+    static boolean loginStatus;
+    String studentLoginPageUserName;
+    String studentLoginPagePassword;
 
     private Scene scene;
     private Stage stage;
@@ -30,6 +44,20 @@ public class StudentLoginController implements Initializable {
     private double xPosition;
 
     private double yPosition;
+
+    private String confirmPassword;
+    @FXML
+    private Label studentLoginUserNameErrorLabel;
+    @FXML
+    private Label studentConfirmPasswordLabel;
+    @FXML
+    private Label studentIncorrectCredential;
+
+    @FXML
+    private Label studentLoginPasswordErrorLabel;
+
+    @FXML
+    private CheckBox showPasswordCheckBox;
 
     @FXML
     private StackPane StudentLoginForm;
@@ -45,6 +73,8 @@ public class StudentLoginController implements Initializable {
 
     @FXML
     private TextField studentRegisterLastName;
+    @FXML
+    private TextField PasswordTextField;
 
     @FXML
     private TextField studentRegisterAdmissionNumber;
@@ -57,6 +87,11 @@ public class StudentLoginController implements Initializable {
 
     @FXML
     private TextField studentRegisterUserName;
+    @FXML
+    private TextField LoginStudentUserName;
+    @FXML
+    private TextField studentLoginPassword;
+
 
     @FXML
     private ComboBox<String> studentRegisterGrade;
@@ -108,8 +143,71 @@ public class StudentLoginController implements Initializable {
         applicationController.closingApp();
     }
 
+    boolean fieldsChecker() {
+        loginStatus = true;
+        studentLoginPageUserName = LoginStudentUserName.getText();
+        studentLoginPagePassword = studentLoginPassword.getText();
+        if(studentLoginPageUserName.isEmpty()){
+            loginStatus = false;
+            studentLoginUserNameErrorLabel.setText("This field cannot be empty");
+        }
+        if(studentLoginPagePassword.isEmpty()){
+            loginStatus = false;
+            studentLoginPasswordErrorLabel.setText("This field cannot be empty");
+        }
+        return loginStatus;
+    }
+    //studentCredentialChecker will check whether entered credentials are correct according to the given values
+    boolean studentCredentialChecker(){
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "SELECT studentPassword FROM studentCredentials WHERE studentUserName = ?";
+        try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)){ // prepare the statement to execute the code
+            preparedStatement.setString(1,studentLoginPageUserName); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try(ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("studentPassword"); // get the password
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        loginStatus = true;
+        if(!studentLoginPagePassword.equals(correctPassword)){
+            loginStatus = false;
+            studentIncorrectCredential.setText("User name or Password Incorrect");
+        }
+        return loginStatus;
+    }
+
+    public void showTypedPassword() {
+        if(showPasswordCheckBox.isSelected()){ // when user select show password checkbox
+            studentLoginPassword.setVisible(false); //studentLoginPassword textfield will disable
+            PasswordTextField.setVisible(true); // PasswordTextField textfield will enable
+            PasswordTextField.setText(studentLoginPassword.getText()); // this will take the values from studnetLoginPassword textfield and will set to PasswordTextField
+        }else{ // this will execute if user keep the checkbox as it is
+            PasswordTextField.setVisible(false);
+            studentLoginPassword.setVisible(true);
+            studentLoginPassword.setText(PasswordTextField.getText());
+        }
+    }
+
+
+
     @FXML
     void DirectToStudentDashboard(ActionEvent event) throws IOException {
+
+        if(!fieldsChecker()){
+            return;
+        }
+
+
+        if(!studentCredentialChecker()){
+            return;
+        }
+        System.out.println("Directing to student dashboard");
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
@@ -250,13 +348,14 @@ public class StudentLoginController implements Initializable {
         displayPasswordError();
 
         if(passwordConfirm.isEmpty()){
-            validateStatus = false;
-            studentRegisterConfirmPasswordErrorLabel.setText("Confirm password cannot be empty");
-        } else if (!passwordConfirm.equals(password)){
-            studentRegisterConfirmPasswordErrorLabel.setText("Wrong confirm password ");
-            validateStatus = false;
+            validStat = false;
+            studentConfirmPasswordLabel.setText("Confirm password cannot be empty");
+        } else if (!confirmPassword.equals(password)){
+            studentConfirmPasswordLabel.setText("Wrong confirm password ");
+            validStat = false;
         }else{
-            studentRegisterConfirmPasswordErrorLabel.setText("");
+            studentConfirmPasswordLabel.setText(" ");
+
         }
 
         System.out.println(validateStatus + " : Valid Stat");
@@ -269,6 +368,22 @@ public class StudentLoginController implements Initializable {
         System.out.println("\n\n\n");
     }
 
+
+    @FXML
+    public void studentUpdateChecker(MouseEvent mouseEvent) throws SQLException, IOException {
+
+        String insertingQuery
+                = "insert into Student('studentAdmissionNum','studentFName','studentLName','studentGrade','studentContactNum','Gender') values(?,?,?,?,?,?)";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertingQuery)) {
+            preparedStatement.setString(1,admissionNum);
+            preparedStatement.setString(2,firstName);
+            preparedStatement.setString(3,lastName);
+            preparedStatement.setString(4,grade);
+            preparedStatement.setString(5,contactNum);
+            preparedStatement.setString(6,gender);
+            statement.executeUpdate(insertingQuery);
+        }
+    }
 
     @FXML
     public void studentUpdateChecker(MouseEvent mouseEvent) throws SQLException, IOException {
@@ -348,5 +463,7 @@ public class StudentLoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
     }
+
 }

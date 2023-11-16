@@ -1,23 +1,23 @@
 package ClubAdvisorDashboardManager;
 
+import ClubManager.Attendance;
+import ClubManager.Club;
+import ClubManager.Event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.time.LocalTime;
+
+import ClubManager.Event;
 
 
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
@@ -142,9 +142,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TextField scheduleCreatedEventsSearchBar;
 
     @FXML
-    protected TableView<?> scheduleCreatedEventTable;
-
-    @FXML
     protected Button scheduleCreatedEventsSearchButton;
 
     @FXML
@@ -161,6 +158,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     public ComboBox<String> updateEventClubCombo;
+    @FXML
+    public ComboBox<String> viewCreatedEventsSortComboBox;
 
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
@@ -238,6 +237,11 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected ComboBox<String> updateMinuteComboBox;
+
+    @FXML
+    protected Button updateEventFieldButton;
+    @FXML
+    protected Button clearEventFieldButton;
     @FXML
     private TextField updateEventClubTextField;
 
@@ -248,6 +252,151 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected ComboBox<String> scheduleEventMinutes;
     @FXML
     public ComboBox<String> scheduleEventsClubName;
+
+    @FXML
+    protected TableView<Event> scheduleCreatedEventTable;
+
+    @FXML
+    protected TableColumn<Event, String> createEventClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> createEventDescriptionColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalTime> createEventTimeColumn;
+
+    @FXML
+    protected TableView<Event> updateEventTable;
+
+    @FXML
+    protected TableColumn<Event, String> updateClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> updateEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> updateEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, String> updateEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> updateEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> updateDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> updateEventDescriptionColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalTime> updateEventTimeColumn;
+
+    @FXML
+    protected TableView<Event> cancelEventTable;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> cancelEventEventDescriptionColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalTime> cancelEventTimeColumn;
+
+    @FXML
+    protected TableView<Event> viewCreatedEventsTable;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> viewEventDescriptionColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalTime> viewEventTimeColumn;
+
+    @FXML
+    protected TextField cancelEventSearchBar;
+
+    @FXML
+    protected TextField updateEventSearchBar;
+
+    @FXML
+    protected Button scheduleEventSearchButton;
+
+    @FXML
+    protected TextField createdEventSearchBar;
+
+    @FXML
+    protected Label numberOfScheduledEvents;
+
+    @FXML
+    protected Label nextEventDate;
+
+    @FXML
+    protected Label numberOfClubs;
+
+    @FXML
+    protected Button GoToRegistrationButton;
+
+    @FXML
+    protected AnchorPane RegistrationReportPane;
+
+    @FXML
+    protected TableView<Attendance> tb1;
+
+    @FXML
+    protected TableColumn<Attendance, Boolean> atColumn;
+
+    @FXML
+    protected TableColumn<Attendance, CheckBox> stColumn;
+
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 
@@ -319,5 +468,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     abstract void scheduleEventController(ActionEvent event);
+    @FXML
+    abstract void GoToRegistration(ActionEvent event);
 
 }

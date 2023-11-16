@@ -228,5 +228,39 @@
     -fx-text-fill: #ffffff;
 }
 
+/* styles.css */
+
+/* Apply styles to the first column */
+.table-view .column-header-background .label {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+/* Apply styles to the focused state of the first column */
+.table-view .column-header-background .label:focused {
+    -fx-background-color: #d6eaf8;
+}
+
+.table-view {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+    -fx-font-weight: bold;
+}
+
+/* Apply styles to the focused state of the table view */
+.table-view:focused {
+    -fx-border-color: #455865;
+    -fx-background-color: #d6eaf8;
+}
+
+
+
+
+
+
+
+
 
 
