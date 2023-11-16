@@ -14,7 +14,7 @@ public class ApplicationController{
     public void closingApp(){
         Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION);
         exitAlert.initModality(Modality.APPLICATION_MODAL);
-        exitAlert.setTitle("Club Management System");
+        exitAlert.setTitle("School Activity Club Management System");
         exitAlert.setHeaderText("Do you really want to exit the program ?");
 
         Optional<ButtonType> resultExit = exitAlert.showAndWait();

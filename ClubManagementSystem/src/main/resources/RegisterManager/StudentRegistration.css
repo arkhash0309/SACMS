@@ -47,3 +47,34 @@
     -fx-background-color: #cbcbcb;
     -fx-cursor:hand;
 }
+
+
+#registersubPain{
+    -fx-background-color: #e1e1e1;
+}
+
+#backtoLoginAdvisor{
+    -fx-underline: true;
+}
+
+#backtoLoginAdvisor:hover{
+    -fx-text-fill: linear-gradient(to top, #538491, #4d708a, #4f7986);
+}
+
+#backtoLoginAdvisor:pressed{
+    -fx-text-fill: linear-gradient(#104a5b, #4d708a, #104a5b);
+}
+
+.EventMainPane{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+}
+
+.updateClubLabels{
+    -fx-background-color: linear-gradient(to top, #538491, #4d708a, #4f7986);
+    -fx-background-radius: 3px;
+    -fx-text-fill: #fcfcfc;
+}
+
+
+

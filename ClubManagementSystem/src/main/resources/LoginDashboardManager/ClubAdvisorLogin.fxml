@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="clubAdvisorStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#clubAdvisorPaneDragDetector" onMousePressed="#clubAdvisorPanePressDetector" prefHeight="550.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginDashboardManager.ClubAdvisorLoginController">
+   <stylesheets>
+      <URL value="@ClubAdvisorLogin.css" />
+   </stylesheets>
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <BorderPane prefHeight="550.0" prefWidth="696.0">
+               <top>
+                  <AnchorPane fx:id="clubAdvisorLoginLabel" prefHeight="36.0" prefWidth="696.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="42.0" layoutY="5.0" text="School Activity Club Management System">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="ClubAdvisorLoginMinimizer" layoutX="595.0" layoutY="5.0" mnemonicParsing="false" onAction="#MinimizeClubAdvisorLogin" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="5.0">
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/minimizing-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="ClubAdvisorCloseButton" layoutX="636.0" layoutY="5.0" mnemonicParsing="false" onAction="#ClubAdvisorLoginExit" prefHeight="25.0" prefWidth="25.0" styleClass="controlButtons" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="5.0">
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/close-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/school-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </top>
+               <left>
+                  <AnchorPane fx:id="clubAdvisorLoginAnchorPane" prefHeight="504.0" prefWidth="284.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Circle fill="WHITE" layoutX="141.0" layoutY="113.0" radius="89.0" stroke="#bbbbbb" strokeType="INSIDE" strokeWidth="3.0" />
+                        <ImageView fitHeight="131.0" fitWidth="127.0" layoutX="82.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/lecturer-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="16.0" layoutY="216.0" text="Club Advisor Account" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="signinLeftPane" layoutX="35.0" layoutY="340.0" mnemonicParsing="false" onAction="#DirectToStartPane" prefHeight="39.0" prefWidth="217.0" styleClass="clubAdvisorLoginButtons" text="Back">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </left>
+               <center>
+                  <AnchorPane prefHeight="504.0" prefWidth="457.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane fx:id="clubAdvisorLoginPane" layoutX="21.0" layoutY="7.0" prefHeight="485.0" prefWidth="370.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="7.0">
+                           <children>
+                              <Label layoutX="105.0" layoutY="37.0" text="Sign In Account" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="32.0">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="advisorLoginUserName" layoutX="46.0" layoutY="90.0" prefHeight="40.0" prefWidth="292.0" promptText="User Name" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="86.0">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="PasswordTextField" layoutX="47.0" layoutY="159.0" prefHeight="40.0" prefWidth="292.0" promptText="Password" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="156.0">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </TextField>
+                              <CheckBox fx:id="showPassword" layoutX="71.0" layoutY="225.0" mnemonicParsing="false" onAction="#showTypedPassword" prefHeight="33.0" prefWidth="209.0" text="Show Password" AnchorPane.bottomAnchor="254.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="222.0">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </CheckBox>
+                              <Button layoutX="62.0" layoutY="265.0" mnemonicParsing="false" onAction="#DirectToClubAdvisorDashBoard" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Login" AnchorPane.bottomAnchor="192.0" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="265.0">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="122.0" layoutY="343.0" text="Don't have an account ?" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="59.399" AnchorPane.topAnchor="353.0">
+                                 <font>
+                                    <Font name="System Bold" size="21.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="73.0" layoutY="405.0" mnemonicParsing="false" onAction="#GoToRegisterForm" prefHeight="47.0" prefWidth="249.0" styleClass="clubAdvisorLoginButtons" text="Register" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="74.399" AnchorPane.topAnchor="405.0">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <PasswordField fx:id="advisorLoginPassword" layoutX="52.0" layoutY="162.0" prefHeight="40.0" prefWidth="292.0" promptText="Password" styleClass="clubAdvisorLoginTextField" AnchorPane.bottomAnchor="294.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="156.0">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </PasswordField>
+                              <Label fx:id="clubAdvisorIncorrectCredential" layoutX="65.0" layoutY="316.0" prefHeight="33.0" prefWidth="245.0" textFill="RED">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font></Label>
+                              <Label fx:id="advisorUserNameEmpty" layoutX="56.0" layoutY="143.0" prefHeight="17.0" prefWidth="156.0" textFill="RED">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="advisorPasswordEmpty" layoutX="58.0" layoutY="210.0" prefHeight="17.0" prefWidth="160.0" textFill="RED">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
