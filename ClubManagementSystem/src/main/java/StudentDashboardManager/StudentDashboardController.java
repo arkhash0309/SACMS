@@ -47,9 +47,15 @@ abstract public class StudentDashboardController implements Initializable {
     protected AnchorPane StudentProfilePane;
 
     @FXML
-    public TextField studentUpdateProfileID, studentUpdateProfileFName, studentUpdateProfileLName,
+    public TextField studentUpdateProfileID,
             studentUpdateProfileUserName, studentUpdateProfileContactNum, studentUpdateProfileExistingPassword,
             studentUpdateProfileNewPassword, studentUpdateProfileConfirmPassword;
+
+    @FXML
+    public TextField studentUpdateProfileFName;
+
+    @FXML
+    public TextField studentUpdateProfileLName;
 
     @FXML
     public Label studentUpdateIDLabel, studentUpdateFNameLabel, studentUpdateLNameLabel, studentUpdateUserNameLabel,
@@ -90,9 +96,6 @@ abstract public class StudentDashboardController implements Initializable {
 
     @FXML
     abstract public void GoToEvents(ActionEvent actionEvent);
-
-    @FXML
-    abstract void GoToStudentProfile(MouseEvent mouseEvent) throws SQLException;
 
     abstract public void makeAllStudentButtonsColoured();
 

@@ -105,6 +105,8 @@ public class ClubAdvisorLoginController {
     private Label passwordCommentLogin;
 
 
+
+
     public static boolean validStat = true;
 
     @FXML

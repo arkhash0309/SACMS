@@ -26,6 +26,8 @@ public class StudentActivityController extends StudentDashboardController{
     public static boolean validStat = true;
     static int studentAdmissionNum;
 
+    public static String existingUserName;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,9 +90,6 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     public void GoToJoinLeaveClub(ActionEvent actionEvent) {
-
-
-
         makeAllStudentDashBoardPanesInvisible();
         makeAllStudentButtonsColoured();
         JoinLeaveClubPane.setVisible(true);
@@ -106,50 +105,49 @@ public class StudentActivityController extends StudentDashboardController{
         ViewEventButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
-    @Override
-
-    void GoToStudentProfile(MouseEvent mouseEvent) throws SQLException {
-
+    @FXML
+    void studentProfileDirector(ActionEvent event) {
         makeAllStudentDashBoardPanesInvisible();
         makeAllStudentButtonsColoured();
         StudentProfilePane.setVisible(true);
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-        String name = Student.studentDetailArray.get(0).getFirstName();
-        studentUpdateProfileUserName.setText(Student.studentDetailArray.get(0).getUserName());
-        studentUpdateProfileExistingPassword.setText(Student.studentDetailArray.get(1).getPassword());
-        studentUpdateProfileFName.setText(Student.studentDetailArray.get(2).getFirstName());
-        studentUpdateProfileLName.setText(Student.studentDetailArray.get(3).getLastName());
-        studentUpdateProfileContactNum.setText(Student.studentDetailArray.get(4).getContactNumber());
-//        studentUpdateProfileGrade.setValue(Integer.parseInt(Student.studentDetailArray.get(6).getStudentGrade()));
-        onStudentProfileUpdateButtonClick();
-        onStudentProfilePasswordChangeButtonClick();
+
     }
 
 
     public void onStudentProfileUpdateButtonClick() {
         validStat = true;
-        String updatedFirstName = this.studentUpdateProfileFName.getText();
-        String updatedLastName = this.studentUpdateProfileLName.getText();
-        String updatedUserName = this.studentUpdateProfileUserName.getText();
-        String updatedContactNum = this.studentUpdateProfileContactNum.getText();
-        String updatedGrade = this.studentUpdateProfileGrade.getValue();
+        String updatedFirstName = studentUpdateProfileFName.getText();
+        String updatedLastName = studentUpdateProfileLName.getText();
+        String updatedUserName = studentUpdateProfileUserName.getText();
+        String updatedContactNum = studentUpdateProfileContactNum.getText();
+        String updatedGrade = studentUpdateProfileGrade.getValue();
 
-        Student newStudent = new Student(updatedUserName, updatedFirstName, updatedLastName,
-                updatedContactNum);
 
-        if (!newStudent.validateFirstName()) {
+        Student student = new Student(studentUpdateProfileUserName.getText(), studentUpdateProfileExistingPassword.getText(),
+                studentUpdateProfileFName.getText(), studentUpdateProfileLName.getText());
+
+        Student.fNameValidateStatus = "correct";
+        Student.lNameValidateStatus = "correct";
+        Student.contactNumberValidateStatus = "correct";
+        Student.passwordValidateStatus = "correct";
+        Student.userNameValidateStatus = "correct";
+
+        if (!student.validateFirstName()) {
             System.out.println("Incorrect First Name.");
+            System.out.println(Student.fNameValidateStatus + " : First Name");
             validStat = false;
         }
         displayNameError("firstName");
 
-        if (!newStudent.validateLastName()) {
+        if (!student.validateLastName()) {
             System.out.println("Incorrect Last Name.");
+            System.out.println(Student.lNameValidateStatus);
             validStat = false;
         }
         displayNameError("lastName");
 
-        try {
+        try{
             String tempContactNum = updatedContactNum;
             if (tempContactNum.isEmpty()) {
                 User.contactNumberValidateStatus = "empty";
@@ -173,7 +171,7 @@ public class StudentActivityController extends StudentDashboardController{
         }
         displayContactNumError();
 
-        if (!newStudent.validateUserName("updation", "student")) {
+        if (!student.validateUserName("updation", "student")) {
             System.out.println("Wrong user name.");
             validStat = false;
         } else {
@@ -247,7 +245,7 @@ public class StudentActivityController extends StudentDashboardController{
         } else if (User.contactNumberValidateStatus.equals("length")){
             studentUpdateContactNumLabel.setText("Contact number should be 10 digits.");
         } else if (User.contactNumberValidateStatus.equals("format")) {
-            studentUpdateContactNumLabel.setText("Contact number should contain only numbers.");
+            studentUpdateContactNumLabel.setText("It should contain only numbers.");
         } else {
             studentUpdateContactNumLabel.setText("");
         }
