@@ -21,14 +21,6 @@ import java.util.ResourceBundle;
 
 public class StudentActivityController extends StudentDashboardController{
 
-    @FXML
-    private TextField studentJoinClubID;
-    @FXML
-    private ComboBox<String> studentJoinClubDropDownList;
-    private ArrayList<HashMap> clubs = new ArrayList<HashMap>();
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
