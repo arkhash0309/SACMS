@@ -1,5 +1,6 @@
 package ClubAdvisorDashboardManager;
 
+import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
 import javafx.event.ActionEvent;
@@ -386,6 +387,15 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected AnchorPane RegistrationReportPane;
+
+    @FXML
+    protected TableView<Attendance> tb1;
+
+    @FXML
+    protected TableColumn<Attendance, Boolean> atColumn;
+
+    @FXML
+    protected TableColumn<Attendance, CheckBox> stColumn;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);

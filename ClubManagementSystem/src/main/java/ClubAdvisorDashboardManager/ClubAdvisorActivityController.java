@@ -1,10 +1,12 @@
 package ClubAdvisorDashboardManager;
+import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
 import ClubManager.EventManager;
 import SystemUsers.ClubAdvisor;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,10 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -110,6 +109,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         viewEventDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
         viewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
         viewEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
+
+        atColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
+        stColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceTracker"));
     }
 
     public void populateEventsTables(){
@@ -767,6 +769,50 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+
+
+    public void populateAttendanceTable() {
+        // Assuming Attendance.atdTracker is a list of Attendance objects
+        ObservableList<Attendance> viewScheduledEvents = FXCollections.observableArrayList();
+
+        for (Attendance atd : Attendance.atdTracker) {
+            // Assuming you have a copy constructor in the Attendance class
+            Attendance atd2 = new Attendance(atd.isAttendanceStatus(), atd.getAttendanceTracker());
+            viewScheduledEvents.add(atd2);
+
+            // Add a ChangeListener to the CheckBox
+            atd2.getAttendanceTracker().selectedProperty().addListener((obs, oldVal, newVal) -> {
+                // Update the attendanceStatus property in the Attendance class
+                atd2.setAttendanceStatus(newVal);
+
+                // Print a message or perform any other actions as needed
+                System.out.println("Attendance status for student "  + " updated to: " + newVal);
+            });
+        }
+
+        // Set the items of the table view
+        tb1.setItems(viewScheduledEvents);
+
+        // Set column widths
+        TableColumn<Attendance, Boolean> attendanceColumn = new TableColumn<>("Attendance");
+        attendanceColumn.setCellValueFactory(data -> data.getValue().attendanceStatusProperty());
+
+        attendanceColumn.setPrefWidth(100); // Adjust the value as needed
+
+        // Set custom row factory to control row height
+        tb1.setRowFactory(tv -> {
+            TableRow<Attendance> row = new TableRow<>();
+            row.setPrefHeight(30); // Adjust the value as needed
+            return row;
+        });
+
+        // Add columns to the table view
+        tb1.getColumns().addAll(attendanceColumn);
+    }
+
+
+
+
     @Override
     void ClubAdvisorDashboardDetected(MouseEvent event) {
         Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
@@ -865,6 +911,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         GenerateReportsPane.setVisible(true);
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        populateAttendanceTable();
     }
 
     @Override
