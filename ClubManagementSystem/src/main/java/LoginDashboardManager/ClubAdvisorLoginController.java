@@ -184,10 +184,13 @@ public class ClubAdvisorLoginController {
         if(!fieldsChecker()){
             return;
         }
+        advisorUserNameEmpty.setText("");
+        advisorPasswordEmpty.setText("");
         if(!advisorCredentialsChecker()){
             return;
         }
-
+        clubAdvisorIncorrectCredential.setText("");
+        System.out.println("Directing to advisor dashboard");
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
