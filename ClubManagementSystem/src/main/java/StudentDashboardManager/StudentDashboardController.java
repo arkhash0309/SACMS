@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 abstract public class StudentDashboardController implements Initializable {
@@ -70,7 +71,7 @@ abstract public class StudentDashboardController implements Initializable {
     @FXML
     abstract void GoToDashBoard(ActionEvent event);
     @FXML
-    abstract public void GoToJoinLeaveClub(ActionEvent actionEvent);
+    abstract public void GoToJoinLeaveClub(ActionEvent actionEvent) throws ClassNotFoundException, SQLException;
 
     @FXML
     abstract public void GoToEvents(ActionEvent actionEvent);
