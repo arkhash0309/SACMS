@@ -1,5 +1,6 @@
 package LoginDashboardManager;
 
+import StudentDashboardManager.StudentActivityController;
 import SystemUsers.Student;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
@@ -350,11 +351,11 @@ public class StudentLoginController implements Initializable {
         displayPasswordError();
 
         if(passwordConfirm.isEmpty()){
-            validStat = false;
+            StudentActivityController.validStat = false;
             studentConfirmPasswordLabel.setText("Confirm password cannot be empty");
         } else if (!confirmPassword.equals(password)){
             studentConfirmPasswordLabel.setText("Wrong confirm password ");
-            validStat = false;
+            StudentActivityController.validStat = false;
         }else{
             studentConfirmPasswordLabel.setText(" ");
 
@@ -374,23 +375,20 @@ public class StudentLoginController implements Initializable {
     @FXML
     public void studentUpdateChecker(MouseEvent mouseEvent) throws SQLException, IOException {
 
-        String insertingQuery
-                = "insert into Student('studentAdmissionNum','studentFName','studentLName','studentGrade','studentContactNum','Gender') values(?,?,?,?,?,?)";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertingQuery)) {
-            preparedStatement.setString(1,admissionNum);
-            preparedStatement.setString(2,firstName);
-            preparedStatement.setString(3,lastName);
-            preparedStatement.setString(4,grade);
-            preparedStatement.setString(5,contactNum);
-            preparedStatement.setString(6,gender);
-            statement.executeUpdate(insertingQuery);
-        }
+//        String insertingQuery
+//                = "insert into Student('studentAdmissionNum','studentFName','studentLName','studentGrade','studentContactNum','Gender') values(?,?,?,?,?,?)";
+//        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertingQuery)) {
+//            preparedStatement.setString(1,admissionNum);
+//            preparedStatement.setString(2,firstName);
+//            preparedStatement.setString(3,lastName);
+//            preparedStatement.setString(4,grade);
+//            preparedStatement.setString(5,contactNum);
+//            preparedStatement.setString(6,gender);
+//            statement.executeUpdate(insertingQuery);
+//        }
     }
 
-    @FXML
-    public void studentUpdateChecker(MouseEvent mouseEvent) throws SQLException, IOException {
 
-    }
 
     public void displayNameError(String nameType) {
         if (nameType.equals("FName")) {
