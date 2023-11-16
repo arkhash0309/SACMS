@@ -316,7 +316,7 @@ public class ClubAdvisorLoginController {
             if(ClubAdvisor.lNameValidateStatus.equals("empty")){
                 advisorLastNameLabel.setText("Last name cannot be empty");
             }else if(ClubAdvisor.lNameValidateStatus.equals("format")){
-                advisorLastNameLabel.setText("Last name contain only letters");
+                advisorLastNameLabel.setText("Last name can contain only letters");
             }else{
                 advisorLastNameLabel.setText("");
             }
