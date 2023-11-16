@@ -201,11 +201,13 @@ public class StudentLoginController implements Initializable {
         if(!fieldsChecker()){
             return;
         }
-
+        studentLoginUserNameErrorLabel.setText("");
+        studentLoginPasswordErrorLabel.setText("");
 
         if(!studentCredentialChecker()){
             return;
         }
+        studentLoginPasswordErrorLabel.setText("");
         System.out.println("Directing to student dashboard");
 
         FXMLLoader loader = new FXMLLoader();
