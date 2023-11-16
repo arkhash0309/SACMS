@@ -2,18 +2,33 @@ package StudentDashboardManager;
 
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class StudentActivityController extends StudentDashboardController{
+
+    @FXML
+    private TextField studentJoinClubID;
+    @FXML
+    private ComboBox<String> studentJoinClubDropDownList;
+    private ArrayList<HashMap> clubs = new ArrayList<HashMap>();
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -72,11 +87,15 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     public void GoToJoinLeaveClub(ActionEvent actionEvent) {
+
+
+
         makeAllStudentDashBoardPanesInvisible();
         makeAllStudentButtonsColoured();
         JoinLeaveClubPane.setVisible(true);
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
+
 
     @Override
     public void GoToEvents(ActionEvent actionEvent) {
@@ -88,6 +107,9 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     void GoToStudentProfile(ActionEvent event) {
+
+
+
         makeAllStudentDashBoardPanesInvisible();
         makeAllStudentButtonsColoured();
         StudentProfilePane.setVisible(true);
@@ -104,4 +126,14 @@ public class StudentActivityController extends StudentDashboardController{
     }
 
 
+    @FXML
+    void studentJoinClub(){
+
+    }
+
+
+    @FXML
+    void studentLeaveClub(){
+
+    }
 }

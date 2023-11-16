@@ -270,7 +270,7 @@
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="studentJoinClubID" editable="false" layoutX="25.0" layoutY="40.0" prefHeight="30.0" prefWidth="280.0" />
-                                                <Button fx:id="joinButton" layoutX="86.0" layoutY="241.0" mnemonicParsing="false" onAction="#SendDataToDataBase" prefHeight="37.0" prefWidth="150.0" text="Join" textFill="WHITE">
+                                                <Button fx:id="joinButton" layoutX="86.0" layoutY="241.0" mnemonicParsing="false" onAction="#studentJoinClub" prefHeight="37.0" prefWidth="150.0" text="Join" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
@@ -315,7 +315,7 @@
                                                 <Font name="System Bold" size="15.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="LeaveButton" layoutX="140.0" layoutY="414.0" mnemonicParsing="false" onAction="#RemoveStudentDataFromDataBase" prefHeight="37.0" prefWidth="150.0" text="Leave" textFill="#fffdfd">
+                                          <Button fx:id="LeaveButton" layoutX="140.0" layoutY="414.0" mnemonicParsing="false" onAction="#studentLeaveClub" prefHeight="37.0" prefWidth="150.0" text="Leave" textFill="#fffdfd">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -327,7 +327,7 @@
                                               <TableColumn prefWidth="155.142822265625" text="Club Name" />
                                             </columns>
                                           </TableView>
-                                          <TextField fx:id="studentLeaveClubSearchClub" layoutX="26.0" layoutY="107.0" prefHeight="29.0" prefWidth="212.0" />
+                                          <TextField fx:id="studentLeaveClubSearch" layoutX="26.0" layoutY="107.0" prefHeight="29.0" prefWidth="212.0" />
                                           <Button layoutX="192.0" layoutY="107.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="47.0">
                                              <graphic>
                                                 <ImageView fitHeight="16.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
