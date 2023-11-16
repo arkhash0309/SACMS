@@ -42,6 +42,11 @@ public class Student extends User implements StudentValidator {
         this.studentAdmissionNum = admissionNumValue;
     }
 
+    public Student(String updatedUserName, String updatedFirstName, String updatedLastName,
+                   String updatedContactNum, String updatedAdmissionNum) {
+        super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
+    }
+
 
     @Override
     public void registerToSystem() {

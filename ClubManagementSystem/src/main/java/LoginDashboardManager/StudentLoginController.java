@@ -7,6 +7,7 @@ import com.example.clubmanagementsystem.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,13 +28,14 @@ import java.util.ArrayList;
 import static com.example.clubmanagementsystem.HelloApplication.statement;
 
 
-public class StudentLoginController{
+public class StudentLoginController implements Initializable {
 
     private ArrayList<StudentLoginController> studentCredentialList = new ArrayList<StudentLoginController>();// this array list to store only student credentials from database
 
     static boolean loginStatus;
     String studentLoginPageUserName;
     String studentLoginPagePassword;
+
     private Scene scene;
     private Stage stage;
 
@@ -94,11 +99,15 @@ public class StudentLoginController{
     @FXML
     private ComboBox<String> studentRegisterGender;
 
+    @FXML
+    private Label studentRegisterFNameErrorLabel, studentRegisterLNameErrorLabel, studentRegisterAdmissionNumErrorLabel,
+            studentRegisterContactNumErrorLabel, studentRegisterUserNameErrorLabel, studentRegisterPasswordErrorLabel,
+            studentRegisterConfirmPasswordErrorLabel;
 
     @FXML
     public Label usernameLabel;
 
-    public static boolean validStat = true;
+    public static boolean validateStatus = true;
 
     @FXML
     void DirectToStartPage(ActionEvent event) throws IOException {
@@ -192,11 +201,13 @@ public class StudentLoginController{
         if(!fieldsChecker()){
             return;
         }
-
+        studentLoginUserNameErrorLabel.setText("");
+        studentLoginPasswordErrorLabel.setText("");
 
         if(!studentCredentialChecker()){
             return;
         }
+        studentLoginPasswordErrorLabel.setText("");
         System.out.println("Directing to student dashboard");
 
         FXMLLoader loader = new FXMLLoader();
@@ -217,6 +228,14 @@ public class StudentLoginController{
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+
+//        for (int grade = 0; grade<13; grade++) {
+//            studentRegisterGrade.getItems().add(String.format("%02d", grade));
+//        }
+//        studentRegisterGrade.getSelectionModel().selectFirst();
+//
+//        studentRegisterGender.getItems().addAll("Please select", "Male", "Female");
+//        studentRegisterGender.getSelectionModel().selectFirst();
         stage.show();
     }
 
@@ -232,7 +251,9 @@ public class StudentLoginController{
 
     @FXML
     public void StudentRegistrationChecker(MouseEvent event) throws SQLException, IOException {
-        validStat = true;
+        validateStatus = true; //a boolean value is set to true initially
+
+        // the entered details are retrieved into variables
         String firstName = this.studentRegisterFirstName.getText();
         String lastName = this.studentRegisterLastName.getText();
         String admissionNum = this.studentRegisterAdmissionNumber.getText();
@@ -244,31 +265,37 @@ public class StudentLoginController{
         String passwordConfirm = this.studentRegisterConfirmPassword.getText();
 
         System.out.println(admissionNum);
+        // an object called student is created of data type Student
         Student student = new Student(userName, password, firstName, lastName);
 
+        // the  first name is validated using the validator interface
         if (!student.validateFirstName()) {
             System.out.println("Wrong first name");
-            validStat = true;
+            validateStatus = false; // the boolean value is set to false as there is an error
         }
-        displayNameError("FName");
+        displayNameError("FName"); //the error field is specified as the first and last names follow the same validation
 
+        // the last name is validated using the validator interface
         if (!student.validateLastName()) {
             System.out.println("Wrong last name");
-            validStat = true;
+            validateStatus =false; // the boolean value is set to false as there is an error
         }
+        displayNameError("LName"); //the error field is specified as the first and last names follow the same validation
 
-        displayNameError("LName");
         try {
-            String tempContactVal = contactNum;
+            String tempContactVal = contactNum; // the contact number is stored in a temporary variable
+
+            // check if the value is empty
             if (tempContactVal.isEmpty()) {
                 User.contactNumberValidateStatus = "empty";
-                throw new Exception();
+                throw new Exception(); // exception is thrown
             }
-            Double.parseDouble(contactNum.trim());
-            Student std1 = new Student(tempContactVal);
+            Double.parseDouble(contactNum.trim()); // the string is converted to a double and it is trimmed
+            Student std1 = new Student(tempContactVal); // a new object is created of data type Student with only the temporary holder as the parameter
 
+            // the contact number is validated
             if (!std1.validateContactNumber()) {
-                validStat = false;
+                validateStatus = false; // the boolean value is set to false as there is an error
                 System.out.println("Invalid Contact Number 1");
             } else {
                 User.contactNumberValidateStatus = "";
@@ -276,15 +303,15 @@ public class StudentLoginController{
         } catch(NumberFormatException e) {
             System.out.println("Invalid ContactNumber 2");
             User.contactNumberValidateStatus = "format";
-            validStat = false;
+            validateStatus = false; // the boolean value is set to false as there is an error
         } catch (Exception e) {
-            validStat = false;
+            validateStatus = false; // the boolean value is set to false as there is an error
         }
-        displayContactValError();
+        displayContactValError(); // the error method is called to specify what type of error is produced
 
         try {
             if(admissionNum.isEmpty()) {
-                validStat = false;
+                validateStatus = false;
                 Student.admissionNumStatus = "empty";
                 throw new Exception();
             }
@@ -293,30 +320,30 @@ public class StudentLoginController{
 
             if(!std2.validateStudentAdmissionNumber()) {
                 System.out.println("Invalid");
-                validStat = false;
+                validateStatus = false;
             } else {
                 Student.admissionNumStatus = "";
             }
         } catch (NumberFormatException e) {
             Student.admissionNumStatus = "format";
             System.out.println("Invalid Advisor Id");
-            validStat = false;
+            validateStatus = false;
         } catch (Exception e) {
-            validStat = false;
+            validateStatus = false;
         }
         displayAdmissionNumError();
 
         if (!student.validateUserName("registration","student")) {
             System.out.println("Wrong user name");
-            validStat = false;
+            validateStatus = false;
         } else {
             User.userNameValidateStatus = "";
         }
         displayUserNameError();
 
         if (!student.validatePassword("registration")) {
-            System.out.println("Wrong password name");
-            validStat = false;
+            System.out.println("Wrong password");
+            validateStatus = false;
         } else {
             User.passwordValidateStatus = "";
         }
@@ -330,16 +357,22 @@ public class StudentLoginController{
             validStat = false;
         }else{
             studentConfirmPasswordLabel.setText(" ");
+
         }
 
-        System.out.println(validStat + " : Valid Stat");
-        if (validStat) {
+        System.out.println(validateStatus + " : Valid Stat");
+        if (validateStatus) {
             Student studentData = new Student(userName, password, firstName, lastName);
             Student.studentDetailArray.add(studentData);
 
             this.DirectToLoginPane(event);
         }
         System.out.println("\n\n\n");
+    }
+
+
+    @FXML
+    public void studentUpdateChecker(MouseEvent mouseEvent) throws SQLException, IOException {
 
         String insertingQuery
                 = "insert into Student('studentAdmissionNum','studentFName','studentLName','studentGrade','studentContactNum','Gender') values(?,?,?,?,?,?)";
@@ -362,77 +395,77 @@ public class StudentLoginController{
     public void displayNameError(String nameType) {
         if (nameType.equals("FName")) {
             if(Student.fNameValidateStatus.equals("empty")) {
-                System.out.println("First name cannot be empty.");
-                System.out.println("Please try again.");
+                studentRegisterFNameErrorLabel.setText("First name cannot be empty.");
             } else if (Student.fNameValidateStatus.equals("format")) {
-                System.out.println("First name can only contain letters.");
+                studentRegisterFNameErrorLabel.setText("First name can only contain letters.");
             } else {
-                System.out.println(" ");
+                studentRegisterFNameErrorLabel.setText("");
             }
         } else if (nameType.equals("LName")) {
             if(Student.lNameValidateStatus.equals("empty")) {
-                System.out.println("Last name cannot be empty.");
+                studentRegisterLNameErrorLabel.setText("Last name cannot be empty.");
             } else if (Student.lNameValidateStatus.equals("format")) {
-                System.out.println("Last name can only contain letters.");
+                studentRegisterLNameErrorLabel.setText("Last name can contain only letters.");
             } else {
-                System.out.println(" ");
+                studentRegisterLNameErrorLabel.setText("");
             }
         }
     }
 
     public void displayContactValError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
-            System.out.println("Contact number cannot be empty.");
+            studentRegisterContactNumErrorLabel.setText("Contact number cannot be empty.");
         } else if (User.contactNumberValidateStatus.equals("length")) {
-            System.out.println("Contact number should consist of 10 digits.");
+            studentRegisterContactNumErrorLabel.setText("Contact number should have 10 digits.");
         } else if (User.contactNumberValidateStatus.equals("format")) {
-            System.out.println("Contact number should contain only numbers.");
+            studentRegisterContactNumErrorLabel.setText("It should consist only numbers.");
         } else {
-            System.out.println(" ");
+            studentRegisterContactNumErrorLabel.setText("");
         }
     }
 
     public void displayAdmissionNumError() {
         if (Student.admissionNumStatus.equals("empty")) {
-            System.out.println("Admission number cannot be empty.");
+            studentRegisterAdmissionNumErrorLabel.setText("Admission Number cannot be empty.");
         } else if (Student.admissionNumStatus.equals("length")) {
-            System.out.println("Admission number can have a maximum of 4 digits.");
+            studentRegisterAdmissionNumErrorLabel.setText("Admission Number has to be 4 digits.");
         } else if (Student.admissionNumStatus.equals("exist")) {
-            System.out.println("Admission number already exists.");
+            studentRegisterAdmissionNumErrorLabel.setText("Admission Number already exists.");
         } else if (Student.admissionNumStatus.equals("format")) {
-            System.out.println("Admission number should contain only numeric values.");
+            studentRegisterAdmissionNumErrorLabel.setText("Admission number should contain only numeric values.");
         } else {
-            System.out.println(" ");
+            studentRegisterAdmissionNumErrorLabel.setText("");
         }
     }
 
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
-            System.out.println("Username cannot be empty.");
+            studentRegisterUserNameErrorLabel.setText("User name cannot be empty");
         } else if (User.userNameValidateStatus.equals("exists")) {
-            System.out.println("The entered username already exists.");
+            studentRegisterUserNameErrorLabel.setText("Entered username already exists");
         } else if (User.userNameValidateStatus.equals("blank")) {
-            System.out.println("Username cannot contain blank spaces.");
+            studentRegisterUserNameErrorLabel.setText("User name cannot contain spaces");
         } else if (User.userNameValidateStatus.equals("length")) {
-            System.out.println("Length of username should be 5 to 10 digits.");
+            studentRegisterUserNameErrorLabel.setText("The length should be 5 to 10 character.");
         } else {
-            System.out.println(" ");
+            studentRegisterUserNameErrorLabel.setText("");
         }
     }
 
     public void displayPasswordError() {
         if (User.passwordValidateStatus.equals("empty")) {
-            System.out.println("Password cannot be empty.");
+            studentRegisterPasswordErrorLabel.setText("Password cannot be empty.");
         } else if (User.passwordValidateStatus.equals("format")) {
-            System.out.println("Password should consist of 8 characters including numbers and special characters.");
+            studentRegisterPasswordErrorLabel.setText("Password should consist of 8 characters including numbers and special characters.");
         }else {
-            System.out.println(" ");
+            studentRegisterPasswordErrorLabel.setText("");
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-
-
+    }
 
 }

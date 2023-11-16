@@ -1,10 +1,12 @@
 package com.example.clubmanagementsystem;
 
+
 import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
 import DataBaseManager.ClubAdvisorDataBaseManager;
 import SystemUsers.ClubAdvisor;
+
 import SystemUsers.Student;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -47,6 +49,13 @@ public class HelloApplication extends Application {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+
+        Student stud1 = new Student("arkh", "arkhash0309", "Arkhash",
+                "Saravanakumar","0779073140", 5748,
+                8, 'M');
+        Student.studentDetailArray.add(stud1);
+        System.out.println(Student.studentDetailArray.get(0).getFirstName());
+
 
 
 

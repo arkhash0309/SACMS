@@ -184,10 +184,13 @@ public class ClubAdvisorLoginController {
         if(!fieldsChecker()){
             return;
         }
+        advisorUserNameEmpty.setText("");
+        advisorPasswordEmpty.setText("");
         if(!advisorCredentialsChecker()){
             return;
         }
-
+        clubAdvisorIncorrectCredential.setText("");
+        System.out.println("Directing to advisor dashboard");
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
@@ -379,7 +382,7 @@ public class ClubAdvisorLoginController {
             if(ClubAdvisor.lNameValidateStatus.equals("empty")){
                 advisorLastNameLabel.setText("Last name cannot be empty");
             }else if(ClubAdvisor.lNameValidateStatus.equals("format")){
-                advisorLastNameLabel.setText("Last name contain only letters");
+                advisorLastNameLabel.setText("Last name can contain only letters");
             }else{
                 advisorLastNameLabel.setText("");
             }
