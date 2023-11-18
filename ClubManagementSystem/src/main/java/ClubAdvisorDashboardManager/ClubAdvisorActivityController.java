@@ -1,29 +1,340 @@
 package ClubAdvisorDashboardManager;
 
+import ClubManager.Club;
+import SystemUsers.ClubAdvisor;
 import com.example.clubmanagementsystem.ApplicationController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
+import static ClubManager.Club.clubDetailsList;
 
+public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller {
+    final FileChooser fileChooser = new FileChooser();
+    public static String imagePath;
+    public static int clubIdSetterValue;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Set cell value factories for the columns of the Create Club Table
+        createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
+        createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        createClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
+        createClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
+
+//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+//        clubDetailsList.add(club1);
+//        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
+        for (Club club : clubDetailsList){
+            if (clubDetailsList == null){
+                return;
+            }
+//            observableClubDetailsList.add(club);
+        }
+//        createClubDetailsTable.setItems(observableClubDetailsList);
+
+
+        //Set cell value factories for the columns of the Update Club  Table
+        updateClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
+        updateClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        updateClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
+        updateClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
+
+
+//        updateClubDetailsTable.setItems(observableClubDetailsList);
+
+    }
+
+    public void setCreateTable(){
+        // Check whether the sortedList is null and return the method, if it is null
+        if(clubDetailsList == null){
+            return;
+        }
+        // Clear the UpdateViewTable
+        createClubDetailsTable.getItems().clear();
+
+        // Add Item details to the UpdateView Table using Sorted List
+        for(Club club : clubDetailsList) {
+
+            // Create an Item details object with the item details
+            Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
+
+            // Add the item details to the UpdateViewTable
+            ObservableList<Club> observableCreateClubList = createClubDetailsTable.getItems();
+            observableCreateClubList.add(tableClub);
+            createClubDetailsTable.setItems(observableCreateClubList);
+        }
+    }
+
+    public void setUpdateTable(){
+        // Check whether the sortedList is null and return the method, if it is null
+        if(clubDetailsList == null){
+            return;
+        }
+        // Clear the UpdateViewTable
+        updateClubDetailsTable.getItems().clear();
+
+        // Add Item details to the UpdateView Table using Sorted List
+        for(Club club : clubDetailsList) {
+
+            // Create an Item details object with the item details
+            Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
+
+            // Add the item details to the UpdateViewTable
+            ObservableList<Club> observableUpdateClubList = updateClubDetailsTable.getItems();
+            observableUpdateClubList.add(tableClub);
+            updateClubDetailsTable.setItems(observableUpdateClubList);
+        }
+    }
+
+    @FXML
+    protected void clearScheduleEventFields(ActionEvent event) {
+
+    }
+
+
+    @Override
+    public void clubCreationChecker(ActionEvent event) {
+//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+//        clubDetailsList.add(club1);
+
+        boolean validState = true;
+        int clubId = Integer.parseInt(this.clubId.getText());
+        String clubName = this.clubName.getText();
+        String clubDescription = this.clubDescription.getText();
+        String clubLogo = this.createClubImage.getImage().getUrl();
+
+        System.out.println(clubId);
+
+        Club club = new Club(clubId,clubName,clubDescription);
+
+        if (!club.validateClubName()){
+            System.out.println("Wrong Club Name");
+            validState = false;
+        }
+        displayClubNameError(clubNameError);
+
+        if (!club.validateClubDescription()){
+            System.out.println("Wrong Club Description");
+            validState = false;
+        }
+        displayClubDecriptionError(clubDescriptionError);
+
+        System.out.println("Valid Stat :" + validState );
+        if (validState){
+            Club clubData = new Club(clubId,clubName,clubDescription,imagePath);
+            clubDetailsList.add(clubData);
+            setCreateTable();
+            setUpdateTable();
+            clubIdSetterValue += 1;
+            this.clubId.setText(String.valueOf(clubIdSetterValue));
+        }
+    }
+
+    public void clubUpdateChecker(ActionEvent event) {
+//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+//        clubDetailsList.add(club1);
+
+        boolean validState = true;
+        int clubId = Integer.parseInt(updateClubID.getText());
+        String clubName = updateClubName.getText();
+        String clubDescription = updateClubDescription.getText();
+
+        Club club = new Club(clubId,clubName,clubDescription);
+
+        if (!club.validateClubName()){
+            System.out.println("Wrong Club Name");
+            validState = false;
+        }
+        displayClubNameError(updateClubNameError);
+
+        if (!club.validateClubDescription()){
+            System.out.println("Wrong Club Description");
+            validState = false;
+        }
+        displayClubDecriptionError(updateClubDescriptionError);
+
+
+        System.out.println("Valid state : " + validState);
+        if (validState){
+            for (Club foundClub : clubDetailsList){
+                if (clubId == foundClub.getClubId()){
+                    foundClub.setClubName(clubName);
+                    foundClub.setClubDescription(clubDescription);
+                    //Set club logo
+
+                    //Updating club details tables
+                    setCreateTable();
+                    setUpdateTable();
+
+                    //Update database
+                }
+            }
+        }
 
     }
 
     @FXML
-    protected void clearScheduleEventFields(ActionEvent event){
+    void searchUpdateTable(ActionEvent event) {
+        //Get the club name to search from the search bar
+        String clubName = updateClubSearch.getText();
+        System.out.println(clubName);
 
+        // Search for the club name and handle non-existent club name
+        Club foundClub = null;
+        for (Club club : updateClubDetailsTable.getItems()) {
+            if (club.getClubName().equals(clubName)) {
+                foundClub = club;
+                break;
+            }
+        }
+
+        if (foundClub != null) {
+            // Select the row with the found club in the updateClubDetailsTable
+            updateClubDetailsTable.getSelectionModel().select(foundClub);
+            updateClubDetailsTable.scrollTo(foundClub);
+
+            // Update the input fields with the selected item's details for updating
+
+        } else {
+            // Show alert for non-existent item code
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Club Not Found");
+            alert.setHeaderText(null);
+            alert.setContentText("The Club with name " + clubName + " does not exist.");
+            alert.showAndWait();
+        }
+    }
+
+    public void displayClubNameError(Label labelID){
+        if (Club.clubNameValidateStatus.equals("empty")){
+            labelID.setText("Club Name cannot be empty");
+        } else if (Club.clubNameValidateStatus.equals("format")) {
+            labelID.setText("Club Name can contain only letters");
+        }else {
+            labelID.setText("");
+        }
+    }
+    public void displayClubDecriptionError(Label labelID){
+        if (Club.clubDescriptionValidateStatus.equals("empty")){
+            labelID.setText("Club Description cannot be empty");
+        }else{
+            labelID.setText("");
+        }
+    }
+
+    @Override
+    void clubCreationReset(ActionEvent event) {
+        clubName.setText("");
+        clubDescription.setText("");
+    }
+
+
+    @FXML
+    public void updateClubTableSelect(MouseEvent event) {
+        int row = updateClubDetailsTable.getSelectionModel().getSelectedIndex();
+        System.out.println(row);
+
+        String clubID = String.valueOf(clubDetailsList.get(row).getClubId());
+        updateClubID.setText(clubID);
+        updateClubName.setText(clubDetailsList.get(row).getClubName());
+        updateClubDescription.setText(clubDetailsList.get(row).getClubDescription());
+        updateClubImage.setImage(clubDetailsList.get(row).getAbsoluteImage().getImage());
+    }
+
+
+    public void OpenImageHandler(ActionEvent event){
+        fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
+
+        //Set the initial directory of the fileChooser to the user's home directory
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        //
+        fileChooser.getExtensionFilters().clear();
+        //
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
+        //
+        File file = fileChooser.showOpenDialog(null);
+
+        //Check whether if a file is selected by the user
+        if(file != null){
+            //get the button that handles the event
+            Button clickedButton = (Button) event.getSource();
+
+            //Take the fxID of the button
+            String fxID = clickedButton.getId();
+            //Get the selected image path
+            imagePath = file.getPath();
+
+            //Check whether the image imported is from the update or from the adding pane
+            if (fxID.equals("createClubImageButton")){
+                //Set the input image view as the selected image
+                createClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }else{
+                //Set the update image view as the selected image
+                updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }
+        }else {
+            //Show the import image error alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Import Image Error !!!");
+            alert.show(); //Display the error
+        }
+    }
+
+    public void updateOpenImageHandler(ActionEvent event){
+        fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
+
+        //Set the initial directory of the fileChooser to the user's home directory
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        //
+        fileChooser.getExtensionFilters().clear();
+        //
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
+        //
+        File file = fileChooser.showOpenDialog(null);
+
+        //Check whether if a file is selected by the user
+        if(file != null){
+            //get the button that handles the event
+            Button clickedButton = (Button) event.getSource();
+
+            //Take the fxID of the button
+            String fxID = clickedButton.getId();
+            //Get the selected image path
+            imagePath = file.getPath();
+
+            //Check whether the image imported is from the update or from the adding pane
+            if (fxID.equals("updateClubImageButton")){
+                //Set the input image view as the selected image
+                updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }else{
+                //Set the update image view as the selected image
+                updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }
+        }else {
+            //Show the import image error alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Import Image Error !!!");
+            alert.show(); //Display the error
+        }
     }
 
 
@@ -311,6 +622,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         ManageClubPane.setVisible(true);
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        clubId.setText(String.valueOf(clubIdSetterValue));
+
     }
 
     @Override
@@ -458,6 +771,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         UpdateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
 
+    }
+
+    static {
+        clubIdSetterValue = 100;
     }
 
 }

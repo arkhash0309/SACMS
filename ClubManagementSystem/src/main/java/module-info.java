@@ -4,6 +4,8 @@ module com.example.clubmanagementsystem {
     requires java.sql;
     requires mysql.connector.java;
 
+    opens ClubManager to javafx.fxml;
+    exports ClubManager;
 
     opens com.example.clubmanagementsystem to javafx.fxml;
     exports com.example.clubmanagementsystem;

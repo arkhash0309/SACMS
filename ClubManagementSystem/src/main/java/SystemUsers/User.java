@@ -236,6 +236,6 @@ abstract public class User implements UserValidator {
        fNameValidateStatus = "";
        lNameValidateStatus = "";
        contactNumberValidateStatus = "";
-        userNameValidateStatus = "";
+       userNameValidateStatus = "";
     }
 }
