@@ -198,7 +198,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="passwordLabel" layoutX="305.0" layoutY="330.0" prefHeight="26.0" prefWidth="264.0" textAlignment="JUSTIFY" textFill="RED">
+                              <Label fx:id="passwordLabel" layoutX="312.0" layoutY="330.0" prefHeight="49.0" prefWidth="264.0" textAlignment="JUSTIFY" textFill="RED">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

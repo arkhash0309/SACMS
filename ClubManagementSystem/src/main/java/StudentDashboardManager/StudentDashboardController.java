@@ -8,14 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,36 +29,35 @@ abstract public class StudentDashboardController implements Initializable {
 
     protected Scene scene;
     protected Stage stage;
-
     private Parent root;
-
     @FXML
     protected AnchorPane EventStudentPane;
-
     @FXML
     protected AnchorPane JoinLeaveClubPane;
-
     @FXML
     protected AnchorPane StudentDashBoardPane;
-
     @FXML
     protected AnchorPane StudentProfilePane;
-
     @FXML
-    public TextField studentUpdateProfileID,
-            studentUpdateProfileUserName, studentUpdateProfileContactNum, studentUpdateProfileExistingPassword,
-            studentUpdateProfileNewPassword, studentUpdateProfileConfirmPassword;
-
+    public TextField studentUpdateProfileID;
+    @FXML
+    public TextField studentUpdateProfileUserName;
+    @FXML
+    public TextField studentUpdateProfileContactNum;
+    @FXML
+    public PasswordField studentUpdateProfileExistingPassword;
+    @FXML
+    public PasswordField studentUpdateProfileNewPassword;
+    @FXML
+    public PasswordField studentUpdateProfileConfirmPassword;
     @FXML
     public TextField studentUpdateProfileFName;
-
     @FXML
     public TextField studentUpdateProfileLName;
-
     @FXML
     public Label studentUpdateIDLabel, studentUpdateFNameLabel, studentUpdateLNameLabel, studentUpdateUserNameLabel,
             studentUpdateContactNumLabel, studentUpdateExistingPasswordLabel, studentUpdateNewPasswordLabel,
-            studentUpdateConfirmPasswordLabel;
+            studentUpdateConfirmPasswordLabel, updateGradeLabel;
     @FXML
     public ComboBox<String> studentUpdateProfileGrade;
     @FXML

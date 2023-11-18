@@ -95,9 +95,9 @@ public class Student extends User implements StudentValidator {
             return false;
         }
 
-        if(String.valueOf(this.getStudentAdmissionNum()).length() > 4){
+        if(String.valueOf(this.getStudentAdmissionNum()).length() != 6){
             admissionNumStatus = "length";
-            System.out.println("more than 4");
+            System.out.println("more than 6");
             return false;
         }
         String dbClubAdvisorId = null;

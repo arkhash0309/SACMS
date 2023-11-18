@@ -163,14 +163,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
-    @FXML
-    private Label clubIdError;
-    @FXML
-    private Label clubLogoError;
-    @FXML
-    private Label clubNameError;
-    @FXML
-    private Label clubDescriptionError;
 
     @FXML
     protected Label updateErrorLabelEventLocation;

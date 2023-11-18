@@ -54,11 +54,7 @@ public class HelloApplication extends Application {
                 "Saravanakumar","0779073140", 5748,
                 8, 'M');
         Student.studentDetailArray.add(stud1);
-        System.out.println(Student.studentDetailArray.get(0).getFirstName());
-
-
-
-
+//        System.out.println(Student.studentDetailArray.get(0).getFirstName());
         CheckBox checkBox = new CheckBox();
         Attendance attendance = new Attendance(false, checkBox);
         Attendance.atdTracker.add(attendance);
@@ -73,14 +69,14 @@ public class HelloApplication extends Application {
 
         ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager();
         clubAdvisorDataBaseManager.populateClubAdvisorArray("Lakshan200");
-        System.out.println(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId());
+//        System.out.println(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId());
         clubAdvisorDataBaseManager.populateStudentDetailArray();
-        System.out.println(Student.studentDetailArray.get(0).getFirstName());
-        clubAdvisorDataBaseManager.populateClubDetailArray();
-        System.out.println(Club.clubDetailsList.get(0).getClubName());
+//        System.out.println(Student.studentDetailArray.get(0).getFirstName());
+//        clubAdvisorDataBaseManager.populateClubDetailArray();
+//        System.out.println(Club.clubDetailsList.get(0).getClubName());
 
         clubAdvisorDataBaseManager.populateEventsDetailArray();
-        System.out.println(Event.eventDetails.get(0).getEventName());
+//        System.out.println(Event.eventDetails.get(0).getEventName());
 
         Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
         Club.clubDetailsList.add(club1);
