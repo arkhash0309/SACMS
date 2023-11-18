@@ -20,6 +20,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     public static ArrayList<ClubAdvisor> clubAdvisorDetailsList = new ArrayList<>();
     public static String advisorIdStatus = "";
 
+    public ArrayList<Club> createdClubDetailsList = new ArrayList<>();
 
     public ClubAdvisor(String userName,String password,
                        String firstName, String lastName,

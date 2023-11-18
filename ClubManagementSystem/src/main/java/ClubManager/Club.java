@@ -1,6 +1,7 @@
 package ClubManager;
 
 import SystemDataValidator.ClubValidator;
+import SystemUsers.ClubAdvisor;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -8,14 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Club implements ClubValidator {
-
-    String clubAdvisorName;
-    @FXML
-    private TextField studentJoinClubID;
-    @FXML
-    private TextField studentJoinClubName;
-    @FXML
-    private TextField studentClubAdvisorName;
+    private String clubAdvisorName;
     private int clubId;
     private String clubName;
     private String clubDescription;
@@ -26,6 +20,7 @@ public class Club implements ClubValidator {
         this.clubName = clubName;
         this.clubDescription = clubDescription;
         this.clubLogo = clubLogo;
+        setClubAdvisorName(this.clubName);
     }
 
     public static ArrayList<Club> clubDetailsList = new ArrayList<>();
@@ -64,6 +59,21 @@ public class Club implements ClubValidator {
 
     public static String clubNameValidateStatus;
 
+    public void setClubAdvisorName(String nameOfTheClub){
+        for (ClubAdvisor advisor : ClubAdvisor.clubAdvisorDetailsList) {
+            System.out.println("bn");
+            for (Club clubName : advisor.createdClubDetailsList) {
+                System.out.println("Incharge clubName ");
+                if (clubName.getClubName().equals(nameOfTheClub)) {
+                    this.clubAdvisorName = advisor.getFirstName() +  " " + advisor.getLastName();
+                }
+            }
+        }
+
+    }
 
 
+    public String getClubAdvisorName() {
+        return clubAdvisorName;
+    }
 }

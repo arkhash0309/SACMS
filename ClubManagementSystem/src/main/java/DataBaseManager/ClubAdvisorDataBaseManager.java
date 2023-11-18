@@ -5,7 +5,6 @@ import ClubManager.Event;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import com.example.clubmanagementsystem.HelloApplication;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ClubAdvisorDataBaseManager {
-
     public static int loginClubAdvisorId;
 
     public static ArrayList<Integer> clubIdList = new ArrayList<>();
@@ -90,7 +88,7 @@ public class ClubAdvisorDataBaseManager {
 
    }
 
-   public void populateClubDetailArray(){
+   public void populateClubDetailArray(ArrayList<Club> clubDetailArray){
        Club.clubDetailsList.clear();
        clubIdList.clear();
        String query = "SELECT C.clubId, C.clubName, C.clubDescription, C.clubLogo " +
@@ -107,7 +105,7 @@ public class ClubAdvisorDataBaseManager {
                            result.getString("clubLogo")
                    );
 
-                   Club.clubDetailsList.add(club);
+                   clubDetailArray.add(club);
                    clubIdList.add(result.getInt("clubId"));
                    requiredClub.put(result.getInt("clubId"), club);
                }

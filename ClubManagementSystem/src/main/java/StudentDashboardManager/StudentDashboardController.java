@@ -1,5 +1,7 @@
 package StudentDashboardManager;
 
+import ClubManager.Club;
+import ClubManager.Event;
 import com.example.clubmanagementsystem.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -20,6 +19,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 abstract public class StudentDashboardController implements Initializable {
@@ -74,6 +75,58 @@ abstract public class StudentDashboardController implements Initializable {
 
     @FXML
     protected Button ProfileDirectorButton;
+    @FXML
+    protected ComboBox<String> studentJoinClubDropDownList;
+
+    @FXML
+    protected TextField studentJoinClubName;
+
+    @FXML
+    protected TextField studentJoinClubID;
+
+    @FXML
+    protected TextField studentJoinClubAdvisorName;
+    @FXML
+    protected TableView<Club> leaveClubTable;
+
+    @FXML
+    protected TableColumn<Club, Integer> leaveClubClubIdColumn;
+
+    @FXML
+    protected TableColumn<Club, String> leaveClubClubNameColumn;
+
+    @FXML
+    protected TableColumn<Club, String> leaveClubClubAdvisorName;
+
+    @FXML
+    protected TextField studentLeaveClubSearch;
+
+    @FXML
+    protected TableView<Event> EventViewTableStudent;
+
+    @FXML
+    protected TableColumn<Event, String> studentViewClubNameColumn;
+
+    @FXML
+    protected TableColumn<Event, String> studentViewEventNameColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalDate> studentViewEventDateColumn;
+
+    @FXML
+    protected TableColumn<Event, LocalTime> studentViewEventTimeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> studentViewEventLocationColumn;
+
+    @FXML
+    protected TableColumn<Event, String> studentViewEventTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> studentViewDeliveryTypeColumn;
+
+    @FXML
+    protected TableColumn<Event, String> studentViewEventDescriptionColumn;
     @FXML
     abstract void StudentLogout(MouseEvent event) throws IOException;
 

@@ -466,7 +466,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ScheduleEventsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="52.0" prefWidth="873.0" AnchorPane.bottomAnchor="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -494,7 +494,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="47.0" prefHeight="520.0" prefWidth="864.0">
                                  <children>
-                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0">
+                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0" visible="false">
                                        <children>
                                           <AnchorPane layoutX="34.0" layoutY="20.0" prefHeight="487.0" prefWidth="814.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -690,7 +690,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="CancelEventsPane" prefHeight="522.0" prefWidth="864.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="CancelEventsPane" prefHeight="522.0" prefWidth="864.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="25.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -959,7 +959,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="49.0" prefWidth="864.0" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>

@@ -1,24 +1,32 @@
 package StudentDashboardManager;
 
+import ClubManager.Club;
+import ClubManager.Event;
+import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StudentActivityController extends StudentDashboardController{
@@ -28,6 +36,8 @@ public class StudentActivityController extends StudentDashboardController{
 
     public static String existingUserName;
 
+    static int clubIndexStudentLeave;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,6 +45,20 @@ public class StudentActivityController extends StudentDashboardController{
             studentUpdateProfileGrade.getItems().add(String.format("%02d", grade));
         }
         studentUpdateProfileGrade.getSelectionModel().selectFirst();
+
+        leaveClubClubIdColumn.setCellValueFactory(new PropertyValueFactory<>("clubId"));
+        leaveClubClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        leaveClubClubAdvisorName.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorName"));
+
+        studentViewClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        studentViewEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        studentViewEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
+        studentViewEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        studentViewEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        studentViewEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
+        studentViewDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+        studentViewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
+
     }
     @Override
     void StudentLogout(MouseEvent event) throws IOException {
@@ -94,6 +118,8 @@ public class StudentActivityController extends StudentDashboardController{
         makeAllStudentButtonsColoured();
         JoinLeaveClubPane.setVisible(true);
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        getCreatedClubs();
+        populateLeaveClubDetails();
     }
 
 
@@ -284,14 +310,173 @@ public class StudentActivityController extends StudentDashboardController{
     }
 
 
-    @FXML
-    void studentJoinClub(){
 
+
+    public void getCreatedClubs(){
+
+        if(!studentJoinClubDropDownList.getItems().contains("None")){
+            studentJoinClubDropDownList.getItems().add("None");
+        }
+
+        for(Club club: Club.clubDetailsList){
+            String clubName;
+            clubName = club.getClubName();
+
+            boolean viewContainsStatus = studentJoinClubDropDownList.getItems().contains(clubName);
+
+
+            if(!viewContainsStatus){
+                studentJoinClubDropDownList.getItems().add(clubName);
+            }
+
+        }
+
+        studentJoinClubDropDownList.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    void OnStudentClubSelection(ActionEvent event) {
+        studentJoinClubID.setText(" ");
+        studentJoinClubName.setText(" ");
+        studentJoinClubAdvisorName.setText(" ");
+
+        String selectedClub = studentJoinClubDropDownList.getSelectionModel().getSelectedItem();
+
+        if(!selectedClub.equals("None")) {
+            for (Club club : Club.clubDetailsList) {
+                if (club.getClubName().equals(selectedClub)) {
+                    studentJoinClubID.setText(String.valueOf(club.getClubId()));
+                    studentJoinClubName.setText(club.getClubName());
+
+                    for (ClubAdvisor advisor : ClubAdvisor.clubAdvisorDetailsList) {
+                        System.out.println("bn");
+                        for (Club clubName : advisor.createdClubDetailsList) {
+                            System.out.println("Incharge clubName ");
+                            if (clubName.getClubName().equals(selectedClub)) {
+                                studentJoinClubAdvisorName.setText(advisor.getFirstName() + " " + advisor.getLastName());
+                                System.out.println("Incharge clubName " + "Hello");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @FXML
+    void joinClubController(){
+       String clubToJoin = studentJoinClubDropDownList.getSelectionModel().getSelectedItem();
+
+       if(clubToJoin.equals("None")){
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("School Club Management System");
+           alert.setHeaderText("Please select a club to join with a club");
+           alert.show();
+       }else{
+           for(Club club : Student.studentJoinedClubs){
+               if(club.getClubName().equals(clubToJoin)){
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setTitle("School Club Management System");
+                   alert.setHeaderText("You have already joined with this club");
+                   alert.show();
+                   return;
+               }
+           }
+
+           for(Club club : Club.clubDetailsList){
+               if(club.getClubName().equals(clubToJoin)){
+                   Student student = new Student();
+                   student.joinClub(club);
+                   populateLeaveClubDetails();
+                   return;
+               }
+           }
+       }
+
+    }
+
+    public void populateLeaveClubDetails(){
+        leaveClubTable.getItems().clear();
+        for(Club club : Student.studentJoinedClubs){
+            Club clubs = new Club(club.getClubId(), club.getClubName(), club.getClubDescription(), club.getClubLogo());
+            ObservableList<Club> viewJoinedClubs = leaveClubTable.getItems();
+            viewJoinedClubs.add(clubs);
+            leaveClubTable.setItems(viewJoinedClubs);
+        }
+    }
+
+    @FXML
+    void leaveClubController(ActionEvent event){
+        leaveClubController();
+    }
+
+
+    public void leaveClubController(){
+        try{
+            Club selectedClub = leaveClubTable.getSelectionModel().getSelectedItem();
+            clubIndexStudentLeave = leaveClubTable.getSelectionModel().getSelectedIndex();
+            System.out.println(selectedClub.getClubName());
+
+            Alert cancelEvent = new Alert(Alert.AlertType.CONFIRMATION);
+            cancelEvent.initModality(Modality.APPLICATION_MODAL);
+            cancelEvent.setTitle("School Activity Club Management System");
+            cancelEvent.setHeaderText("Do you really want to leave the club ?");
+
+            Optional<ButtonType> result = cancelEvent.showAndWait();
+            if(result.get() != ButtonType.OK){
+                return;
+            }
+
+            Student student = new Student();
+            student.leaveClub(selectedClub, clubIndexStudentLeave);
+            populateLeaveClubDetails();
+
+        }catch(NullPointerException error){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("Select a club from table to leave a club");
+            alert.show();
+        }
     }
 
 
     @FXML
-    void studentLeaveClub(){
+    void searchJoinedClubs(ActionEvent event) {
+        searchJoinedClubs(leaveClubTable, studentLeaveClubSearch);
+    }
+
+    public void searchJoinedClubs(TableView<Club> tableView, TextField searchBar){
+
+        String clubName = searchBar.getText();
+        System.out.println(clubName);
+
+        Club foundClub = null;
+        boolean foundStat = false;
+        int count = 0;
+        for(Club clubVal : Student.studentJoinedClubs){
+            if(clubVal.getClubName().equals(clubName)){
+                foundClub = clubVal;
+                System.out.println(foundClub.getClubName());
+                foundStat = true;
+                break;
+            }
+            count++;
+        }
+
+        if(foundStat){
+                tableView.getSelectionModel().select(count);
+                clubIndexStudentLeave = tableView.getSelectionModel().getSelectedIndex();
+                System.out.println(clubIndexStudentLeave);
+                tableView.scrollTo(foundClub);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("The club " + clubName+ " does not found");
+            alert.showAndWait();
+            System.out.println(foundStat);
+        }
 
     }
+
 }
