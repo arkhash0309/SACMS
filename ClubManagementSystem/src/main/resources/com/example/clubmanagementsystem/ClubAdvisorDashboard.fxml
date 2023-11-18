@@ -239,24 +239,24 @@
                                  <children>
                                     <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="301.0" prefWidth="410.0">
                                        <children>
-                                          <BarChart layoutX="-1.0" layoutY="-1.0" prefHeight="306.0" prefWidth="445.0" title="Enrolled Student Count">
+                                          <BarChart fx:id="EnrollStudentCountEachGrade" layoutX="-14.0" layoutY="-1.0" prefHeight="306.0" prefWidth="452.0" title="Enrolled Student Count In Each Grade">
                                             <xAxis>
-                                              <CategoryAxis side="BOTTOM" />
+                                              <CategoryAxis fx:id="gradeDetail" label="Grade" prefHeight="43.0" prefWidth="358.0" side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                              <NumberAxis side="LEFT" />
+                                              <NumberAxis fx:id="NumberOfStudentsEachGrade" label="Number Of Students" side="LEFT" />
                                             </yAxis>
                                           </BarChart>
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="473.0" layoutY="15.0" prefHeight="295.0" prefWidth="346.0">
                                        <children>
-                                          <BarChart layoutX="-5.0" prefHeight="362.0" prefWidth="390.0" title="Male Female Student Rate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <BarChart fx:id="GenderRatioChart" layoutX="-22.0" layoutY="-4.0" prefHeight="304.0" prefWidth="365.0" title="Male Female Student Rate" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-22.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="-4.0">
                                             <xAxis>
-                                              <CategoryAxis side="BOTTOM" />
+                                              <CategoryAxis fx:id="GenderOfStudent" label="Gender" side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                              <NumberAxis side="LEFT" />
+                                              <NumberAxis fx:id="NumberOfStudents" label="Number Of Students" prefHeight="218.0" prefWidth="48.0" side="LEFT" />
                                             </yAxis>
                                           </BarChart>
                                        </children>

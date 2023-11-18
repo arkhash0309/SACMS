@@ -151,4 +151,5 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
             return true;
         }
     }
+
 }

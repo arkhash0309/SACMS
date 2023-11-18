@@ -93,12 +93,11 @@ public class StudentLoginController implements Initializable {
     @FXML
     private TextField studentLoginPassword;
 
+    @FXML
+    private ComboBox<String> Grade;
 
     @FXML
-    private ComboBox<String> studentRegisterGrade;
-
-    @FXML
-    private ComboBox<String> studentRegisterGender;
+    private ComboBox<String> Gender;
 
     @FXML
     private Label studentRegisterFNameErrorLabel, studentRegisterLNameErrorLabel, studentRegisterAdmissionNumErrorLabel,
@@ -229,15 +228,6 @@ public class StudentLoginController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-
-//        for (int grade = 0; grade<13; grade++) {
-//            studentRegisterGrade.getItems().add(String.format("%02d", grade));
-//        }
-//        studentRegisterGrade.getSelectionModel().selectFirst();
-//
-//        studentRegisterGender.getItems().addAll("Please select", "Male", "Female");
-//        studentRegisterGender.getSelectionModel().selectFirst();
-        stage.show();
     }
 
 
@@ -259,8 +249,8 @@ public class StudentLoginController implements Initializable {
         String lastName = this.studentRegisterLastName.getText();
         String admissionNum = this.studentRegisterAdmissionNumber.getText();
         String contactNum = this.studentRegisterContactNumber.getText();
-        String grade = this.studentRegisterGrade.getValue();
-        String gender = this.studentRegisterGender.getValue();
+        String grade = Grade.getValue();
+        String gender = Gender.getValue();
         String userName = this.studentRegisterUserName.getText();
         String password = this.studentRegisterPassword.getText();
         String passwordConfirm = this.studentRegisterConfirmPassword.getText();
@@ -463,6 +453,16 @@ public class StudentLoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+
+    public void setComboBoxValuesStudentRegistration(){
+        for (int ComboGrade = 1; ComboGrade<13; ComboGrade++) {
+            Grade.getItems().add((String.valueOf(ComboGrade)));
+        }
+         Grade.getSelectionModel().selectFirst();
+
+         Gender.getItems().addAll("M", "F");
 
     }
 

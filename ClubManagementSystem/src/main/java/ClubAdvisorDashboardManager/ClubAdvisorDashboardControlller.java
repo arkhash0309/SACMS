@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -381,7 +384,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Event, LocalTime> cancelEventTimeColumn;
 
     @FXML
-    protected TableView<Event> viewCreatedEventsTable;
+    public TableView<Event> viewCreatedEventsTable;
 
     @FXML
     protected TableColumn<Event, String> viewEventClubNameColumn;
@@ -442,6 +445,24 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<Attendance, CheckBox> stColumn;
+
+    @FXML
+    protected BarChart<?, ?> GenderRatioChart;
+
+    @FXML
+    protected CategoryAxis GenderOfStudent;
+
+    @FXML
+    protected NumberAxis NumberOfStudents;
+
+    @FXML
+    protected BarChart<?, ?> EnrollStudentCountEachGrade;
+
+    @FXML
+    protected CategoryAxis gradeDetail;
+
+    @FXML
+    protected NumberAxis NumberOfStudentsEachGrade;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);

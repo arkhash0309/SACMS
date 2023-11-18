@@ -2,6 +2,7 @@ package ClubAdvisorDashboardManager;
 
 import ClubManager.Club;
 import SystemUsers.ClubAdvisor;
+import SystemUsers.Student;
 import com.example.clubmanagementsystem.ApplicationController;
 import ClubManager.Attendance;
 import ClubManager.Event;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,14 +29,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpCookie;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import static ClubManager.Club.clubDetailsList;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
-
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
@@ -50,6 +51,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
         populateComboBoxes();
+        findMaleFemaleStudentCount();
+        displayEnrolledStudentCount();
         //Set cell value factories for the columns of the Create Club Table
         createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
@@ -306,7 +309,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     foundClub.setClubDescription(clubDescription);
                     //Set club logo
 
-                    
+
                     //Updating club details tables
                     setCreateTable();
                     setUpdateTable();
@@ -1057,6 +1060,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void filterSelectedClubEvents(ActionEvent event) {
+
           viewCreatedEventsTable.getItems().clear();
           ArrayList<Event> filteredEvents = new ArrayList<>();
           String selectedClub = viewCreatedEventsSortComboBox.getSelectionModel().getSelectedItem();
@@ -1073,6 +1077,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
               }
           }
 
+         ClubAdvisor clubAdvisor = new ClubAdvisor();
+         clubAdvisor.viewEvent(); // Override scene eka
+
+
           for(Event value : filteredEvents){
               Club hostingClubDetail = value.getHostingClub();
               Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
@@ -1085,6 +1093,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
           }
 
     }
+
+
 
 
 
@@ -1126,6 +1136,41 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Add columns to the table view
         tb1.getColumns().addAll(attendanceColumn);
+    }
+
+    public void findMaleFemaleStudentCount(){
+        int maleRate = 0;
+        int femaleRate = 0;
+        for(Student student : Student.studentDetailArray){
+            if(student.getGender() == 'M'){
+                maleRate ++;
+            }else{
+                femaleRate++;
+            }
+        }
+
+        XYChart.Series setOfData = new XYChart.Series();
+        setOfData.getData().add(new XYChart.Data<>("Male", maleRate));
+        setOfData.getData().add(new XYChart.Data<>("Female", femaleRate));
+        GenderRatioChart.getData().addAll(setOfData);
+
+    }
+
+
+    public void displayEnrolledStudentCount(){
+        HashMap<Integer, Integer> studentGrade = new HashMap<>();
+        for(Student student : Student.studentDetailArray){
+            int grade = student.getStudentGrade();
+            studentGrade.put(grade, studentGrade.getOrDefault(grade, 0) + 1);
+        }
+
+        XYChart.Series setOfData = new XYChart.Series();
+        for (Map.Entry<Integer, Integer> entry : studentGrade.entrySet()) {
+            setOfData.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+        }
+
+        EnrollStudentCountEachGrade.getData().addAll(setOfData);
+
     }
 
 
