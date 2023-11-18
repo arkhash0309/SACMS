@@ -50,6 +50,7 @@ public class StudentActivityController extends StudentDashboardController{
         leaveClubClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         leaveClubClubAdvisorName.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorName"));
 
+        // the columns are initialized for the event view table
         studentViewClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         studentViewEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         studentViewEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
