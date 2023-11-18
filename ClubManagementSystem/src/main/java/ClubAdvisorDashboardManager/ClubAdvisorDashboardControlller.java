@@ -1,5 +1,6 @@
 package ClubAdvisorDashboardManager;
 
+import ClubManager.Club;
 import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -164,12 +166,58 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
     @FXML
-    private Label clubIdError;
+    public TextField clubName;
     @FXML
-    private Label clubLogoError;
+    public TextField clubId;
     @FXML
-    private Label clubNameError;
+    public TextArea clubDescription;
     @FXML
+    public ImageView createClubImage;
+    @FXML
+    public Button createClubImageButton;
+    @FXML
+    public Label clubLogoError;
+    @FXML
+    public Label clubNameError;
+    @FXML
+    public Label clubDescriptionError;
+    @FXML
+    public TableView<Club> createClubDetailsTable;
+    @FXML
+    public TableColumn<Club, String> createClubTableDescription;
+    @FXML
+    public TableColumn<Club, Integer> createClubTableId;
+    @FXML
+    public TableColumn<Club, ImageView> createClubTableLogo;
+    @FXML
+    public TableColumn<Club, String> createClubTableName;
+    @FXML
+    public Label updateClubNameError;
+    @FXML
+    public Label updateClubDescriptionError;
+    @FXML
+    public TextField updateClubSearch;
+    @FXML
+    public TableView<Club> updateClubDetailsTable;
+    @FXML
+    public TableColumn<Club, String> updateClubTableDescription;
+    @FXML
+    public TableColumn<Club, Integer> updateClubTableId;
+    @FXML
+    public TableColumn<Club, String> updateClubTableLogo;
+    @FXML
+    public TableColumn<Club, String> updateClubTableName;
+    @FXML
+    public TextField updateClubID;
+    @FXML
+    public TextField updateClubName;
+    @FXML
+    public TextArea updateClubDescription;
+    @FXML
+    public ImageView updateClubImage;
+    @FXML
+    public Button updateClubImageButton;
+=======
     private Label clubDescriptionError;
 
     @FXML
@@ -464,11 +512,14 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     abstract void GoToUpdateClubDetailsPane(ActionEvent event);
 
     @FXML
+    abstract void clubCreationChecker(ActionEvent event);
+    @FXML
+    abstract void clubCreationReset(ActionEvent event);
+  
     abstract protected void clearUpdateEventFields(ActionEvent event);
 
-    @FXML
-    abstract void scheduleEventController(ActionEvent event);
-    @FXML
-    abstract void GoToRegistration(ActionEvent event);
 
+    abstract void scheduleEventController(ActionEvent event);
+
+    abstract void GoToRegistration(ActionEvent event);
 }
