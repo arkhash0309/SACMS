@@ -1,6 +1,8 @@
 package LoginDashboardManager;
 
 import StudentDashboardManager.StudentActivityController;
+import StudentDashboardManager.StudentDashboardController;
+import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
@@ -43,10 +45,10 @@ public class StudentLoginController implements Initializable {
 
     @FXML
     private Label studentLoginUserNameErrorLabel;
-    @FXML
-    private Label studentConfirmPasswordLabel;
+
     @FXML
     private Label studentRegisterConfirmPasswordErrorLabel;
+
     @FXML
     private Label studentIncorrectCredential;
 
@@ -99,19 +101,26 @@ public class StudentLoginController implements Initializable {
 
     @FXML
     private Label studentRegisterAdmissionNumErrorLabel;
+
     @FXML
     private Label studentRegisterFNameErrorLabel;
+
     @FXML
     private Label studentRegisterLNameErrorLabel;
+
     @FXML
     private Label studentRegisterContactNumErrorLabel;
+
     @FXML
     private Label studentRegisterUserNameErrorLabel;
+
     @FXML
     private Label studentRegisterPasswordErrorLabel;
 
     @FXML
     public Label usernameLabel;
+
+    public  static String userNameVal;
 
 
     @FXML
@@ -152,6 +161,8 @@ public class StudentLoginController implements Initializable {
         loginStatus = true;
         studentLoginPageUserName = LoginStudentUserName.getText();
         studentLoginPagePassword = studentLoginPassword.getText();
+
+        userNameVal = studentLoginPageUserName;
         if (studentLoginPageUserName.isEmpty()) {
             loginStatus = false;
             studentLoginUserNameErrorLabel.setText("This field cannot be empty");
@@ -218,6 +229,9 @@ public class StudentLoginController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
+        StudentActivityController controller = loader.getController(); // This is done to set login userName to dashboard
+        controller.showUserName.setText(userNameVal); // controller variable will be have access to control student activity controller
+        controller.showUserName.setStyle("-fx-text-alignment: justify");
         StudentDashboardManager.StudentActivityController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -232,7 +246,7 @@ public class StudentLoginController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/RegisterManager/StudentRegistration.fxml"));
         Parent root = loader.load();
         StudentLoginController controller = loader.getController();
-        controller.setComboBoxValuesStudentRegistration(); // Ensure ComboBox initialization
+        controller.setComboBoxValuesStudentRegistration(); // giving controller access to  student Login controller
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -258,11 +272,8 @@ public class StudentLoginController implements Initializable {
         String admissionNum = this.studentRegisterAdmissionNumber.getText();
         String contactNum = this.studentRegisterContactNumber.getText();
 
-//        Integer grade = Integer.valueOf((this.studentRegisterGrade.getValue()));
-//        String gender = this.studentRegisterGender.getValue();
-
-        String grade = Grade.getValue();
-        String gender = Gender.getValue();
+        Integer grade = Integer.valueOf((this.Grade.getValue()));
+        String gender = this.Gender.getValue();
 
         String userName = this.studentRegisterUserName.getText();
         String password = this.studentRegisterPassword.getText();
@@ -305,38 +316,44 @@ public class StudentLoginController implements Initializable {
             } else {
                 User.contactNumberValidateStatus = "";
             }
+
         } catch (NumberFormatException e) {
+
             System.out.println("Invalid ContactNumber 2");
             User.contactNumberValidateStatus = "format";
             validateStatus = false; // the boolean value is set to false as there is an error
+
         } catch (Exception e) {
             validateStatus = false; // the boolean value is set to false as there is an error
         }
         displayContactValError(); // the error method is called to specify what type of error is produced
 
         try {
-            if (admissionNum.isEmpty()) {
+            if(admissionNum.isEmpty()){
                 validateStatus = false;
-                Student.admissionNumStatus = "empty";
+                Student.admissionNumStatus ="empty";
                 throw new Exception();
             }
-            int admissionNumValue = Integer.parseInt(admissionNum);
-            Student std2 = new Student(admissionNumValue);
 
-            if (!std2.validateStudentAdmissionNumber()) {
-                System.out.println("Invalid");
-                validateStatus = false;
-            } else {
+            int advisorIdValue = Integer.parseInt(admissionNum.trim());
+            Student studentVal = new Student(advisorIdValue);
+
+            if (!studentVal.validateStudentAdmissionNumber()) {
+                validateStatus  = false;
+            }else{
                 Student.admissionNumStatus = "";
             }
-        } catch (NumberFormatException e) {
-//            Student.admissionNumStatus = "format";
-//            System.out.println("Invalid Student ID");
-//            validateStatus = false;
-        } catch (Exception e) {
+        }catch(NumberFormatException e){
+            Student.admissionNumStatus ="format";
+            System.out.println("Invalid Advisor Id");
+            validateStatus  = false;
+        }
+        catch (Exception e) {
             validateStatus = false;
         }
         displayAdmissionNumError();
+
+
 
         if (!student.validateUserName("registration", "student")) {
             System.out.println("Wrong user name");
@@ -365,34 +382,49 @@ public class StudentLoginController implements Initializable {
             studentRegisterConfirmPasswordErrorLabel.setText(" ");
         }
 
-        String studentPersonalDetailsQuery
-                = "insert into Student('studentAdmissionNum','studentFName','studentLName','studentGrade','studentContactNum','Gender') values(?,?,?,?,?,?)";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentPersonalDetailsQuery)) {
-            preparedStatement.setString(1,admissionNum);
-            preparedStatement.setString(2,firstName);
-            preparedStatement.setString(3,lastName);
-//            preparedStatement.setString(4, String.valueOf(grade));
-            preparedStatement.setString(5,contactNum);
-//            preparedStatement.setString(6,gender);
-            statement.executeUpdate(studentPersonalDetailsQuery);
-        }catch (Exception e){
-            System.out.println(e);
-        }
-
-        String studentCredentialsDetailsQuery
-                = "insert into studentCredentials(studentUserName, studentPassword, studentAdmissionNum) values (?,?,?) ";
-        try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentCredentialsDetailsQuery)){
-            preparedStatement.setString(1,userName);
-            preparedStatement.setString(2,passwordConfirm);
-            statement.executeUpdate(studentCredentialsDetailsQuery);
-        } catch (Exception e){
-            System.out.println(e);
-        }
 
         System.out.println(validateStatus + " : Valid Stat");
         if (validateStatus) {
             Student studentData = new Student(userName, password, firstName, lastName);
             Student.studentDetailArray.add(studentData);
+
+
+            String studentPersonalDetailsQuery = "INSERT INTO Student (studentAdmissionNum, studentFName, studentLName, " +
+                    "studentGrade, studentContactNum, Gender) VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentPersonalDetailsQuery)) {
+                preparedStatement.setInt(1, Integer.parseInt(admissionNum));
+                preparedStatement.setString(2, firstName);
+                preparedStatement.setString(3, lastName);
+                preparedStatement.setInt(4, grade); // Assuming grade is an INT
+                preparedStatement.setInt(5, Integer.parseInt(contactNum));
+                preparedStatement.setString(6, gender);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            String studentCredentialsDetailsQuery = "INSERT INTO studentCredentials (studentUserName," +
+                    " studentPassword, studentAdmissionNum) VALUES (?, ?, ?)";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentCredentialsDetailsQuery)) {
+                preparedStatement.setString(1, userName);
+                preparedStatement.setString(2, passwordConfirm);
+                preparedStatement.setInt(3, Integer.parseInt(admissionNum));
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            try{
+                Thread.sleep(1000);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("You have successfully registered with the system !!!");
+            alert.showAndWait();
+
 
             this.DirectToLoginPane(event);
         }
@@ -471,7 +503,6 @@ public class StudentLoginController implements Initializable {
 
     }
 
-    }
 
 
     public void setComboBoxValuesStudentRegistration(){
@@ -488,7 +519,7 @@ public class StudentLoginController implements Initializable {
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
             studentRegisterUserNameErrorLabel.setText("User Name cannot be empty");
-        } else if (User.userNameValidateStatus.equals("exists")) {
+        } else if (User.userNameValidateStatus.equals("exist")) {
             studentRegisterUserNameErrorLabel.setText("Entered Username already exists");
         } else if (User.userNameValidateStatus.equals("blank")) {
             studentRegisterUserNameErrorLabel.setText("User Name cannot contain spaces");
@@ -500,7 +531,6 @@ public class StudentLoginController implements Initializable {
     }
 
         
-
 
     public void displayContactValError() {
         if (User.contactNumberValidateStatus.equals("empty")) {

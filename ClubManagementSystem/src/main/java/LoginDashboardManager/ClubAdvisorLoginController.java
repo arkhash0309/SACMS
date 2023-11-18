@@ -353,11 +353,11 @@ public class ClubAdvisorLoginController {
 
         String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
-            preparedStatement.setString(1, advisorId);
+            preparedStatement.setInt(1, Integer.parseInt(advisorId));
             preparedStatement.setString(2, firstName);
             preparedStatement.setString(3, lastName);
             preparedStatement.setString(4, contactNum);
-            preparedStatement.executeUpdate(clubAdvisorPersonalDetailsQuery);
+            preparedStatement.executeUpdate(); // Remove the query string argument
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -366,17 +366,29 @@ public class ClubAdvisorLoginController {
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, confirmPassword);
-            preparedStatement.setString(3, advisorId);
-            preparedStatement.executeUpdate(clubAdvisorCredentialsDetailsQuery);
+            preparedStatement.setInt(3, Integer.parseInt(advisorId));
+            preparedStatement.executeUpdate(); // Remove the query string argument
         } catch (Exception e) {
             System.out.println(e);
         }
+
 
 
         System.out.println(validStat + " : Valid Stat");
         if(validStat){
             ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName, contactNum, Integer.parseInt(advisorId));
             ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisorData);
+
+            try{
+                Thread.sleep(1000);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("You have successfully registered with the system !!!");
+            alert.showAndWait();
 
             this.goToLoginPage(event);
         }

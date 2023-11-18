@@ -69,8 +69,8 @@
                      <children>
                         <AnchorPane prefHeight="221.0" prefWidth="239.0">
                            <children>
-                              <Circle fill="WHITE" layoutX="103.0" layoutY="69.0" radius="44.0" stroke="BLACK" strokeType="INSIDE" />
-                              <ImageView fitHeight="72.0" fitWidth="63.0" layoutX="72.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                              <Circle fill="WHITE" layoutX="116.0" layoutY="69.0" radius="44.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="72.0" fitWidth="63.0" layoutX="84.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../Images/student-removebg-preview.png" />
                                  </image>
@@ -85,7 +85,7 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="109.0" prefHeight="40.0" prefWidth="209.0" textFill="WHITE">
+                              <Label fx:id="showUserName" layoutX="44.0" layoutY="121.0" prefHeight="40.0" prefWidth="143.0" text="Lakshan1234" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="23.0" />
                                  </font>

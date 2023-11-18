@@ -487,6 +487,9 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableView<String> attendanceTrackerTable;
+    
+    @FXML
+    public  Label showUserNameClubAdvisor;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);

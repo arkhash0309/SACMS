@@ -211,9 +211,9 @@ public class StudentActivityController extends StudentDashboardController{
                 Student.admissionNumStatus = "";
             }
         } catch (NumberFormatException e) {
-//            Student.admissionNumStatus = "format";
-//            System.out.println("Invalid Student ID");
-//            validateStatus = false;
+              Student.admissionNumStatus = "format";
+              System.out.println("Invalid Student ID");
+               validStat = false;
         } catch (Exception e) {
             validStat = false;
         }

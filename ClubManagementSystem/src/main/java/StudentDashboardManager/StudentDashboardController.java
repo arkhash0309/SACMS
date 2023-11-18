@@ -140,6 +140,8 @@ abstract public class StudentDashboardController implements Initializable {
     @FXML
     protected Label  nextEventDateForStudent;
     @FXML
+    public  Label showUserName;
+    @FXML
     abstract void StudentLogout(MouseEvent event) throws IOException;
 
     abstract public void StudentDashboardDragDetected(MouseEvent mouseEvent);
