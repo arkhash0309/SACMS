@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 import static com.example.clubmanagementsystem.HelloApplication.statement;
 
 public class ClubAdvisorLoginController {
+    public static String userNameForShowInAdvisorDashboard;
     static boolean loginStatus;
     private String clubAdvisortLoginPageUserName;
     private String clubAdvisorLoginPagePassword;
@@ -152,6 +153,8 @@ public class ClubAdvisorLoginController {
         loginStatus = true;
         clubAdvisortLoginPageUserName = advisorLoginUserName.getText();
         clubAdvisorLoginPagePassword = advisorLoginPassword.getText();
+
+        userNameForShowInAdvisorDashboard = clubAdvisortLoginPageUserName;
         if(clubAdvisortLoginPageUserName.isEmpty()){
             loginStatus = false;
             advisorUserNameEmpty.setText("This field cannot be empty");
@@ -205,6 +208,8 @@ public class ClubAdvisorLoginController {
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
         Parent root = loader. load();
         ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
+        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setText(userNameForShowInAdvisorDashboard);
+        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: justify");
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
                 "-fx-text-fill: white");
