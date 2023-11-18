@@ -463,6 +463,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected NumberAxis NumberOfStudentsEachGrade;
+    @FXML
     protected ComboBox<String> attendanceClubNameComboBox;
 
     @FXML

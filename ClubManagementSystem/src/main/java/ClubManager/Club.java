@@ -83,41 +83,49 @@ public class Club implements ClubValidator {
     public ImageView getAbsoluteImage(){
         return absoluteImage;
     }
-    public void setAbsoluteImage(String path){
-        System.out.println("Pramuwa  : " + path);
-        //This checks whether the image path is null
-        if (path != null){
-            double width = 120; //Set the image width
-            double height = 100; //Set the image height
 
-            //This sets the image path to the Image Object
+    public void setAbsoluteImage(String path) {
+        System.out.println("Pramuwa: " + path);
+
+        // Check whether the image path is null
+        if (path != null) {
+            double width = 120; // Set the image width
+            double height = 100; // Set the image height
+
+            // This sets the image path to the Image Object
             Image image = new Image(path);
 
-            //Assigning the Image View to the absolute image
+            // Assigning the ImageView to the absolute image
             this.absoluteImage = new ImageView(image);
 
-            //Set the absolute image width to 120, height to 90
+            // Set the absolute image width and height
             absoluteImage.setFitWidth(width);
             absoluteImage.setFitHeight(height);
-        }else {
-
+        } else {
             double width = 120;
             double height = 100;
 
-            String imagePath = "Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg";
-            String absolutePath = Objects.requireNonNull(HelloApplication.class.getResource(imagePath)).getPath();
+            // If the path is null, use a default image path
+            String imagePath = "/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg";
 
-            Image image = new Image(absolutePath);
+            // Load the image using the resource path
+            Image image = new Image(Objects.requireNonNull(getClass().getResource(imagePath)).toExternalForm());
 
-            //Assigning the Image View to the absolute image
+            // Assigning the ImageView to the absolute image
             this.absoluteImage = new ImageView(image);
 
-            //Set the absolute image width to 120, height to 90
+            // Set the absolute image width and height
             absoluteImage.setFitWidth(width);
             absoluteImage.setFitHeight(height);
-
         }
     }
+
+
+
+
+
+
+
 
     public static String clubNameValidateStatus;
 

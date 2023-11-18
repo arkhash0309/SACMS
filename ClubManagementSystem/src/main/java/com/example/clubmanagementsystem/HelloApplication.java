@@ -79,10 +79,10 @@ public class HelloApplication extends Application {
 
 
 
-        Club club1 = new Club(0003, "Rotract23", "Done with the work", "C:/Users/arkha/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
+        Club club1 = new Club(0003, "Rotract23", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
         Club.clubDetailsList.add(club1);
 
-        Club club2 = new Club(0005, "IEEE24", "Done with the work", "C:/Users/arkha/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
+        Club club2 = new Club(0005, "IEEE24", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
         Club.clubDetailsList.add(club2);
 
         cb.createdClubDetailsList.add(club1);

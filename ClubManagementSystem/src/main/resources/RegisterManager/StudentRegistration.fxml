@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -84,7 +83,7 @@
                      <children>
                         <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="510.0" prefWidth="585.0" styleClass="EventMainPane">
                            <children>
-                              <TextField fx:id="studentRegisterUserName" layoutX="27.0" layoutY="337.0" prefHeight="29.0" prefWidth="242.0" promptText="Username">
+                              <TextField fx:id="studentRegisterUserName" layoutX="21.0" layoutY="348.0" prefHeight="29.0" prefWidth="248.0" promptText="Username" styleClass="eventField" AnchorPane.topAnchor="338.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -94,40 +93,39 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <PasswordField fx:id="studentRegisterPassword" layoutX="307.0" layoutY="337.0" prefHeight="29.0" prefWidth="242.0" promptText="Password">
+                              <PasswordField fx:id="studentRegisterPassword" layoutX="307.0" layoutY="337.0" prefHeight="29.0" prefWidth="242.0" promptText="Password" styleClass="eventField" AnchorPane.topAnchor="338.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <PasswordField fx:id="studentRegisterConfirmPassword" layoutX="27.0" layoutY="423.0" prefHeight="29.0" prefWidth="242.0" promptText="Confirm Password">
+                              <PasswordField fx:id="studentRegisterConfirmPassword" layoutX="18.0" layoutY="423.0" prefHeight="29.0" prefWidth="251.0" promptText="Confirm Password" styleClass="eventField">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <TextField fx:id="studentRegisterLastName" layoutX="311.0" layoutY="91.0" prefHeight="29.0" prefWidth="242.0" promptText="Last Name" AnchorPane.topAnchor="91.0">
+                              <TextField fx:id="studentRegisterLastName" layoutX="311.0" layoutY="91.0" prefHeight="29.0" prefWidth="242.0" promptText="Last Name" styleClass="eventField" AnchorPane.topAnchor="94.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="studentRegisterAdmissionNumber" layoutX="23.0" layoutY="170.2" prefHeight="29.0" prefWidth="242.0" promptText="Admission Number" AnchorPane.topAnchor="170.2">
+                              <TextField fx:id="studentRegisterAdmissionNumber" layoutX="21.0" layoutY="170.2" prefHeight="29.0" prefWidth="244.0" promptText="Admission Number" styleClass="eventField" AnchorPane.topAnchor="176.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="studentRegisterFirstName" layoutX="19.0" layoutY="91.4" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="91.4">
+                              <TextField fx:id="studentRegisterFirstName" layoutX="19.0" layoutY="91.4" prefHeight="29.0" prefWidth="242.0" promptText="First Name" styleClass="eventField" AnchorPane.topAnchor="94.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="studentRegisterContactNumber" layoutX="311.0" layoutY="170.2" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" AnchorPane.topAnchor="170.2">
+                              <TextField fx:id="studentRegisterContactNumber" layoutX="311.0" layoutY="170.2" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" styleClass="eventField" AnchorPane.topAnchor="176.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <Separator layoutX="40.0" layoutY="286.0" prefHeight="21.0" prefWidth="519.0" />
                               <AnchorPane layoutX="19.0" layoutY="14.0" prefHeight="39.0" prefWidth="560.0">
                                  <children>
-                                    <Label layoutX="60.0" layoutY="6.0" prefHeight="39.0" prefWidth="545.0" styleClass="updateClubLabels" text="  Account Registration" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+                                    <Label layoutX="60.0" layoutY="6.0" prefHeight="37.0" prefWidth="545.0" styleClass="updateClubLabels" text="  Account Registration" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -143,22 +141,22 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <Label layoutX="311.0" layoutY="65.0" prefHeight="26.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Last Name" textFill="WHITE" AnchorPane.topAnchor="65.0">
+                              <Label layoutX="311.0" layoutY="65.0" prefHeight="24.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Last Name" textFill="WHITE" AnchorPane.topAnchor="65.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="23.0" layoutY="161.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Admission Number" textFill="WHITE" AnchorPane.topAnchor="140.0">
+                              <Label layoutX="21.0" layoutY="161.0" prefHeight="29.0" prefWidth="244.0" styleClass="updateClubLabels" text="  Admission Number" textFill="WHITE" AnchorPane.topAnchor="145.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="311.0" layoutY="155.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Contact Number" textFill="WHITE" AnchorPane.topAnchor="140.0">
+                              <Label layoutX="311.0" layoutY="155.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Contact Number" textFill="WHITE" AnchorPane.topAnchor="145.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="27.0" layoutY="308.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  User Name" textFill="WHITE">
+                              <Label layoutX="20.0" layoutY="308.0" prefHeight="29.0" prefWidth="249.0" styleClass="updateClubLabels" text="  User Name" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -168,7 +166,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="27.0" layoutY="393.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Confirm Password" textFill="WHITE">
+                              <Label layoutX="20.0" layoutY="393.0" prefHeight="29.0" prefWidth="249.0" styleClass="updateClubLabels" text="  Confirm Password" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -178,25 +176,46 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="27.0" layoutY="226.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Grade" textFill="WHITE" AnchorPane.topAnchor="220.0">
+                              <Label layoutX="21.0" layoutY="226.0" prefHeight="29.0" prefWidth="248.0" styleClass="updateClubLabels" text="  Grade" textFill="WHITE" AnchorPane.topAnchor="231.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="311.0" layoutY="220.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Gender" textFill="WHITE">
+                              <Label layoutX="311.0" layoutY="220.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Gender" textFill="WHITE" AnchorPane.topAnchor="231.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="studentRegisterUserNameErrorLabel" layoutX="27.0" layoutY="367.0" prefHeight="21.0" prefWidth="242.0" />
-                              <Label fx:id="studentRegisterFNameErrorLabel" layoutX="19.0" layoutY="121.0" prefHeight="18.0" prefWidth="242.0" />
-                              <Label fx:id="studentRegisterLNameErrorLabel" layoutX="311.0" layoutY="121.0" prefHeight="18.0" prefWidth="240.0" />
-                              <Label fx:id="studentRegisterAdmissionNumErrorLabel" layoutX="26.0" layoutY="200.0" prefHeight="18.0" prefWidth="238.0" />
-                              <Label fx:id="studentRegisterContactNumErrorLabel" layoutX="311.0" layoutY="200.0" prefHeight="18.0" prefWidth="241.0" />
-                              <Label fx:id="studentRegisterPasswordErrorLabel" layoutX="307.0" layoutY="368.0" prefHeight="18.0" prefWidth="241.0" />
-                              <Label fx:id="studentRegisterConfirmPasswordErrorLabel" layoutX="27.0" layoutY="453.0" prefHeight="18.0" prefWidth="241.0" />
-                              <ComboBox fx:id="Grade" layoutX="26.0" layoutY="255.0" prefHeight="25.0" prefWidth="245.0" />
-                              <ComboBox fx:id="Gender" layoutX="311.0" layoutY="255.0" prefHeight="25.0" prefWidth="244.0" />
+                              <Label fx:id="studentRegisterUserNameErrorLabel" layoutX="28.0" layoutY="367.0" prefHeight="21.0" prefWidth="242.0" textFill="#500c0c">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="studentRegisterFNameErrorLabel" layoutX="19.0" layoutY="121.0" prefHeight="18.0" prefWidth="242.0" textFill="#500c0c" AnchorPane.topAnchor="125.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="studentRegisterLNameErrorLabel" layoutX="311.0" layoutY="121.0" prefHeight="18.0" prefWidth="240.0" textFill="#500c0c" AnchorPane.topAnchor="125.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="studentRegisterAdmissionNumErrorLabel" layoutX="26.0" layoutY="200.0" prefHeight="18.0" prefWidth="238.0" textFill="#500c0c" AnchorPane.topAnchor="208.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="studentRegisterContactNumErrorLabel" layoutX="311.0" layoutY="200.0" prefHeight="18.0" prefWidth="241.0" textFill="#500c0c" AnchorPane.topAnchor="208.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="studentRegisterPasswordErrorLabel" layoutX="307.0" layoutY="368.0" prefHeight="41.0" prefWidth="241.0" textFill="#500c0c">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="studentConfirmPasswordLabel" layoutX="27.0" layoutY="453.0" prefHeight="18.0" prefWidth="241.0" textFill="#500c0c">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <ComboBox fx:id="Grade" layoutX="20.0" layoutY="261.0" prefHeight="31.0" prefWidth="251.0" styleClass="eventField" AnchorPane.topAnchor="263.0" />
+                              <ComboBox fx:id="Gender" layoutX="310.0" layoutY="261.0" prefHeight="25.0" prefWidth="244.0" styleClass="eventField" AnchorPane.topAnchor="263.0" />
                            </children>
                         </AnchorPane>
                      </children>

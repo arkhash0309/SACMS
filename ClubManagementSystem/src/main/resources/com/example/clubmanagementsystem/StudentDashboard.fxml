@@ -68,8 +68,8 @@
                      <children>
                         <AnchorPane prefHeight="221.0" prefWidth="239.0">
                            <children>
-                              <Circle fill="WHITE" layoutX="113.0" layoutY="79.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
-                              <ImageView fitHeight="72.0" fitWidth="63.0" layoutX="81.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                              <Circle fill="WHITE" layoutX="103.0" layoutY="69.0" radius="44.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="72.0" fitWidth="63.0" layoutX="72.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../Images/student-removebg-preview.png" />
                                  </image>
