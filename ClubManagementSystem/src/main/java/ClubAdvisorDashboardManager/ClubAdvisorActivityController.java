@@ -59,7 +59,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         createClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
         createClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
 
-//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+        // the columns are initialized for the attendance tracking table
+        attendanceClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        attendanceEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        attendanceStudentNameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        attendanceStudentAdmissionNumColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
+        attendanceStatusColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
+
+//        Club club1 = new Club(0001, "Rotaract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
 //        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
         for (Club club : clubDetailsList){
@@ -81,6 +88,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         getNextEventDate();
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
+
 
     public void populateComboBoxes(){
         scheduleEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
@@ -1123,12 +1131,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Set column widths
         TableColumn<Attendance, Boolean> attendanceColumn = new TableColumn<>("Attendance");
+        // the column is initialized respectively
         attendanceColumn.setCellValueFactory(data -> data.getValue().attendanceStatusProperty());
 
         attendanceColumn.setPrefWidth(100); // Adjust the value as needed
 
         // Set custom row factory to control row height
         tb1.setRowFactory(tv -> {
+            // a new row is created
             TableRow<Attendance> row = new TableRow<>();
             row.setPrefHeight(30); // Adjust the value as needed
             return row;
@@ -1173,7 +1183,65 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    public void populateAttendanceClubNameComboBox() {
+        // the club name combo box is cleared
+        attendanceClubNameComboBox.getItems().clear();
 
+        if(!attendanceClubNameComboBox.getItems().contains("Please Select")){
+            // the default option of please select is added to the combo box
+            attendanceClubNameComboBox.getItems().add("Please select");
+        }
+
+        // the following is done for every club in the clubDetailsList
+        for(Club club : clubDetailsList){
+            // the club names are added to the combo box from the array list
+            attendanceClubNameComboBox.getItems().add(club.getClubName());
+        }
+        // retrieves the current selection in the combo box
+        attendanceClubNameComboBox.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    void populateEventList(ActionEvent event) {
+        // a new array list to hold the events filtered to the respective club
+        ArrayList<Event> filteredEvents = new ArrayList<>();
+        // the selected club name is retrieved from the club name combo box
+        String selectedClub = attendanceClubNameComboBox.getSelectionModel().getSelectedItem();
+        System.out.println(selectedClub + "ding dong bell");
+
+        // if no club is selected, the method is returned (not executed)
+        if(selectedClub == null){
+            return;
+        }
+
+        // if "Please Select" is chosen, the method is returned (not executed)
+        if(selectedClub.equals("Please Select")){
+            return;
+        }else{
+            // a object of data type Event is created to iterate over the eventDetails array list
+            for(Event events : Event.eventDetails){
+                if(events.getClubName().equals(selectedClub)){
+                    filteredEvents.add(events); // the events for the respective club is added to the areay list
+                }
+            }
+        }
+        // the event name combo box is cleared
+        attendanceEventNameComboBox.getItems().clear();
+
+        // check if the option "Please select" is already available
+        if(!attendanceEventNameComboBox.getItems().contains("Please Select")){
+            // option is added if not available
+            attendanceEventNameComboBox.getItems().add("Please select");
+        }
+
+        // an object event1 of data type Event is created to iterate over the filteredEvents array list
+        for(Event event1 : filteredEvents){
+            // the events are retrieved and added
+            attendanceEventNameComboBox.getItems().add(event1.getEventName());
+        }
+        // retrieves the current selection in the combo box
+        attendanceEventNameComboBox.getSelectionModel().selectFirst();
+    }
 
 
     @Override
@@ -1269,6 +1337,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         AttendancePane.setVisible(true);
         AttendanceButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        populateAttendanceClubNameComboBox();
     }
 
     @Override
@@ -1425,6 +1494,4 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     static {
         clubIdSetterValue = 100;
     }
-
-
 }
