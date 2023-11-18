@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
     <stylesheets>
         <URL value="@ClubAdvisorDashboard.css" />
     </stylesheets>
@@ -171,7 +171,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
                                  <children>
@@ -292,17 +292,17 @@
                                     </AnchorPane>
                                     <AnchorPane layoutX="22.0" layoutY="70.0" prefHeight="228.0" prefWidth="820.0" styleClass="dashboardPane" AnchorPane.bottomAnchor="275.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
                                        <children>
-                                          <TextField fx:id="clubId" editable="false" layoutX="27.0" layoutY="90.0" prefHeight="31.0" prefWidth="206.0" promptText="Club Id">
+                                          <TextField fx:id="clubId" editable="false" layoutX="27.0" layoutY="90.0" prefHeight="31.0" prefWidth="206.0" promptText="Club Id" styleClass="eventField">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="clubName" layoutX="26.0" layoutY="175.0" prefHeight="31.0" prefWidth="206.0" promptText="Name">
+                                          <TextField fx:id="clubName" layoutX="26.0" layoutY="175.0" prefHeight="31.0" prefWidth="206.0" promptText="Name" styleClass="eventField">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </TextField>
-                                          <TextArea fx:id="clubDescription" layoutX="254.0" layoutY="90.0" prefHeight="114.0" prefWidth="262.0" promptText="Description">
+                                          <TextArea fx:id="clubDescription" layoutX="254.0" layoutY="90.0" prefHeight="114.0" prefWidth="262.0" promptText="Description" styleClass="eventField">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font></TextArea>
@@ -332,11 +332,11 @@
                                           </Label>
                                           <AnchorPane layoutX="541.0" layoutY="62.0" prefHeight="145.0" prefWidth="138.0">
                                              <children>
-                                                <ImageView fx:id="createClubImage" fitHeight="144.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fx:id="createClubImage" fitHeight="144.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" styleClass="eventField">
                                                    <image>
                                                       <Image url="@../../../Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg" />
                                                    </image></ImageView>
-                                                <Button fx:id="createClubImageButton" layoutY="106.0" mnemonicParsing="false" onAction="#OpenImageHandler" prefHeight="38.0" prefWidth="138.0" text="Upload Logo">
+                                                <Button fx:id="createClubImageButton" layoutY="106.0" mnemonicParsing="false" onAction="#OpenImageHandler" prefHeight="38.0" prefWidth="138.0" styleClass="button2" text="Upload Logo">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font>
@@ -353,7 +353,10 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Button>
-                                          <Label layoutX="30.0" layoutY="121.0" prefHeight="19.0" prefWidth="206.0" text="(Club ID is auto generated!)" textFill="#848484" />
+                                          <Label layoutX="30.0" layoutY="121.0" prefHeight="19.0" prefWidth="206.0" text="(Club ID is auto generated!)">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font></Label>
                                           <Label fx:id="clubNameError" layoutX="27.0" layoutY="209.0" prefHeight="19.0" prefWidth="206.0" textFill="#781616">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
@@ -408,8 +411,8 @@
                                                 </Label>
                                              </children>
                                           </AnchorPane>
-                                          <TextField fx:id="updateClubSearch" layoutX="16.0" layoutY="57.0" prefHeight="25.0" prefWidth="206.0" AnchorPane.topAnchor="50.0" />
-                                          <Button layoutX="171.0" layoutY="57.0" mnemonicParsing="false" onAction="#searchUpdateTable" prefHeight="25.0" prefWidth="51.0" AnchorPane.topAnchor="50.0">
+                                          <TextField fx:id="updateClubSearch" layoutX="16.0" layoutY="57.0" prefHeight="30.0" prefWidth="206.0" styleClass="eventField" AnchorPane.topAnchor="50.0" />
+                                          <Button layoutX="171.0" layoutY="57.0" mnemonicParsing="false" onAction="#searchUpdateTable" prefHeight="25.0" prefWidth="51.0" styleClass="button2" AnchorPane.topAnchor="50.0">
                                              <graphic>
                                                 <ImageView fitHeight="16.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -422,17 +425,17 @@
                                     </AnchorPane>
                                     <AnchorPane prefHeight="228.0" prefWidth="820.0" styleClass="dashboardPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="275.0">
                                        <children>
-                                          <TextField fx:id="updateClubID" editable="false" layoutX="22.0" layoutY="76.0" prefHeight="31.0" prefWidth="206.0" promptText="Club ID">
+                                          <TextField fx:id="updateClubID" editable="false" layoutX="22.0" layoutY="76.0" prefHeight="31.0" prefWidth="206.0" promptText="Club ID" styleClass="eventField">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="updateClubName" layoutX="22.0" layoutY="161.0" prefHeight="31.0" prefWidth="206.0" promptText="Name">
+                                          <TextField fx:id="updateClubName" layoutX="22.0" layoutY="161.0" prefHeight="31.0" prefWidth="206.0" promptText="Name" styleClass="eventField">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </TextField>
-                                          <TextArea fx:id="updateClubDescription" layoutX="254.0" layoutY="77.0" prefHeight="114.0" prefWidth="260.0" promptText="Description">
+                                          <TextArea fx:id="updateClubDescription" layoutX="254.0" layoutY="77.0" prefHeight="114.0" prefWidth="260.0" promptText="Description" styleClass="eventField">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font></TextArea>
@@ -472,11 +475,11 @@
                                           </Button>
                                           <AnchorPane layoutX="528.0" layoutY="48.0" prefHeight="126.0" prefWidth="138.0">
                                              <children>
-                                                <ImageView fx:id="updateClubImage" fitHeight="140.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fx:id="updateClubImage" fitHeight="140.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" styleClass="eventField">
                                                    <image>
                                                       <Image url="@../../../Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg" />
                                                    </image></ImageView>
-                                                <Button fx:id="updateClubImageButton" layoutY="104.0" mnemonicParsing="false" onAction="#updateOpenImageHandler" prefHeight="38.0" prefWidth="138.0" text="Upload Logo">
+                                                <Button fx:id="updateClubImageButton" layoutY="104.0" mnemonicParsing="false" onAction="#updateOpenImageHandler" prefHeight="38.0" prefWidth="138.0" styleClass="button2" text="Upload Logo">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font>
@@ -536,7 +539,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="47.0" prefHeight="520.0" prefWidth="864.0">
                                  <children>
-                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0" visible="false">
+                                    <AnchorPane fx:id="ViewEventsPane" prefHeight="522.0" prefWidth="863.0">
                                        <children>
                                           <AnchorPane layoutX="34.0" layoutY="20.0" prefHeight="487.0" prefWidth="814.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -732,7 +735,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="CancelEventsPane" prefHeight="522.0" prefWidth="864.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="CancelEventsPane" prefHeight="522.0" prefWidth="864.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="25.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0" styleClass="EventMainPane" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="20.0">
                                              <children>
@@ -1194,7 +1197,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="25.0" layoutY="15.0" prefHeight="526.0" prefWidth="823.0" styleClass="EventMainPane">
                                  <children>

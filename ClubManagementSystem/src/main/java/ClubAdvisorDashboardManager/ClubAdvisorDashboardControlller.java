@@ -217,8 +217,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public ImageView updateClubImage;
     @FXML
     public Button updateClubImageButton;
-=======
-    private Label clubDescriptionError;
 
     @FXML
     protected Label updateErrorLabelEventLocation;
@@ -518,8 +516,4 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
   
     abstract protected void clearUpdateEventFields(ActionEvent event);
 
-
-    abstract void scheduleEventController(ActionEvent event);
-
-    abstract void GoToRegistration(ActionEvent event);
 }

@@ -1,5 +1,6 @@
 package LoginDashboardManager;
 
+import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;

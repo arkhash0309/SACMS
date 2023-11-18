@@ -105,6 +105,8 @@ public class ClubAdvisorDataBaseManager {
                            result.getString("clubLogo")
                    );
 
+                   System.out.println(result.getString("clubLogo"));
+
                    clubDetailArray.add(club);
                    clubIdList.add(result.getInt("clubId"));
                    requiredClub.put(result.getInt("clubId"), club);

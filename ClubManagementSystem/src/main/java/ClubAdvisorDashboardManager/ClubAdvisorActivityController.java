@@ -4,12 +4,8 @@ import ClubManager.Club;
 import SystemUsers.ClubAdvisor;
 import com.example.clubmanagementsystem.ApplicationController;
 import ClubManager.Attendance;
-import ClubManager.Club;
 import ClubManager.Event;
 import ClubManager.EventManager;
-import SystemUsers.ClubAdvisor;
-import com.example.clubmanagementsystem.ApplicationController;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,9 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
@@ -37,13 +31,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import static ClubManager.Club.clubDetailsList;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.ResourceBundle;
+
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
@@ -83,7 +74,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
         updateClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
 
-
+        displayNumberOfScheduledEvents();
+        getNextEventDate();
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
@@ -201,6 +193,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+
+
     public void populateEventsTables(){
        if(Event.eventDetails == null){
            return;
@@ -312,9 +306,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     foundClub.setClubDescription(clubDescription);
                     //Set club logo
 
+                    
                     //Updating club details tables
                     setCreateTable();
                     setUpdateTable();
+
+
 
                     //Update database
                 }
@@ -342,6 +339,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // Select the row with the found club in the updateClubDetailsTable
             updateClubDetailsTable.getSelectionModel().select(foundClub);
             updateClubDetailsTable.scrollTo(foundClub);
+            updateClubTableSelect();
 
             // Update the input fields with the selected item's details for updating
 
@@ -381,6 +379,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     public void updateClubTableSelect(MouseEvent event) {
+        updateClubTableSelect();
+    }
+
+    public void updateClubTableSelect(){
         int row = updateClubDetailsTable.getSelectionModel().getSelectedIndex();
         System.out.println(row);
 
@@ -714,7 +716,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-    @Override
+
+    @FXML
     void scheduleEventController(ActionEvent event) {
         String eventName = scheduleEventNameTextField.getText();
         String eventLocation = scheduleEventsLocationTextField.getText();
@@ -743,6 +746,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
         DisplayEventErrors();
         System.out.println("\n\n");
+
     }
 
 
@@ -1024,7 +1028,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         numberOfScheduledEvents.setText(String.valueOf(Event.eventDetails.size()));
     }
 
-    public void getNextEventDate() {
+    public  void getNextEventDate() {
         if (Event.eventDetails.isEmpty()) {
             nextEventDate.setText("   No events");
             return;
@@ -1199,7 +1203,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ManageClubPane.setVisible(true);
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
         clubId.setText(String.valueOf(clubIdSetterValue));
-
+        setCreateTable();
+        setUpdateTable();
     }
 
     @Override
@@ -1363,7 +1368,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @Override
+    @FXML
     void GoToRegistration(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         RegistrationReportPane.setVisible(true); // wrong
