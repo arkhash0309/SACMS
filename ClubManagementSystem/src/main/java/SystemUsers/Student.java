@@ -1,7 +1,10 @@
 package SystemUsers;
 
+import ClubManager.Club;
+import ClubManager.Event;
 import SystemDataValidator.StudentValidator;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.scene.control.Alert;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +17,8 @@ public class Student extends User implements StudentValidator {
     private char studentGender;
     public static String admissionNumStatus = "";
     public static ArrayList<Student> studentDetailArray = new ArrayList<>();
+    public static ArrayList<Club> studentJoinedClubs = new ArrayList<>();
+    public static ArrayList<Event> studentEvent = new ArrayList<>();
 
     public Student(String userName,String password,
                    String firstName, String lastName,
@@ -118,6 +123,33 @@ public class Student extends User implements StudentValidator {
             return true;
         }
     }
+
+    public void joinClub(Club clubToJoin){
+        Student.studentJoinedClubs.add(clubToJoin);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("You have successfully joined with" + clubToJoin.getClubName());
+        alert.show();
+    }
+
+    public void leaveClub(Club club, int tableIndex){
+        for(Club clubVal : Student.studentJoinedClubs){
+            if(clubVal.getClubName().equals(club.getClubName())){
+                Student.studentJoinedClubs.remove(tableIndex);
+                for(Club x : Student.studentJoinedClubs){
+                    System.out.println(x);
+                }
+                break;
+            }
+        }
+
+        Alert deletedEvent = new Alert(Alert.AlertType.INFORMATION);
+        deletedEvent.setHeaderText("You have successfully left the club!!!");
+        deletedEvent.setTitle("School Club Management System");
+        deletedEvent.show();
+    }
+
+
 
 
 

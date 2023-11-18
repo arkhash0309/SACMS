@@ -1,12 +1,10 @@
 package com.example.clubmanagementsystem;
 
-
 import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
 import DataBaseManager.ClubAdvisorDataBaseManager;
 import SystemUsers.ClubAdvisor;
-
 import SystemUsers.Student;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.sql.*;
 
@@ -54,7 +51,10 @@ public class HelloApplication extends Application {
                 "Saravanakumar","0779073140", 5748,
                 8, 'M');
         Student.studentDetailArray.add(stud1);
-//        System.out.println(Student.studentDetailArray.get(0).getFirstName());
+
+        System.out.println(Student.studentDetailArray.get(0).getFirstName());
+
+        // club eka haduwama created club add wenna oneh and club advisarge ClubAdvisor details update wennath oneh
         CheckBox checkBox = new CheckBox();
         Attendance attendance = new Attendance(false, checkBox);
         Attendance.atdTracker.add(attendance);
@@ -67,22 +67,30 @@ public class HelloApplication extends Application {
         Attendance attendance3 = new Attendance(false, checkBox3);
         Attendance.atdTracker.add(attendance3);
 
+        ClubAdvisor cb = new ClubAdvisor("0714497255", "sdsdsdsd", "Lakshan", "Cooray");
+
         ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager();
         clubAdvisorDataBaseManager.populateClubAdvisorArray("Lakshan200");
 //        System.out.println(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId());
         clubAdvisorDataBaseManager.populateStudentDetailArray();
-//        System.out.println(Student.studentDetailArray.get(0).getFirstName());
-//        clubAdvisorDataBaseManager.populateClubDetailArray();
-//        System.out.println(Club.clubDetailsList.get(0).getClubName());
 
-        clubAdvisorDataBaseManager.populateEventsDetailArray();
-//        System.out.println(Event.eventDetails.get(0).getEventName());
+        System.out.println(Student.studentDetailArray.get(0).getFirstName());
 
-        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+        clubAdvisorDataBaseManager.populateClubDetailArray(Club.clubDetailsList);
+        System.out.println(Club.clubDetailsList.get(0).getClubName());
+
+        Club club1 = new Club(0003, "Rotract23", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
         Club.clubDetailsList.add(club1);
 
-        Club club2 = new Club(0002, "IEEE", "Done with the work", "lkt.img");
+        Club club2 = new Club(0005, "IEEE24", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
         Club.clubDetailsList.add(club2);
+
+        cb.createdClubDetailsList.add(club1);
+        cb.createdClubDetailsList.add(club2);
+        ClubAdvisor.clubAdvisorDetailsList.add(cb);
+
+        clubAdvisorDataBaseManager.populateEventsDetailArray();
+        System.out.println(Event.eventDetails.get(0).getEventName());
 
         launch();
         connection.close();

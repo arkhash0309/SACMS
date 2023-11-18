@@ -1,5 +1,6 @@
 package LoginDashboardManager;
 
+import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
@@ -202,7 +203,7 @@ public class ClubAdvisorLoginController {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
-        Parent root = loader.load();
+        Parent root = loader. load();
         ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
@@ -374,8 +375,7 @@ public class ClubAdvisorLoginController {
 
         System.out.println(validStat + " : Valid Stat");
         if(validStat){
-            ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName,
-                    contactNum, Integer.parseInt(advisorId));
+            ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName, contactNum, Integer.parseInt(advisorId));
             ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisorData);
 
             this.goToLoginPage(event);

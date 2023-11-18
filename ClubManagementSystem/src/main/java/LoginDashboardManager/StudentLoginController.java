@@ -91,12 +91,11 @@ public class StudentLoginController implements Initializable {
     @FXML
     private TextField studentRegistrationGradeTextField;
 
+    @FXML
+    private ComboBox<String> Grade;
 
     @FXML
-    private ComboBox<String> studentRegisterGrade;
-
-    @FXML
-    private ComboBox<String> studentRegisterGender;
+    private ComboBox<String> Gender;
 
     @FXML
     private Label studentRegisterAdmissionNumErrorLabel;
@@ -230,11 +229,13 @@ public class StudentLoginController implements Initializable {
 
     @FXML
     void GoToStudentRegistration(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/RegisterManager/StudentRegistration.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/RegisterManager/StudentRegistration.fxml"));
+        Parent root = loader.load();
+        StudentLoginController controller = loader.getController();
+        controller.setComboBoxValuesStudentRegistration(); // Ensure ComboBox initialization
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
     }
 
 
@@ -256,8 +257,13 @@ public class StudentLoginController implements Initializable {
         String lastName = this.studentRegisterLastName.getText();
         String admissionNum = this.studentRegisterAdmissionNumber.getText();
         String contactNum = this.studentRegisterContactNumber.getText();
+
 //        Integer grade = Integer.valueOf((this.studentRegisterGrade.getValue()));
 //        String gender = this.studentRegisterGender.getValue();
+
+        String grade = Grade.getValue();
+        String gender = Gender.getValue();
+
         String userName = this.studentRegisterUserName.getText();
         String password = this.studentRegisterPassword.getText();
         String passwordConfirm = this.studentRegisterConfirmPassword.getText();
@@ -348,6 +354,7 @@ public class StudentLoginController implements Initializable {
         }
         displayPasswordError();
 
+
         if (passwordConfirm.isEmpty()) {
             validateStatus = false;
             studentRegisterConfirmPasswordErrorLabel.setText("Confirm Password cannot be empty");
@@ -357,8 +364,6 @@ public class StudentLoginController implements Initializable {
         } else {
             studentRegisterConfirmPasswordErrorLabel.setText(" ");
         }
-
-
 
         String studentPersonalDetailsQuery
                 = "insert into Student('studentAdmissionNum','studentFName','studentLName','studentGrade','studentContactNum','Gender') values(?,?,?,?,?,?)";
@@ -466,6 +471,19 @@ public class StudentLoginController implements Initializable {
 
     }
 
+    }
+
+
+    public void setComboBoxValuesStudentRegistration(){
+        for (int ComboGrade = 6; ComboGrade<13; ComboGrade++) {
+            Grade.getItems().add((String.valueOf(ComboGrade)));
+        }
+         Grade.getSelectionModel().selectFirst();
+       Gender.getItems().addAll("M", "F");
+         Gender.getSelectionModel().selectFirst();
+
+    }
+
 
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
@@ -480,6 +498,8 @@ public class StudentLoginController implements Initializable {
             studentRegisterUserNameErrorLabel.setText("");
         }
     }
+
+        
 
 
     public void displayContactValError() {
