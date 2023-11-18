@@ -168,6 +168,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
+  
     @FXML
     public TextField clubName;
     @FXML
@@ -220,7 +221,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public ImageView updateClubImage;
     @FXML
     public Button updateClubImageButton;
-
+  
     @FXML
     protected Label updateErrorLabelEventLocation;
 
