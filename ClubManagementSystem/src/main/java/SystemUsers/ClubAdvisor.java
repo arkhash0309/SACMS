@@ -1,11 +1,18 @@
 package SystemUsers;
 
+import ClubManager.Club;
+import ClubManager.Event;
+import ClubManager.EventManager;
 import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class ClubAdvisor extends User implements ClubAdvisorValidator {
@@ -13,6 +20,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     public static ArrayList<ClubAdvisor> clubAdvisorDetailsList = new ArrayList<>();
     public static String advisorIdStatus = "";
 
+    public ArrayList<Club> createdClubDetailsList = new ArrayList<>();
 
     public ClubAdvisor(String userName,String password,
                        String firstName, String lastName,
@@ -21,6 +29,9 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         this.clubAdvisorId = clubAdvisorId;
     }
 
+    public ClubAdvisor(){
+
+    }
     public ClubAdvisor(String contactNumber){
         super(contactNumber);
     }
@@ -35,6 +46,56 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
+    @Override
+    public void viewEvent() {
+
+    }
+
+    public  void createEvent(String eventName, String eventLocation,
+                            String eventType, String eventDeliveryType,
+                            LocalDate eventDate, LocalTime eventTime,
+                            String clubName, String eventDescription){
+        Club selectedClub = EventManager.userSelectedClubChooser(clubName);
+
+        Event event = new Event(eventName, eventLocation, eventType,eventDeliveryType, eventDate, eventTime,
+                selectedClub, eventDescription);
+        Event.eventDetails.add(event);
+        System.out.println("Event successfully Scheduled !!!");
+
+        Alert eventCreateAlert = new Alert(Alert.AlertType.INFORMATION);
+        eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
+        eventCreateAlert.setTitle("School Club Management System");
+        eventCreateAlert.setHeaderText("Event successfully created !!!");
+        eventCreateAlert.show();
+    }
+
+
+    public void updateEventDetails(Event event, int eventId){
+          Event.eventDetails.set(eventId, event);
+          Alert eventUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+          eventUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+          eventUpdateAlert.setTitle("School Club Management System");
+          eventUpdateAlert.setHeaderText("Event details successfully updated!!!");
+          eventUpdateAlert.show();
+    }
+
+    public void cancelEvent(Event event, int selectedEventId){
+        for(Event eventVal : Event.eventDetails){
+            if(eventVal.getEventName().equals(event.getEventName())){
+                Event.eventDetails.remove(selectedEventId);
+                for(Event x : Event.eventDetails){
+                    System.out.println(x);
+                }
+                break;
+            }
+        }
+
+        Alert deletedEvent = new Alert(Alert.AlertType.INFORMATION);
+        deletedEvent.setHeaderText("Event successfully cancelled !!!");
+        deletedEvent.setTitle("School Club Management System");
+        deletedEvent.show();
+
+    }
     public ClubAdvisor(String userName,String password,
                        String firstName, String lastName){
         super(userName, password, firstName, lastName);

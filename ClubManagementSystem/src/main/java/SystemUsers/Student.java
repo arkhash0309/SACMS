@@ -1,7 +1,10 @@
 package SystemUsers;
 
+import ClubManager.Club;
+import ClubManager.Event;
 import SystemDataValidator.StudentValidator;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.scene.control.Alert;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +15,9 @@ public class Student extends User implements StudentValidator {
     private int studentAdmissionNum;
     private int studentGrade;
     private char studentGender;
+    public static String admissionNumStatus = "";
     public static ArrayList<Student> studentDetailArray = new ArrayList<>();
+    public static ArrayList<Club> studentJoinedClubs = new ArrayList<>();
 
     public Student(String userName,String password,
                    String firstName, String lastName,
@@ -28,6 +33,25 @@ public class Student extends User implements StudentValidator {
 
     }
 
+    public Student(String userName, String password, String firstName, String lastName) {
+        super(userName, password, firstName, lastName);
+    }
+
+    public Student(String contactNumber){
+        super(contactNumber);
+    }
+
+    public Student(int admissionNumValue) {
+        super();
+        this.studentAdmissionNum = admissionNumValue;
+    }
+
+    public Student(String updatedUserName, String updatedFirstName, String updatedLastName,
+                   String updatedContactNum, String updatedAdmissionNum) {
+        super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
+    }
+
+
     @Override
     public void registerToSystem() {
 
@@ -35,6 +59,11 @@ public class Student extends User implements StudentValidator {
 
     @Override
     public void loginToSystem() {
+
+    }
+
+    @Override
+    public void viewEvent() {
 
     }
 
@@ -65,10 +94,14 @@ public class Student extends User implements StudentValidator {
     @Override
     public boolean validateStudentAdmissionNumber() throws SQLException {
         if(String.valueOf(this.getStudentAdmissionNum()).isEmpty()){
+            admissionNumStatus = "empty";
+            System.out.println("Empty");
             return false;
         }
 
         if(String.valueOf(this.getStudentAdmissionNum()).length() > 4){
+            admissionNumStatus = "length";
+            System.out.println("more than 4");
             return false;
         }
         String dbClubAdvisorId = null;
@@ -89,6 +122,33 @@ public class Student extends User implements StudentValidator {
             return true;
         }
     }
+
+    public void joinClub(Club clubToJoin){
+        Student.studentJoinedClubs.add(clubToJoin);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("You have successfully joined with" + clubToJoin.getClubName());
+        alert.show();
+    }
+
+    public void leaveClub(Club club, int tableIndex){
+        for(Club clubVal : Student.studentJoinedClubs){
+            if(clubVal.getClubName().equals(club.getClubName())){
+                Student.studentJoinedClubs.remove(tableIndex);
+                for(Club x : Student.studentJoinedClubs){
+                    System.out.println(x);
+                }
+                break;
+            }
+        }
+
+        Alert deletedEvent = new Alert(Alert.AlertType.INFORMATION);
+        deletedEvent.setHeaderText("You have successfully left the club!!!");
+        deletedEvent.setTitle("School Club Management System");
+        deletedEvent.show();
+    }
+
+
 
 
 

@@ -37,6 +37,8 @@ abstract public class User implements UserValidator {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        System.out.println("first name  :" + this.firstName);
+        System.out.println("last name : " + this.lastName);
     }
     public User(String contactNumber){
         this.contactNumber = contactNumber;
@@ -88,6 +90,7 @@ abstract public class User implements UserValidator {
     abstract public void registerToSystem();
 
     abstract public void loginToSystem();
+    abstract public void viewEvent();
 
     @Override
     public boolean validateFirstName(){
@@ -99,6 +102,7 @@ abstract public class User implements UserValidator {
                 fNameValidateStatus = "format";
                 return false;
             }else{
+                fNameValidateStatus = "correct";
                 return true;
             }
         }
@@ -114,6 +118,7 @@ abstract public class User implements UserValidator {
                 lNameValidateStatus = "format";
                 return false;
             }else{
+                lNameValidateStatus = "correct";
                 return true;
             }
         }
@@ -129,6 +134,7 @@ abstract public class User implements UserValidator {
             System.out.println("Not up to the length !!!");
             return false;
         }else{
+            contactNumberValidateStatus = "correct";
             return true;
         }
     }
@@ -142,6 +148,10 @@ abstract public class User implements UserValidator {
 
     @Override
     public boolean validateUserName(String requiredWork, String user){
+        if(user.isEmpty()){
+            userNameValidateStatus = "empty";
+            return false;
+        }
 
         String columnName = null;
 
@@ -161,7 +171,7 @@ abstract public class User implements UserValidator {
                 columnName = results.getString(1);
             }
 
-            if (requiredWork.equals("registration")) {
+            if (requiredWork.equals("registration") || requiredWork.equals("updation")) {
                 if (columnName != null && columnName.equals(this.getUserName())) {
                     userNameValidateStatus = "exist";
                     System.out.println("That user name already exists !!!");
@@ -180,11 +190,13 @@ abstract public class User implements UserValidator {
                     System.out.println("Lenght !!");
                     return false;
                 } else {
+                    userNameValidateStatus = "correct";
                     return true;
                 }
             } else if (requiredWork.equals("login")) {
                 if (columnName != null && columnName.equals(this.getUserName())) {
                     System.out.println("That user name already exists !!!");
+                    userNameValidateStatus = "correct";
                     return true;
                 } else {
                     userNameValidateStatus = "exist";

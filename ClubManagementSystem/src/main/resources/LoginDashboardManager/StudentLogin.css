@@ -70,6 +70,8 @@
     -fx-border-radius: 10px;
 }
 
+
+
 .studentButtonClass:hover{
     -fx-background-color: #201325;
     -fx-text-fill: white;

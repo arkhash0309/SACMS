@@ -1,22 +1,41 @@
 package ClubManager;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Event {
-    private int eventId;
     private String eventName;
     private String eventDescription;
-    private Date eventDate;
+    private LocalDate eventDate;
+    private LocalTime eventTime;
     private String eventLocation;
     private String eventType;
     private String eventDeliveryType;
+    private Club hostingClub;
+    String hostingClubName;
+    public static ArrayList<Event> eventDetails = new ArrayList<>();
 
-    public int getEventId() {
-        return eventId;
+    public Event(String eventName, String eventLocation, String eventType,
+                 String eventDeliveryType, LocalDate eventDate, LocalTime eventTime, Club hostingClub,
+                 String eventDescription){
+        this.eventName  = eventName;
+        this.eventLocation = eventLocation;
+        this.eventType = eventType;
+        this.eventDeliveryType = eventDeliveryType;
+        this.eventDate = eventDate;
+        this.setEventTime(eventTime);
+        this.setHostingClub(hostingClub);
+        this.eventDescription = eventDescription;
+        hostingClubName = getClubName();
     }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public String getClubName() {
+        if(hostingClub != null){
+            return hostingClub.getClubName();
+        }else{
+            return null;
+        }
     }
 
     public String getEventName() {
@@ -35,11 +54,11 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public Date getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(LocalDate eventDate) {
         this.eventDate = eventDate;
     }
 
@@ -65,5 +84,21 @@ public class Event {
 
     public void setEventDeliveryType(String eventDeliveryType) {
         this.eventDeliveryType = eventDeliveryType;
+    }
+
+    public LocalTime getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(LocalTime eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public Club getHostingClub() {
+        return hostingClub;
+    }
+
+    public void setHostingClub(Club hostingClub) {
+        this.hostingClub = hostingClub;
     }
 }
