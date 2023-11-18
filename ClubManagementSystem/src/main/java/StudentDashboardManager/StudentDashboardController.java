@@ -127,6 +127,18 @@ abstract public class StudentDashboardController implements Initializable {
 
     @FXML
     protected TableColumn<Event, String> studentViewEventDescriptionColumn;
+
+    @FXML
+    protected ComboBox<String> studentEventSelector;
+
+    @FXML
+    protected Label UpcomingEventForStudent;
+
+    @FXML
+    protected Label EnrolledClubCountStudent;
+
+    @FXML
+    protected Label  nextEventDateForStudent;
     @FXML
     abstract void StudentLogout(MouseEvent event) throws IOException;
 

@@ -5,6 +5,8 @@ import ClubManager.Event;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.scene.chart.XYChart;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -82,10 +84,9 @@ public class ClubAdvisorDataBaseManager {
     }
 
 
+
    public void populateStudentClubArray(){
         String query = "SELECT ";
-
-
    }
 
    public void populateClubDetailArray(ArrayList<Club> clubDetailArray){
@@ -104,6 +105,8 @@ public class ClubAdvisorDataBaseManager {
                            result.getString("clubDescription"),
                            result.getString("clubLogo")
                    );
+
+                   System.out.println(result.getString("clubLogo"));
 
                    clubDetailArray.add(club);
                    clubIdList.add(result.getInt("clubId"));

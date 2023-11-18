@@ -68,8 +68,8 @@
                      <children>
                         <AnchorPane prefHeight="221.0" prefWidth="239.0">
                            <children>
-                              <Circle fill="WHITE" layoutX="113.0" layoutY="61.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
-                              <ImageView fitHeight="72.0" fitWidth="63.0" layoutX="82.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                              <Circle fill="WHITE" layoutX="103.0" layoutY="69.0" radius="44.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="72.0" fitWidth="63.0" layoutX="72.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../Images/student-removebg-preview.png" />
                                  </image>
@@ -148,7 +148,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
 
-                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
@@ -156,7 +156,7 @@
                                     <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="163.0" prefWidth="250.0" styleClass="paneStatistics">
                                        <children>
                                           <Label layoutX="72.0" layoutY="125.0" />
-                                          <Label layoutX="154.0" layoutY="41.0" prefHeight="75.0" prefWidth="93.0" text="0" textFill="#fefefe">
+                                          <Label fx:id="EnrolledClubCountStudent" layoutX="154.0" layoutY="41.0" prefHeight="75.0" prefWidth="93.0" text="0" textFill="#fefefe">
                                              <font>
                                                 <Font name="System Bold" size="52.0" />
                                              </font>
@@ -185,7 +185,7 @@
                                                 <Image url="@../../../Images/event-removebg-preview.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="143.0" layoutY="44.0" prefHeight="75.0" prefWidth="93.0" text="0" textFill="#fefefe">
+                                          <Label fx:id="UpcomingEventForStudent" layoutX="143.0" layoutY="44.0" prefHeight="75.0" prefWidth="93.0" text="0" textFill="#fefefe">
                                              <font>
                                                 <Font name="System Bold" size="52.0" />
                                              </font>
@@ -199,7 +199,7 @@
                                                 <Font name="System Bold" size="20.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="74.0" layoutY="44.0" prefHeight="75.0" prefWidth="168.0" text="     2022/10/30" textFill="#fefefe">
+                                          <Label fx:id="nextEventDateForStudent" layoutX="74.0" layoutY="44.0" prefHeight="75.0" prefWidth="168.0" text="     No events" textFill="#fefefe">
                                              <font>
                                                 <Font name="System Bold" size="23.0" />
                                              </font>
@@ -343,7 +343,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="EventStudentPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="EventStudentPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="540.0" prefWidth="836.0" styleClass="EventMainPane">
                                  <children>
@@ -368,7 +368,7 @@
                                           <TableColumn fx:id="studentViewEventDescriptionColumn" prefWidth="160.28570556640625" text="Event Description" />
                                       </columns>
                                     </TableView>
-                                    <ComboBox layoutX="14.0" layoutY="63.0" prefHeight="28.0" prefWidth="211.0" styleClass="eventField" />
+                                    <ComboBox fx:id="studentEventSelector" layoutX="14.0" layoutY="63.0" onAction="#populateStudentViewEventTable" prefHeight="28.0" prefWidth="211.0" styleClass="eventField" />
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>

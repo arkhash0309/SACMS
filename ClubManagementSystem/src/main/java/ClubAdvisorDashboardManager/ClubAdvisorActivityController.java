@@ -1,11 +1,12 @@
 package ClubAdvisorDashboardManager;
-import ClubManager.Attendance;
+
 import ClubManager.Club;
+import SystemUsers.ClubAdvisor;
+import SystemUsers.Student;
+import com.example.clubmanagementsystem.ApplicationController;
+import ClubManager.Attendance;
 import ClubManager.Event;
 import ClubManager.EventManager;
-import SystemUsers.ClubAdvisor;
-import com.example.clubmanagementsystem.ApplicationController;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,34 +15,80 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import java.io.File;
 import java.io.IOException;
+import java.net.HttpCookie;
 import java.net.URL;
+import java.util.*;
+
+import static ClubManager.Club.clubDetailsList;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
 
     public static int selectedEventId;
     public static Event selectedEventValue;
+    final FileChooser fileChooser = new FileChooser();
+    public static String imagePath;
+    public static int clubIdSetterValue;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
         populateComboBoxes();
+        findMaleFemaleStudentCount();
+        displayEnrolledStudentCount();
+        //Set cell value factories for the columns of the Create Club Table
+        createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
+        createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        createClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
+        createClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
+
+        // the columns are initialized for the attendance tracking table
+        attendanceClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        attendanceEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        attendanceStudentNameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        attendanceStudentAdmissionNumColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
+        attendanceStatusColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
+
+//        Club club1 = new Club(0001, "Rotaract", "Done with the work", "lkt.img");
+//        clubDetailsList.add(club1);
+//        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
+        for (Club club : clubDetailsList){
+            if (clubDetailsList == null){
+                return;
+            }
+//            observableClubDetailsList.add(club);
+        }
+//        createClubDetailsTable.setItems(observableClubDetailsList);
+
+
+        //Set cell value factories for the columns of the Update Club  Table
+        updateClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
+        updateClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        updateClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
+        updateClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
+
+        displayNumberOfScheduledEvents();
+        getNextEventDate();
+//        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
+
 
     public void populateComboBoxes(){
         scheduleEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
@@ -112,7 +159,52 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         atColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
         stColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceTracker"));
+
     }
+  
+     public void setCreateTable(){
+        // Check whether the sortedList is null and return the method, if it is null
+        if(clubDetailsList == null){
+            return;
+        }
+        // Clear the UpdateViewTable
+        createClubDetailsTable.getItems().clear();
+
+        // Add Item details to the UpdateView Table using Sorted List
+        for(Club club : clubDetailsList) {
+
+            // Create an Item details object with the item details
+            Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
+
+            // Add the item details to the UpdateViewTable
+            ObservableList<Club> observableCreateClubList = createClubDetailsTable.getItems();
+            observableCreateClubList.add(tableClub);
+            createClubDetailsTable.setItems(observableCreateClubList);
+        }
+    }
+
+    public void setUpdateTable(){
+        // Check whether the sortedList is null and return the method, if it is null
+        if(clubDetailsList == null){
+            return;
+        }
+        // Clear the UpdateViewTable
+        updateClubDetailsTable.getItems().clear();
+
+        // Add Item details to the UpdateView Table using Sorted List
+        for(Club club : clubDetailsList) {
+
+            // Create an Item details object with the item details
+            Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
+
+            // Add the item details to the UpdateViewTable
+            ObservableList<Club> observableUpdateClubList = updateClubDetailsTable.getItems();
+            observableUpdateClubList.add(tableClub);
+            updateClubDetailsTable.setItems(observableUpdateClubList);
+        }
+    }
+
+
 
     public void populateEventsTables(){
        if(Event.eventDetails == null){
@@ -154,6 +246,241 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
            viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
        }
     }
+
+    @Override
+    public void clubCreationChecker(ActionEvent event) {
+//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+//        clubDetailsList.add(club1);
+
+        boolean validState = true;
+        int clubId = Integer.parseInt(this.clubId.getText());
+        String clubName = this.clubName.getText();
+        String clubDescription = this.clubDescription.getText();
+        String clubLogo = this.createClubImage.getImage().getUrl();
+
+        System.out.println(clubId);
+
+        Club club = new Club(clubId,clubName,clubDescription);
+
+        if (!club.validateClubName()){
+            System.out.println("Wrong Club Name");
+            validState = false;
+        }
+        displayClubNameError(clubNameError);
+
+        if (!club.validateClubDescription()){
+            System.out.println("Wrong Club Description");
+            validState = false;
+        }
+        displayClubDecriptionError(clubDescriptionError);
+
+        System.out.println("Valid Stat :" + validState );
+        if (validState){
+            Club clubData = new Club(clubId,clubName,clubDescription,imagePath);
+            clubDetailsList.add(clubData);
+            setCreateTable();
+            setUpdateTable();
+            clubIdSetterValue += 1;
+            this.clubId.setText(String.valueOf(clubIdSetterValue));
+        }
+    }
+
+    public void clubUpdateChecker(ActionEvent event) {
+//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+//        clubDetailsList.add(club1);
+
+        boolean validState = true;
+        int clubId = Integer.parseInt(updateClubID.getText());
+        String clubName = updateClubName.getText();
+        String clubDescription = updateClubDescription.getText();
+
+        Club club = new Club(clubId,clubName,clubDescription);
+
+        if (!club.validateClubName()){
+            System.out.println("Wrong Club Name");
+            validState = false;
+        }
+        displayClubNameError(updateClubNameError);
+
+        if (!club.validateClubDescription()){
+            System.out.println("Wrong Club Description");
+            validState = false;
+        }
+        displayClubDecriptionError(updateClubDescriptionError);
+
+
+        System.out.println("Valid state : " + validState);
+        if (validState){
+            for (Club foundClub : clubDetailsList){
+                if (clubId == foundClub.getClubId()){
+                    foundClub.setClubName(clubName);
+                    foundClub.setClubDescription(clubDescription);
+                    //Set club logo
+
+
+                    //Updating club details tables
+                    setCreateTable();
+                    setUpdateTable();
+
+
+
+                    //Update database
+                }
+            }
+        }
+
+    }
+
+    @FXML
+    void searchUpdateTable(ActionEvent event) {
+        //Get the club name to search from the search bar
+        String clubName = updateClubSearch.getText();
+        System.out.println(clubName);
+
+        // Search for the club name and handle non-existent club name
+        Club foundClub = null;
+        for (Club club : updateClubDetailsTable.getItems()) {
+            if (club.getClubName().equals(clubName)) {
+                foundClub = club;
+                break;
+            }
+        }
+
+        if (foundClub != null) {
+            // Select the row with the found club in the updateClubDetailsTable
+            updateClubDetailsTable.getSelectionModel().select(foundClub);
+            updateClubDetailsTable.scrollTo(foundClub);
+            updateClubTableSelect();
+
+            // Update the input fields with the selected item's details for updating
+
+        } else {
+            // Show alert for non-existent item code
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Club Not Found");
+            alert.setHeaderText(null);
+            alert.setContentText("The Club with name " + clubName + " does not exist.");
+            alert.showAndWait();
+        }
+    }
+
+    public void displayClubNameError(Label labelID){
+        if (Club.clubNameValidateStatus.equals("empty")){
+            labelID.setText("Club Name cannot be empty");
+        } else if (Club.clubNameValidateStatus.equals("format")) {
+            labelID.setText("Club Name can contain only letters");
+        }else {
+            labelID.setText("");
+        }
+    }
+    public void displayClubDecriptionError(Label labelID){
+        if (Club.clubDescriptionValidateStatus.equals("empty")){
+            labelID.setText("Club Description cannot be empty");
+        }else{
+            labelID.setText("");
+        }
+    }
+
+    @Override
+    void clubCreationReset(ActionEvent event) {
+        clubName.setText("");
+        clubDescription.setText("");
+    }
+
+
+    @FXML
+    public void updateClubTableSelect(MouseEvent event) {
+        updateClubTableSelect();
+    }
+
+    public void updateClubTableSelect(){
+        int row = updateClubDetailsTable.getSelectionModel().getSelectedIndex();
+        System.out.println(row);
+
+        String clubID = String.valueOf(clubDetailsList.get(row).getClubId());
+        updateClubID.setText(clubID);
+        updateClubName.setText(clubDetailsList.get(row).getClubName());
+        updateClubDescription.setText(clubDetailsList.get(row).getClubDescription());
+        updateClubImage.setImage(clubDetailsList.get(row).getAbsoluteImage().getImage());
+    }
+
+
+    public void OpenImageHandler(ActionEvent event){
+        fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
+
+        //Set the initial directory of the fileChooser to the user's home directory
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        //
+        fileChooser.getExtensionFilters().clear();
+        //
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
+        //
+        File file = fileChooser.showOpenDialog(null);
+
+        //Check whether if a file is selected by the user
+        if(file != null){
+            //get the button that handles the event
+            Button clickedButton = (Button) event.getSource();
+
+            //Take the fxID of the button
+            String fxID = clickedButton.getId();
+            //Get the selected image path
+            imagePath = file.getPath();
+
+            //Check whether the image imported is from the update or from the adding pane
+            if (fxID.equals("createClubImageButton")){
+                //Set the input image view as the selected image
+                createClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }else{
+                //Set the update image view as the selected image
+                updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }
+        }else {
+            //Show the import image error alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Import Image Error !!!");
+            alert.show(); //Display the error
+        }
+    }
+
+    public void updateOpenImageHandler(ActionEvent event){
+        fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
+
+        //Set the initial directory of the fileChooser to the user's home directory
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        //
+        fileChooser.getExtensionFilters().clear();
+        //
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
+        //
+        File file = fileChooser.showOpenDialog(null);
+
+        //Check whether if a file is selected by the user
+        if(file != null){
+            //get the button that handles the event
+            Button clickedButton = (Button) event.getSource();
+
+            //Take the fxID of the button
+            String fxID = clickedButton.getId();
+            //Get the selected image path
+            imagePath = file.getPath();
+
+            //Check whether the image imported is from the update or from the adding pane
+            if (fxID.equals("updateClubImageButton")){
+                //Set the input image view as the selected image
+                updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }else{
+                //Set the update image view as the selected image
+                updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
+            }
+        }else {
+            //Show the import image error alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Import Image Error !!!");
+            alert.show(); //Display the error
+        }
+    }
+
 
 
 
@@ -400,7 +727,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-    @Override
+
+    @FXML
     void scheduleEventController(ActionEvent event) {
         String eventName = scheduleEventNameTextField.getText();
         String eventLocation = scheduleEventsLocationTextField.getText();
@@ -429,6 +757,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
         DisplayEventErrors();
         System.out.println("\n\n");
+
     }
 
 
@@ -710,7 +1039,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         numberOfScheduledEvents.setText(String.valueOf(Event.eventDetails.size()));
     }
 
-    public void getNextEventDate() {
+    public  void getNextEventDate() {
         if (Event.eventDetails.isEmpty()) {
             nextEventDate.setText("   No events");
             return;
@@ -739,6 +1068,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void filterSelectedClubEvents(ActionEvent event) {
+
           viewCreatedEventsTable.getItems().clear();
           ArrayList<Event> filteredEvents = new ArrayList<>();
           String selectedClub = viewCreatedEventsSortComboBox.getSelectionModel().getSelectedItem();
@@ -755,6 +1085,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
               }
           }
 
+         ClubAdvisor clubAdvisor = new ClubAdvisor();
+         clubAdvisor.viewEvent(); // Override scene eka
+
+
           for(Event value : filteredEvents){
               Club hostingClubDetail = value.getHostingClub();
               Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
@@ -767,6 +1101,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
           }
 
     }
+
+
 
 
 
@@ -795,12 +1131,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Set column widths
         TableColumn<Attendance, Boolean> attendanceColumn = new TableColumn<>("Attendance");
+        // the column is initialized respectively
         attendanceColumn.setCellValueFactory(data -> data.getValue().attendanceStatusProperty());
 
         attendanceColumn.setPrefWidth(100); // Adjust the value as needed
 
         // Set custom row factory to control row height
         tb1.setRowFactory(tv -> {
+            // a new row is created
             TableRow<Attendance> row = new TableRow<>();
             row.setPrefHeight(30); // Adjust the value as needed
             return row;
@@ -810,7 +1148,100 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         tb1.getColumns().addAll(attendanceColumn);
     }
 
+    public void findMaleFemaleStudentCount(){
+        int maleRate = 0;
+        int femaleRate = 0;
+        for(Student student : Student.studentDetailArray){
+            if(student.getGender() == 'M'){
+                maleRate ++;
+            }else{
+                femaleRate++;
+            }
+        }
 
+        XYChart.Series setOfData = new XYChart.Series();
+        setOfData.getData().add(new XYChart.Data<>("Male", maleRate));
+        setOfData.getData().add(new XYChart.Data<>("Female", femaleRate));
+        GenderRatioChart.getData().addAll(setOfData);
+
+    }
+
+
+    public void displayEnrolledStudentCount(){
+        HashMap<Integer, Integer> studentGrade = new HashMap<>();
+        for(Student student : Student.studentDetailArray){
+            int grade = student.getStudentGrade();
+            studentGrade.put(grade, studentGrade.getOrDefault(grade, 0) + 1);
+        }
+
+        XYChart.Series setOfData = new XYChart.Series();
+        for (Map.Entry<Integer, Integer> entry : studentGrade.entrySet()) {
+            setOfData.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+        }
+
+        EnrollStudentCountEachGrade.getData().addAll(setOfData);
+
+    }
+
+    public void populateAttendanceClubNameComboBox() {
+        // the club name combo box is cleared
+        attendanceClubNameComboBox.getItems().clear();
+
+        if(!attendanceClubNameComboBox.getItems().contains("Please Select")){
+            // the default option of please select is added to the combo box
+            attendanceClubNameComboBox.getItems().add("Please select");
+        }
+
+        // the following is done for every club in the clubDetailsList
+        for(Club club : clubDetailsList){
+            // the club names are added to the combo box from the array list
+            attendanceClubNameComboBox.getItems().add(club.getClubName());
+        }
+        // retrieves the current selection in the combo box
+        attendanceClubNameComboBox.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    void populateEventList(ActionEvent event) {
+        // a new array list to hold the events filtered to the respective club
+        ArrayList<Event> filteredEvents = new ArrayList<>();
+        // the selected club name is retrieved from the club name combo box
+        String selectedClub = attendanceClubNameComboBox.getSelectionModel().getSelectedItem();
+        System.out.println(selectedClub + "ding dong bell");
+
+        // if no club is selected, the method is returned (not executed)
+        if(selectedClub == null){
+            return;
+        }
+
+        // if "Please Select" is chosen, the method is returned (not executed)
+        if(selectedClub.equals("Please Select")){
+            return;
+        }else{
+            // a object of data type Event is created to iterate over the eventDetails array list
+            for(Event events : Event.eventDetails){
+                if(events.getClubName().equals(selectedClub)){
+                    filteredEvents.add(events); // the events for the respective club is added to the areay list
+                }
+            }
+        }
+        // the event name combo box is cleared
+        attendanceEventNameComboBox.getItems().clear();
+
+        // check if the option "Please select" is already available
+        if(!attendanceEventNameComboBox.getItems().contains("Please Select")){
+            // option is added if not available
+            attendanceEventNameComboBox.getItems().add("Please select");
+        }
+
+        // an object event1 of data type Event is created to iterate over the filteredEvents array list
+        for(Event event1 : filteredEvents){
+            // the events are retrieved and added
+            attendanceEventNameComboBox.getItems().add(event1.getEventName());
+        }
+        // retrieves the current selection in the combo box
+        attendanceEventNameComboBox.getSelectionModel().selectFirst();
+    }
 
 
     @Override
@@ -884,6 +1315,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         ManageClubPane.setVisible(true);
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        clubId.setText(String.valueOf(clubIdSetterValue));
+        setCreateTable();
+        setUpdateTable();
     }
 
     @Override
@@ -903,6 +1337,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         AttendancePane.setVisible(true);
         AttendanceButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        populateAttendanceClubNameComboBox();
     }
 
     @Override
@@ -1047,7 +1482,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
-    @Override
+    @FXML
     void GoToRegistration(ActionEvent event) {
         makeAllPanesInvisibleGeneratingReport();
         RegistrationReportPane.setVisible(true); // wrong
@@ -1056,4 +1491,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    static {
+        clubIdSetterValue = 100;
+    }
 }

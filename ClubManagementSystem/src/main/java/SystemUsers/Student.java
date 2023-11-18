@@ -18,6 +18,7 @@ public class Student extends User implements StudentValidator {
     public static String admissionNumStatus = "";
     public static ArrayList<Student> studentDetailArray = new ArrayList<>();
     public static ArrayList<Club> studentJoinedClubs = new ArrayList<>();
+    public static ArrayList<Event> studentEvent = new ArrayList<>();
 
     public Student(String userName,String password,
                    String firstName, String lastName,
