@@ -44,7 +44,9 @@ import java.time.LocalTime;
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
+
     public static String username;
+
     public static boolean validStat = true;
     public static int selectedEventId;
     public static Event selectedEventValue;
@@ -1513,6 +1515,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @FXML
     void advisorProfileUpdateChecker(ActionEvent event) {
         validStat = true;
+
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
@@ -1705,6 +1708,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+
     public void displayStudentUpdateDetails(){
         profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));
         profileAdvisorFname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getFirstName()));
@@ -1734,6 +1738,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             return strNumber.substring(0, 10);
         }
     }
+
 
 }
 
