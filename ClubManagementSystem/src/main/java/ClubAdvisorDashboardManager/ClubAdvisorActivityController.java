@@ -44,6 +44,7 @@ import java.time.LocalTime;
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
+    public static String username;
     public static boolean validStat = true;
     public static int selectedEventId;
     public static Event selectedEventValue;
@@ -91,6 +92,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         displayNumberOfScheduledEvents();
         getNextEventDate();
+        displayStudentUpdateDetails();
+        displayExistingPassword();
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
@@ -1365,7 +1368,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         ProfilePane.setVisible(true);
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-
+        displayStudentUpdateDetails();
+        displayExistingPassword();
     }
 
 
@@ -1697,6 +1701,37 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             profileAdvisorNewpwError.setText("Password should consists of 8 characters including numbers and special characters.");
         } else {
             profileAdvisorNewpwError.setText("");
+        }
+    }
+
+
+    public void displayStudentUpdateDetails(){
+        profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));
+        profileAdvisorFname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getFirstName()));
+        profileAdvisorLname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getLastName()));
+        profileAdvisorUsername.setText(String.valueOf(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName())));
+        String contactNumber = makeTenDigitsForNumber(Integer.parseInt(ClubAdvisor.clubAdvisorDetailsList.get(0).getContactNumber()));
+        profileAdvisorCnumber.setText((contactNumber));
+        username =  String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName());
+    }
+
+    public void displayExistingPassword(){
+        profileAdvisorpw.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getPassword()));
+    }
+
+
+
+    public static String makeTenDigitsForNumber(int number) {
+        String strNumber = Integer.toString(number);
+
+        if (strNumber.length() < 10) {
+            StringBuilder zeros = new StringBuilder();
+            for (int i = 0; i < 10 - strNumber.length(); i++) {
+                zeros.append('0');
+            }
+            return zeros.toString() + strNumber;
+        } else {
+            return strNumber.substring(0, 10);
         }
     }
 

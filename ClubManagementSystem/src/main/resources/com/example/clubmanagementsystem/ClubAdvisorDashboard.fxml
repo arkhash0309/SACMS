@@ -947,7 +947,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -1203,9 +1203,9 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="25.0" layoutY="15.0" prefHeight="526.0" prefWidth="823.0" styleClass="EventMainPane">
+                              <AnchorPane layoutX="12.0" layoutY="15.0" prefHeight="526.0" prefWidth="836.0" styleClass="EventMainPane">
                                  <children>
                                     <AnchorPane layoutX="24.0" layoutY="82.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
                                        <children>
@@ -1216,7 +1216,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <TextField editable="false" layoutX="24.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <TextField fx:id="profileAdvisorId" editable="false" layoutX="24.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />
                                     <AnchorPane layoutX="18.0" layoutY="21.0" prefHeight="36.0" prefWidth="788.0" styleClass="updateClubLabels">
                                        <children>
                                           <Label layoutX="14.0" layoutY="6.0" text="View and Update Your Profile Details " textFill="WHITE">
@@ -1226,7 +1226,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <TextField layoutX="24.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <TextField fx:id="profileAdvisorUsername" layoutX="24.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />
                                     <AnchorPane layoutX="24.0" layoutY="181.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
                                        <children>
                                           <Label layoutX="16.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text="  User Name" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -1245,7 +1245,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <TextField layoutX="292.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <TextField fx:id="profileAdvisorFname" layoutX="292.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />
                                     <AnchorPane layoutX="292.0" layoutY="181.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
                                        <children>
                                           <Label layoutX="37.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text="  Contact Number" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -1255,8 +1255,8 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <TextField layoutX="292.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" />
-                                    <TextField layoutX="566.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" />
+                                    <TextField fx:id="profileAdvisorCnumber" layoutX="292.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />
+                                    <TextField fx:id="profileAdvisorLname" layoutX="566.0" layoutY="118.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />
                                     <AnchorPane layoutX="566.0" layoutY="82.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels">
                                        <children>
                                           <Label layoutX="15.0" layoutY="4.0" prefHeight="24.0" prefWidth="240.0" text=" Last Name" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -1275,7 +1275,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <TextField editable="false" layoutX="31.0" layoutY="385.0" prefHeight="30.0" prefWidth="240.0" AnchorPane.topAnchor="405.0" />
+                                    <TextField fx:id="profileAdvisorpw" editable="false" layoutX="31.0" layoutY="385.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" AnchorPane.topAnchor="405.0" />
                                     <AnchorPane layoutX="20.0" layoutY="303.0" prefHeight="35.0" prefWidth="784.0" styleClass="updateClubLabels">
                                        <children>
                                           <Label layoutX="14.0" layoutY="8.0" text="Change Password" textFill="WHITE">
@@ -1285,57 +1285,57 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <Button layoutX="579.0" layoutY="193.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Update" />
+                                    <Button layoutX="579.0" layoutY="193.0" mnemonicParsing="false" onAction="#advisorProfileUpdateChecker" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Update" />
                                     <Label layoutX="304.0" layoutY="364.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text=" New Password" textFill="#fff7f7">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="304.0" layoutY="385.0" prefHeight="30.0" prefWidth="240.0" AnchorPane.topAnchor="405.0" />
+                                    <TextField fx:id="profileAdvisorNewpw" layoutX="304.0" layoutY="385.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" AnchorPane.topAnchor="405.0" />
                                     <Label layoutX="566.0" layoutY="364.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text=" Confirm Password" textFill="#fff7f7">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="566.0" layoutY="385.0" prefHeight="30.0" prefWidth="240.0" AnchorPane.topAnchor="405.0" />
-                                    <Button layoutX="579.0" layoutY="468.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Change Password" />
-                                    <Label fx:id="profileAdvisorIdError" layoutX="25.0" layoutY="150.0" prefHeight="23.0" prefWidth="238.0" text="Label" textFill="#781616">
+                                    <TextField fx:id="profileAdvisorConfirmpw" layoutX="566.0" layoutY="385.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" AnchorPane.topAnchor="405.0" />
+                                    <Button layoutX="579.0" layoutY="468.0" mnemonicParsing="false" onAction="#advisorProfilePasswordChecker" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Change Password" />
+                                    <Label fx:id="profileAdvisorIdError" layoutX="25.0" layoutY="150.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="profileAdvisorFnameError" layoutX="293.0" layoutY="150.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="profileAdvisorLnameError" layoutX="567.0" layoutY="150.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="profileAdvisorUsernameError" layoutX="25.0" layoutY="252.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="profileAdvisorCnumberError" layoutX="293.0" layoutY="252.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="305.0" layoutY="445.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616" AnchorPane.topAnchor="439.0">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="567.0" layoutY="439.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <Label fx:id="profileAdvisorFnameError" layoutX="320.0" layoutY="163.0" prefHeight="23.0" prefWidth="238.0" text="Label" textFill="#781616">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="profileAdvisorLnameError" layoutX="592.0" layoutY="163.0" prefHeight="23.0" prefWidth="238.0" text="Label" textFill="#781616">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="profileAdvisorUsernameError" layoutX="50.0" layoutY="264.0" prefHeight="23.0" prefWidth="238.0" text="Label" textFill="#781616">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="profileAdvisorCnumberError" layoutX="318.0" layoutY="264.0" prefHeight="23.0" prefWidth="238.0" text="Label" textFill="#781616">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="329.0" layoutY="451.0" prefHeight="23.0" prefWidth="238.0" text="Label" textFill="#781616">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="593.0" layoutY="451.0" prefHeight="23.0" prefWidth="238.0" text="Label" textFill="#781616">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </AnchorPane>
                      </children>
