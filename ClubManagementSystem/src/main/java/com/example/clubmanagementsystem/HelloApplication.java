@@ -92,6 +92,9 @@ public class HelloApplication extends Application {
 //        clubAdvisorDataBaseManager.populateEventsDetailArray();
 //        System.out.println(Event.eventDetails.get(0).getEventName());
 
+        System.out.println("Lakshan200");
+        System.out.println("Lakshan1234");
+
         launch();
         connection.close();
 

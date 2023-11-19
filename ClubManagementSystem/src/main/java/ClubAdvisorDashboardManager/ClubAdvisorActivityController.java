@@ -302,8 +302,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             this.clubName.setText("");
             this.clubDescription.setText("");
-            Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
-            this.createClubImage.setImage(defaultImage);
+//            Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//            this.createClubImage.setImage(defaultImage);
 
             //Update database
         }else {
@@ -319,8 +319,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     void clubCreationReset(ActionEvent event) {
         clubName.setText("");
         clubDescription.setText("");
-        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
-        createClubImage.setImage(defaultImage);
+//        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//        createClubImage.setImage(defaultImage);
 
         clubNameError.setText("");
         clubDescriptionError.setText("");
@@ -371,8 +371,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     this.updateClubName.setText("");
                     this.updateClubDescription.setText("");
 
-                    Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
-                    this.updateClubImage.setImage(defaultImage);
+//                    Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//                    this.updateClubImage.setImage(defaultImage);
 
                     //Updating club details tables
                     setCreateTable();
@@ -394,8 +394,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateClubID.setText(String.valueOf(""));
         updateClubName.setText("");
         updateClubDescription.setText("");
-        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
-        updateClubImage.setImage(defaultImage);
+//        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//        updateClubImage.setImage(defaultImage);
 
         updateClubNameError.setText("");
         updateClubDescriptionError.setText("");
@@ -1669,7 +1669,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String advisorNewPassword = profileAdvisorNewpwError.getText();
         String advisorConfirmPassword = profileAdvisorConfirmpwError.getText();
 
-        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
+        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName,
+                advisorContactNumber, advisorId);
 
         if (!clubAdvisor.validatePassword("update")) {
             System.out.println("Wrong password.");
