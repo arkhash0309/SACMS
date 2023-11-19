@@ -306,6 +306,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             this.createClubImage.setImage(defaultImage);
 
             //Update database
+        }else {
+            Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
+            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+            clubUpdateAlert.setTitle("School Club Management System");
+            clubUpdateAlert.setHeaderText("Please fill the club details properly!");
+            clubUpdateAlert.show();
         }
     }
 
@@ -375,6 +381,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     //Update database
                 }
             }
+        }else {
+            Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
+            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+            clubUpdateAlert.setTitle("School Club Management System");
+            clubUpdateAlert.setHeaderText("Please fill the club details properly!");
+            clubUpdateAlert.show();
         }
     }
     @FXML
@@ -444,6 +456,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @FXML
     public void updateClubTableSelect(MouseEvent event) {
         updateClubTableSelect();
+
+        updateClubNameError.setText("");
+        updateClubDescriptionError.setText("");
     }
 
     public void updateClubTableSelect(){
@@ -1526,6 +1541,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         createClubPane.setVisible(true);
         CreateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+        clubNameError.setText("");
+        clubDescriptionError.setText("");
     }
 
     @Override
@@ -1534,6 +1552,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         UpdateClubDetailPane.setVisible(true);
         UpdateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+        updateClubNameError.setText("");
+        updateClubDescriptionError.setText("");
     }
 
     @FXML
