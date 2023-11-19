@@ -139,6 +139,13 @@ public class Club implements ClubValidator {
             clubNameValidateStatus = "empty";
             return false;
         }else {
+            for (Club foundClub : clubDetailsList){
+                if (this.clubName.equals(foundClub.getClubName())){
+                    clubNameValidateStatus = "exist";
+                    System.out.println("That club name already exists !!!");
+                    return false;
+                }
+            }
             if (containsSpecialCharactersAndDigits(this.clubName)){
                 clubNameValidateStatus = "format";
                 return false;

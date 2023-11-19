@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.scene.control.*;
@@ -285,14 +286,40 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         displayClubDecriptionError(clubDescriptionError);
 
         System.out.println("Valid Stat :" + validStat );
-        if (validStat){
-            Club clubData = new Club(clubId,clubName,clubDescription,imagePath);
+        if (validStat) {
+            Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
             clubDetailsList.add(clubData);
+
             setCreateTable();
             setUpdateTable();
+
+            Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+            clubUpdateAlert.setTitle("School Club Management System");
+            clubUpdateAlert.setHeaderText(clubName + " Club created successfully!");
+            clubUpdateAlert.show();
+
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
+
+            this.clubName.setText("");
+            this.clubDescription.setText("");
+            Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+            this.createClubImage.setImage(defaultImage);
+
+            //Update database
         }
+    }
+
+    @Override
+    void clubCreationReset(ActionEvent event) {
+        clubName.setText("");
+        clubDescription.setText("");
+        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+        createClubImage.setImage(defaultImage);
+
+        clubNameError.setText("");
+        clubDescriptionError.setText("");
     }
 
     public void clubUpdateChecker(ActionEvent event) {
@@ -334,7 +361,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     clubUpdateAlert.setTitle("School Club Management System");
                     clubUpdateAlert.setHeaderText("Club details successfully updated!!!");
                     clubUpdateAlert.show();
-                  
+
+                    //Clear the update text-fields
+                    this.updateClubID.setText(String.valueOf(""));
+                    this.updateClubName.setText("");
+                    this.updateClubDescription.setText("");
+
+                    Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+                    this.updateClubImage.setImage(defaultImage);
+
                     //Updating club details tables
                     setCreateTable();
                     setUpdateTable();
@@ -343,7 +378,17 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 }
             }
         }
+    }
+    @FXML
+    void clubUpdationReset(ActionEvent event) {
+        updateClubID.setText(String.valueOf(""));
+        updateClubName.setText("");
+        updateClubDescription.setText("");
+        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+        updateClubImage.setImage(defaultImage);
 
+        updateClubNameError.setText("");
+        updateClubDescriptionError.setText("");
     }
 
     @FXML
@@ -384,6 +429,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             labelID.setText("Club Name cannot be empty");
         } else if (Club.clubNameValidateStatus.equals("format")) {
             labelID.setText("Club Name can contain only letters");
+        }else if (Club.clubNameValidateStatus.equals("exist")){
+            labelID.setText("That club name already exists !!!");
         }else {
             labelID.setText("");
         }
@@ -395,13 +442,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             labelID.setText("");
         }
     }
-
-    @Override
-    void clubCreationReset(ActionEvent event) {
-        clubName.setText("");
-        clubDescription.setText("");
-    }
-
 
     @FXML
     public void updateClubTableSelect(MouseEvent event) {
@@ -453,7 +493,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }else {
             //Show the import image error alert
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Import Image Error !!!");
+            alert.setTitle("Image not imported !!!");
             alert.show(); //Display the error
         }
     }
