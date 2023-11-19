@@ -88,6 +88,7 @@ public class ClubAdvisorDataBaseManager {
         String query = "SELECT ";
    }
 
+
    public void populateClubDetailArray(ArrayList<Club> clubDetailArray){
        Club.clubDetailsList.clear();
        clubIdList.clear();
@@ -155,3 +156,4 @@ public class ClubAdvisorDataBaseManager {
 
    }
 }
+
