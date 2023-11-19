@@ -256,6 +256,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void clubCreationChecker(ActionEvent event) {
 //        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
+        validStat = true;
 
         int clubId = Integer.parseInt(this.clubId.getText());
         String clubName = this.clubName.getText();
@@ -292,6 +293,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void clubUpdateChecker(ActionEvent event) {
 //        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
+        validStat = true;
 
         int clubId = Integer.parseInt(updateClubID.getText());
         String clubName = updateClubName.getText();
@@ -1506,6 +1508,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void advisorProfileUpdateChecker(ActionEvent event) {
+        validStat = true;
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
@@ -1591,6 +1594,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void advisorProfilePasswordChecker(ActionEvent event) throws SQLException {
+        validStat = true;
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
