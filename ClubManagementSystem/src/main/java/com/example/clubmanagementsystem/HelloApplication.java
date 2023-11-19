@@ -70,27 +70,27 @@ public class HelloApplication extends Application {
 
         ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager();
         clubAdvisorDataBaseManager.populateClubAdvisorArray("Lakshan200");
-        System.out.println(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId());
+//        System.out.println(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId());
         clubAdvisorDataBaseManager.populateStudentDetailArray();
-        System.out.println(Student.studentDetailArray.get(0).getFirstName());
+//        System.out.println(Student.studentDetailArray.get(0).getFirstName());
 
-        clubAdvisorDataBaseManager.populateClubDetailArray(Club.clubDetailsList);
-        System.out.println(Club.clubDetailsList.get(0).getClubName());
+//        clubAdvisorDataBaseManager.populateClubDetailArray(Club.clubDetailsList);
+//        System.out.println(Club.clubDetailsList.get(0).getClubName());
 
 
 
-        Club club1 = new Club(0003, "Rotract23", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
-        Club.clubDetailsList.add(club1);
+//        Club club1 = new Club(0003, "Rotract23", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
+//        Club.clubDetailsList.add(club1);
+//
+//        Club club2 = new Club(0005, "IEEE24", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
+//        Club.clubDetailsList.add(club2);
+//
+//        cb.createdClubDetailsList.add(club1);
+//        cb.createdClubDetailsList.add(club2);
+//        ClubAdvisor.clubAdvisorDetailsList.add(cb);
 
-        Club club2 = new Club(0005, "IEEE24", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
-        Club.clubDetailsList.add(club2);
-
-        cb.createdClubDetailsList.add(club1);
-        cb.createdClubDetailsList.add(club2);
-        ClubAdvisor.clubAdvisorDetailsList.add(cb);
-
-        clubAdvisorDataBaseManager.populateEventsDetailArray();
-        System.out.println(Event.eventDetails.get(0).getEventName());
+//        clubAdvisorDataBaseManager.populateEventsDetailArray();
+//        System.out.println(Event.eventDetails.get(0).getEventName());
 
         launch();
         connection.close();
