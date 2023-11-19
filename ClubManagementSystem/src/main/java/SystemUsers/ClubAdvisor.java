@@ -22,9 +22,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     public ArrayList<Club> createdClubDetailsList = new ArrayList<>();
 
-    public ClubAdvisor(String userName,String password,
-                       String firstName, String lastName,
-                       String contactNumber, int clubAdvisorId){
+    public ClubAdvisor(String userName,String password, String firstName, String lastName, String contactNumber, int clubAdvisorId){
         super(userName, password, firstName, lastName, contactNumber);
         this.clubAdvisorId = clubAdvisorId;
     }
