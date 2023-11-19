@@ -44,6 +44,9 @@ import java.time.LocalTime;
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
+
+    public static String username;
+
     public static boolean validStat = true;
     public static int selectedEventId;
     public static Event selectedEventValue;
@@ -91,6 +94,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         displayNumberOfScheduledEvents();
         getNextEventDate();
+        displayStudentUpdateDetails();
+        displayExistingPassword();
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
@@ -256,6 +261,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void clubCreationChecker(ActionEvent event) {
 //        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
+        validStat = true;
 
         int clubId = Integer.parseInt(this.clubId.getText());
         String clubName = this.clubName.getText();
@@ -292,6 +298,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void clubUpdateChecker(ActionEvent event) {
 //        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
+        validStat = true;
 
         int clubId = Integer.parseInt(updateClubID.getText());
         String clubName = updateClubName.getText();
@@ -1363,7 +1370,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         ProfilePane.setVisible(true);
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-
+        displayStudentUpdateDetails();
+        displayExistingPassword();
     }
 
 
@@ -1506,6 +1514,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void advisorProfileUpdateChecker(ActionEvent event) {
+        validStat = true;
+
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
@@ -1591,6 +1601,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void advisorProfilePasswordChecker(ActionEvent event) throws SQLException {
+        validStat = true;
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
@@ -1695,6 +1706,39 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             profileAdvisorNewpwError.setText("");
         }
     }
+
+
+
+    public void displayStudentUpdateDetails(){
+        profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));
+        profileAdvisorFname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getFirstName()));
+        profileAdvisorLname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getLastName()));
+        profileAdvisorUsername.setText(String.valueOf(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName())));
+        String contactNumber = makeTenDigitsForNumber(Integer.parseInt(ClubAdvisor.clubAdvisorDetailsList.get(0).getContactNumber()));
+        profileAdvisorCnumber.setText((contactNumber));
+        username =  String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName());
+    }
+
+    public void displayExistingPassword(){
+        profileAdvisorpw.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getPassword()));
+    }
+
+
+
+    public static String makeTenDigitsForNumber(int number) {
+        String strNumber = Integer.toString(number);
+
+        if (strNumber.length() < 10) {
+            StringBuilder zeros = new StringBuilder();
+            for (int i = 0; i < 10 - strNumber.length(); i++) {
+                zeros.append('0');
+            }
+            return zeros.toString() + strNumber;
+        } else {
+            return strNumber.substring(0, 10);
+        }
+    }
+
 
 }
 

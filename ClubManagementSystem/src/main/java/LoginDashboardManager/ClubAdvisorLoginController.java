@@ -110,9 +110,6 @@ public class ClubAdvisorLoginController {
     @FXML
     private Label passwordCommentLogin;
 
-
-
-
     public static boolean validStat = true;
 
     @FXML
@@ -217,7 +214,8 @@ public class ClubAdvisorLoginController {
                 "-fx-text-fill: white");
         clubAdvisorDashboardControlller.CreateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();        scene = new Scene(root);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
