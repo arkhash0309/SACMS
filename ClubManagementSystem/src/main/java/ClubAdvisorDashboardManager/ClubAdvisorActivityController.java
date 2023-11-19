@@ -292,6 +292,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void clubUpdateChecker(ActionEvent event) {
 //        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
+        validStat = true;
 
         int clubId = Integer.parseInt(updateClubID.getText());
         String clubName = updateClubName.getText();
