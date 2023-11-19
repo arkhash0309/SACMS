@@ -393,6 +393,16 @@ public class StudentLoginController {
             studentRegisterConfirmPasswordErrorLabel.setText(" ");
         }
 
+        if(selcetedGenderVal.equals("Select Gender")){
+            studentRegistrationGenderEmptyLabel.setText("Please select your gender");
+            validateStatus = false;
+        }
+
+        if(selectedGradeVal.equals("Select Grade")){
+            studentRegistrationGradeEmptyLabel.setText("Please select your grade");
+            validateStatus = false;
+        }
+
 
         System.out.println(validateStatus + " : Valid Stat");
         if (validateStatus) {
@@ -575,7 +585,7 @@ public class StudentLoginController {
         } else if (User.contactNumberValidateStatus.equals("length")) {
             studentRegisterContactNumErrorLabel.setText("Contact Number should have 10 digits.");
         } else if (User.contactNumberValidateStatus.equals("format")) {
-            studentRegisterContactNumErrorLabel.setText("Contact Number consist only numbers.");
+            studentRegisterContactNumErrorLabel.setText("Number cannot contain characters.");
         } else {
             studentRegisterContactNumErrorLabel.setText("");
         }

@@ -440,7 +440,7 @@ public class ClubAdvisorLoginController {
         } else if (User.contactNumberValidateStatus.equals("length")) {
             contactNumberLabel.setText("Contact Number should have 10 numbers.");
         }else if(User.contactNumberValidateStatus.equals("format")){
-            contactNumberLabel.setText("Contact Number consist with only numbers");
+            contactNumberLabel.setText("Number cannot contain characters.");
         }else{
             contactNumberLabel.setText("");
         }
