@@ -315,7 +315,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     void clubCreationReset(ActionEvent event) {
         clubName.setText("");
         clubDescription.setText("");
-        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+        Image defaultImage = new Image("../OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
         createClubImage.setImage(defaultImage);
 
         clubNameError.setText("");

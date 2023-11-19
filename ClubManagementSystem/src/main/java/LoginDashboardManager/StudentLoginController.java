@@ -1,5 +1,6 @@
 package LoginDashboardManager;
 
+import DataBaseManager.StudentDataBaseManager;
 import StudentDashboardManager.StudentActivityController;
 import StudentDashboardManager.StudentDashboardController;
 import SystemUsers.ClubAdvisor;
@@ -219,7 +220,7 @@ public class StudentLoginController {
 
 
     @FXML
-    void DirectToStudentDashboard(ActionEvent event) throws IOException {
+    void DirectToStudentDashboard(ActionEvent event) throws IOException, SQLException {
 
         if (!fieldsChecker()) {
             return;
@@ -246,6 +247,8 @@ public class StudentLoginController {
         Scene scene = new Scene(root, 1100, 600);
         stage.setScene(scene);
         stage.centerOnScreen();
+
+        StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard);
         stage.show();
     }
 
