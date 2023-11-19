@@ -8,6 +8,8 @@ import com.example.clubmanagementsystem.ApplicationController;
 import ClubManager.Attendance;
 import ClubManager.Event;
 import ClubManager.EventManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +31,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpCookie;
@@ -237,7 +241,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
            Club hostingClub = value.getHostingClub();
            Event event = new Event(value.getEventName(), value.getEventLocation(),
                    value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                   value.getEventTime(), hostingClub, value.getEventDescription());
+                   value.getEventTime(), hostingClub, value.getEventDescription(), value.getEventId());
 
            ObservableList<Event> viewScheduledEvents = scheduleCreatedEventTable.getItems();
            viewScheduledEvents.add(event);
@@ -1148,7 +1152,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
               Club hostingClubDetail = value.getHostingClub();
               Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                       value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                      value.getEventTime(), hostingClubDetail, value.getEventDescription());
+                      value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
               ObservableList<Event> viewScheduledEvents = viewCreatedEventsTable.getItems();
               viewScheduledEvents.add(requiredEvent);

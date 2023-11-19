@@ -604,7 +604,7 @@ public class StudentActivityController extends StudentDashboardController{
             Club hostingClubDetail = value.getHostingClub();
             Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                     value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                    value.getEventTime(), hostingClubDetail, value.getEventDescription());
+                    value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
             ObservableList<Event> viewScheduledEvents = EventViewTableStudent.getItems();
             viewScheduledEvents.add(requiredEvent);
@@ -618,7 +618,7 @@ public class StudentActivityController extends StudentDashboardController{
             Club hostingClubDetail = value.getHostingClub();
             Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                     value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                    value.getEventTime(), hostingClubDetail, value.getEventDescription());
+                    value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
             ObservableList<Event> viewScheduledEvents = EventViewTableStudent.getItems();
             viewScheduledEvents.add(requiredEvent);
@@ -690,11 +690,4 @@ public class StudentActivityController extends StudentDashboardController{
 
         UpcomingEventRateForTable.getData().addAll(setOfData);
     }
-
-
-
-
-
-
-
 }

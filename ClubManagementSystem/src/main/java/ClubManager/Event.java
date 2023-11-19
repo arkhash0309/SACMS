@@ -13,12 +13,13 @@ public class Event {
     private String eventType;
     private String eventDeliveryType;
     private Club hostingClub;
+    private int eventId;
     String hostingClubName;
     public static ArrayList<Event> eventDetails = new ArrayList<>();
 
     public Event(String eventName, String eventLocation, String eventType,
                  String eventDeliveryType, LocalDate eventDate, LocalTime eventTime, Club hostingClub,
-                 String eventDescription){
+                 String eventDescription, int eventId){
         this.eventName  = eventName;
         this.eventLocation = eventLocation;
         this.eventType = eventType;
@@ -28,6 +29,7 @@ public class Event {
         this.setHostingClub(hostingClub);
         this.eventDescription = eventDescription;
         hostingClubName = getClubName();
+        this.eventId = eventId;
     }
 
     public String getClubName() {
@@ -100,5 +102,13 @@ public class Event {
 
     public void setHostingClub(Club hostingClub) {
         this.hostingClub = hostingClub;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 }

@@ -158,7 +158,7 @@ public class ClubAdvisorDataBaseManager {
    public void populateEventsDetailArray(){
        Event.eventDetails.clear();
        for(int clubId : clubIdList){
-           String query = "SELECT eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
+           String query = "SELECT EventId, eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
                    "FROM EventDetails WHERE clubId = ?";
 
            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
@@ -179,7 +179,8 @@ public class ClubAdvisorDataBaseManager {
                                localDate,
                                localTime,
                                requiredClub.get(clubId),
-                               result.getString("eventDescription")
+                               result.getString("eventDescription"),
+                               result.getInt("EventId")
                        );
 
                        Event.eventDetails.add(event);

@@ -201,7 +201,7 @@ public class StudentDataBaseManager {
     public void populateEventDetails(){
         Student.studentEvent.clear();
         for(Club club : Student.studentJoinedClubs){
-            String query = "SELECT eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
+            String query = "SELECT EventId, eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
                     "FROM EventDetails WHERE clubId = ?";
 
             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
@@ -222,7 +222,8 @@ public class StudentDataBaseManager {
                                 localDate,
                                 localTime,
                                 club,
-                                result.getString("eventDescription")
+                                result.getString("eventDescription"),
+                                result.getInt("EventId")
                         );
 
                         Student.studentEvent.add(event);
@@ -238,7 +239,7 @@ public class StudentDataBaseManager {
     public void populateAllEvents(){
         Event.eventDetails.clear();
         for(Club club : Club.clubDetailsList){
-            String query = "SELECT eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
+            String query = "SELECT EventId, eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
                     "FROM EventDetails WHERE clubId = ?";
 
             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
@@ -259,7 +260,8 @@ public class StudentDataBaseManager {
                                 localDate,
                                 localTime,
                                 club,
-                                result.getString("eventDescription")
+                                result.getString("eventDescription"),
+                                result.getInt("EventId")
                         );
 
                         Event.eventDetails.add(event);

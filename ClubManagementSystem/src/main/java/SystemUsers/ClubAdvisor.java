@@ -54,12 +54,12 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         Club selectedClub = EventManager.userSelectedClubChooser(clubName);
 
         Event event = new Event(eventName, eventLocation, eventType,eventDeliveryType, eventDate, eventTime,
-                selectedClub, eventDescription);
-        Event.eventDetails.add(event);
+                selectedClub, eventDescription, 0);
+
         System.out.println("Event successfully Scheduled !!!");
 
         String EventsQuery = "INSERT INTO EventDetails (eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription, clubId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(EventsQuery)) {
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(EventsQuery, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, eventName);
             preparedStatement.setDate(2, Date.valueOf(eventDate));
             preparedStatement.setTime(3, Time.valueOf(eventTime));
@@ -69,12 +69,28 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
             preparedStatement.setString(7, eventDescription);
             assert selectedClub != null;
             preparedStatement.setInt(8, selectedClub.getClubId());
-            preparedStatement.executeUpdate();
+
+            // Execute the insert and retrieve the generated keys
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows > 0) {
+                // Retrieve the generated keys
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int eventId = generatedKeys.getInt(1);
+                        event.setEventId(eventId);
+                        System.out.println("This is my : " + eventId);
+                    }
+                }
+            }
         } catch (Exception e) {
             System.out.println("Wrong !!!");
             System.out.println(e);
             return;
         }
+
+
+        Event.eventDetails.add(event);
 
         Alert eventCreateAlert = new Alert(Alert.AlertType.INFORMATION);
         eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -90,6 +106,8 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         Event.eventDetails.set(eventId, event);
         Club selectedClub = event.getHostingClub();
 
+        System.out.println("Lakhan  event name" +  event.getEventName() + " Id : " + event.getEventId());
+
         String updateEventQuery = "UPDATE EventDetails SET eventName = ?, eventDate = ?, eventTime = ?, eventLocation = ?, eventType = ?, eventDeliveryType = ?, eventDescription = ?, clubId = ? WHERE EventId = ?";
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateEventQuery)) {
             preparedStatement.setString(1, event.getEventName());
@@ -101,7 +119,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
             preparedStatement.setString(7, event.getEventDeliveryType());
             assert selectedClub != null;
             preparedStatement.setInt(8, selectedClub.getClubId());
-            preparedStatement.setInt(9, eventId);
+            preparedStatement.setInt(9, event.getEventId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error updating event!");
@@ -131,7 +149,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
         String deleteEventQuery = "DELETE FROM EventDetails WHERE EventId = ?";
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(deleteEventQuery)) {
-            preparedStatement.setInt(1, selectedEventId);
+            preparedStatement.setInt(1, event.getEventId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error deleting event!");
