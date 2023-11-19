@@ -230,7 +230,7 @@ abstract public class User implements UserValidator {
         }
     }
 
-    protected static boolean checkPasswordIsValid(String password) {
+    public static boolean checkPasswordIsValid(String password) {
         // at least 8 digits, can add chars, numbers
         String pattern = "^(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
 

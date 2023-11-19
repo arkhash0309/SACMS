@@ -93,17 +93,20 @@ public class Student extends User implements StudentValidator {
     }
 
     @Override
+    // the method to validate the admission number
     public boolean validateStudentAdmissionNumber() throws SQLException {
+        // if the value is empty
         if(String.valueOf(this.getStudentAdmissionNum()).isEmpty()){
-            admissionNumStatus = "empty";
+            admissionNumStatus = "empty"; // the error is specified
             System.out.println(this.getStudentAdmissionNum());
-            return false;
+            return false; // boolean false is returned
         }
 
+        // if the admission number is not 6 digits
         if(String.valueOf(this.getStudentAdmissionNum()).length() != 6){
-            admissionNumStatus = "length";
+            admissionNumStatus = "length"; // the error is specified
             System.out.println("more than 6");
-            return false;
+            return false; // boolean false is returned
         }
 
         int dbStudentAdmissionNum  = 0;

@@ -354,7 +354,6 @@ public class StudentLoginController implements Initializable {
         displayAdmissionNumError();
 
 
-
         if (!student.validateUserName("registration", "student")) {
             System.out.println("Wrong user name");
             validateStatus = false;
@@ -362,6 +361,7 @@ public class StudentLoginController implements Initializable {
             User.userNameValidateStatus = "";
         }
         displayUserNameError();
+
 
         if (!student.validatePassword("registration")) {
             System.out.println("Wrong password");
