@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -165,6 +168,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
+  
     @FXML
     public TextField clubName;
     @FXML
@@ -217,7 +221,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public ImageView updateClubImage;
     @FXML
     public Button updateClubImageButton;
-
+  
     @FXML
     protected Label updateErrorLabelEventLocation;
 
@@ -381,7 +385,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Event, LocalTime> cancelEventTimeColumn;
 
     @FXML
-    protected TableView<Event> viewCreatedEventsTable;
+    public TableView<Event> viewCreatedEventsTable;
 
     @FXML
     protected TableColumn<Event, String> viewEventClubNameColumn;
@@ -473,6 +477,51 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public Label profileAdvisorNewpwError;
     @FXML
     public Label profileAdvisorUsernameError;
+    
+    @FXML
+    protected BarChart<?, ?> GenderRatioChart;
+
+    @FXML
+    protected CategoryAxis GenderOfStudent;
+
+    @FXML
+    protected NumberAxis NumberOfStudents;
+
+    @FXML
+    protected BarChart<?, ?> EnrollStudentCountEachGrade;
+
+    @FXML
+    protected CategoryAxis gradeDetail;
+
+    @FXML
+    protected NumberAxis NumberOfStudentsEachGrade;
+    @FXML
+    protected ComboBox<String> attendanceClubNameComboBox;
+
+    @FXML
+    protected ComboBox<String> attendanceEventNameComboBox;
+
+    @FXML
+    protected TableColumn<Attendance, String> attendanceClubNameColumn;
+
+    @FXML
+    protected TableColumn<Attendance, String> attendanceEventNameColumn;
+
+    @FXML
+    protected TableColumn<Attendance, Integer> attendanceStudentAdmissionNumColumn;
+
+    @FXML
+    protected TableColumn<Attendance, String> attendanceStudentNameColumn;
+
+    @FXML
+    protected TableColumn<Attendance, CheckBox> attendanceStatusColumn;
+
+    @FXML
+    protected TableView<String> attendanceTrackerTable;
+    
+    @FXML
+    public  Label showUserNameClubAdvisor;
+
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 
@@ -541,8 +590,10 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     abstract void clubCreationChecker(ActionEvent event);
+  
     @FXML
     abstract void clubCreationReset(ActionEvent event);
+  
     abstract protected void clearUpdateEventFields(ActionEvent event);
 
 

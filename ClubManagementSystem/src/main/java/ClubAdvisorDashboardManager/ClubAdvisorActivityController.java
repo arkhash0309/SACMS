@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,17 +30,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpCookie;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.*;
 import static ClubManager.Club.clubDetailsList;
 import static SystemUsers.ClubAdvisor.clubAdvisorDetailsList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
-
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
@@ -55,13 +56,22 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
         populateComboBoxes();
+        findMaleFemaleStudentCount();
+        displayEnrolledStudentCount();
         //Set cell value factories for the columns of the Create Club Table
         createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         createClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
         createClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
 
-//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
+        // the columns are initialized for the attendance tracking table
+        attendanceClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        attendanceEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        attendanceStudentNameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        attendanceStudentAdmissionNumColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
+        attendanceStatusColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
+
+//        Club club1 = new Club(0001, "Rotaract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
 //        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
         for (Club club : clubDetailsList){
@@ -83,6 +93,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         getNextEventDate();
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
+
 
     public void populateComboBoxes(){
         scheduleEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
@@ -316,7 +327,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     clubUpdateAlert.setTitle("School Club Management System");
                     clubUpdateAlert.setHeaderText("Club details successfully updated!!!");
                     clubUpdateAlert.show();
-
+                  
                     //Updating club details tables
                     setCreateTable();
                     setUpdateTable();
@@ -1065,6 +1076,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void filterSelectedClubEvents(ActionEvent event) {
+
           viewCreatedEventsTable.getItems().clear();
           ArrayList<Event> filteredEvents = new ArrayList<>();
           String selectedClub = viewCreatedEventsSortComboBox.getSelectionModel().getSelectedItem();
@@ -1081,6 +1093,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
               }
           }
 
+         ClubAdvisor clubAdvisor = new ClubAdvisor();
+         clubAdvisor.viewEvent(); // Override scene eka
+
+
           for(Event value : filteredEvents){
               Club hostingClubDetail = value.getHostingClub();
               Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
@@ -1093,6 +1109,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
           }
 
     }
+
+
 
 
 
@@ -1121,12 +1139,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Set column widths
         TableColumn<Attendance, Boolean> attendanceColumn = new TableColumn<>("Attendance");
+        // the column is initialized respectively
         attendanceColumn.setCellValueFactory(data -> data.getValue().attendanceStatusProperty());
 
         attendanceColumn.setPrefWidth(100); // Adjust the value as needed
 
         // Set custom row factory to control row height
         tb1.setRowFactory(tv -> {
+            // a new row is created
             TableRow<Attendance> row = new TableRow<>();
             row.setPrefHeight(30); // Adjust the value as needed
             return row;
@@ -1136,7 +1156,100 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         tb1.getColumns().addAll(attendanceColumn);
     }
 
+    public void findMaleFemaleStudentCount(){
+        int maleRate = 0;
+        int femaleRate = 0;
+        for(Student student : Student.studentDetailArray){
+            if(student.getGender() == 'M'){
+                maleRate ++;
+            }else{
+                femaleRate++;
+            }
+        }
 
+        XYChart.Series setOfData = new XYChart.Series();
+        setOfData.getData().add(new XYChart.Data<>("Male", maleRate));
+        setOfData.getData().add(new XYChart.Data<>("Female", femaleRate));
+        GenderRatioChart.getData().addAll(setOfData);
+
+    }
+
+
+    public void displayEnrolledStudentCount(){
+        HashMap<Integer, Integer> studentGrade = new HashMap<>();
+        for(Student student : Student.studentDetailArray){
+            int grade = student.getStudentGrade();
+            studentGrade.put(grade, studentGrade.getOrDefault(grade, 0) + 1);
+        }
+
+        XYChart.Series setOfData = new XYChart.Series();
+        for (Map.Entry<Integer, Integer> entry : studentGrade.entrySet()) {
+            setOfData.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+        }
+
+        EnrollStudentCountEachGrade.getData().addAll(setOfData);
+
+    }
+
+    public void populateAttendanceClubNameComboBox() {
+        // the club name combo box is cleared
+        attendanceClubNameComboBox.getItems().clear();
+
+        if(!attendanceClubNameComboBox.getItems().contains("Please Select")){
+            // the default option of please select is added to the combo box
+            attendanceClubNameComboBox.getItems().add("Please select");
+        }
+
+        // the following is done for every club in the clubDetailsList
+        for(Club club : clubDetailsList){
+            // the club names are added to the combo box from the array list
+            attendanceClubNameComboBox.getItems().add(club.getClubName());
+        }
+        // retrieves the current selection in the combo box
+        attendanceClubNameComboBox.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    void populateEventList(ActionEvent event) {
+        // a new array list to hold the events filtered to the respective club
+        ArrayList<Event> filteredEvents = new ArrayList<>();
+        // the selected club name is retrieved from the club name combo box
+        String selectedClub = attendanceClubNameComboBox.getSelectionModel().getSelectedItem();
+        System.out.println(selectedClub + "ding dong bell");
+
+        // if no club is selected, the method is returned (not executed)
+        if(selectedClub == null){
+            return;
+        }
+
+        // if "Please Select" is chosen, the method is returned (not executed)
+        if(selectedClub.equals("Please Select")){
+            return;
+        }else{
+            // a object of data type Event is created to iterate over the eventDetails array list
+            for(Event events : Event.eventDetails){
+                if(events.getClubName().equals(selectedClub)){
+                    filteredEvents.add(events); // the events for the respective club is added to the areay list
+                }
+            }
+        }
+        // the event name combo box is cleared
+        attendanceEventNameComboBox.getItems().clear();
+
+        // check if the option "Please select" is already available
+        if(!attendanceEventNameComboBox.getItems().contains("Please Select")){
+            // option is added if not available
+            attendanceEventNameComboBox.getItems().add("Please select");
+        }
+
+        // an object event1 of data type Event is created to iterate over the filteredEvents array list
+        for(Event event1 : filteredEvents){
+            // the events are retrieved and added
+            attendanceEventNameComboBox.getItems().add(event1.getEventName());
+        }
+        // retrieves the current selection in the combo box
+        attendanceEventNameComboBox.getSelectionModel().selectFirst();
+    }
 
 
     @Override
@@ -1232,6 +1345,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         AttendancePane.setVisible(true);
         AttendanceButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        populateAttendanceClubNameComboBox();
     }
 
     @Override
@@ -1388,8 +1502,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     static {
         clubIdSetterValue = 100;
     }
-
-
 
 
     @FXML
@@ -1573,6 +1685,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }
     }
+  
     public void displayPasswordError() {
         if (User.passwordValidateStatus.equals("empty")) {
             profileAdvisorNewpwError.setText("Password cannot be empty.");
@@ -1582,4 +1695,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             profileAdvisorNewpwError.setText("");
         }
     }
+
 }
+

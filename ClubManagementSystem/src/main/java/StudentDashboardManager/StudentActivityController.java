@@ -26,6 +26,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -41,24 +43,32 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for (int grade = 0; grade<13; grade++) {
+        for (int grade = 6; grade<14; grade++) {
             studentUpdateProfileGrade.getItems().add(String.format("%02d", grade));
         }
+
         studentUpdateProfileGrade.getSelectionModel().selectFirst();
+
+        displayNumberOfEnrolledClubs();
+        displayNumberOfUpcomingEvents();
+        findNextEventDateForStudent();
+
+        studentEventSelector.getItems().add("All Clubs");
+        studentEventSelector.getSelectionModel().selectFirst();
 
         leaveClubClubIdColumn.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         leaveClubClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         leaveClubClubAdvisorName.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorName"));
 
+        // the columns are initialized for the event view table
         studentViewClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         studentViewEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         studentViewEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
-        studentViewEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        studentViewEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-        studentViewEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
-        studentViewDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
-        studentViewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
-
+        studentViewEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
+        studentViewEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        studentViewEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        studentViewDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
+        studentViewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
     }
     @Override
     void StudentLogout(MouseEvent event) throws IOException {
@@ -110,6 +120,9 @@ public class StudentActivityController extends StudentDashboardController{
         makeAllStudentButtonsColoured();
         StudentDashBoardPane.setVisible(true);
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        displayNumberOfEnrolledClubs();
+        displayNumberOfUpcomingEvents();
+        findNextEventDateForStudent();
     }
 
     @Override
@@ -129,6 +142,8 @@ public class StudentActivityController extends StudentDashboardController{
         makeAllStudentButtonsColoured();
         EventStudentPane.setVisible(true);
         ViewEventButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        populateAllEvents();
+        populateStudentJoinedClubsComboBox();
     }
 
     @FXML
@@ -137,18 +152,25 @@ public class StudentActivityController extends StudentDashboardController{
         makeAllStudentButtonsColoured();
         StudentProfilePane.setVisible(true);
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-
     }
 
 
     public void onStudentProfileUpdateButtonClick() {
         validStat = true;
+
+
+        String updatedAdmissionNumber = studentUpdateProfileID.getText();
         String updatedFirstName = studentUpdateProfileFName.getText();
         String updatedLastName = studentUpdateProfileLName.getText();
         String updatedUserName = studentUpdateProfileUserName.getText();
         String updatedContactNum = studentUpdateProfileContactNum.getText();
         String updatedGrade = studentUpdateProfileGrade.getValue();
+        System.out.println("Grade is " + updatedGrade);
 
+//        if(updatedGrade.isEmpty()){
+//            updateGradeLabel.setText("Please select your grade");
+//            return;
+//        }
 
         Student student = new Student(studentUpdateProfileUserName.getText(), studentUpdateProfileExistingPassword.getText(),
                 studentUpdateProfileFName.getText(), studentUpdateProfileLName.getText());
@@ -173,6 +195,29 @@ public class StudentActivityController extends StudentDashboardController{
         }
         displayNameError("lastName");
 
+        try{
+            if (updatedAdmissionNumber.isEmpty()) {
+                validStat = false;
+                Student.admissionNumStatus = "empty";
+                throw new Exception();
+            }
+            int admissionNumValue = Integer.parseInt(updatedAdmissionNumber);
+            Student std2 = new Student(admissionNumValue);
+
+            if (!std2.validateStudentAdmissionNumber()) {
+                System.out.println("Invalid");
+                validStat = false;
+            } else {
+                Student.admissionNumStatus = "";
+            }
+        } catch (NumberFormatException e) {
+              Student.admissionNumStatus = "format";
+              System.out.println("Invalid Student ID");
+               validStat = false;
+        } catch (Exception e) {
+            validStat = false;
+        }
+        displayAdmissionNumError();
         try{
             String tempContactNum = updatedContactNum;
             if (tempContactNum.isEmpty()) {
@@ -204,6 +249,7 @@ public class StudentActivityController extends StudentDashboardController{
             User.userNameValidateStatus = "";
         }
         displayUserNameError();
+
 
 
         System.out.println(validStat + " : Valid Stat");
@@ -308,6 +354,20 @@ public class StudentActivityController extends StudentDashboardController{
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
+    public void displayAdmissionNumError() {
+        if (Student.admissionNumStatus.equals("empty")) {
+            studentUpdateIDLabel.setText("Admission Number cannot be empty.");
+        } else if (Student.admissionNumStatus.equals("length")) {
+            studentUpdateIDLabel.setText("Admission Number has to be 6 digits.");
+        } else if (Student.admissionNumStatus.equals("exist")) {
+            studentUpdateIDLabel.setText("Admission Number already exists.");
+        } else if (Student.admissionNumStatus.equals("format")) {
+            studentUpdateIDLabel.setText("Admission Number contain only numbers.");
+        } else {
+            studentUpdateIDLabel.setText("");
+        }
+    }
+
 
 
 
@@ -389,6 +449,7 @@ public class StudentActivityController extends StudentDashboardController{
                    Student student = new Student();
                    student.joinClub(club);
                    populateLeaveClubDetails();
+                   populateStudentEvents();
                    return;
                }
            }
@@ -431,6 +492,14 @@ public class StudentActivityController extends StudentDashboardController{
             Student student = new Student();
             student.leaveClub(selectedClub, clubIndexStudentLeave);
             populateLeaveClubDetails();
+
+            Iterator<Event> iterator = Student.studentEvent.iterator();
+            while (iterator.hasNext()) {
+                Event event = iterator.next();
+                if (event.getClubName().equals(selectedClub.getClubName())) {
+                    iterator.remove();
+                }
+            }
 
         }catch(NullPointerException error){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -478,5 +547,127 @@ public class StudentActivityController extends StudentDashboardController{
         }
 
     }
+
+    public void populateStudentEvents(){
+        Student.studentEvent.clear();
+        for(Club club: Student.studentJoinedClubs){
+            for(Event event : Event.eventDetails){
+                if(event.getClubName().equals(club.getClubName())){
+                    Student.studentEvent.add(event);
+                }
+            }
+        }
+    }
+
+    public void populateStudentJoinedClubsComboBox(){
+        studentEventSelector.getItems().clear();
+
+        if(!studentEventSelector.getItems().contains("All Clubs")){
+            studentEventSelector.getItems().add("All Clubs");
+        }
+
+        for(Club club : Student.studentJoinedClubs){
+            studentEventSelector.getItems().add(club.getClubName());
+        }
+        studentEventSelector.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    void populateStudentViewEventTable(ActionEvent event) {
+       populateStudentViewEventTable();
+    }
+
+    public void populateStudentViewEventTable(){
+        EventViewTableStudent.getItems().clear();
+        ArrayList<Event> filteredEvents = new ArrayList<>();
+        String selectedClub = studentEventSelector.getSelectionModel().getSelectedItem();
+        System.out.println(selectedClub + " bro");
+
+        if(selectedClub == null){
+            return;
+        }
+
+        if(selectedClub.equals("All Clubs")){
+            populateAllEvents();
+            return;
+        }else{
+            for(Event events : Event.eventDetails){
+                if(events.getClubName().equals(selectedClub)){
+                    filteredEvents.add(events);
+                }
+            }
+        }
+
+        ClubAdvisor clubAdvisor = new ClubAdvisor();
+        clubAdvisor.viewEvent(); // Override scene eka
+
+
+        for(Event value : filteredEvents){
+            Club hostingClubDetail = value.getHostingClub();
+            Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
+                    value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
+                    value.getEventTime(), hostingClubDetail, value.getEventDescription());
+
+            ObservableList<Event> viewScheduledEvents = EventViewTableStudent.getItems();
+            viewScheduledEvents.add(requiredEvent);
+            EventViewTableStudent.setItems(viewScheduledEvents );
+        }
+
+    }
+
+    public void populateAllEvents(){
+        for(Event value : Student.studentEvent){
+            Club hostingClubDetail = value.getHostingClub();
+            Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
+                    value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
+                    value.getEventTime(), hostingClubDetail, value.getEventDescription());
+
+            ObservableList<Event> viewScheduledEvents = EventViewTableStudent.getItems();
+            viewScheduledEvents.add(requiredEvent);
+            EventViewTableStudent.setItems(viewScheduledEvents );
+        }
+    }
+
+    public void displayNumberOfEnrolledClubs(){
+      EnrolledClubCountStudent.setText(String.valueOf(Student.studentJoinedClubs.size()));
+    }
+
+    public void displayNumberOfUpcomingEvents(){
+        int count = 0;
+        for(Event event : Student.studentEvent){
+            if(event.getEventDate().isAfter(LocalDate.now())){
+                count ++;
+            }
+        }
+
+        UpcomingEventForStudent.setText(String.valueOf(count));
+    }
+
+
+    public void findNextEventDateForStudent(){
+        if (Student.studentEvent.isEmpty()) {
+            nextEventDateForStudent.setText("   No events");
+            return;
+        }
+
+        LocalDate currentDate = LocalDate.now();
+
+        LocalDate nextDate = null;
+
+        for (Event event : Student.studentEvent) {
+            LocalDate eventDate = event.getEventDate();
+            if ((eventDate.isAfter(currentDate) || eventDate.isEqual(currentDate)) &&
+                    (nextDate == null || eventDate.isBefore(nextDate))) {
+                nextDate = eventDate;
+            }
+        }
+
+        if (nextDate != null) {
+            nextEventDateForStudent.setText("   " + nextDate);
+        }
+
+    }
+
+
 
 }

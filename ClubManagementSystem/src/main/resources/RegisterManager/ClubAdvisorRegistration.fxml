@@ -83,7 +83,7 @@
                      <children>
                         <AnchorPane layoutX="15.0" layoutY="17.0" prefHeight="500.0" prefWidth="585.0" styleClass="EventMainPane">
                            <children>
-                              <TextField fx:id="advisorUserName" layoutX="26.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Username">
+                              <TextField fx:id="advisorUserName" layoutX="26.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Username" styleClass="eventField">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -93,32 +93,32 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <PasswordField fx:id="advisorPassword" layoutX="311.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Password">
+                              <PasswordField fx:id="advisorPassword" layoutX="311.0" layoutY="298.0" prefHeight="29.0" prefWidth="242.0" promptText="Password" styleClass="eventField">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <PasswordField fx:id="advisorConfirmPassword" layoutX="27.0" layoutY="388.0" prefHeight="29.0" prefWidth="242.0" promptText="Confirm Password">
+                              <PasswordField fx:id="advisorConfirmPassword" layoutX="27.0" layoutY="388.0" prefHeight="29.0" prefWidth="242.0" promptText="Confirm Password" styleClass="eventField">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <TextField fx:id="advisorLastName" layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor Last Name" AnchorPane.topAnchor="101.0">
+                              <TextField fx:id="advisorLastName" layoutX="311.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor Last Name" styleClass="eventField" AnchorPane.topAnchor="101.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="advisorId" layoutX="23.0" layoutY="196.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor  ID" AnchorPane.topAnchor="191.0">
+                              <TextField fx:id="advisorId" layoutX="23.0" layoutY="196.0" prefHeight="29.0" prefWidth="242.0" promptText="Advisor  ID" styleClass="eventField" AnchorPane.topAnchor="191.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="advisorFirstName" layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" AnchorPane.topAnchor="101.0">
+                              <TextField fx:id="advisorFirstName" layoutX="19.0" layoutY="101.0" prefHeight="29.0" prefWidth="242.0" promptText="First Name" styleClass="eventField" AnchorPane.topAnchor="101.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="advisorContactNumber" layoutX="311.0" layoutY="191.0" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" AnchorPane.topAnchor="191.0">
+                              <TextField fx:id="advisorContactNumber" layoutX="311.0" layoutY="191.0" prefHeight="29.0" prefWidth="242.0" promptText="Contact Number" styleClass="eventField" AnchorPane.topAnchor="191.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -177,33 +177,33 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="advisorFirstNameLabel" layoutX="19.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616">
+                              <Label fx:id="advisorFirstNameLabel" layoutX="19.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" textFill="#700d0d">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="advisorLastNameLabel" layoutX="311.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616">
+                              <Label fx:id="advisorLastNameLabel" layoutX="311.0" layoutY="133.0" prefHeight="17.0" prefWidth="242.0" textFill="#700d0d">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="advisorIdLabel" layoutX="27.0" layoutY="231.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="225.0">
+                              <Label fx:id="advisorIdLabel" layoutX="27.0" layoutY="231.0" prefHeight="17.0" prefWidth="242.0" textFill="#700d0d" AnchorPane.topAnchor="225.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="contactNumberLabel" layoutX="307.0" layoutY="225.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="225.0">
+                              <Label fx:id="contactNumberLabel" layoutX="307.0" layoutY="225.0" prefHeight="17.0" prefWidth="242.0" textFill="#700d0d" AnchorPane.topAnchor="225.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="userNameLabel" layoutX="27.0" layoutY="328.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="330.0">
+                              <Label fx:id="userNameLabel" layoutX="27.0" layoutY="328.0" prefHeight="17.0" prefWidth="242.0" textFill="#700d0d" AnchorPane.topAnchor="330.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="passwordLabel" layoutX="305.0" layoutY="330.0" prefHeight="52.0" prefWidth="264.0" textAlignment="JUSTIFY" textFill="#781616">
+                              <Label fx:id="passwordLabel" layoutX="312.0" layoutY="330.0" prefHeight="49.0" prefWidth="264.0" textAlignment="JUSTIFY" textFill="#700d0d">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="confirmPasswordLabel" layoutX="27.0" layoutY="418.0" prefHeight="17.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="422.0">
+                              <Label fx:id="confirmPasswordLabel" layoutX="27.0" layoutY="418.0" prefHeight="17.0" prefWidth="242.0" textFill="#700d0d" AnchorPane.topAnchor="422.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

@@ -88,7 +88,7 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="109.0" prefHeight="40.0" prefWidth="209.0" text="    Lakshan2023" textFill="WHITE">
+                              <Label fx:id="showUserNameClubAdvisor" layoutX="20.0" layoutY="109.0" prefHeight="40.0" prefWidth="209.0" text="    Lakshan2023" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="23.0" />
                                  </font>
@@ -239,24 +239,24 @@
                                  <children>
                                     <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="301.0" prefWidth="410.0">
                                        <children>
-                                          <BarChart layoutX="-1.0" layoutY="-1.0" prefHeight="306.0" prefWidth="445.0" title="Enrolled Student Count">
+                                          <BarChart fx:id="EnrollStudentCountEachGrade" layoutX="-14.0" layoutY="-1.0" prefHeight="306.0" prefWidth="452.0" title="Enrolled Student Count In Each Grade">
                                             <xAxis>
-                                              <CategoryAxis side="BOTTOM" />
+                                              <CategoryAxis fx:id="gradeDetail" label="Grade" prefHeight="43.0" prefWidth="358.0" side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                              <NumberAxis side="LEFT" />
+                                              <NumberAxis fx:id="NumberOfStudentsEachGrade" label="Number Of Students" side="LEFT" />
                                             </yAxis>
                                           </BarChart>
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="473.0" layoutY="15.0" prefHeight="295.0" prefWidth="346.0">
                                        <children>
-                                          <BarChart layoutX="-5.0" prefHeight="362.0" prefWidth="390.0" title="Male Female Student Rate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <BarChart fx:id="GenderRatioChart" layoutX="-22.0" layoutY="-4.0" prefHeight="304.0" prefWidth="365.0" title="Male Female Student Rate" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-22.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="-4.0">
                                             <xAxis>
-                                              <CategoryAxis side="BOTTOM" />
+                                              <CategoryAxis fx:id="GenderOfStudent" label="Gender" side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                              <NumberAxis side="LEFT" />
+                                              <NumberAxis fx:id="NumberOfStudents" label="Number Of Students" prefHeight="218.0" prefWidth="48.0" side="LEFT" />
                                             </yAxis>
                                           </BarChart>
                                        </children>
@@ -947,7 +947,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -962,9 +962,9 @@
                                                 </Label>
                                              </children>
                                           </AnchorPane>
-                                          <ComboBox layoutX="27.0" layoutY="109.0" prefHeight="30.0" prefWidth="232.0" AnchorPane.topAnchor="109.0" />
-                                          <ComboBox layoutX="304.0" layoutY="109.0" prefHeight="30.0" prefWidth="232.0" AnchorPane.topAnchor="109.0" />
-                                          <Label layoutX="305.0" layoutY="75.0" prefHeight="25.0" prefWidth="231.0" styleClass="updateClubLabels" text=" Club Name" textFill="WHITE" AnchorPane.topAnchor="75.0">
+                                          <ComboBox fx:id="attendanceClubNameComboBox" layoutX="27.0" layoutY="109.0" onAction="#populateEventList" prefHeight="30.0" prefWidth="232.0" styleClass="eventField" AnchorPane.topAnchor="109.0" />
+                                          <ComboBox fx:id="attendanceEventNameComboBox" layoutX="304.0" layoutY="109.0" prefHeight="30.0" prefWidth="232.0" styleClass="eventField" AnchorPane.topAnchor="109.0" />
+                                          <Label layoutX="305.0" layoutY="75.0" prefHeight="25.0" prefWidth="231.0" styleClass="updateClubLabels" text=" Event Name" textFill="WHITE" AnchorPane.topAnchor="75.0">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -974,7 +974,7 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="589.0" layoutY="93.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" text="Track Attendance">
+                                          <Button layoutX="589.0" layoutY="93.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" styleClass="button2" text="Track Attendance">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -992,13 +992,19 @@
                                                 </Label>
                                              </children>
                                           </AnchorPane>
-                                          <TableView layoutX="12.0" layoutY="56.0" prefHeight="242.0" prefWidth="809.0">
+                                          <TableView fx:id="attendanceTrackerTable" layoutX="12.0" layoutY="56.0" prefHeight="242.0" prefWidth="809.0">
                                             <columns>
-                                              <TableColumn prefWidth="75.0" text="C1" />
-                                              <TableColumn prefWidth="75.0" text="C2" />
+                                              <TableColumn fx:id="attendanceClubNameColumn" prefWidth="119.1999740600586" text="Club Name" />
+                                              <TableColumn fx:id="attendanceEventNameColumn" prefWidth="171.20001220703125" text="Event Name" />
+                                                <TableColumn fx:id="attendanceStudentAdmissionNumColumn" minWidth="3.999969482421875" prefWidth="152.79998779296875" text="Student Admission Num" />
+                                                <TableColumn fx:id="attendanceStudentNameColumn" prefWidth="234.39999389648438" text="Student Name" />
+                                                <TableColumn fx:id="attendanceStatusColumn" prefWidth="129.60003662109375" text="Attendance Status" />
                                             </columns>
                                           </TableView>
-                                          <Button layoutX="620.0" layoutY="309.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" text="Submit " />
+                                          <Button layoutX="620.0" layoutY="309.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" styleClass="button2" text="Submit ">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font></Button>
                                        </children>
                                     </AnchorPane>
                                  </children>

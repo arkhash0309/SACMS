@@ -75,4 +75,22 @@
     -fx-text-fill: linear-gradient(#104a5b, #4d708a, #104a5b);
 }
 
+.eventField{
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 12px;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-background-color: #ecf0f1;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+}
+
+.eventField:focused{
+    -fx-border-color: #455865;
+    -fx-background-color: #d6eaf8;
+}
+
+
 

@@ -18,6 +18,7 @@ public class Student extends User implements StudentValidator {
     public static String admissionNumStatus = "";
     public static ArrayList<Student> studentDetailArray = new ArrayList<>();
     public static ArrayList<Club> studentJoinedClubs = new ArrayList<>();
+    public static ArrayList<Event> studentEvent = new ArrayList<>();
 
     public Student(String userName,String password,
                    String firstName, String lastName,
@@ -95,33 +96,36 @@ public class Student extends User implements StudentValidator {
     public boolean validateStudentAdmissionNumber() throws SQLException {
         if(String.valueOf(this.getStudentAdmissionNum()).isEmpty()){
             admissionNumStatus = "empty";
-            System.out.println("Empty");
+            System.out.println(this.getStudentAdmissionNum());
             return false;
         }
 
-        if(String.valueOf(this.getStudentAdmissionNum()).length() > 4){
+        if(String.valueOf(this.getStudentAdmissionNum()).length() != 6){
             admissionNumStatus = "length";
-            System.out.println("more than 4");
+            System.out.println("more than 6");
             return false;
         }
-        String dbClubAdvisorId = null;
-        String sql = "SELECT * FROM TeacherInCharge  WHERE teacherInChargeId = ?";
+
+        int dbStudentAdmissionNum  = 0;
+        String sql = "SELECT * FROM Student WHERE studentAdmissionNum = ?";
         PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
         preparedStatement.setString(1, String.valueOf(this.getStudentAdmissionNum()));
         ResultSet results = preparedStatement.executeQuery();
 
         while(results.next()){
-            dbClubAdvisorId = results.getString(1);
-            System.out.println(dbClubAdvisorId);
+            dbStudentAdmissionNum = results.getInt(1);
+            System.out.println(dbStudentAdmissionNum);
         }
 
-        assert dbClubAdvisorId != null;
-        if(this.getStudentAdmissionNum() == Integer.parseInt(dbClubAdvisorId)){
+        if(this.getStudentAdmissionNum() == dbStudentAdmissionNum){
+            admissionNumStatus = "exist";
             return false;
         }else{
+            admissionNumStatus = "";
             return true;
         }
     }
+
 
     public void joinClub(Club clubToJoin){
         Student.studentJoinedClubs.add(clubToJoin);
