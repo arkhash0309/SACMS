@@ -43,9 +43,10 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for (int grade = 0; grade<13; grade++) {
+        for (int grade = 6; grade<14; grade++) {
             studentUpdateProfileGrade.getItems().add(String.format("%02d", grade));
         }
+
         studentUpdateProfileGrade.getSelectionModel().selectFirst();
 
         displayNumberOfEnrolledClubs();
@@ -68,7 +69,6 @@ public class StudentActivityController extends StudentDashboardController{
         studentViewEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         studentViewDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
         studentViewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
-
     }
     @Override
     void StudentLogout(MouseEvent event) throws IOException {
@@ -152,18 +152,25 @@ public class StudentActivityController extends StudentDashboardController{
         makeAllStudentButtonsColoured();
         StudentProfilePane.setVisible(true);
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-
     }
 
 
     public void onStudentProfileUpdateButtonClick() {
         validStat = true;
+
+
+        String updatedAdmissionNumber = studentUpdateProfileID.getText();
         String updatedFirstName = studentUpdateProfileFName.getText();
         String updatedLastName = studentUpdateProfileLName.getText();
         String updatedUserName = studentUpdateProfileUserName.getText();
         String updatedContactNum = studentUpdateProfileContactNum.getText();
         String updatedGrade = studentUpdateProfileGrade.getValue();
+        System.out.println("Grade is " + updatedGrade);
 
+//        if(updatedGrade.isEmpty()){
+//            updateGradeLabel.setText("Please select your grade");
+//            return;
+//        }
 
         Student student = new Student(studentUpdateProfileUserName.getText(), studentUpdateProfileExistingPassword.getText(),
                 studentUpdateProfileFName.getText(), studentUpdateProfileLName.getText());
@@ -188,6 +195,29 @@ public class StudentActivityController extends StudentDashboardController{
         }
         displayNameError("lastName");
 
+        try{
+            if (updatedAdmissionNumber.isEmpty()) {
+                validStat = false;
+                Student.admissionNumStatus = "empty";
+                throw new Exception();
+            }
+            int admissionNumValue = Integer.parseInt(updatedAdmissionNumber);
+            Student std2 = new Student(admissionNumValue);
+
+            if (!std2.validateStudentAdmissionNumber()) {
+                System.out.println("Invalid");
+                validStat = false;
+            } else {
+                Student.admissionNumStatus = "";
+            }
+        } catch (NumberFormatException e) {
+              Student.admissionNumStatus = "format";
+              System.out.println("Invalid Student ID");
+               validStat = false;
+        } catch (Exception e) {
+            validStat = false;
+        }
+        displayAdmissionNumError();
         try{
             String tempContactNum = updatedContactNum;
             if (tempContactNum.isEmpty()) {
@@ -219,6 +249,7 @@ public class StudentActivityController extends StudentDashboardController{
             User.userNameValidateStatus = "";
         }
         displayUserNameError();
+
 
 
         System.out.println(validStat + " : Valid Stat");
@@ -323,6 +354,20 @@ public class StudentActivityController extends StudentDashboardController{
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
+    public void displayAdmissionNumError() {
+        if (Student.admissionNumStatus.equals("empty")) {
+            studentUpdateIDLabel.setText("Admission Number cannot be empty.");
+        } else if (Student.admissionNumStatus.equals("length")) {
+            studentUpdateIDLabel.setText("Admission Number has to be 6 digits.");
+        } else if (Student.admissionNumStatus.equals("exist")) {
+            studentUpdateIDLabel.setText("Admission Number already exists.");
+        } else if (Student.admissionNumStatus.equals("format")) {
+            studentUpdateIDLabel.setText("Admission Number contain only numbers.");
+        } else {
+            studentUpdateIDLabel.setText("");
+        }
+    }
+
 
 
 

@@ -5,6 +5,7 @@ import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
 import com.example.clubmanagementsystem.HelloApplication;
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,9 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
+
+import static com.example.clubmanagementsystem.HelloApplication.statement;
 
 public class ClubAdvisorLoginController {
     static boolean loginStatus;
@@ -183,7 +187,9 @@ public class ClubAdvisorLoginController {
     }
 
     @FXML
-    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException {
+    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException{
+
+
         if(!fieldsChecker()){
             return;
         }
@@ -285,8 +291,7 @@ public class ClubAdvisorLoginController {
             System.out.println("Invalid Contact Number 2");
             User.contactNumberValidateStatus = "format";
             validStat = false;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             validStat = false;
         }
         displayContactValError();
@@ -340,32 +345,67 @@ public class ClubAdvisorLoginController {
             validStat = false;
             confirmPasswordLabel.setText("Confirm password cannot be empty");
         } else if (!confirmPassword.equals(password)){
-            confirmPasswordLabel.setText("Wrong confirm password ");
+            confirmPasswordLabel.setText("Passwords are not matching");
             validStat = false;
         }else{
             confirmPasswordLabel.setText(" ");
         }
+
+        String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
+            preparedStatement.setInt(1, Integer.parseInt(advisorId));
+            preparedStatement.setString(2, firstName);
+            preparedStatement.setString(3, lastName);
+            preparedStatement.setString(4, contactNum);
+            preparedStatement.executeUpdate(); // Remove the query string argument
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        String clubAdvisorCredentialsDetailsQuery = "INSERT INTO TeacherCredentials (teacherUserName, teacherPassword, teacherInChargeId) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, confirmPassword);
+            preparedStatement.setInt(3, Integer.parseInt(advisorId));
+            preparedStatement.executeUpdate(); // Remove the query string argument
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
 
         System.out.println(validStat + " : Valid Stat");
         if(validStat){
             ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName, contactNum, Integer.parseInt(advisorId));
             ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisorData);
 
+            try{
+                Thread.sleep(1000);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("You have successfully registered with the system !!!");
+            alert.showAndWait();
+
             this.goToLoginPage(event);
         }
         System.out.println("\n\n\n");
+
 
     }
 
     public void displayIdError(){
         if(ClubAdvisor.advisorIdStatus.equals("empty")){
-            advisorIdLabel.setText("Advisor Id cannot be empty");
+            advisorIdLabel.setText("Advisor Id cannot be empty.");
         }else if(ClubAdvisor.advisorIdStatus.equals("length")){
-            advisorIdLabel.setText("Advisor Id should have 6 digits");
+            advisorIdLabel.setText("Advisor Id should have 6 digits.");
         }else if(ClubAdvisor.advisorIdStatus.equals("exist")){
-            advisorIdLabel.setText("Advisor Id already exists");
+            advisorIdLabel.setText("Advisor Id already exists.");
         }else if(ClubAdvisor.advisorIdStatus.equals("format")){
-            advisorIdLabel.setText("Advisor Id should be in numbered format");
+            advisorIdLabel.setText("Advisor Id contain only numbers.");
         }else{
             advisorIdLabel.setText("");
         }
@@ -397,7 +437,7 @@ public class ClubAdvisorLoginController {
         } else if (User.contactNumberValidateStatus.equals("length")) {
             contactNumberLabel.setText("Contact Number should have 10 numbers.");
         }else if(User.contactNumberValidateStatus.equals("format")){
-            contactNumberLabel.setText("it should consist with only numbers");
+            contactNumberLabel.setText("Contact Number consist with only numbers");
         }else{
             contactNumberLabel.setText("");
         }

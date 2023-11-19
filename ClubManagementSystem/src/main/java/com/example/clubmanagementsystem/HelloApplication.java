@@ -51,6 +51,7 @@ public class HelloApplication extends Application {
                 "Saravanakumar","0779073140", 5748,
                 8, 'M');
         Student.studentDetailArray.add(stud1);
+
         System.out.println(Student.studentDetailArray.get(0).getFirstName());
 
         // club eka haduwama created club add wenna oneh and club advisarge ClubAdvisor details update wennath oneh
@@ -70,14 +71,13 @@ public class HelloApplication extends Application {
 
         ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager();
         clubAdvisorDataBaseManager.populateClubAdvisorArray("Lakshan200");
-        System.out.println(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId());
+//        System.out.println(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId());
         clubAdvisorDataBaseManager.populateStudentDetailArray();
+
         System.out.println(Student.studentDetailArray.get(0).getFirstName());
 
         clubAdvisorDataBaseManager.populateClubDetailArray(Club.clubDetailsList);
         System.out.println(Club.clubDetailsList.get(0).getClubName());
-
-
 
         Club club1 = new Club(0003, "Rotract23", "Done with the work", "C:/Users/laksh/OneDrive/Desktop/OOD Coursework/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/attendance.png");
         Club.clubDetailsList.add(club1);
