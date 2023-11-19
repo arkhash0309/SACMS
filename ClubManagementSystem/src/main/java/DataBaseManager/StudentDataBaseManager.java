@@ -22,7 +22,9 @@ public class StudentDataBaseManager {
         populateAllClubDetails();
         populateAllClubAdvisorDetails();
         populateClubAdvisorCreatedClubs();
+        populateStudentJoinedClubs();
         populateEventDetails();
+        populateAllEvents();
     }
 
     public int getStudentAdmissionNum(String userName){
@@ -164,7 +166,76 @@ public class StudentDataBaseManager {
         }
     }
 
+    public void populateStudentJoinedClubs(){
+        Student.studentJoinedClubs.clear();
+        String query = "SELECT C.clubId, C.clubName, C.clubDescription, C.clubLogo " +
+                "FROM Club C " +
+                "JOIN StudentClub SC ON C.clubId = SC.clubId " +
+                "WHERE SC.studentAdmissionNum = ?";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, this.StudentAdmissionNum);
+
+            try (ResultSet result = preparedStatement.executeQuery()) {
+                while (result.next()) {
+                    int clubId = result.getInt("clubId");
+                    String clubName = result.getString("clubName");
+                    String clubDescription = result.getString("clubDescription");
+                    String clubLogo = result.getString("clubLogo");
+
+                    Club clubDetail = new Club(clubId, clubName, clubDescription, clubLogo);
+
+                    Student.studentJoinedClubs.add(clubDetail);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+
+
+
+    }
+
+
     public void populateEventDetails(){
+        Student.studentEvent.clear();
+        for(Club club : Student.studentJoinedClubs){
+            String query = "SELECT eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
+                    "FROM EventDetails WHERE clubId = ?";
+
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
+                preparedStatement.setInt(1, club.getClubId());
+
+                try (ResultSet result = preparedStatement.executeQuery()) {
+                    while (result.next()) {
+                        Date eventDate = result.getDate("eventDate");
+                        Time eventTime = result.getTime("eventTime");
+                        LocalDate localDate = eventDate.toLocalDate();
+                        LocalTime localTime = eventTime.toLocalTime();
+
+                        Event event = new Event(
+                                result.getString("eventName"),
+                                result.getString("eventLocation"),
+                                result.getString("eventType"),
+                                result.getString("eventDeliveryType"),
+                                localDate,
+                                localTime,
+                                club,
+                                result.getString("eventDescription")
+                        );
+
+                        Student.studentEvent.add(event);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
+    public void populateAllEvents(){
         Event.eventDetails.clear();
         for(Club club : Club.clubDetailsList){
             String query = "SELECT eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
@@ -199,9 +270,6 @@ public class StudentDataBaseManager {
             }
 
         }
-
-
-
 
     }
 

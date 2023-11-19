@@ -11,7 +11,6 @@ import java.sql.*;
 
 public class HelloApplication extends Application {
     public static Connection connection;
-
     public static Statement statement;
     @Override
     public void start(Stage stage) throws IOException {
@@ -40,13 +39,6 @@ public class HelloApplication extends Application {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-
-        Student stud1 = new Student("arkh", "arkhash0309", "Arkhash",
-                "Saravanakumar","0779073140", 5748,
-                8, 'M');
-        Student.studentDetailArray.add(stud1);
-
-        System.out.println(Student.studentDetailArray.get(0).getFirstName());
 
         launch();
         connection.close();

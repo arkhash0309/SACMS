@@ -234,13 +234,14 @@ public class StudentLoginController {
         studentLoginPasswordErrorLabel.setText("");
         System.out.println("Directing to student dashboard");
 
+        StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
         StudentActivityController controller = loader.getController(); // This is done to set login userName to dashboard
-
         controller.showUserName.setText(userNameForShowInStudentDashboard); // controller variable will get the access to control student activity controller
-        controller.showUserName.setStyle("-fx-text-alignment: justify");
+        controller.showUserName.setStyle("-fx-text-alignment: center");
+        controller.displayEventCountPerClub();
         StudentDashboardManager.StudentActivityController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -248,7 +249,7 @@ public class StudentLoginController {
         stage.setScene(scene);
         stage.centerOnScreen();
 
-        StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard);
+
         stage.show();
     }
 
