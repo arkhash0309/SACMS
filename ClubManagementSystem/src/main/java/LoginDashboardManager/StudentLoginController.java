@@ -28,7 +28,11 @@ import java.sql.ResultSet;
 import static com.example.clubmanagementsystem.HelloApplication.statement;
 
 
-public class StudentLoginController implements Initializable {
+public class StudentLoginController {
+    private static String selectedGradeVal;
+    private static String selcetedGenderVal;
+    private int grade;
+    private String gender;
     public static boolean validateStatus = true;
     static boolean loginStatus;
     String studentLoginPageUserName;
@@ -54,7 +58,10 @@ public class StudentLoginController implements Initializable {
 
     @FXML
     private Label studentLoginPasswordErrorLabel;
-
+    @FXML
+    private Label studentRegistrationGradeEmptyLabel;
+    @FXML
+    private Label studentRegistrationGenderEmptyLabel;
     @FXML
     private CheckBox showPasswordCheckBox;
 
@@ -273,8 +280,11 @@ public class StudentLoginController implements Initializable {
         String admissionNum = this.studentRegisterAdmissionNumber.getText();
         String contactNum = this.studentRegisterContactNumber.getText();
 
-        Integer grade = Integer.valueOf((this.Grade.getValue()));
-        String gender = this.Gender.getValue();
+
+//        String gender = this.Gender.getValue();
+
+        System.out.println("Grade is "+ grade);
+        System.out.println("Gender is "+ gender);
 
         String userName = this.studentRegisterUserName.getText();
         String password = this.studentRegisterPassword.getText();
@@ -493,27 +503,53 @@ public class StudentLoginController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        for (int ComboGrade = 1; ComboGrade<13; ComboGrade++) {
-//            studentRegisterGrade.getItems().add(String.valueOf(ComboGrade));
-//        }
-//        studentRegisterGrade.getSelectionModel().selectFirst();
-//
-//        studentRegisterGender.getItems().addAll("M", "F");
 
-    }
 
 
 
     public void setComboBoxValuesStudentRegistration(){
+        Grade.getItems().add("Select Grade");
         for (int ComboGrade = 6; ComboGrade<13; ComboGrade++) {
             Grade.getItems().add((String.valueOf(ComboGrade)));
         }
-         Grade.getSelectionModel().selectFirst();
-       Gender.getItems().addAll("M", "F");
-         Gender.getSelectionModel().selectFirst();
+        Grade.getSelectionModel().selectFirst();
+        selectedGradeVal = "Select Grade";
+       Gender.getItems().addAll("Select Gender","M", "F");
+       Gender.getSelectionModel().selectFirst();
+       selcetedGenderVal = "Select Gender";
 
+       Grade.setOnAction(event -> validateGradeSelection());
+       Gender.setOnAction(event -> validateGenderSelection());
+    }
+    private int validateGradeSelection() {
+        selectedGradeVal = Grade.getValue();
+        String selectedGrade = Grade.getValue();
+
+        if (selectedGradeVal == "Select Grade") {
+            System.out.println("Came to please select your grade line");
+            studentRegistrationGradeEmptyLabel.setText("Please select your grade");
+        } else {
+            studentRegistrationGradeEmptyLabel.setText("");
+            grade = Integer.parseInt(this.Grade.getValue());
+            return grade;
+        }
+        return grade;
+    }
+    private String validateGenderSelection() {
+        selcetedGenderVal = Gender.getValue();
+        String selectedGender = Gender.getValue();
+
+        if (selcetedGenderVal == "Select Gender") {
+            System.out.println("Came to please select your gender line");
+            studentRegistrationGenderEmptyLabel.setText("Please select your gender");
+        } else {
+            studentRegistrationGenderEmptyLabel.setText("");
+            gender = this.Gender.getValue();
+            // Both Grade and Gender are selected, continue with your logic
+            System.out.println("Gender is "+ gender);
+            return gender;
+        }
+        return gender;
     }
 
 
