@@ -39,8 +39,8 @@ public class LoginController implements Initializable {
 
     @FXML
     void LoginDragDetected(MouseEvent event) {
-        Stage stage =  (Stage)LoginPane.getScene().getWindow();
-        stage.setX(event.getScreenX()- xPosition);
+        Stage stage = (Stage) LoginPane.getScene().getWindow();
+        stage.setX(event.getScreenX() - xPosition);
         stage.setY(event.getScreenY() - yPosition);
     }
 
@@ -51,9 +51,10 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    void DirectClubAdvisor(ActionEvent event) throws IOException {System.out.println("Direct to club Advisor");
+    void DirectClubAdvisor(ActionEvent event) throws IOException {
+        System.out.println("Direct to club Advisor");
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -62,8 +63,9 @@ public class LoginController implements Initializable {
 
     @FXML
     void DirectStudent(ActionEvent event) throws IOException {
+        System.out.println("Direct to student");
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -86,11 +88,4 @@ public class LoginController implements Initializable {
         ApplicationController applicationController = new ApplicationController();
         applicationController.MinimizeApp(LoginPane);
     }
-
-
-
 }
-
-
-
-

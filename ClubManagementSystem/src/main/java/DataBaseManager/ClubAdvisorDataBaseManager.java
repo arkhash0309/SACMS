@@ -75,7 +75,6 @@ public class ClubAdvisorDataBaseManager {
                     );
 
                     Student.studentDetailArray.add(student);
-                    System.out.println("Hello world !!!");
                 }
             }
         } catch (SQLException e) {
@@ -155,9 +154,4 @@ public class ClubAdvisorDataBaseManager {
        }
 
    }
-
-
-
-
-
 }
