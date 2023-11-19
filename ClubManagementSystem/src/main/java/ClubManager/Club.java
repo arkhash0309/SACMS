@@ -140,11 +140,14 @@ public class Club implements ClubValidator {
             return false;
         }else {
             for (Club foundClub : clubDetailsList){
-                if (this.clubName.equals(foundClub.getClubName())){
-                    clubNameValidateStatus = "exist";
-                    System.out.println("That club name already exists !!!");
-                    return false;
+                if (this.clubId != foundClub.getClubId()){
+                    if (this.clubName.equals(foundClub.getClubName())){
+                        clubNameValidateStatus = "exist";
+                        System.out.println("That club name already exists !!!");
+                        return false;
+                    }
                 }
+
             }
             if (containsSpecialCharactersAndDigits(this.clubName)){
                 clubNameValidateStatus = "format";
