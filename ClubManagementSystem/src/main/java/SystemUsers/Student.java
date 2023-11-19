@@ -129,6 +129,16 @@ public class Student extends User implements StudentValidator {
 
     public void joinClub(Club clubToJoin){
         Student.studentJoinedClubs.add(clubToJoin);
+
+        String insertQuery = "INSERT INTO StudentClub (studentAdmissionNum, clubId) VALUES (?, ?)";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)) {
+            preparedStatement.setInt(1, Student.studentDetailArray.get(0).getStudentAdmissionNum());
+            preparedStatement.setInt(2, clubToJoin.getClubId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
         alert.setHeaderText("You have successfully joined with" + clubToJoin.getClubName());

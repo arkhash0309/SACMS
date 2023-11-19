@@ -5,7 +5,6 @@ import ClubManager.Event;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import com.example.clubmanagementsystem.HelloApplication;
-import javafx.scene.chart.XYChart;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -20,8 +19,45 @@ public class ClubAdvisorDataBaseManager {
 
     public static HashMap<Integer, Club> requiredClub = new HashMap<>();
 
+    private String userName;
+
+    private int ClubAdvisorId;
+
+    public ClubAdvisorDataBaseManager(String userName) throws SQLException {
+        System.out.println("DataBase connector bn !!!");
+        this.userName = userName;
+        this.ClubAdvisorId = selectClubAdvisorId(this.userName);
+        System.out.println(this.ClubAdvisorId);
+        populateClubAdvisorArray();
+        populateClubDetailArray(Club.clubDetailsList, this.ClubAdvisorId);
+        populateEventsDetailArray();
+        populateStudentDetailArray();
+    }
+
+    public ClubAdvisorDataBaseManager(){
+
+    }
+
+    public int selectClubAdvisorId(String userName){
+        int teacherInChargeId = 0;
+        String selectTeacherInChargeIdQuery = "SELECT teacherInChargeId FROM TeacherCredentials WHERE teacherUserName = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(selectTeacherInChargeIdQuery)) {
+            preparedStatement.setString(1, userName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                teacherInChargeId = resultSet.getInt("teacherInChargeId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return teacherInChargeId;
+
+    }
+
     // for club advisor login
-    public void populateClubAdvisorArray(String userName) throws SQLException {
+    public void populateClubAdvisorArray() throws SQLException {
         ClubAdvisor.clubAdvisorDetailsList.clear();
 
         String query = "SELECT TIC.teacherInChargeId, TC.teacherUserName, TC.teacherPassword, TIC.TICFName, TIC.TICLName, TIC.teacherContactNum " +
@@ -30,7 +66,7 @@ public class ClubAdvisorDataBaseManager {
                 "WHERE TC.teacherUserName = ?";
 
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
-            preparedStatement.setString(1, userName);
+            preparedStatement.setString(1, this.userName);
 
             try (ResultSet result = preparedStatement.executeQuery()) {
                 while (result.next()) {
@@ -44,6 +80,7 @@ public class ClubAdvisorDataBaseManager {
                     );
 
                     ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisor);
+                    System.out.println("Elama");
                 }
             }
         }
@@ -57,7 +94,6 @@ public class ClubAdvisorDataBaseManager {
                 "FROM Student STD " +
                 "JOIN studentCredentials STC ON STD.studentAdmissionNum = STC.studentAdmissionNum";
 
-        String query2;
 
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
 
@@ -89,14 +125,15 @@ public class ClubAdvisorDataBaseManager {
    }
 
 
-   public void populateClubDetailArray(ArrayList<Club> clubDetailArray){
+   public void populateClubDetailArray(ArrayList<Club> clubDetailArray, int clubAdvisorId){
        Club.clubDetailsList.clear();
        clubIdList.clear();
        String query = "SELECT C.clubId, C.clubName, C.clubDescription, C.clubLogo " +
-               "FROM Club C JOIN TeacherInCharge TIC ON C.teacherInChargeId = TIC.teacherInChargeId";
+               "FROM Club C JOIN TeacherInCharge TIC ON C.teacherInChargeId = TIC.teacherInChargeId " +
+               "WHERE TIC.teacherInChargeId = ?";
 
        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
-
+           preparedStatement.setInt(1, clubAdvisorId);
            try (ResultSet result = preparedStatement.executeQuery()) {
                while (result.next()) {
                    Club club  = new Club(
@@ -125,7 +162,7 @@ public class ClubAdvisorDataBaseManager {
                    "FROM EventDetails WHERE clubId = ?";
 
            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
-               preparedStatement.setString(1, String.valueOf(clubId));
+               preparedStatement.setInt(1, clubId);
 
                try (ResultSet result = preparedStatement.executeQuery()) {
                    while (result.next()) {

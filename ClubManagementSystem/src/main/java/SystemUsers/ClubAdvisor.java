@@ -8,9 +8,7 @@ import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -60,24 +58,67 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         Event.eventDetails.add(event);
         System.out.println("Event successfully Scheduled !!!");
 
+        String EventsQuery = "INSERT INTO EventDetails (eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription, clubId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(EventsQuery)) {
+            preparedStatement.setString(1, eventName);
+            preparedStatement.setDate(2, Date.valueOf(eventDate));
+            preparedStatement.setTime(3, Time.valueOf(eventTime));
+            preparedStatement.setString(4, eventLocation);
+            preparedStatement.setString(5, eventType);
+            preparedStatement.setString(6, eventDeliveryType);
+            preparedStatement.setString(7, eventDescription);
+            assert selectedClub != null;
+            preparedStatement.setInt(8, selectedClub.getClubId());
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Wrong !!!");
+            System.out.println(e);
+            return;
+        }
+
         Alert eventCreateAlert = new Alert(Alert.AlertType.INFORMATION);
         eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
         eventCreateAlert.setTitle("School Club Management System");
         eventCreateAlert.setHeaderText("Event successfully created !!!");
         eventCreateAlert.show();
+
+        System.out.println("Correct");
     }
 
 
     public void updateEventDetails(Event event, int eventId){
-          Event.eventDetails.set(eventId, event);
-          Alert eventUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
-          eventUpdateAlert.initModality(Modality.APPLICATION_MODAL);
-          eventUpdateAlert.setTitle("School Club Management System");
-          eventUpdateAlert.setHeaderText("Event details successfully updated!!!");
-          eventUpdateAlert.show();
+        Event.eventDetails.set(eventId, event);
+        Club selectedClub = event.getHostingClub();
+
+        String updateEventQuery = "UPDATE EventDetails SET eventName = ?, eventDate = ?, eventTime = ?, eventLocation = ?, eventType = ?, eventDeliveryType = ?, eventDescription = ?, clubId = ? WHERE EventId = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateEventQuery)) {
+            preparedStatement.setString(1, event.getEventName());
+            preparedStatement.setDate(2, Date.valueOf(event.getEventDate()));
+            preparedStatement.setTime(3, Time.valueOf(event.getEventTime()));
+            preparedStatement.setString(4, event.getEventLocation());
+            preparedStatement.setString(5, event.getEventType());
+            preparedStatement.setString(6, event.getEventDeliveryType());
+            preparedStatement.setString(7, event.getEventDeliveryType());
+            assert selectedClub != null;
+            preparedStatement.setInt(8, selectedClub.getClubId());
+            preparedStatement.setInt(9, eventId);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error updating event!");
+            System.out.println(e);
+            return;
+        }
+
+        Alert eventUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+        eventUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+        eventUpdateAlert.setTitle("School Club Management System");
+        eventUpdateAlert.setHeaderText("Event details successfully updated!!!");
+        eventUpdateAlert.show();
+
     }
 
     public void cancelEvent(Event event, int selectedEventId){
+
         for(Event eventVal : Event.eventDetails){
             if(eventVal.getEventName().equals(event.getEventName())){
                 Event.eventDetails.remove(selectedEventId);
@@ -88,12 +129,24 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
             }
         }
 
+        String deleteEventQuery = "DELETE FROM EventDetails WHERE EventId = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(deleteEventQuery)) {
+            preparedStatement.setInt(1, selectedEventId);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error deleting event!");
+            System.out.println(e);
+            return;
+        }
+
         Alert deletedEvent = new Alert(Alert.AlertType.INFORMATION);
         deletedEvent.setHeaderText("Event successfully cancelled !!!");
         deletedEvent.setTitle("School Club Management System");
         deletedEvent.show();
 
     }
+
+
     public ClubAdvisor(String userName,String password,
                        String firstName, String lastName){
         super(userName, password, firstName, lastName);

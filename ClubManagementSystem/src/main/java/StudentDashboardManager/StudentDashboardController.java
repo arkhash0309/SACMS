@@ -28,6 +28,7 @@ abstract public class StudentDashboardController implements Initializable {
     protected double xPosition;
 
     protected double yPosition;
+
     @FXML
     protected StackPane StudentDashboard;
 

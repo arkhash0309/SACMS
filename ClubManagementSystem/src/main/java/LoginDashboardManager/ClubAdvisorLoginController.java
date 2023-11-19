@@ -1,6 +1,7 @@
 package LoginDashboardManager;
 
 import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
+import DataBaseManager.ClubAdvisorDataBaseManager;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
@@ -187,7 +188,7 @@ public class ClubAdvisorLoginController {
     }
 
     @FXML
-    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException{
+    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException, SQLException {
 
 
         if(!fieldsChecker()){
@@ -200,6 +201,9 @@ public class ClubAdvisorLoginController {
         }
         clubAdvisorIncorrectCredential.setText("");
         System.out.println("Directing to advisor dashboard");
+
+        ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager(userNameForShowInAdvisorDashboard);
+
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
