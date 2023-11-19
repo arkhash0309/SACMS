@@ -168,6 +168,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
+    @FXML
+    public Label showUserNameClubAdvisor;
   
     @FXML
     public TextField clubName;
@@ -487,9 +489,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableView<String> attendanceTrackerTable;
-    
-    @FXML
-    public  Label showUserNameClubAdvisor;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);

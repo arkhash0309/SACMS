@@ -120,7 +120,7 @@ public class StudentLoginController implements Initializable {
     @FXML
     public Label usernameLabel;
 
-    public  static String userNameVal;
+    public  static String userNameForShowInStudentDashboard;
 
 
     @FXML
@@ -162,7 +162,7 @@ public class StudentLoginController implements Initializable {
         studentLoginPageUserName = LoginStudentUserName.getText();
         studentLoginPagePassword = studentLoginPassword.getText();
 
-        userNameVal = studentLoginPageUserName;
+        userNameForShowInStudentDashboard = studentLoginPageUserName;
         if (studentLoginPageUserName.isEmpty()) {
             loginStatus = false;
             studentLoginUserNameErrorLabel.setText("This field cannot be empty");
@@ -230,7 +230,8 @@ public class StudentLoginController implements Initializable {
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
         StudentActivityController controller = loader.getController(); // This is done to set login userName to dashboard
-        controller.showUserName.setText(userNameVal); // controller variable will be have access to control student activity controller
+
+        controller.showUserName.setText(userNameForShowInStudentDashboard); // controller variable will get the access to control student activity controller
         controller.showUserName.setStyle("-fx-text-alignment: justify");
         StudentDashboardManager.StudentActivityController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
