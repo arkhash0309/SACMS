@@ -48,11 +48,14 @@ public class StudentActivityController extends StudentDashboardController{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setUpdateTextFields();
-        for (int grade = 6; grade<14; grade++) {
-            studentUpdateProfileGrade.getItems().add(String.format("%02d", grade));
-        }
 
+        studentUpdateProfileGrade.getItems().add("Select Grade");
+        for (int grade = 6; grade<14; grade++) {
+            studentUpdateProfileGrade.getItems().add(String.valueOf(grade));
+        }
         studentUpdateProfileGrade.getSelectionModel().selectFirst();
+        selectedGrade = "Selecet Grade";
+        studentUpdateProfileGrade.setOnAction(event -> validateGradeSelection());
 
 //        studentUpdateProfileID.setText(studentUpdateProfileID);
 
@@ -261,17 +264,20 @@ public class StudentActivityController extends StudentDashboardController{
         }
         displayUserNameError();
 
-
-
         System.out.println(validStat + " : Valid Stat");
         if (validStat) {
             System.out.println("Not implemented yet");
-
-
-
-
         }
+
         System.out.println("\n\n\n");
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("You have successfully update your credentials.");
+        alert.showAndWait();
+
+
     }
 
     public void onStudentProfilePasswordChangeButtonClick() throws SQLException {
@@ -357,22 +363,6 @@ public class StudentActivityController extends StudentDashboardController{
 
 
 
-
-
-    private int validateGradeSelection(){
-        selectedGrade = studentUpdateProfileGrade.getValue();
-
-        if(selectedGrade == "Select Grade"){
-            updateGradeLabel.setText("Please select your grade");
-        } else {
-            updateGradeLabel.setText("");
-            updatedGrade = Integer.parseInt(this.studentUpdateProfileGrade.getValue());
-            return updatedGrade;
-        }
-        return updatedGrade;
-    }
-
-
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
             if (Student.fNameValidateStatus.equals("empty")) {
@@ -392,6 +382,22 @@ public class StudentActivityController extends StudentDashboardController{
             }
         }
     }
+
+    private int validateGradeSelection(){
+        selectedGrade = studentUpdateProfileGrade.getValue();
+
+        if(selectedGrade == "Select Grade"){
+            updateGradeLabel.setText("Please select your grade");
+        } else {
+            updateGradeLabel.setText("");
+            updatedGrade = Integer.parseInt(this.studentUpdateProfileGrade.getValue());
+            return updatedGrade;
+        }
+        return updatedGrade;
+    }
+
+
+
 
     public void displayContactNumError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
@@ -416,16 +422,6 @@ public class StudentActivityController extends StudentDashboardController{
             studentUpdateUserNameLabel.setText("The length should be 5 to 10 characters.");
         } else {
             studentUpdateUserNameLabel.setText("");
-        }
-    }
-
-    public void displayPasswordError() {
-        if (User.passwordValidateStatus.equals("empty")) {
-            studentUpdateNewPasswordLabel.setText("Password cannot be empty.");
-        } else if (User.passwordValidateStatus.equals("format")) {
-            studentUpdateNewPasswordLabel.setText("Password should consists of 8 characters including numbers and special characters.");
-        } else {
-            studentUpdateNewPasswordLabel.setText("");
         }
     }
 
