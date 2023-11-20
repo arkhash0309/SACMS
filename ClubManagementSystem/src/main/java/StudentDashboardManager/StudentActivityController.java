@@ -33,8 +33,11 @@ public class StudentActivityController extends StudentDashboardController{
 
     public static boolean validStat = true;
     static int studentAdmissionNum;
+    private String selectedGrade;
+
     public static int studentAdmission;
 
+    String updatedGrade;
     public static String existingUserName;
 
     static int clubIndexStudentLeave;
@@ -175,7 +178,6 @@ public class StudentActivityController extends StudentDashboardController{
         String updatedLastName = studentUpdateProfileLName.getText();
         String updatedUserName = studentUpdateProfileUserName.getText();
         String updatedContactNum = studentUpdateProfileContactNum.getText();
-        String updatedGrade = studentUpdateProfileGrade.getValue();
         System.out.println("Grade is " + updatedGrade);
 
         Student student = new Student(studentUpdateProfileUserName.getText(), studentUpdateProfileExistingPassword.getText(),
@@ -370,9 +372,9 @@ public class StudentActivityController extends StudentDashboardController{
         selectedGrade = studentUpdateProfileGrade.getValue();
 
         if(selectedGrade == "Select Grade"){
-            studentUpdatedGrade.setText("Please select your grade");
+            updateGradeLabel.setText("Please select your grade");
         } else {
-            studentUpdatedGrade.setText("");
+            updateGradeLabel.setText("");
             updatedGrade = Integer.parseInt(this.studentUpdateProfileGrade.getValue());
             return updatedGrade;
         }
