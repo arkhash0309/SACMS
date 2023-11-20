@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -26,10 +27,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class StudentActivityController extends StudentDashboardController{
 
@@ -52,7 +50,6 @@ public class StudentActivityController extends StudentDashboardController{
         displayNumberOfEnrolledClubs();
         displayNumberOfUpcomingEvents();
         findNextEventDateForStudent();
-
         studentEventSelector.getItems().add("All Clubs");
         studentEventSelector.getSelectionModel().selectFirst();
 
@@ -123,6 +120,7 @@ public class StudentActivityController extends StudentDashboardController{
         displayNumberOfEnrolledClubs();
         displayNumberOfUpcomingEvents();
         findNextEventDateForStudent();
+        displayEventCountPerClub();
     }
 
     @Override
@@ -712,7 +710,7 @@ public class StudentActivityController extends StudentDashboardController{
             // the details of the required event are retrieved
             Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                     value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                    value.getEventTime(), hostingClubDetail, value.getEventDescription());
+                    value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
             // an observable list is created of data type Event
             ObservableList<Event> viewScheduledEvents = EventViewTableStudent.getItems();
@@ -727,7 +725,7 @@ public class StudentActivityController extends StudentDashboardController{
             Club hostingClubDetail = value.getHostingClub();
             Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                     value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                    value.getEventTime(), hostingClubDetail, value.getEventDescription());
+                    value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
             ObservableList<Event> viewScheduledEvents = EventViewTableStudent.getItems();
             viewScheduledEvents.add(requiredEvent);
@@ -785,6 +783,7 @@ public class StudentActivityController extends StudentDashboardController{
     }
 
 
+
     @Override
     // styles are set for the student action buttons on the left pane
     public void makeAllStudentButtonsColoured(){
@@ -794,4 +793,28 @@ public class StudentActivityController extends StudentDashboardController{
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 
+    public void displayEventCountPerClub() {
+        HashMap<String, Integer> clubEventCount = new HashMap<>();
+
+
+        LocalDate currentDate = LocalDate.now();
+        for (Event event : Student.studentEvent) {
+            if(event.getEventDate().isAfter(currentDate)){
+                Club club = event.getHostingClub();
+                String clubName = club.getClubName();
+                System.out.println(clubName);
+
+                clubEventCount.put(clubName, clubEventCount.getOrDefault(clubName, 0) + 1);
+            }
+        }
+
+        UpcomingEventRateForTable.getData().clear();
+
+        XYChart.Series setOfData = new XYChart.Series();
+        for (Map.Entry<String, Integer> entry : clubEventCount.entrySet()) {
+            setOfData.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+        }
+
+        UpcomingEventRateForTable.getData().addAll(setOfData);
+    }
 }

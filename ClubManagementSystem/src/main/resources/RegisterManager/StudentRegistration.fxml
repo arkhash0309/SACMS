@@ -83,22 +83,22 @@
                      <children>
                         <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="510.0" prefWidth="585.0" styleClass="EventMainPane">
                            <children>
-                              <TextField fx:id="studentRegisterUserName" layoutX="21.0" layoutY="348.0" prefHeight="29.0" prefWidth="248.0" promptText="Username" styleClass="eventField" AnchorPane.topAnchor="338.0">
+                              <TextField fx:id="studentRegisterUserName" layoutX="21.0" layoutY="345.0" prefHeight="29.0" prefWidth="248.0" promptText="Username" styleClass="eventField" AnchorPane.topAnchor="345.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="307.0" layoutY="413.0" mnemonicParsing="false" onMouseClicked="#StudentRegistrationChecker" onMousePressed="#StudentRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
+                              <Button layoutX="307.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#StudentRegistrationChecker" onMousePressed="#StudentRegistrationChecker" prefHeight="29.0" prefWidth="242.0" styleClass="clubAdvisorLoginButtons" text="Register">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <PasswordField fx:id="studentRegisterPassword" layoutX="307.0" layoutY="337.0" prefHeight="29.0" prefWidth="242.0" promptText="Password" styleClass="eventField" AnchorPane.topAnchor="338.0">
+                              <PasswordField fx:id="studentRegisterPassword" layoutX="311.0" layoutY="346.0" prefHeight="29.0" prefWidth="242.0" promptText="Password" styleClass="eventField" AnchorPane.topAnchor="346.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </PasswordField>
-                              <PasswordField fx:id="studentRegisterConfirmPassword" layoutX="18.0" layoutY="423.0" prefHeight="29.0" prefWidth="251.0" promptText="Confirm Password" styleClass="eventField">
+                              <PasswordField fx:id="studentRegisterConfirmPassword" layoutX="18.0" layoutY="427.0" prefHeight="29.0" prefWidth="251.0" promptText="Confirm Password" styleClass="eventField">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -156,17 +156,17 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="308.0" prefHeight="29.0" prefWidth="249.0" styleClass="updateClubLabels" text="  User Name" textFill="WHITE">
+                              <Label layoutX="20.0" layoutY="317.0" prefHeight="29.0" prefWidth="249.0" styleClass="updateClubLabels" text="  User Name" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="307.0" layoutY="308.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Password" textFill="WHITE">
+                              <Label layoutX="310.0" layoutY="319.0" prefHeight="29.0" prefWidth="242.0" styleClass="updateClubLabels" text="  Password" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="393.0" prefHeight="29.0" prefWidth="249.0" styleClass="updateClubLabels" text="  Confirm Password" textFill="WHITE">
+                              <Label layoutX="18.0" layoutY="398.0" prefHeight="29.0" prefWidth="251.0" styleClass="updateClubLabels" text="  Confirm Password" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -186,7 +186,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="studentRegisterUserNameErrorLabel" layoutX="28.0" layoutY="367.0" prefHeight="21.0" prefWidth="242.0" textFill="#500c0c">
+                              <Label fx:id="studentRegisterUserNameErrorLabel" layoutX="21.0" layoutY="373.0" prefHeight="21.0" prefWidth="249.0" textFill="#500c0c">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
@@ -205,17 +205,28 @@
                               <Label fx:id="studentRegisterContactNumErrorLabel" layoutX="311.0" layoutY="200.0" prefHeight="18.0" prefWidth="241.0" textFill="#500c0c" AnchorPane.topAnchor="208.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
-                                 </font></Label>
-                              <Label fx:id="studentRegisterPasswordErrorLabel" layoutX="307.0" layoutY="368.0" prefHeight="41.0" prefWidth="241.0" textFill="#500c0c">
+                                 </font>
+                              </Label>
+                              <Label fx:id="studentRegisterPasswordErrorLabel" layoutX="311.0" layoutY="375.0" prefHeight="41.0" prefWidth="241.0" textFill="#500c0c">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="studentRegisterConfirmPasswordErrorLabel" layoutX="27.0" layoutY="453.0" prefHeight="18.0" prefWidth="241.0" textFill="#500c0c">
+                              <Label fx:id="studentRegisterConfirmPasswordErrorLabel" layoutX="20.0" layoutY="458.0" prefHeight="18.0" prefWidth="248.0" textFill="#500c0c">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <ComboBox fx:id="Grade" layoutX="20.0" layoutY="261.0" prefHeight="31.0" prefWidth="251.0" styleClass="eventField" AnchorPane.topAnchor="263.0" />
-                              <ComboBox fx:id="Gender" layoutX="310.0" layoutY="261.0" prefHeight="25.0" prefWidth="244.0" styleClass="eventField" AnchorPane.topAnchor="263.0" />
+                              <ComboBox fx:id="Grade" layoutX="20.0" layoutY="261.0" prefHeight="31.0" prefWidth="251.0" promptText="Select your Grade" styleClass="eventField" AnchorPane.topAnchor="263.0" />
+                              <ComboBox fx:id="Gender" layoutX="310.0" layoutY="261.0" prefHeight="25.0" prefWidth="244.0" promptText="Select your Gender" styleClass="eventField" AnchorPane.topAnchor="263.0" />
+                              <Label fx:id="studentRegistrationGradeEmptyLabel" layoutX="21.0" layoutY="294.0" prefHeight="21.0" prefWidth="249.0" textFill="#500c0c">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="studentRegistrationGenderEmptyLabel" layoutX="311.0" layoutY="294.0" prefHeight="21.0" prefWidth="244.0" textFill="#500c0c">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children>

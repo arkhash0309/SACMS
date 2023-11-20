@@ -3,10 +3,13 @@ package ClubAdvisorDashboardManager;
 import ClubManager.Club;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
+import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
 import ClubManager.Attendance;
 import ClubManager.Event;
 import ClubManager.EventManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,25 +24,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpCookie;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.*;
-
 import static ClubManager.Club.clubDetailsList;
+import static SystemUsers.ClubAdvisor.clubAdvisorDetailsList;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
 
+    public static String username;
+
+    public static boolean validStat = true;
     public static int selectedEventId;
     public static Event selectedEventValue;
     final FileChooser fileChooser = new FileChooser();
@@ -86,6 +99,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         displayNumberOfScheduledEvents();
         getNextEventDate();
+        displayStudentUpdateDetails();
+        displayExistingPassword();
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
@@ -226,7 +241,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
            Club hostingClub = value.getHostingClub();
            Event event = new Event(value.getEventName(), value.getEventLocation(),
                    value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                   value.getEventTime(), hostingClub, value.getEventDescription());
+                   value.getEventTime(), hostingClub, value.getEventDescription(), value.getEventId());
 
            ObservableList<Event> viewScheduledEvents = scheduleCreatedEventTable.getItems();
            viewScheduledEvents.add(event);
@@ -251,8 +266,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void clubCreationChecker(ActionEvent event) {
 //        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
+        validStat = true;
 
-        boolean validState = true;
         int clubId = Integer.parseInt(this.clubId.getText());
         String clubName = this.clubName.getText();
         String clubDescription = this.clubDescription.getText();
@@ -264,32 +279,66 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         if (!club.validateClubName()){
             System.out.println("Wrong Club Name");
-            validState = false;
+            validStat = false;
         }
         displayClubNameError(clubNameError);
 
         if (!club.validateClubDescription()){
             System.out.println("Wrong Club Description");
-            validState = false;
+            validStat = false;
         }
         displayClubDecriptionError(clubDescriptionError);
 
-        System.out.println("Valid Stat :" + validState );
-        if (validState){
-            Club clubData = new Club(clubId,clubName,clubDescription,imagePath);
+        System.out.println("Valid Stat :" + validStat );
+        if (validStat) {
+            Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
             clubDetailsList.add(clubData);
+
             setCreateTable();
             setUpdateTable();
+
+            Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+            clubUpdateAlert.setTitle("School Club Management System");
+            clubUpdateAlert.setHeaderText(clubName + " Club created successfully!");
+            clubUpdateAlert.show();
+
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
+
+            this.clubName.setText("");
+            this.clubDescription.setText("");
+//            Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//            this.createClubImage.setImage(defaultImage);
+
+            //Update database
+        }else {
+            Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
+            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+            clubUpdateAlert.setTitle("School Club Management System");
+            clubUpdateAlert.setHeaderText("Please fill the club details properly!");
+            clubUpdateAlert.show();
         }
+    }
+
+    @Override
+    void clubCreationReset(ActionEvent event) {
+        clubName.setText("");
+        clubDescription.setText("");
+
+//        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//        createClubImage.setImage(defaultImage);
+
+
+        clubNameError.setText("");
+        clubDescriptionError.setText("");
     }
 
     public void clubUpdateChecker(ActionEvent event) {
 //        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
+        validStat = true;
 
-        boolean validState = true;
         int clubId = Integer.parseInt(updateClubID.getText());
         String clubName = updateClubName.getText();
         String clubDescription = updateClubDescription.getText();
@@ -298,37 +347,66 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         if (!club.validateClubName()){
             System.out.println("Wrong Club Name");
-            validState = false;
+            validStat = false;
         }
         displayClubNameError(updateClubNameError);
 
         if (!club.validateClubDescription()){
             System.out.println("Wrong Club Description");
-            validState = false;
+            validStat = false;
         }
         displayClubDecriptionError(updateClubDescriptionError);
 
 
-        System.out.println("Valid state : " + validState);
-        if (validState){
+        System.out.println("Valid state : " + validStat);
+        if (validStat){
             for (Club foundClub : clubDetailsList){
                 if (clubId == foundClub.getClubId()){
                     foundClub.setClubName(clubName);
                     foundClub.setClubDescription(clubDescription);
                     //Set club logo
+                    String clubLogo = this.updateClubImage.getImage().getUrl();
+                    foundClub.setClubLogo(clubLogo);
 
+                    Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+                    clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+                    clubUpdateAlert.setTitle("School Club Management System");
+                    clubUpdateAlert.setHeaderText("Club details successfully updated!!!");
+                    clubUpdateAlert.show();
+
+                    //Clear the update text-fields
+                    this.updateClubID.setText(String.valueOf(""));
+                    this.updateClubName.setText("");
+                    this.updateClubDescription.setText("");
+
+//                    Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//                    this.updateClubImage.setImage(defaultImage);
 
                     //Updating club details tables
                     setCreateTable();
                     setUpdateTable();
 
-
-
                     //Update database
                 }
             }
+        }else {
+            Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
+            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+            clubUpdateAlert.setTitle("School Club Management System");
+            clubUpdateAlert.setHeaderText("Please fill the club details properly!");
+            clubUpdateAlert.show();
         }
+    }
+    @FXML
+    void clubUpdationReset(ActionEvent event) {
+        updateClubID.setText(String.valueOf(""));
+        updateClubName.setText("");
+        updateClubDescription.setText("");
+//        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//        updateClubImage.setImage(defaultImage);
 
+        updateClubNameError.setText("");
+        updateClubDescriptionError.setText("");
     }
 
     @FXML
@@ -369,6 +447,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             labelID.setText("Club Name cannot be empty");
         } else if (Club.clubNameValidateStatus.equals("format")) {
             labelID.setText("Club Name can contain only letters");
+        }else if (Club.clubNameValidateStatus.equals("exist")){
+            labelID.setText("That club name already exists !!!");
         }else {
             labelID.setText("");
         }
@@ -381,16 +461,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-    @Override
-    void clubCreationReset(ActionEvent event) {
-        clubName.setText("");
-        clubDescription.setText("");
-    }
-
-
     @FXML
     public void updateClubTableSelect(MouseEvent event) {
         updateClubTableSelect();
+
+        updateClubNameError.setText("");
+        updateClubDescriptionError.setText("");
     }
 
     public void updateClubTableSelect(){
@@ -438,7 +514,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }else {
             //Show the import image error alert
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Import Image Error !!!");
+            alert.setTitle("Image not imported !!!");
             alert.show(); //Display the error
         }
     }
@@ -1093,7 +1169,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
               Club hostingClubDetail = value.getHostingClub();
               Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                       value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                      value.getEventTime(), hostingClubDetail, value.getEventDescription());
+                      value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
               ObservableList<Event> viewScheduledEvents = viewCreatedEventsTable.getItems();
               viewScheduledEvents.add(requiredEvent);
@@ -1355,7 +1431,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         makeAllButtonsColoured();
         ProfilePane.setVisible(true);
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
-
+        displayStudentUpdateDetails();
+        displayExistingPassword();
     }
 
 
@@ -1472,6 +1549,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         createClubPane.setVisible(true);
         CreateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+        clubNameError.setText("");
+        clubDescriptionError.setText("");
     }
 
     @Override
@@ -1480,6 +1560,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         UpdateClubDetailPane.setVisible(true);
         UpdateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+        updateClubNameError.setText("");
+        updateClubDescriptionError.setText("");
     }
 
     @FXML
@@ -1494,4 +1577,236 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     static {
         clubIdSetterValue = 100;
     }
+
+
+    @FXML
+    void advisorProfileUpdateChecker(ActionEvent event) {
+        validStat = true;
+
+        int advisorId = Integer.parseInt(profileAdvisorId.getText());
+        String advisorFirstName = profileAdvisorFname.getText();
+        String advisorLastName = profileAdvisorLname.getText();
+        String advisorUsername = profileAdvisorUsername.getText();
+        String advisorContactNumber = profileAdvisorCnumber.getText();
+        String advisorPassword = profileAdvisorpw.getText();
+
+        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
+
+        ClubAdvisor.fNameValidateStatus = "correct";
+        ClubAdvisor.lNameValidateStatus = "correct";
+        ClubAdvisor.contactNumberValidateStatus = "correct";
+        ClubAdvisor.passwordValidateStatus = "correct";
+        ClubAdvisor.userNameValidateStatus = "correct";
+
+        if (!clubAdvisor.validateFirstName()) {
+            System.out.println("Incorrect First Name.");
+            System.out.println(ClubAdvisor.fNameValidateStatus + " : First Name");
+            validStat = false;
+        }
+        displayNameError("firstName");
+
+        if (!clubAdvisor.validateLastName()) {
+            System.out.println("Incorrect Last Name.");
+            System.out.println(Student.lNameValidateStatus);
+            validStat = false;
+        }
+        displayNameError("lastName");
+
+        try{
+            String tempContactNum = advisorContactNumber;
+            if (tempContactNum.isEmpty()) {
+                User.contactNumberValidateStatus = "empty";
+                throw new Exception();
+            }
+            Double.parseDouble(advisorContactNumber.trim());
+            ClubAdvisor clubAdvisor1 = new ClubAdvisor(tempContactNum);
+
+            if (!clubAdvisor1.validateContactNumber()) {
+                validStat = false;
+                System.out.println("Invalid Contact Number 1");
+            } else {
+                User.contactNumberValidateStatus = "";
+            }
+        } catch(NumberFormatException e) {
+            System.out.println("Invalid ContactNumber 2");
+            User.contactNumberValidateStatus = "format";
+            validStat = false;
+        } catch (Exception e) {
+            validStat = false;
+        }
+        displayContactNumError();
+
+        if (!clubAdvisor.validateUserName("updation", "advisor")) {
+            System.out.println("Wrong user name.");
+            validStat = false;
+        } else {
+            User.userNameValidateStatus = "";
+        }
+        displayUserNameError();
+
+        System.out.println("Valid state : " + validStat);
+        if (validStat){
+            for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList){
+                if (advisorId == foundClubAdvisor.getClubAdvisorId()){
+                    foundClubAdvisor.setClubAdvisorId(advisorId);
+                    foundClubAdvisor.setFirstName(advisorFirstName);
+                    foundClubAdvisor.setLastName(advisorLastName);
+                    foundClubAdvisor.setUserName(advisorUsername);
+                    foundClubAdvisor.setContactNumber(advisorContactNumber);
+
+                    Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+                    clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+                    clubUpdateAlert.setTitle("School Club Management System");
+                    clubUpdateAlert.setHeaderText("Profile details successfully updated!!!");
+                    clubUpdateAlert.show();
+
+                    //Update database
+                }
+            }
+        }
+    }
+
+    @FXML
+    void advisorProfilePasswordChecker(ActionEvent event) throws SQLException {
+        validStat = true;
+        int advisorId = Integer.parseInt(profileAdvisorId.getText());
+        String advisorFirstName = profileAdvisorFname.getText();
+        String advisorLastName = profileAdvisorLname.getText();
+        String advisorUsername = profileAdvisorUsername.getText();
+        String advisorContactNumber = profileAdvisorCnumber.getText();
+//        String advisorpw = profileAdvisorpw.getText();
+        String advisorNewPassword = profileAdvisorNewpwError.getText();
+        String advisorConfirmPassword = profileAdvisorConfirmpwError.getText();
+
+        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName,
+                advisorContactNumber, advisorId);
+
+        if (!clubAdvisor.validatePassword("update")) {
+            System.out.println("Wrong password.");
+            validStat = false;
+        } else {
+            User.passwordValidateStatus = "";
+        }
+        displayPasswordError();
+
+        if (advisorConfirmPassword.isEmpty()) {
+            profileAdvisorConfirmpwError.setText("Cannot be empty.");
+            validStat = false;
+        } else if (!advisorConfirmPassword.equals(advisorNewPassword)) {
+            profileAdvisorConfirmpwError.setText("Passwords do not match");
+            validStat = false;
+        } else {
+            profileAdvisorConfirmpwError.setText("");
+        }
+
+        System.out.println("Valid state : " + validStat);
+        if (validStat){
+            for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList){
+                if (advisorId == foundClubAdvisor.getClubAdvisorId()){
+                    foundClubAdvisor.setPassword(advisorNewPassword);
+
+                    Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+                    clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+                    clubUpdateAlert.setTitle("School Club Management System");
+                    clubUpdateAlert.setHeaderText("Profile password successfully changed!!!");
+                    clubUpdateAlert.show();
+
+                    profileAdvisorpw.setText(advisorNewPassword);
+                    profileAdvisorNewpw.setText("");
+                    profileAdvisorConfirmpw.setText("");
+
+                    //Update database
+                }
+            }
+        }
+    }
+
+    public void displayUserNameError() {
+        if (User.userNameValidateStatus.equals("empty")) {
+            profileAdvisorUsernameError.setText("User name cannot be empty.");
+        } else if (ClubAdvisor.userNameValidateStatus.equals("exists")) {
+            profileAdvisorUsernameError.setText("Entered username already exists.");
+        } else if (User.userNameValidateStatus.equals("blank")) {
+            profileAdvisorUsernameError.setText("Username cannot contain spaces.");
+        } else if (User.userNameValidateStatus.equals("length")) {
+            profileAdvisorUsernameError.setText("The length should be 5 to 10 characters.");
+        } else {
+            profileAdvisorUsernameError.setText("");
+        }
+    }
+    public void displayContactNumError() {
+        if (User.contactNumberValidateStatus.equals("empty")) {
+            profileAdvisorCnumberError.setText("Contact number cannot be empty.");
+        } else if (User.contactNumberValidateStatus.equals("length")){
+            profileAdvisorCnumberError.setText("Contact number should be 10 digits.");
+        } else if (User.contactNumberValidateStatus.equals("format")) {
+            profileAdvisorCnumberError.setText("It should contain only numbers.");
+        } else {
+            profileAdvisorCnumberError.setText("");
+        }
+    }
+    public void displayNameError(String nameType) {
+        if (nameType.equals("firstName")) {
+            if (ClubAdvisor.fNameValidateStatus.equals("empty")) {
+                profileAdvisorFnameError.setText("First Name cannot be empty.");
+            } else if (ClubAdvisor.fNameValidateStatus.equals("format")) {
+                profileAdvisorFnameError.setText("First Name can contain only letters.");
+            } else {
+                profileAdvisorFnameError.setText("");
+            }
+        } else if (nameType.equals("lastName")) {
+            if (ClubAdvisor.lNameValidateStatus.equals("empty")) {
+                profileAdvisorLnameError.setText("Last Name cannot be empty.");
+            } else if (ClubAdvisor.lNameValidateStatus.equals("format")) {
+                profileAdvisorLnameError.setText("Last name can contain only letters.");
+            } else {
+                profileAdvisorLnameError.setText("");
+            }
+        }
+    }
+  
+    public void displayPasswordError() {
+        if (User.passwordValidateStatus.equals("empty")) {
+            profileAdvisorNewpwError.setText("Password cannot be empty.");
+        } else if (User.passwordValidateStatus.equals("format")) {
+            profileAdvisorNewpwError.setText("Password should consists of 8 characters including numbers and special characters.");
+        } else {
+            profileAdvisorNewpwError.setText("");
+        }
+    }
+
+
+
+    public void displayStudentUpdateDetails(){
+        profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));
+        profileAdvisorFname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getFirstName()));
+        profileAdvisorLname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getLastName()));
+        profileAdvisorUsername.setText(String.valueOf(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName())));
+        String contactNumber = makeTenDigitsForNumber(Integer.parseInt(ClubAdvisor.clubAdvisorDetailsList.get(0).getContactNumber()));
+        profileAdvisorCnumber.setText((contactNumber));
+        username =  String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName());
+    }
+
+    public void displayExistingPassword(){
+        profileAdvisorpw.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getPassword()));
+    }
+
+
+
+    public static String makeTenDigitsForNumber(int number) {
+        String strNumber = Integer.toString(number);
+
+        if (strNumber.length() < 10) {
+            StringBuilder zeros = new StringBuilder();
+            for (int i = 0; i < 10 - strNumber.length(); i++) {
+                zeros.append('0');
+            }
+            return zeros.toString() + strNumber;
+        } else {
+            return strNumber.substring(0, 10);
+        }
+    }
+
+
 }
+

@@ -168,6 +168,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TextArea scheduleEventDescriptionTextField;
+    @FXML
+    public Label showUserNameClubAdvisor;
   
     @FXML
     public TextField clubName;
@@ -448,6 +450,39 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Attendance, CheckBox> stColumn;
 
     @FXML
+    public TextField profileAdvisorpw;
+    @FXML
+    public TextField profileAdvisorUsername;
+    @FXML
+    public TextField profileAdvisorNewpw;
+    @FXML
+    public TextField profileAdvisorLname;
+    @FXML
+    public TextField profileAdvisorId;
+    @FXML
+    public TextField profileAdvisorFname;
+    @FXML
+    public PasswordField profileAdvisorConfirmpw;
+
+    @FXML
+    public TextField profileAdvisorCnumber;
+    @FXML
+    public Label profileAdvisorCnumberError;
+    @FXML
+    public Label profileAdvisorConfirmpwError;
+    @FXML
+    public Label profileAdvisorFnameError;
+    @FXML
+    public Label profileAdvisorIdError;
+    @FXML
+    public Label profileAdvisorLnameError;
+    @FXML
+    public PasswordField profileAdvisorNewpwError;
+
+    @FXML
+    public Label profileAdvisorUsernameError;
+    
+    @FXML
     protected BarChart<?, ?> GenderRatioChart;
 
     @FXML
@@ -487,9 +522,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableView<String> attendanceTrackerTable;
-    
-    @FXML
-    public  Label showUserNameClubAdvisor;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
@@ -559,9 +591,11 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     abstract void clubCreationChecker(ActionEvent event);
+  
     @FXML
     abstract void clubCreationReset(ActionEvent event);
   
     abstract protected void clearUpdateEventFields(ActionEvent event);
+
 
 }
