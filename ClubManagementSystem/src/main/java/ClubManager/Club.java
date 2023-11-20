@@ -91,7 +91,7 @@ public class Club implements ClubValidator {
         if (path != null) {
             double width = 120; // Set the image width
             double height = 100; // Set the image height
-
+            System.out.println(path);
             // This sets the image path to the Image Object
             Image image = new Image(path);
 

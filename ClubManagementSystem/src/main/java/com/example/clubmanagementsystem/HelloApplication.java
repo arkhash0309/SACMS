@@ -1,6 +1,5 @@
 package com.example.clubmanagementsystem;
 
-import SystemUsers.Student;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
