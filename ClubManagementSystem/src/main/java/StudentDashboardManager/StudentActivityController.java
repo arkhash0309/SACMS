@@ -33,6 +33,7 @@ public class StudentActivityController extends StudentDashboardController{
 
     public static boolean validStat = true;
     static int studentAdmissionNum;
+    public static int studentAdmission;
 
     public static String existingUserName;
 
@@ -41,11 +42,15 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setUpdateTextFields();
         for (int grade = 6; grade<14; grade++) {
             studentUpdateProfileGrade.getItems().add(String.format("%02d", grade));
         }
 
         studentUpdateProfileGrade.getSelectionModel().selectFirst();
+
+//        studentUpdateProfileID.setText(studentUpdateProfileID);
 
         displayNumberOfEnrolledClubs();
         displayNumberOfUpcomingEvents();
@@ -151,11 +156,19 @@ public class StudentActivityController extends StudentDashboardController{
         StudentProfilePane.setVisible(true);
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
+    public void setUpdateTextFields(){ // this will set the values to student dashboard update profile
+        studentUpdateProfileID.setText(String.valueOf(Student.studentDetailArray.get(0).getStudentAdmissionNum()));
+        studentUpdateProfileFName.setText(Student.studentDetailArray.get(0).getFirstName());
+        studentUpdateProfileLName.setText(Student.studentDetailArray.get(0).getLastName());
+        studentUpdateProfileUserName.setText(Student.studentDetailArray.get(0).getUserName());
+        studentUpdateProfileContactNum.setText(Student.studentDetailArray.get(0).getContactNumber());
+    }
 
 
     public void onStudentProfileUpdateButtonClick() {
         validStat = true;
 
+//        String
 
         String updatedAdmissionNumber = studentUpdateProfileID.getText();
         String updatedFirstName = studentUpdateProfileFName.getText();
@@ -164,11 +177,6 @@ public class StudentActivityController extends StudentDashboardController{
         String updatedContactNum = studentUpdateProfileContactNum.getText();
         String updatedGrade = studentUpdateProfileGrade.getValue();
         System.out.println("Grade is " + updatedGrade);
-
-//        if(updatedGrade.isEmpty()){
-//            updateGradeLabel.setText("Please select your grade");
-//            return;
-//        }
 
         Student student = new Student(studentUpdateProfileUserName.getText(), studentUpdateProfileExistingPassword.getText(),
                 studentUpdateProfileFName.getText(), studentUpdateProfileLName.getText());
@@ -253,9 +261,13 @@ public class StudentActivityController extends StudentDashboardController{
         System.out.println(validStat + " : Valid Stat");
         if (validStat) {
             System.out.println("Not implemented yet");
-//            Student.studentDetailArray.set()
-//            Student updateDataStudent = new Student(updatedUserName, updatedPassword, updatedFirstName, updatedLastName);
-//            Student.studentDetailArray.add(updateDataStudent);
+
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("You have successfully update your details.");
+            alert.showAndWait();
+
         }
         System.out.println("\n\n\n");
     }

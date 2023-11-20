@@ -149,7 +149,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
 
-                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
@@ -361,7 +361,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="StudentProfilePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentProfilePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="21.0" prefHeight="526.0" prefWidth="823.0" styleClass="EventMainPane" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="21.0">
                                  <children>
@@ -452,7 +452,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="315.0" layoutY="477.0" mnemonicParsing="false" onAction="#onStudentProfilePasswordChangeButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Change Password" />
+                                    <Button layoutX="590.0" layoutY="473.0" mnemonicParsing="false" onAction="#onStudentProfilePasswordChangeButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Change Password" />
                                     <Label layoutX="566.0" layoutY="181.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text="  Student Grade" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
@@ -494,7 +494,7 @@
                                     <PasswordField fx:id="studentUpdateProfileExistingPassword" layoutX="26.0" layoutY="422.0" prefHeight="25.0" prefWidth="240.0" styleClass="eventField" />
                                     <PasswordField fx:id="studentUpdateProfileNewPassword" layoutX="296.0" layoutY="422.0" prefHeight="25.0" prefWidth="242.0" styleClass="eventField" />
                                     <PasswordField fx:id="studentUpdateProfileConfirmPassword" layoutX="569.0" layoutY="422.0" prefHeight="25.0" prefWidth="237.0" styleClass="eventField" />
-                                    <TextField fx:id="studentUpdateProfileID" layoutX="26.0" layoutY="117.0" prefHeight="31.0" prefWidth="239.0" styleClass="eventField" />
+                                    <TextField fx:id="studentUpdateProfileID" editable="false" layoutX="26.0" layoutY="117.0" prefHeight="31.0" prefWidth="239.0" styleClass="eventField" />
                                     <Label fx:id="updateGradeLabel" layoutX="569.0" layoutY="249.0" prefHeight="17.0" prefWidth="237.0" textFill="RED">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
