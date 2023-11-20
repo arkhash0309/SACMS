@@ -441,7 +441,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <Button layoutX="316.0" layoutY="277.0" mnemonicParsing="false" onAction="#onStudentProfileUpdateButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Update" />
+                                    <Button layoutX="590.0" layoutY="274.0" mnemonicParsing="false" onAction="#onStudentProfileUpdateButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Update" />
                                     <Label layoutX="294.0" layoutY="376.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text=" New Password" textFill="#fff7f7">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
@@ -483,11 +483,11 @@
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateNewPasswordLabel" layoutX="296.0" layoutY="446.0" prefHeight="20.0" prefWidth="242.0" textFill="RED">
+                                    <Label fx:id="studentUpdateNewPasswordLabel" layoutX="296.0" layoutY="446.0" prefHeight="46.0" prefWidth="242.0" textFill="RED">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateConfirmPasswordLabel" layoutX="569.0" layoutY="447.0" prefHeight="43.0" prefWidth="237.0" textFill="RED">
+                                    <Label fx:id="studentUpdateConfirmPasswordLabel" layoutX="569.0" layoutY="447.0" prefHeight="22.0" prefWidth="237.0" textFill="RED">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>

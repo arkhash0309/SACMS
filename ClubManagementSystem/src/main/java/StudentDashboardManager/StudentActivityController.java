@@ -37,7 +37,8 @@ public class StudentActivityController extends StudentDashboardController{
 
     public static int studentAdmission;
 
-    String updatedGrade;
+    int updatedGrade;
+    String studentExistingPassword;
     public static String existingUserName;
 
     static int clubIndexStudentLeave;
@@ -165,6 +166,8 @@ public class StudentActivityController extends StudentDashboardController{
         studentUpdateProfileLName.setText(Student.studentDetailArray.get(0).getLastName());
         studentUpdateProfileUserName.setText(Student.studentDetailArray.get(0).getUserName());
         studentUpdateProfileContactNum.setText(Student.studentDetailArray.get(0).getContactNumber());
+        studentExistingPassword = Student.studentDetailArray.get(0).getPassword();
+
     }
 
 
@@ -225,7 +228,7 @@ public class StudentActivityController extends StudentDashboardController{
         } catch (Exception e) {
             validStat = false;
         }
-        displayAdmissionNumError();
+
         try{
             String tempContactNum = updatedContactNum;
             if (tempContactNum.isEmpty()) {
@@ -265,72 +268,28 @@ public class StudentActivityController extends StudentDashboardController{
             System.out.println("Not implemented yet");
 
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("School Club Management System");
-            alert.setHeaderText("You have successfully update your details.");
-            alert.showAndWait();
+
 
         }
         System.out.println("\n\n\n");
     }
 
     public void onStudentProfilePasswordChangeButtonClick() throws SQLException {
+        String enteredExistingPassword = this.studentUpdateProfileExistingPassword.getText();
         String updatedPassword = this.studentUpdateProfileNewPassword.getText();
         String updateConfirmPassword = this.studentUpdateProfileConfirmPassword.getText();
 
-        Student newStd = new Student(updatedPassword);
-        if (!newStd.validatePassword("update")) {
-            System.out.println("Wrong password.");
-            validStat = false;
-        } else {
-            User.passwordValidateStatus = "";
-        }
-        displayPasswordError();
 
-        if (updateConfirmPassword.isEmpty()) {
-            studentUpdateConfirmPasswordLabel.setText("Cannot be empty.");
-            validStat = false;
+        existingPasswordChecker(studentExistingPassword, enteredExistingPassword);
+        ConfirmPasswordChecker(updatedPassword,updateConfirmPassword);
+        PasswordChecker(updatedPassword);
 
-        } else if (!updateConfirmPassword.equals(updatedPassword)) {
-            studentUpdateConfirmPasswordLabel.setText("Passwords do not match");
-            validStat = false;
-        } else {
-            studentUpdateConfirmPasswordLabel.setText("");
-        }
 
-        if (validStat) {
-            studentUpdateProfileExistingPassword.setText(updatedPassword);
-        }
-    }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("You have successfully update your credentials.");
+        alert.showAndWait();
 
-    void existingPasswordChecker(String realExistingPassword, String enteredExistingPassword){
-        if (!realExistingPassword.equals(enteredExistingPassword)){
-            studentUpdateExistingPasswordLabel.setText("Please enter your current password correctly");
-        }else{
-            studentUpdateExistingPasswordLabel.setText("");
-
-        }
-
-        if(realExistingPassword.isEmpty()){
-            studentUpdateExistingPasswordLabel.setText("Password cannot be empty");
-        }else{
-            studentUpdateExistingPasswordLabel.setText("");
-        }
-    }
-
-    void ConfirmPasswordChecker(String studentUpdatedPassword, String studentConfirmPassword){
-
-        if(studentConfirmPassword.isEmpty()){
-            studentUpdateConfirmPasswordLabel.setText("Password cannot be empty");
-        }else {
-            System.out.println("Not Going above line");
-            studentUpdateConfirmPasswordLabel.setText("");
-
-        }if(!studentConfirmPassword.equals(studentUpdatedPassword)){
-            studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
-        } else{
-            studentUpdateConfirmPasswordLabel.setText("");
-        }
     }
 
     void PasswordChecker(String studentUpdatedPassword){
@@ -366,6 +325,38 @@ public class StudentActivityController extends StudentDashboardController{
                     including numbers and special characters.""");
         }
     }
+    void ConfirmPasswordChecker(String studentUpdatedPassword, String studentConfirmPassword){
+
+        if(studentConfirmPassword.isEmpty()){
+            studentUpdateConfirmPasswordLabel.setText("Password cannot be empty");
+        }else {
+            System.out.println("Not Going above line");
+            studentUpdateConfirmPasswordLabel.setText("");
+
+        }if(!studentConfirmPassword.equals(studentUpdatedPassword)){
+            studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
+        } else{
+            studentUpdateConfirmPasswordLabel.setText("");
+        }
+    }
+    void existingPasswordChecker(String realExistingPassword, String enteredExistingPassword){
+        if (!realExistingPassword.equals(enteredExistingPassword)){
+            studentUpdateExistingPasswordLabel.setText("Please enter your current password correctly");
+        }else{
+            studentUpdateExistingPasswordLabel.setText("");
+
+        }
+
+        if(realExistingPassword.isEmpty()){
+            studentUpdateExistingPasswordLabel.setText("Password cannot be empty");
+        }else{
+            studentUpdateExistingPasswordLabel.setText("");
+        }
+    }
+
+
+
+
 
 
     private int validateGradeSelection(){
@@ -444,19 +435,6 @@ public class StudentActivityController extends StudentDashboardController{
         ViewEventButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
-    }
-    public void displayAdmissionNumError() {
-        if (Student.admissionNumStatus.equals("empty")) {
-            studentUpdateIDLabel.setText("Admission Number cannot be empty.");
-        } else if (Student.admissionNumStatus.equals("length")) {
-            studentUpdateIDLabel.setText("Admission Number has to be 6 digits.");
-        } else if (Student.admissionNumStatus.equals("exist")) {
-            studentUpdateIDLabel.setText("Admission Number already exists.");
-        } else if (Student.admissionNumStatus.equals("format")) {
-            studentUpdateIDLabel.setText("Admission Number contain only numbers.");
-        } else {
-            studentUpdateIDLabel.setText("");
-        }
     }
 
 
