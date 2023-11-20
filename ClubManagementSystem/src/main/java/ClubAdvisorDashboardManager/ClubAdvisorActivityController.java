@@ -61,6 +61,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public static String imagePath;
     public static int clubIdSetterValue;
 
+
+
+    public LocalDate selectedUpcomingDate;
+
+    public LocalDate selectedMostFutureDate;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         scheduleEventDatePicker.setEditable(false);
@@ -69,6 +75,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         findMaleFemaleStudentCount();
         displayEnrolledStudentCount();
         displayNumberOfClubAdvisors();
+        populateGenerateReportClubs(generateReportClubNameComboBox);
+        populateGenerateReportEventsTable();
+
         //Set cell value factories for the columns of the Create Club Table
         createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
@@ -178,6 +187,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         atColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
         stColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceTracker"));
 
+        generateReportClubName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        generateReportEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        generateReportEventDate.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
+        generateReportEventTime.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
+        generateReportEventLocation.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        generateReportEventType.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        generateReportDeliveryType.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
+        generateReportEventDescription.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
     }
   
      public void setCreateTable(){
@@ -233,11 +251,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventTable.getItems().clear();
         cancelEventTable.getItems().clear();
         viewCreatedEventsTable.getItems().clear();
+        generateReportEventViewTable.getItems().clear();
 
         scheduleCreatedEventTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         updateEventTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         cancelEventTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         viewCreatedEventsTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        generateReportEventViewTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
 
        for(Event value : Event.eventDetails){
@@ -262,8 +282,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
            viewCreatedScheduledEvents.add(event);
            viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
            viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
+
        }
+
+
     }
+
 
     @Override
     public void clubCreationChecker(ActionEvent event) {
@@ -1176,40 +1200,61 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void filterSelectedClubEvents(ActionEvent event) {
-
-          viewCreatedEventsTable.getItems().clear();
-          ArrayList<Event> filteredEvents = new ArrayList<>();
-          String selectedClub = viewCreatedEventsSortComboBox.getSelectionModel().getSelectedItem();
-          System.out.println(selectedClub + " bro");
-
-          if(selectedClub.equals("All Clubs")){
-              populateEventsTables();
-              return;
-          }else{
-              for(Event events : Event.eventDetails){
-                  if(events.getClubName().equals(selectedClub)){
-                      filteredEvents.add(events);
-                  }
-              }
-          }
-
-
-          for(Event value : filteredEvents){
-              Club hostingClubDetail = value.getHostingClub();
-              Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
-                      value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                      value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
-
-              ObservableList<Event> viewScheduledEvents = viewCreatedEventsTable.getItems();
-              viewScheduledEvents.add(requiredEvent);
-              viewCreatedEventsTable.setItems(viewScheduledEvents );
-          }
-
+        populateEventList(viewCreatedEventsTable, viewCreatedEventsSortComboBox);
     }
 
+    public void populateEventList(TableView<Event> table, ComboBox<String> comboBoxName) {
+        ArrayList<LocalDate> selectedEventDates = new ArrayList<>();
 
+        table.getItems().clear();
+        ArrayList<Event> filteredEvents = new ArrayList<>();
+        String selectedClub = comboBoxName.getSelectionModel().getSelectedItem();
 
+        // Null check before comparing selectedClub
+        if (selectedClub != null) {
+            System.out.println(selectedClub + " bro");
 
+            if (selectedClub.equals("All Clubs")) {
+                if (table == generateReportEventViewTable) {
+                    populateGenerateReportEventsTable();
+                } else {
+                    populateEventsTables();
+                }
+                return;
+            } else {
+                for (Event events : Event.eventDetails) {
+                    if (events.getClubName().equals(selectedClub)) {
+                        filteredEvents.add(events);
+                    }
+                }
+            }
+
+            int count = 0;
+            for (Event value : filteredEvents) {
+                Club hostingClubDetail = value.getHostingClub();
+                Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
+                        value.getEventType(), value.getEventDeliveryType(), value.getEventDate(),
+                        value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
+
+                ObservableList<Event> viewScheduledEvents = table.getItems();
+                viewScheduledEvents.add(requiredEvent);
+                table.setItems(viewScheduledEvents);
+
+                count++;
+                selectedEventDates.add(value.getEventDate());
+            }
+
+            if (!selectedEventDates.isEmpty()) {
+                selectedUpcomingDate = findEarliestDate(selectedEventDates);
+                selectedMostFutureDate = findMostFutureDate(selectedEventDates);
+            }
+
+            if (table == generateReportEventViewTable) {
+                UpcomingEventCountGenerateReports.setText("Total :  " + count);
+                eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
+            }
+        }
+    }
 
 
     public void populateAttendanceTable() {
@@ -1454,7 +1499,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         GenerateReportsPane.setVisible(true);
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
         populateAttendanceTable();
-        populateGenerateReportClubs(generateReportClubNameComboBox);
     }
 
     @Override
@@ -1483,6 +1527,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         GoToClubActivitiesButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
         populateGenerateReportClubs(generateReportClubNameComboBox);
+        populateGenerateReportEventsTable();
     }
 
     @Override
@@ -1840,10 +1885,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-    public void populateGenerateReportClubs(ComboBox selectedCombo){
+    public void populateGenerateReportClubs(ComboBox<String> selectedCombo){
         selectedCombo.getItems().clear();
-        if(!selectedCombo.getItems().contains("Please Select a Club")){
-            selectedCombo.getItems().add("Please Select a Club");
+        if(!selectedCombo.getItems().contains("All Clubs")){
+            selectedCombo.getItems().add("All Clubs");
         }
 
         for(Club club: clubDetailsList){
@@ -1853,7 +1898,79 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         selectedCombo.getSelectionModel().selectFirst();
     }
 
+    @FXML
+    void populateGenerateReportsEventsFilteredTable(ActionEvent event) {
+       populateEventList(generateReportEventViewTable, generateReportClubNameComboBox);
+    }
 
+    public void populateGenerateReportEventsTable() {
+        ArrayList<LocalDate> selectedEventDates = new ArrayList<>();
+
+        if (Event.eventDetails == null) {
+            return;
+        }
+
+        generateReportEventViewTable.getItems().clear();
+        generateReportEventViewTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+        int count = 0;
+        ObservableList<Event> viewCreatedScheduledEvents = FXCollections.observableArrayList();
+
+        for (Event value : Event.eventDetails) {
+            Club hostingClub = value.getHostingClub();
+            Event event = new Event(value.getEventName(), value.getEventLocation(),
+                    value.getEventType(), value.getEventDeliveryType(), value.getEventDate(),
+                    value.getEventTime(), hostingClub, value.getEventDescription(), value.getEventId());
+
+            viewCreatedScheduledEvents.add(event);
+            selectedEventDates.add(event.getEventDate());
+            count++;
+        }
+
+        generateReportEventViewTable.setItems(viewCreatedScheduledEvents);
+        generateReportClubNameComboBox.getSelectionModel().selectFirst();
+
+        if (selectedEventDates != null && !selectedEventDates.isEmpty()) {
+            selectedUpcomingDate = findEarliestDate(selectedEventDates);
+            selectedMostFutureDate = findMostFutureDate(selectedEventDates);
+        }
+
+        UpcomingEventCountGenerateReports.setText("Total: " + count);
+        eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
+    }
+
+
+    public static LocalDate findMostFutureDate(List<LocalDate> givenDateList) {
+        if (givenDateList == null || givenDateList.isEmpty()) {
+            throw new IllegalArgumentException("Date list cannot be null or empty.");
+        }
+
+        LocalDate mostFutureDate = givenDateList.get(0);
+
+        for (LocalDate date : givenDateList) {
+            if (date.isAfter(mostFutureDate)) {
+                mostFutureDate = date;
+            }
+        }
+
+        return mostFutureDate;
+    }
+
+    public static LocalDate findEarliestDate(List<LocalDate> givenDateList) {
+        if (givenDateList == null || givenDateList.isEmpty()) {
+            throw new IllegalArgumentException("Date list cannot be null or empty.");
+        }
+
+        LocalDate earliestDate = givenDateList.get(0);
+
+        for (LocalDate date : givenDateList) {
+            if (date.isBefore(earliestDate)) {
+                earliestDate = date;
+            }
+        }
+
+        return earliestDate;
+    }
 
 
 }
