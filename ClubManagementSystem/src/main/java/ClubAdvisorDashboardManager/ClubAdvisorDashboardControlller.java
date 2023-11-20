@@ -463,6 +463,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public TextField profileAdvisorFname;
     @FXML
     public PasswordField profileAdvisorConfirmpw;
+
     @FXML
     public TextField profileAdvisorCnumber;
     @FXML
@@ -477,6 +478,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public Label profileAdvisorLnameError;
     @FXML
     public PasswordField profileAdvisorNewpwError;
+
     @FXML
     public Label profileAdvisorUsernameError;
     

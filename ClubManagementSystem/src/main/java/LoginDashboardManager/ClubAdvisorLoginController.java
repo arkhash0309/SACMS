@@ -1,6 +1,7 @@
 package LoginDashboardManager;
 
 import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
+import DataBaseManager.ClubAdvisorDataBaseManager;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
 import com.example.clubmanagementsystem.ApplicationController;
@@ -187,7 +188,7 @@ public class ClubAdvisorLoginController {
     }
 
     @FXML
-    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException{
+    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException, SQLException {
 
 
         if(!fieldsChecker()){
@@ -201,12 +202,15 @@ public class ClubAdvisorLoginController {
         clubAdvisorIncorrectCredential.setText("");
         System.out.println("Directing to advisor dashboard");
 
+        ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager(userNameForShowInAdvisorDashboard);
+
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
         Parent root = loader. load();
         ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
         clubAdvisorDashboardControlller.showUserNameClubAdvisor.setText(userNameForShowInAdvisorDashboard);
-        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: justify");
+        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
                 "-fx-text-fill: white");
@@ -440,7 +444,7 @@ public class ClubAdvisorLoginController {
         } else if (User.contactNumberValidateStatus.equals("length")) {
             contactNumberLabel.setText("Contact Number should have 10 numbers.");
         }else if(User.contactNumberValidateStatus.equals("format")){
-            contactNumberLabel.setText("Contact Number consist with only numbers");
+            contactNumberLabel.setText("Number cannot contain characters.");
         }else{
             contactNumberLabel.setText("");
         }

@@ -10,6 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +31,7 @@ abstract public class StudentDashboardController implements Initializable {
     protected double xPosition;
 
     protected double yPosition;
+
     @FXML
     protected StackPane StudentDashboard;
 
@@ -141,6 +145,15 @@ abstract public class StudentDashboardController implements Initializable {
     protected Label  nextEventDateForStudent;
     @FXML
     public  Label showUserName;
+
+    @FXML
+    public BarChart<?, ?> UpcomingEventRateForTable;
+
+    @FXML
+    public CategoryAxis clubNameForEvent;
+
+    @FXML
+    public NumberAxis NumberOfEvents;
     @FXML
     abstract void StudentLogout(MouseEvent event) throws IOException;
 

@@ -127,13 +127,38 @@ public class Student extends User implements StudentValidator {
     }
 
 
-    public void joinClub(Club clubToJoin){
+    public void joinClub(Club clubToJoin) {
+        if (Student.studentJoinedClubs.contains(clubToJoin)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("You are already a member of " + clubToJoin.getClubName());
+            alert.show();
+            return;
+        }
+
+
+        String insertQuery = "INSERT INTO StudentClub (studentAdmissionNum, clubId) VALUES (?, ?)";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)) {
+            System.out.println("studentAdmissionNum: " + Student.studentDetailArray.get(0).getStudentAdmissionNum());
+            System.out.println("clubId: " + clubToJoin.getClubId());
+
+            preparedStatement.setInt(1, Student.studentDetailArray.get(0).getStudentAdmissionNum());
+            preparedStatement.setInt(2, clubToJoin.getClubId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         Student.studentJoinedClubs.add(clubToJoin);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
-        alert.setHeaderText("You have successfully joined with" + clubToJoin.getClubName());
+        alert.setHeaderText("You have successfully joined " + clubToJoin.getClubName());
         alert.show();
     }
+
 
     public void leaveClub(Club club, int tableIndex){
         for(Club clubVal : Student.studentJoinedClubs){
@@ -144,6 +169,16 @@ public class Student extends User implements StudentValidator {
                 }
                 break;
             }
+        }
+
+        String deleteQuery = "DELETE FROM StudentClub WHERE studentAdmissionNum = ? AND clubId = ?";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setInt(1, Student.studentDetailArray.get(0).getStudentAdmissionNum());
+            preparedStatement.setInt(2, club.getClubId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         Alert deletedEvent = new Alert(Alert.AlertType.INFORMATION);

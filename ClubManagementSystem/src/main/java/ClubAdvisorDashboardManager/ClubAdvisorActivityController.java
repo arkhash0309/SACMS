@@ -8,6 +8,8 @@ import com.example.clubmanagementsystem.ApplicationController;
 import ClubManager.Attendance;
 import ClubManager.Event;
 import ClubManager.EventManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +31,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpCookie;
@@ -45,7 +49,9 @@ import java.time.LocalTime;
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
+
     public static String username;
+
     public static boolean validStat = true;
     public static int selectedEventId;
     public static Event selectedEventValue;
@@ -235,7 +241,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
            Club hostingClub = value.getHostingClub();
            Event event = new Event(value.getEventName(), value.getEventLocation(),
                    value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                   value.getEventTime(), hostingClub, value.getEventDescription());
+                   value.getEventTime(), hostingClub, value.getEventDescription(), value.getEventId());
 
            ObservableList<Event> viewScheduledEvents = scheduleCreatedEventTable.getItems();
            viewScheduledEvents.add(event);
@@ -319,8 +325,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     void clubCreationReset(ActionEvent event) {
         clubName.setText("");
         clubDescription.setText("");
+
 //        Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
 //        createClubImage.setImage(defaultImage);
+
 
         clubNameError.setText("");
         clubDescriptionError.setText("");
@@ -1161,7 +1169,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
               Club hostingClubDetail = value.getHostingClub();
               Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                       value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                      value.getEventTime(), hostingClubDetail, value.getEventDescription());
+                      value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
               ObservableList<Event> viewScheduledEvents = viewCreatedEventsTable.getItems();
               viewScheduledEvents.add(requiredEvent);
@@ -1574,6 +1582,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @FXML
     void advisorProfileUpdateChecker(ActionEvent event) {
         validStat = true;
+
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
@@ -1767,6 +1776,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+
     public void displayStudentUpdateDetails(){
         profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));
         profileAdvisorFname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getFirstName()));
@@ -1796,6 +1806,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             return strNumber.substring(0, 10);
         }
     }
+
 
 }
 
