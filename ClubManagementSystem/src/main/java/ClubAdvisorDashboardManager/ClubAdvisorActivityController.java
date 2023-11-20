@@ -8,6 +8,7 @@ import com.example.clubmanagementsystem.ApplicationController;
 import ClubManager.Attendance;
 import ClubManager.Event;
 import ClubManager.EventManager;
+import com.example.clubmanagementsystem.HelloApplication;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -37,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpCookie;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -66,6 +68,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         populateComboBoxes();
         findMaleFemaleStudentCount();
         displayEnrolledStudentCount();
+        displayNumberOfClubAdvisors();
         //Set cell value factories for the columns of the Create Club Table
         createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
@@ -303,15 +306,32 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             clubUpdateAlert.setHeaderText(clubName + " Club created successfully!");
             clubUpdateAlert.show();
 
+
+//            Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
+//            this.createClubImage.setImage(defaultImage);
+
+            //Update database
+            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+            ) {
+                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
+                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
+                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
+                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
+                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
 
             this.clubName.setText("");
             this.clubDescription.setText("");
-//            Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
-//            this.createClubImage.setImage(defaultImage);
 
-            //Update database
         }else {
             Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -387,6 +407,21 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     setUpdateTable();
 
                     //Update database
+                    String updateQuery = "UPDATE Club SET clubName=?, clubDescription=?, clubLogo=?, teacherInChargeId=? WHERE clubId=?";
+
+                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateQuery)
+                    ) {
+                        preparedStatement.setString(1, clubName);
+                        preparedStatement.setString(2, clubDescription);
+                        preparedStatement.setString(3, clubLogo);
+                        preparedStatement.setInt(4, clubAdvisorId);
+                        preparedStatement.setInt(5, clubId);
+
+                        preparedStatement.executeUpdate();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }else {
@@ -727,9 +762,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
 
     }
-
-
-
 
     @FXML
     void checkClubName(ActionEvent event) {
@@ -1161,9 +1193,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
               }
           }
 
-         ClubAdvisor clubAdvisor = new ClubAdvisor();
-         clubAdvisor.viewEvent(); // Override scene eka
-
 
           for(Event value : filteredEvents){
               Club hostingClubDetail = value.getHostingClub();
@@ -1320,6 +1349,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+
+
     @Override
     void ClubAdvisorDashboardDetected(MouseEvent event) {
         Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
@@ -1423,6 +1454,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         GenerateReportsPane.setVisible(true);
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
         populateAttendanceTable();
+        populateGenerateReportClubs(generateReportClubNameComboBox);
     }
 
     @Override
@@ -1450,6 +1482,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ClubActivitiesPane.setVisible(true);
         GoToClubActivitiesButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+        populateGenerateReportClubs(generateReportClubNameComboBox);
     }
 
     @Override
@@ -1806,6 +1839,21 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             return strNumber.substring(0, 10);
         }
     }
+
+    public void populateGenerateReportClubs(ComboBox selectedCombo){
+        selectedCombo.getItems().clear();
+        if(!selectedCombo.getItems().contains("Please Select a Club")){
+            selectedCombo.getItems().add("Please Select a Club");
+        }
+
+        for(Club club: clubDetailsList){
+            selectedCombo.getItems().add(club.getClubName());
+        }
+
+        selectedCombo.getSelectionModel().selectFirst();
+    }
+
+
 
 
 }

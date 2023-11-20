@@ -42,10 +42,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
-    @Override
-    public void viewEvent() {
 
-    }
 
     public  void createEvent(String eventName, String eventLocation,
                             String eventType, String eventDeliveryType,

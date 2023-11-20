@@ -96,7 +96,7 @@ abstract public class User implements UserValidator {
     abstract public void registerToSystem();
 
     abstract public void loginToSystem();
-    abstract public void viewEvent();
+
 
     @Override
     public boolean validateFirstName(){
