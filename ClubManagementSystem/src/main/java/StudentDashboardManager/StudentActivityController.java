@@ -301,6 +301,85 @@ public class StudentActivityController extends StudentDashboardController{
         }
     }
 
+    void existingPasswordChecker(String realExistingPassword, String enteredExistingPassword){
+        if (!realExistingPassword.equals(enteredExistingPassword)){
+            studentUpdateExistingPasswordLabel.setText("Please enter your current password correctly");
+        }else{
+            studentUpdateExistingPasswordLabel.setText("");
+
+        }
+
+        if(realExistingPassword.isEmpty()){
+            studentUpdateExistingPasswordLabel.setText("Password cannot be empty");
+        }else{
+            studentUpdateExistingPasswordLabel.setText("");
+        }
+    }
+
+    void ConfirmPasswordChecker(String studentUpdatedPassword, String studentConfirmPassword){
+
+        if(studentConfirmPassword.isEmpty()){
+            studentUpdateConfirmPasswordLabel.setText("Password cannot be empty");
+        }else {
+            System.out.println("Not Going above line");
+            studentUpdateConfirmPasswordLabel.setText("");
+
+        }if(!studentConfirmPassword.equals(studentUpdatedPassword)){
+            studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
+        } else{
+            studentUpdateConfirmPasswordLabel.setText("");
+        }
+    }
+
+    void PasswordChecker(String studentUpdatedPassword){
+
+        validStat = true;
+        String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?";
+
+        if(studentUpdatedPassword.isEmpty()){
+            studentUpdateNewPasswordLabel.setText("Password cannot be empty");
+        }else {
+            studentUpdateNewPasswordLabel.setText("");
+        }
+
+        for (char specialChar : specialCharacters.toCharArray()) {
+            studentUpdatedPassword.contains(String.valueOf(specialChar));
+            validStat = true;
+            studentUpdateNewPasswordLabel.setText("");
+        }
+
+        if(studentUpdatedPassword.length() < 8 || studentUpdatedPassword.length() > 20){
+            studentUpdateNewPasswordLabel.setText("");
+            if(!validStat){
+                studentUpdateNewPasswordLabel.setText(""" 
+                    Password should consist of 8 characters
+                    including numbers and special characters.""");
+
+            }else {
+                studentUpdateNewPasswordLabel.setText("");
+            }
+        }else{
+            studentUpdateNewPasswordLabel.setText(""" 
+                    Password should consist of 8 characters
+                    including numbers and special characters.""");
+        }
+    }
+
+
+    private int validateGradeSelection(){
+        selectedGrade = studentUpdateProfileGrade.getValue();
+
+        if(selectedGrade == "Select Grade"){
+            studentUpdatedGrade.setText("Please select your grade");
+        } else {
+            studentUpdatedGrade.setText("");
+            updatedGrade = Integer.parseInt(this.studentUpdateProfileGrade.getValue());
+            return updatedGrade;
+        }
+        return updatedGrade;
+    }
+
+
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
             if (Student.fNameValidateStatus.equals("empty")) {
