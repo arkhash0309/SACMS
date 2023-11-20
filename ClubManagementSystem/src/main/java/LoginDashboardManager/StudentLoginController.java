@@ -425,6 +425,7 @@ public class StudentLoginController {
                 preparedStatement.setString(6, gender);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
+                System.out.println("Error 1");
                 System.out.println(e);
             }
 
@@ -436,6 +437,7 @@ public class StudentLoginController {
                 preparedStatement.setInt(3, Integer.parseInt(admissionNum));
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
+                System.out.println("Error 2");
                 System.out.println(e);
             }
 
@@ -523,7 +525,7 @@ public class StudentLoginController {
 
     public void setComboBoxValuesStudentRegistration(){
         Grade.getItems().add("Select Grade");
-        for (int ComboGrade = 6; ComboGrade<13; ComboGrade++) {
+        for (int ComboGrade = 6; ComboGrade<14; ComboGrade++) {
             Grade.getItems().add((String.valueOf(ComboGrade)));
         }
         Grade.getSelectionModel().selectFirst();
