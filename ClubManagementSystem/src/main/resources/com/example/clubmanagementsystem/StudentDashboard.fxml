@@ -218,24 +218,12 @@
                                  <children>
                                     <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="301.0" prefWidth="410.0">
                                        <children>
-                                          <BarChart layoutX="-1.0" layoutY="-1.0" prefHeight="306.0" prefWidth="445.0" title="Attendance Percentage">
+                                          <BarChart fx:id="UpcomingEventRateForTable" layoutX="28.0" layoutY="11.0" prefHeight="279.0" prefWidth="749.0" title="Upcoming Events For Each Club">
                                              <xAxis>
-                                                <CategoryAxis side="BOTTOM" />
+                                                <CategoryAxis fx:id="clubNameForEvent" label="Club Name" prefHeight="43.0" prefWidth="672.0" side="BOTTOM" />
                                              </xAxis>
                                              <yAxis>
-                                                <NumberAxis prefHeight="243.0" prefWidth="33.0" side="LEFT" />
-                                             </yAxis>
-                                          </BarChart>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane layoutX="473.0" layoutY="15.0" prefHeight="295.0" prefWidth="346.0">
-                                       <children>
-                                          <BarChart layoutX="-5.0" prefHeight="362.0" prefWidth="390.0" title="Male Female Student Rate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM" />
-                                             </xAxis>
-                                             <yAxis>
-                                                <NumberAxis side="LEFT" />
+                                                <NumberAxis fx:id="NumberOfEvents" label="Number Of Events" prefHeight="214.0" prefWidth="47.0" side="LEFT" />
                                              </yAxis>
                                           </BarChart>
                                        </children>

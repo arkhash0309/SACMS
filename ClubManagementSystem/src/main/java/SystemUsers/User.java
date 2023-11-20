@@ -1,5 +1,6 @@
 package SystemUsers;
 
+import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
 import SystemDataValidator.UserValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
@@ -43,6 +44,11 @@ abstract public class User implements UserValidator {
     public User(String contactNumber){
         this.contactNumber = contactNumber;
     }
+
+//    public User(String userName, String password){
+//        this.userName = userName;
+//        this.password = password;
+//    }
 
     public User(){
 
@@ -148,6 +154,7 @@ abstract public class User implements UserValidator {
 
     @Override
     public boolean validateUserName(String requiredWork, String user){
+
         if(user.isEmpty()){
             userNameValidateStatus = "empty";
             return false;
@@ -172,6 +179,15 @@ abstract public class User implements UserValidator {
             }
 
             if (requiredWork.equals("registration") || requiredWork.equals("updation")) {
+                if(requiredWork.equals("updation") && !user.equals("student")){
+                    if(this.userName.equals(ClubAdvisorActivityController.username)){
+                        System.out.println("Buwa Buwa");
+                        userNameValidateStatus = "correct";
+                        return true;
+                    }
+                }
+
+                System.out.println(this.userName);
                 if (columnName != null && columnName.equals(this.getUserName())) {
                     userNameValidateStatus = "exist";
                     System.out.println("That user name already exists !!!");

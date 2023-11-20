@@ -1,5 +1,6 @@
 package LoginDashboardManager;
 
+import DataBaseManager.StudentDataBaseManager;
 import StudentDashboardManager.StudentActivityController;
 import StudentDashboardManager.StudentDashboardController;
 import SystemUsers.ClubAdvisor;
@@ -28,7 +29,11 @@ import java.sql.ResultSet;
 import static com.example.clubmanagementsystem.HelloApplication.statement;
 
 
-public class StudentLoginController implements Initializable {
+public class StudentLoginController {
+    private static String selectedGradeVal;
+    private static String selcetedGenderVal;
+    private int grade;
+    private String gender;
     public static boolean validateStatus = true;
     static boolean loginStatus;
     String studentLoginPageUserName;
@@ -54,7 +59,10 @@ public class StudentLoginController implements Initializable {
 
     @FXML
     private Label studentLoginPasswordErrorLabel;
-
+    @FXML
+    private Label studentRegistrationGradeEmptyLabel;
+    @FXML
+    private Label studentRegistrationGenderEmptyLabel;
     @FXML
     private CheckBox showPasswordCheckBox;
 
@@ -212,7 +220,7 @@ public class StudentLoginController implements Initializable {
 
 
     @FXML
-    void DirectToStudentDashboard(ActionEvent event) throws IOException {
+    void DirectToStudentDashboard(ActionEvent event) throws IOException, SQLException {
 
         if (!fieldsChecker()) {
             return;
@@ -226,19 +234,22 @@ public class StudentLoginController implements Initializable {
         studentLoginPasswordErrorLabel.setText("");
         System.out.println("Directing to student dashboard");
 
+        StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
         StudentActivityController controller = loader.getController(); // This is done to set login userName to dashboard
-
         controller.showUserName.setText(userNameForShowInStudentDashboard); // controller variable will get the access to control student activity controller
-        controller.showUserName.setStyle("-fx-text-alignment: justify");
+        controller.showUserName.setStyle("-fx-text-alignment: center");
+        controller.displayEventCountPerClub();
         StudentDashboardManager.StudentActivityController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1100, 600);
         stage.setScene(scene);
         stage.centerOnScreen();
+
+
         stage.show();
     }
 
@@ -273,8 +284,11 @@ public class StudentLoginController implements Initializable {
         String admissionNum = this.studentRegisterAdmissionNumber.getText();
         String contactNum = this.studentRegisterContactNumber.getText();
 
-        Integer grade = Integer.valueOf((this.Grade.getValue()));
-        String gender = this.Gender.getValue();
+
+//        String gender = this.Gender.getValue();
+
+        System.out.println("Grade is "+ grade);
+        System.out.println("Gender is "+ gender);
 
         String userName = this.studentRegisterUserName.getText();
         String password = this.studentRegisterPassword.getText();
@@ -381,6 +395,16 @@ public class StudentLoginController implements Initializable {
             validateStatus = false;
         } else {
             studentRegisterConfirmPasswordErrorLabel.setText(" ");
+        }
+
+        if(selcetedGenderVal.equals("Select Gender")){
+            studentRegistrationGenderEmptyLabel.setText("Please select your gender");
+            validateStatus = false;
+        }
+
+        if(selectedGradeVal.equals("Select Grade")){
+            studentRegistrationGradeEmptyLabel.setText("Please select your grade");
+            validateStatus = false;
         }
 
 
@@ -493,27 +517,53 @@ public class StudentLoginController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        for (int ComboGrade = 1; ComboGrade<13; ComboGrade++) {
-//            studentRegisterGrade.getItems().add(String.valueOf(ComboGrade));
-//        }
-//        studentRegisterGrade.getSelectionModel().selectFirst();
-//
-//        studentRegisterGender.getItems().addAll("M", "F");
 
-    }
 
 
 
     public void setComboBoxValuesStudentRegistration(){
+        Grade.getItems().add("Select Grade");
         for (int ComboGrade = 6; ComboGrade<13; ComboGrade++) {
             Grade.getItems().add((String.valueOf(ComboGrade)));
         }
-         Grade.getSelectionModel().selectFirst();
-       Gender.getItems().addAll("M", "F");
-         Gender.getSelectionModel().selectFirst();
+        Grade.getSelectionModel().selectFirst();
+        selectedGradeVal = "Select Grade";
+       Gender.getItems().addAll("Select Gender","M", "F");
+       Gender.getSelectionModel().selectFirst();
+       selcetedGenderVal = "Select Gender";
 
+       Grade.setOnAction(event -> validateGradeSelection());
+       Gender.setOnAction(event -> validateGenderSelection());
+    }
+    private int validateGradeSelection() {
+        selectedGradeVal = Grade.getValue();
+        String selectedGrade = Grade.getValue();
+
+        if (selectedGradeVal == "Select Grade") {
+            System.out.println("Came to please select your grade line");
+            studentRegistrationGradeEmptyLabel.setText("Please select your grade");
+        } else {
+            studentRegistrationGradeEmptyLabel.setText("");
+            grade = Integer.parseInt(this.Grade.getValue());
+            return grade;
+        }
+        return grade;
+    }
+    private String validateGenderSelection() {
+        selcetedGenderVal = Gender.getValue();
+        String selectedGender = Gender.getValue();
+
+        if (selcetedGenderVal == "Select Gender") {
+            System.out.println("Came to please select your gender line");
+            studentRegistrationGenderEmptyLabel.setText("Please select your gender");
+        } else {
+            studentRegistrationGenderEmptyLabel.setText("");
+            gender = this.Gender.getValue();
+            // Both Grade and Gender are selected, continue with your logic
+            System.out.println("Gender is "+ gender);
+            return gender;
+        }
+        return gender;
     }
 
 
@@ -539,7 +589,7 @@ public class StudentLoginController implements Initializable {
         } else if (User.contactNumberValidateStatus.equals("length")) {
             studentRegisterContactNumErrorLabel.setText("Contact Number should have 10 digits.");
         } else if (User.contactNumberValidateStatus.equals("format")) {
-            studentRegisterContactNumErrorLabel.setText("Contact Number consist only numbers.");
+            studentRegisterContactNumErrorLabel.setText("Number cannot contain characters.");
         } else {
             studentRegisterContactNumErrorLabel.setText("");
         }
