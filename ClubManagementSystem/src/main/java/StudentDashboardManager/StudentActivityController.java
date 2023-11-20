@@ -596,8 +596,6 @@ public class StudentActivityController extends StudentDashboardController{
             }
         }
 
-        ClubAdvisor clubAdvisor = new ClubAdvisor();
-        clubAdvisor.viewEvent(); // Override scene eka
 
 
         for(Event value : filteredEvents){
