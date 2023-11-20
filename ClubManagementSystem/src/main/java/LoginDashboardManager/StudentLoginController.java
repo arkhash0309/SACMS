@@ -34,6 +34,7 @@ public class StudentLoginController {
     private static String selcetedGenderVal;
     private int grade;
     private String gender;
+
     public static boolean validateStatus = true;
     static boolean loginStatus;
     String studentLoginPageUserName;
@@ -234,7 +235,7 @@ public class StudentLoginController {
         studentLoginPasswordErrorLabel.setText("");
         System.out.println("Directing to student dashboard");
 
-        StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard);
+        StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard); // this is the place data load form the database
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
@@ -242,6 +243,7 @@ public class StudentLoginController {
         controller.showUserName.setText(userNameForShowInStudentDashboard); // controller variable will get the access to control student activity controller
         controller.showUserName.setStyle("-fx-text-alignment: center");
         controller.displayEventCountPerClub();
+        controller.studentAdmission = studentDataBaseManager.getStudentAdmissionNum(userNameForShowInStudentDashboard);
         StudentDashboardManager.StudentActivityController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -425,6 +427,7 @@ public class StudentLoginController {
                 preparedStatement.setString(6, gender);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
+                System.out.println("Error 1");
                 System.out.println(e);
             }
 
@@ -436,6 +439,7 @@ public class StudentLoginController {
                 preparedStatement.setInt(3, Integer.parseInt(admissionNum));
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
+                System.out.println("Error 2");
                 System.out.println(e);
             }
 
@@ -516,14 +520,9 @@ public class StudentLoginController {
         }
     }
 
-
-
-
-
-
     public void setComboBoxValuesStudentRegistration(){
         Grade.getItems().add("Select Grade");
-        for (int ComboGrade = 6; ComboGrade<13; ComboGrade++) {
+        for (int ComboGrade = 6; ComboGrade<14; ComboGrade++) {
             Grade.getItems().add((String.valueOf(ComboGrade)));
         }
         Grade.getSelectionModel().selectFirst();
