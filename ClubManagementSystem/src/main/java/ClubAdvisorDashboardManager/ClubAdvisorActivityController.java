@@ -1250,8 +1250,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
 
             if (table == generateReportEventViewTable) {
-                UpcomingEventCountGenerateReports.setText("Total :  " + count);
-                eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
+                if(!selectedEventDates.isEmpty()){
+                    UpcomingEventCountGenerateReports.setText("Total :  " + count);
+                    eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
+                }else{
+                    UpcomingEventCountGenerateReports.setText("Total :  " + count);
+                    eventDateRange.setText("No Events");
+                }
+
             }
         }
     }
@@ -1499,6 +1505,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         GenerateReportsPane.setVisible(true);
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
         populateAttendanceTable();
+        populateGenerateReportEventsTable();
+        populateGenerateReportClubs(generateReportClubNameComboBox);
+
     }
 
     @Override
@@ -1933,6 +1942,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (selectedEventDates != null && !selectedEventDates.isEmpty()) {
             selectedUpcomingDate = findEarliestDate(selectedEventDates);
             selectedMostFutureDate = findMostFutureDate(selectedEventDates);
+        }else{
+            UpcomingEventCountGenerateReports.setText("Total: " + count);
+            eventDateRange.setText("No Events");
         }
 
         UpcomingEventCountGenerateReports.setText("Total: " + count);
