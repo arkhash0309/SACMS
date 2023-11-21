@@ -14,9 +14,6 @@ public class EventManager implements EventValidator {
     public static boolean eventDeliveryTypeStatus;
     public static boolean eventDateStatus;
     public static boolean eventClubNameStatus;
-    static Club userSelectedClub;
-
-    public static String selectedEventName;
 
     public EventManager(){
 
