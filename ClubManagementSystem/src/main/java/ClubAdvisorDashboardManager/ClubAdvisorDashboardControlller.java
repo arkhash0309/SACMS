@@ -451,26 +451,19 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Attendance, CheckBox> stColumn;
 
     @FXML
-    public TextField profileAdvisorpw;
-    @FXML
     public TextField profileAdvisorUsername;
-    @FXML
-    public TextField profileAdvisorNewpw;
     @FXML
     public TextField profileAdvisorLname;
     @FXML
     public TextField profileAdvisorId;
     @FXML
     public TextField profileAdvisorFname;
-    @FXML
-    public PasswordField profileAdvisorConfirmpw;
+
 
     @FXML
     public TextField profileAdvisorCnumber;
     @FXML
     public Label profileAdvisorCnumberError;
-    @FXML
-    public Label profileAdvisorConfirmpwError;
     @FXML
     public Label profileAdvisorFnameError;
     @FXML
@@ -478,10 +471,20 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     public Label profileAdvisorLnameError;
     @FXML
-    public PasswordField profileAdvisorNewpwError;
+    public Label profileAdvisorUsernameError;
 
     @FXML
-    public Label profileAdvisorUsernameError;
+    public PasswordField profileAdvisorExistingpw;
+    @FXML
+    public Label profileAdvisorExistingpwError;
+    @FXML
+    public PasswordField profileAdvisorNewpw;
+    @FXML
+    public Label profileAdvisorNewpwError;
+    @FXML
+    public PasswordField profileAdvisorConfirmpw;
+    @FXML
+    public Label profileAdvisorConfirmpwError;
     
     @FXML
     protected BarChart<?, ?> GenderRatioChart;
