@@ -521,15 +521,14 @@ public class StudentActivityController extends StudentDashboardController {
         if(!selectedClub.equals("None")) {
             for (Club club : Club.clubDetailsList) {
                 if (club.getClubName().equals(selectedClub)) {
-                    studentJoinClubID.setText(String.valueOf(club.getClubId()));
-                    studentJoinClubName.setText(club.getClubName());
+                    studentJoinClubID.setText(String.valueOf(club.getClubId())); // setting the club ID of the student selected club
+                    studentJoinClubName.setText(club.getClubName()); // setting the club name of the student selected club
 
                     for (ClubAdvisor advisor : ClubAdvisor.clubAdvisorDetailsList) {
-                        System.out.println("bn");
                         for (Club clubName : advisor.createdClubDetailsList) {
                             System.out.println("Incharge clubName ");
                             if (clubName.getClubName().equals(selectedClub)) {
-                                studentJoinClubAdvisorName.setText(advisor.getFirstName() + " " + advisor.getLastName());
+                                studentJoinClubAdvisorName.setText(advisor.getFirstName() + " " + advisor.getLastName()); // setting club advisor name of the respective club
                                 System.out.println("Incharge clubName " + "Hello");
                                 break;
                             }
