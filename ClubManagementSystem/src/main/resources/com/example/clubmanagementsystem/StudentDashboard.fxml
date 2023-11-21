@@ -149,7 +149,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
 
-                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
@@ -361,7 +361,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="StudentProfilePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentProfilePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="21.0" prefHeight="526.0" prefWidth="823.0" styleClass="EventMainPane" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="21.0">
                                  <children>
@@ -479,7 +479,7 @@
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateExistingPasswordLabel" layoutX="26.0" layoutY="445.0" prefHeight="20.0" prefWidth="240.0" textFill="RED">
+                                    <Label fx:id="studentUpdateExistingPasswordLabel" layoutX="26.0" layoutY="445.0" prefHeight="34.0" prefWidth="240.0" textFill="RED">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>

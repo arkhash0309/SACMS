@@ -303,10 +303,12 @@ public class StudentActivityController extends StudentDashboardController {
         studentEnteredExistingPassword = studentUpdateProfileExistingPassword.getText(); // getting student studentEnteredExistingPassword from studentUpdateProfileExistingPassword text field
 
         existingPasswordChecker(studentExistingPassword, studentEnteredExistingPassword);
-        ConfirmPasswordChecker(updatedPassword, updateConfirmPassword);
-        PasswordChecker(updatedPassword);
-
-
+        if(validStat){
+            PasswordChecker(updatedPassword);
+        }
+        if(validStat){
+            ConfirmPasswordChecker(updatedPassword, updateConfirmPassword);
+        }
 
         // inserting updated credentials to database
         if(validStat) {
@@ -329,74 +331,78 @@ public class StudentActivityController extends StudentDashboardController {
         //Update database
     }
 
-    // this method is used to validate student new password
+//     this method is used to validate student new password
     void PasswordChecker(String studentUpdatedPassword){
-
-        validStat = true;
         String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; // this variable is used to check whether new password containing special characters
-
-        if(studentUpdatedPassword.isEmpty()){ // if new password is empty
+        if(studentUpdatedPassword.equals("")){ // if new password is empty
             studentUpdateNewPasswordLabel.setText("Password cannot be empty");
             validStat = false;
+            return;
         }else {
-            studentUpdateNewPasswordLabel.setText("");
-        }
-
-        for (char specialChar : specialCharacters.toCharArray()) { // here it is iterating character by character of the new password to check whether it is containing special characters.
-            studentUpdatedPassword.contains(String.valueOf(specialChar));
             validStat = true;
             studentUpdateNewPasswordLabel.setText("");
         }
-        if(studentUpdatedPassword.length() < 8 || studentUpdatedPassword.length() > 20){ // here we are checking whether new password consist of more than 8 characters
-            studentUpdateNewPasswordLabel.setText("");
-            validStat = false;
+
+        validStat = false;
+        for (char specialChar : specialCharacters.toCharArray()) { // here it is iterating character by character of the new password to check whether it is containing special characters.
+            if(studentUpdatedPassword.contains(String.valueOf(specialChar))){
+                validStat = true;
+            }
+        }
+        if(studentUpdatedPassword.length() >= 8 && studentUpdatedPassword.length() <= 20){ // here we are checking whether new password consist of more than 8 characters
             if(!validStat){
                 studentUpdateNewPasswordLabel.setText("""
-                    Password should consist of 8 characters
-                    including numbers and special characters.""");
-
+                                    Password should consist of special 
+                                    characters""");
             }else {
+                validStat = true;
                 studentUpdateNewPasswordLabel.setText("");
             }
         }else{
             validStat = false;
-            studentUpdateNewPasswordLabel.setText("""
-                    Password should consist of 8 characters
-                    including numbers and special characters.""");
+            studentUpdateNewPasswordLabel.setText("Password should consist of 8 characters");
         }
     }
-    // this method is to check whether confirm password is entered correctly
+    // this method is to check confirm password is entered correctly
     void ConfirmPasswordChecker(String studentUpdatedPassword, String studentConfirmPassword){
-        validStat = true;
+
 
         if(studentConfirmPassword.isEmpty()){ // if confirm password field is empty
             studentUpdateConfirmPasswordLabel.setText("Password cannot be empty");
             validStat = false;
         }else {
+            validStat = true;
             studentUpdateConfirmPasswordLabel.setText("");
 
         }if(!studentConfirmPassword.equals(studentUpdatedPassword)){ // if both studentConfirmPassword and studentUpdatedPassword are not matching
             studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
             validStat = false;
         } else{
+            validStat = true;
             studentUpdateConfirmPasswordLabel.setText("");
         }
     }
     // this method will check whether existing password
     void existingPasswordChecker(String realExistingPassword, String enteredExistingPassword){
-        if (!realExistingPassword.equals(enteredExistingPassword)){ // if student did not enter the existing password correctly, this if condition will perform
-            studentUpdateExistingPasswordLabel.setText("Please enter your current password correctly");
-            validStat = false;
-        }else{ // if password is correct
-            studentUpdateExistingPasswordLabel.setText("");
 
-        }
-
-        if(realExistingPassword.isEmpty()){ // here it is checking whether existing password is empty or not.
+        if(enteredExistingPassword.equals("")){ // here it is checking whether existing password is empty or not.
             studentUpdateExistingPasswordLabel.setText("Password cannot be empty");
             validStat = false;
+            return;
         }else{
+            validStat = true;
             studentUpdateExistingPasswordLabel.setText("");
+        }
+
+        if (!realExistingPassword.equals(enteredExistingPassword)){ // if student did not enter the existing password correctly, this if condition will perform
+            studentUpdateExistingPasswordLabel.setText("""
+                                    Please enter your current password 
+                                    correctly""");
+            validStat = false;
+        }else{ // if password is correct
+            validStat = true;
+            studentUpdateExistingPasswordLabel.setText("");
+
         }
     }
 
@@ -592,7 +598,7 @@ public class StudentActivityController extends StudentDashboardController {
         try{
             Club selectedClub = leaveClubTable.getSelectionModel().getSelectedItem();
             clubIndexStudentLeave = leaveClubTable.getSelectionModel().getSelectedIndex();
-            System.out.println(selectedClub.getClubName())
+            System.out.println(selectedClub.getClubName());
 
             Alert cancelEvent = new Alert(Alert.AlertType.CONFIRMATION);
             cancelEvent.initModality(Modality.APPLICATION_MODAL);
