@@ -592,8 +592,7 @@ public class StudentActivityController extends StudentDashboardController {
         try{
             Club selectedClub = leaveClubTable.getSelectionModel().getSelectedItem();
             clubIndexStudentLeave = leaveClubTable.getSelectionModel().getSelectedIndex();
-            System.out.println(selectedClub.getClubName());
-            System.out.println("hello world");
+            System.out.println(selectedClub.getClubName())
 
             Alert cancelEvent = new Alert(Alert.AlertType.CONFIRMATION);
             cancelEvent.initModality(Modality.APPLICATION_MODAL);
