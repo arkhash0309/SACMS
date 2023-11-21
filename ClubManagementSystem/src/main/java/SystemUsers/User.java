@@ -62,6 +62,7 @@ abstract public class User implements UserValidator {
     }
 
     public String getPassword() {
+        System.out.println(password);
         return password;
     }
 
@@ -227,21 +228,20 @@ abstract public class User implements UserValidator {
         }
     }
     @Override
-    public boolean validatePassword(String requiredWork) throws SQLException{
+    public boolean validatePassword(String requiredWork) {
         if(requiredWork.equals("registration")){
             if(this.getPassword().isEmpty()){
                 System.out.println("Empty empty !!!!!!!");
                 passwordValidateStatus = "empty";
                 return false;
-            }
-            if(checkPasswordIsValid(this.getPassword())){
-                return true;
+            } else if(!checkPasswordIsValid(this.getPassword())){
+                return false;
             }else{
                 passwordValidateStatus = "format";
                 return false;
             }
-        }else{
-            // login and edit password
+        }else {
+            // login and edit
             return false;
         }
     }
@@ -261,9 +261,10 @@ abstract public class User implements UserValidator {
     }
 
     {
-       fNameValidateStatus = "";
-       lNameValidateStatus = "";
-       contactNumberValidateStatus = "";
-       userNameValidateStatus = "";
+       fNameValidateStatus = "correct";
+       lNameValidateStatus = "correct";
+       contactNumberValidateStatus = "correct";
+       userNameValidateStatus = "correct";
+       passwordValidateStatus = "correct";
     }
 }
