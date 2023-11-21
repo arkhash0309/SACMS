@@ -112,7 +112,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         displayNumberOfScheduledEvents();
         getNextEventDate();
         displayStudentUpdateDetails();
-        displayExistingPassword();
+
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
@@ -572,9 +572,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }else {
             //Show the import image error alert
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Image not imported !!!");
-            alert.show(); //Display the error
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("School Activity Club Management System");
+            alert.setHeaderText(null);
+            alert.setContentText("Image is not imported!");
+            alert.showAndWait();
         }
     }
 
@@ -1517,7 +1519,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ProfilePane.setVisible(true);
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
         displayStudentUpdateDetails();
-        displayExistingPassword();
     }
 
 
@@ -1675,9 +1676,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String advisorLastName = profileAdvisorLname.getText();
         String advisorUsername = profileAdvisorUsername.getText();
         String advisorContactNumber = profileAdvisorCnumber.getText();
-        String advisorPassword = profileAdvisorpw.getText();
+//        String advisorPassword = profileAdvisorpw.getText();
 
-        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
+        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
         ClubAdvisor.fNameValidateStatus = "correct";
         ClubAdvisor.lNameValidateStatus = "correct";
@@ -1761,51 +1762,60 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String advisorLastName = profileAdvisorLname.getText();
         String advisorUsername = profileAdvisorUsername.getText();
         String advisorContactNumber = profileAdvisorCnumber.getText();
-//        String advisorpw = profileAdvisorpw.getText();
-        String advisorNewPassword = profileAdvisorNewpwError.getText();
-        String advisorConfirmPassword = profileAdvisorConfirmpwError.getText();
+        String advisorExistingPassword = profileAdvisorExistingpw.getText();
+        String advisorNewPassword = profileAdvisorNewpw.getText();
+        String advisorConfirmPassword = profileAdvisorConfirmpw.getText();
 
-        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName,
-                advisorContactNumber, advisorId);
+        for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList){
+            if (advisorExistingPassword.equals(foundAdvisor.getPassword())){
+                profileAdvisorExistingpwError.setText("");
+                ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
-        if (!clubAdvisor.validatePassword("update")) {
-            System.out.println("Wrong password.");
-            validStat = false;
-        } else {
-            User.passwordValidateStatus = "";
-        }
-        displayPasswordError();
-
-        if (advisorConfirmPassword.isEmpty()) {
-            profileAdvisorConfirmpwError.setText("Cannot be empty.");
-            validStat = false;
-        } else if (!advisorConfirmPassword.equals(advisorNewPassword)) {
-            profileAdvisorConfirmpwError.setText("Passwords do not match");
-            validStat = false;
-        } else {
-            profileAdvisorConfirmpwError.setText("");
-        }
-
-        System.out.println("Valid state : " + validStat);
-        if (validStat){
-            for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList){
-                if (advisorId == foundClubAdvisor.getClubAdvisorId()){
-                    foundClubAdvisor.setPassword(advisorNewPassword);
-
-                    Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
-                    clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
-                    clubUpdateAlert.setTitle("School Club Management System");
-                    clubUpdateAlert.setHeaderText("Profile password successfully changed!!!");
-                    clubUpdateAlert.show();
-
-                    profileAdvisorpw.setText(advisorNewPassword);
-                    profileAdvisorNewpw.setText("");
-                    profileAdvisorConfirmpw.setText("");
-
-                    //Update database
+                if (!clubAdvisor.validatePassword("update")) {
+                    System.out.println("Wrong password.");
+                    validStat = false;
                 }
+//                else {
+//                    User.passwordValidateStatus = "";
+//                }
+                displayPasswordError();
+
+                if (advisorConfirmPassword.isEmpty()) {
+                    profileAdvisorConfirmpwError.setText("Cannot be empty.");
+                    validStat = false;
+                } else if (!advisorConfirmPassword.equals(advisorNewPassword)) {
+                    profileAdvisorConfirmpwError.setText("Passwords do not match");
+                    validStat = false;
+                } else {
+                    profileAdvisorConfirmpwError.setText("");
+                }
+
+                System.out.println("Valid state : " + validStat);
+                if (validStat){
+                    for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList){
+                        if (advisorId == foundClubAdvisor.getClubAdvisorId()){
+                            foundClubAdvisor.setPassword(advisorNewPassword);
+
+                            Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+                            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+                            clubUpdateAlert.setTitle("School Club Management System");
+                            clubUpdateAlert.setHeaderText("Profile password successfully changed!!!");
+                            clubUpdateAlert.show();
+
+                            profileAdvisorExistingpw.setText("");
+                            profileAdvisorNewpw.setText("");
+                            profileAdvisorConfirmpw.setText("");
+
+                            //Update database
+                        }
+                    }
+                }
+            }else {
+                profileAdvisorExistingpwError.setText("Wrong password!");
             }
         }
+
+
     }
 
     public void displayUserNameError() {
@@ -1856,7 +1866,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (User.passwordValidateStatus.equals("empty")) {
             profileAdvisorNewpwError.setText("Password cannot be empty.");
         } else if (User.passwordValidateStatus.equals("format")) {
-            profileAdvisorNewpwError.setText("Password should consists of 8 characters including numbers and special characters.");
+            profileAdvisorNewpwError.setText("Password should consists of 8\ncharacters including numbers and\nspecial characters.");
         } else {
             profileAdvisorNewpwError.setText("");
         }
@@ -1874,9 +1884,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         username =  String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName());
     }
 
-    public void displayExistingPassword(){
-        profileAdvisorpw.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getPassword()));
-    }
+//    public void displayExistingPassword(){
+//        profileAdvisorpw.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getPassword()));
+//    }
 
 
 

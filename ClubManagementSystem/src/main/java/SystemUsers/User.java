@@ -242,7 +242,17 @@ abstract public class User implements UserValidator {
             }
         }else{
             // login and edit password
-            return false;
+            if(this.getPassword().isEmpty()){
+                System.out.println("Empty empty !!!!!!!");
+                passwordValidateStatus = "empty";
+                return false;
+            }
+            if(checkPasswordIsValid(this.getPassword())){
+                return true;
+            }else{
+                passwordValidateStatus = "format";
+                return false;
+            }
         }
     }
 
@@ -265,5 +275,6 @@ abstract public class User implements UserValidator {
        lNameValidateStatus = "";
        contactNumberValidateStatus = "";
        userNameValidateStatus = "";
+       passwordValidateStatus = "";
     }
 }
