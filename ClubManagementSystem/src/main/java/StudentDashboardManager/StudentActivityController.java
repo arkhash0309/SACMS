@@ -588,7 +588,7 @@ public class StudentActivityController extends StudentDashboardController {
     }
 
 
-    public void leaveClubController(){ // student leave club metohd
+    public void leaveClubController(){ // student leave club method
         try{
             Club selectedClub = leaveClubTable.getSelectionModel().getSelectedItem();
             clubIndexStudentLeave = leaveClubTable.getSelectionModel().getSelectedIndex();
