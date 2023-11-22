@@ -2370,108 +2370,148 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //    }
 
 
-
+    /* This method ensures that the input number is represented
+    * as ten digit string, if not put zeros to the beginning*/
     public static String makeTenDigitsForNumber(int number) {
+        // Convert the number to string
         String strNumber = Integer.toString(number);
 
+        // If the number has less than 10 digits, add leading zeros
         if (strNumber.length() < 10) {
             StringBuilder zeros = new StringBuilder();
             for (int i = 0; i < 10 - strNumber.length(); i++) {
                 zeros.append('0');
             }
+            // combine leading zeros and the original number
             return zeros.toString() + strNumber;
         } else {
+            // If the number has more than 10 digits, truncate it to the first ten digits
             return strNumber.substring(0, 10);
         }
     }
 
+    // Populate the given combo box with club names, including an option for "All clubs"
     public void populateGenerateReportClubs(ComboBox<String> selectedCombo){
         selectedCombo.getItems().clear();
+
+        // Adds "All Clubs" option if it doesn't already exist
         if(!selectedCombo.getItems().contains("All Clubs")){
             selectedCombo.getItems().add("All Clubs");
         }
 
+        // Adds each club name to the ComboBox
         for(Club club: clubDetailsList){
             selectedCombo.getItems().add(club.getClubName());
         }
 
+        // Selects the first item in the ComboBox
         selectedCombo.getSelectionModel().selectFirst();
     }
 
+    // Populate the generateReportEventViewTable with events based on the selected club filter
     @FXML
     void populateGenerateReportsEventsFilteredTable(ActionEvent event) {
        populateEventList(generateReportEventViewTable, generateReportClubNameComboBox);
     }
 
+    // Populate the generateReportEventViewTable with all events and updates relevant UI elements
     public void populateGenerateReportEventsTable() {
         ArrayList<LocalDate> selectedEventDates = new ArrayList<>();
 
+        // Check if the eventDetails is null, if it is null, return the method
         if (Event.eventDetails == null) {
             return;
         }
 
+        // Clears the table and adjust its column resizing policy
         generateReportEventViewTable.getItems().clear();
         generateReportEventViewTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
+        // initialize the counter to calculate number of events
         int count = 0;
         ObservableList<Event> viewCreatedScheduledEvents = FXCollections.observableArrayList();
 
+        // Iterate through the Event details list to put event values into the observable list
         for (Event value : Event.eventDetails) {
             Club hostingClub = value.getHostingClub();
+            // create an event Object
             Event event = new Event(value.getEventName(), value.getEventLocation(),
                     value.getEventType(), value.getEventDeliveryType(), value.getEventDate(),
                     value.getEventTime(), hostingClub, value.getEventDescription(), value.getEventId());
 
+            // Add the event object to the observable list
             viewCreatedScheduledEvents.add(event);
             selectedEventDates.add(event.getEventDate());
+            // Increment the counter
             count++;
         }
 
+        // Sets the items in the table and selects the first item in the combobox
         generateReportEventViewTable.setItems(viewCreatedScheduledEvents);
         generateReportClubNameComboBox.getSelectionModel().selectFirst();
 
+        // Update UI event elements based on the event dates
         if (selectedEventDates != null && !selectedEventDates.isEmpty()) {
+            // get the next event date
             selectedUpcomingDate = findEarliestDate(selectedEventDates);
+            // get the most future event date
             selectedMostFutureDate = findMostFutureDate(selectedEventDates);
         }else{
+            // set event date range labels
             UpcomingEventCountGenerateReports.setText("Total: " + count);
             eventDateRange.setText("No Events");
+            return;
         }
 
+        // set event date ranges if the club events length not equals to zero
         UpcomingEventCountGenerateReports.setText("Total: " + count);
         eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
     }
 
-
+    // This method find and return the most future date from the given list of dates
     public static LocalDate findMostFutureDate(List<LocalDate> givenDateList) {
+        // Checks if the input date list is null or empty
         if (givenDateList == null || givenDateList.isEmpty()) {
+            // Throws an exception if the date list is null or empty
             throw new IllegalArgumentException("Date list cannot be null or empty.");
         }
 
+
+        // Initializes with the first date in the list as the most future date
         LocalDate mostFutureDate = givenDateList.get(0);
 
+        // Iterates through the list to find the most future date
         for (LocalDate date : givenDateList) {
+            // Updates mostFutureDate if the current date is after the selected date
             if (date.isAfter(mostFutureDate)) {
                 mostFutureDate = date;
             }
         }
 
+        // Returns the most future date found in the list
         return mostFutureDate;
     }
 
+    // This method finds and returns the earliest date from the given list of dates
     public static LocalDate findEarliestDate(List<LocalDate> givenDateList) {
+        // Checks if the input date list is null or empty
         if (givenDateList == null || givenDateList.isEmpty()) {
+            // Throws an exception if the date list is null or empty
             throw new IllegalArgumentException("Date list cannot be null or empty.");
         }
 
+        // Initializes with the first date in the list
         LocalDate earliestDate = givenDateList.get(0);
 
+        // Iterates through the list to find the earliest date
         for (LocalDate date : givenDateList) {
+            // Updates earliestDate if the current date is before it
             if (date.isBefore(earliestDate)) {
                 earliestDate = date;
             }
         }
 
+        // Returns the earliest date found in the list
         return earliestDate;
     }
 
