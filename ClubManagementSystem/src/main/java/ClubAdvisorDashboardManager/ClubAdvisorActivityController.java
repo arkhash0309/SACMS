@@ -52,27 +52,34 @@ import java.time.LocalTime;
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
 
-    public static String username;
+    public static String username; // Holds the username of the current user
+    public static boolean validStat = true;  // Represents the validation status, initialized as true
+    public static int selectedEventId; // Holds the ID of the selected event
+    public static Event selectedEventValue; // Holds the details of the selected event
+    final FileChooser fileChooser = new FileChooser(); // FileChooser for handling file-related operations
+    public static String imagePath;  // Holds the file path for an image
+    public static int clubIdSetterValue; // Static value for setting club IDs
+    public LocalDate selectedUpcomingDate; // Represents the selected upcoming date
+    public LocalDate selectedMostFutureDate;  // Represents the selected most future date
 
-    public static boolean validStat = true;
-    public static int selectedEventId;
-    public static Event selectedEventValue;
-    final FileChooser fileChooser = new FileChooser();
-    public static String imagePath;
-    public static int clubIdSetterValue;
-    public LocalDate selectedUpcomingDate;
-
-    public LocalDate selectedMostFutureDate;
-
+    // This method initializes all variables and call methods when loading club advisor dashboard
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
+
+        // populate combo boxes
         populateComboBoxes();
+        // display male female student count dashboard
         findMaleFemaleStudentCount();
+        // display enrolled student count
         displayEnrolledStudentCount();
+        // display number of club advisors
         displayNumberOfClubAdvisors();
+        // display generate report combo box to select clubs
         populateGenerateReportClubs(generateReportClubNameComboBox);
+        // populate all generate report event tables
         populateGenerateReportEventsTable();
 
         //Set cell value factories for the columns of the Create Club Table
@@ -106,15 +113,19 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
         updateClubTableLogo.setCellValueFactory(new PropertyValueFactory<>("absoluteImage"));
 
+        // display the number of scheduled events in dashboard
         displayNumberOfScheduledEvents();
+        // display the next event date in dashboard
         getNextEventDate();
+        // display the student update details
         displayStudentUpdateDetails();
 
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
-
+   // this method populate the combo boxes with entity types  and its tables
     public void populateComboBoxes(){
+        // Initialize the event related combo boxes
         scheduleEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
         scheduleEventTypeCombo.getSelectionModel().selectFirst();
         ScheduleEventsDeliveryType.getItems().addAll("None", "Online", "Physical");
@@ -124,6 +135,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventDeliveryTypeCombo.getItems().addAll("None", "Online", "Physical");
         updateEventDeliveryTypeCombo.getSelectionModel().selectFirst();
 
+        // Populates ComboBoxes with hours
         for (int hour = 0; hour < 24; hour++) {
             updateHourComboBox.getItems().add(String.format("%02d", hour));
         }
@@ -145,6 +157,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
         scheduleEventMinutes.getSelectionModel().selectFirst();
 
+        // set cell value factories for schedule events table
         createEventClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         createEventEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         createEventEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
@@ -154,6 +167,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         createEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
         createEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
 
+        // set cell value factories for update events table
         updateClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         updateEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         updateEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
@@ -163,6 +177,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
         updateEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
 
+        // set cell value factories for cancel events table
         cancelEventClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         cancelEventEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         cancelEventEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
@@ -172,6 +187,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         cancelEventEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
         cancelEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
 
+        // set cell value factories for view events table
         viewEventClubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         viewEventEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         viewEventDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
@@ -184,6 +200,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         atColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
         stColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceTracker"));
 
+        // set cell value factories for generate reports event table
         generateReportClubName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         generateReportEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         generateReportEventDate.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
