@@ -81,8 +81,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         memberGender.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
         memberContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
 
-        
-        registrationAdvisorID.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorId"));
+        registrationAdvisorID.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorId")); // setting values to registrationAdvisorID column
         registrationAdvisorUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         registrationAdvisorFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         registrationAdvisorLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -2631,6 +2630,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             observableClubAdvisorRegistrationList.add(clubAdvisor1);
             registrationAdvisorTable.setItems(observableClubAdvisorRegistrationList);
         }
+    }
+
+    public void populateClubStuentTable(){
+        if(studentDetailArray == null){
+            return;
+        }
+
+        registrationStudentTable.getItems().clear();
     }
 
 
