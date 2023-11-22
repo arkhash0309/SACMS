@@ -45,6 +45,8 @@ import java.util.ResourceBundle;
 import java.util.*;
 import static ClubManager.Club.clubDetailsList;
 import static SystemUsers.ClubAdvisor.clubAdvisorDetailsList;
+import static SystemUsers.Student.studentDetailArray;
+import static SystemUsers.Student.studentJoinedClubs;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -64,7 +66,18 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // This method initializes all variables and call methods when loading club advisor dashboard
     @Override
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        populateMembershipCombo(clubMembershipCombo);
+
+        memberAdmissionNumber.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
+        memberUsername.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        memberFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        memberLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        memberGrade.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
+        memberGender.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
+        memberContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
@@ -346,6 +359,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             setCreateTable();
             setUpdateTable();
+            populateMembershipCombo(clubMembershipCombo);
 
             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -452,6 +466,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     //Updating club details tables
                     setCreateTable();
                     setUpdateTable();
+                    populateMembershipCombo(clubMembershipCombo);
 
                     //Update database
                     String updateQuery = "UPDATE Club SET clubName=?, clubDescription=?, clubLogo=?, teacherInChargeId=? WHERE clubId=?";
@@ -1620,6 +1635,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         int maleRate = 0;
         int femaleRate = 0;
 
+
         // Iterate through the student details array
         for(Student student : Student.studentDetailArray){
             // Checking the gender of the registered student and updating its corresponding counter value
@@ -1646,6 +1662,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void displayEnrolledStudentCount(){
         // Create a HashMap to store the count of students for each grade
         HashMap<Integer, Integer> studentGrade = new HashMap<>();
+
 
         // Iterate through the student details array
         for(Student student : Student.studentDetailArray){
@@ -2161,9 +2178,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     static {
-        clubIdSetterValue = 100;
+        if (clubDetailsList.isEmpty()){
+            clubIdSetterValue = 100;
+        }else {
+            clubIdSetterValue = clubDetailsList.get(-1).getClubId() + 1 ;
+        }
     }
-
 
     @FXML
     void advisorProfileUpdateChecker(ActionEvent event) {
@@ -2273,9 +2293,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     System.out.println("Wrong password.");
                     validStat = false;
                 }
-//                else {
-//                    User.passwordValidateStatus = "";
-//                }
                 displayPasswordError();
 
                 if (advisorConfirmPassword.isEmpty()) {
@@ -2407,6 +2424,55 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+
+    public void populateMembershipCombo(ComboBox<String> selectedCombo){
+        selectedCombo.getItems().clear();
+        if (!selectedCombo.getItems().contains("Select a club")){
+            selectedCombo.getItems().add("Select a club");
+        }
+        for (Club club : clubDetailsList){
+            selectedCombo.getItems().add(club.getClubName());
+        }
+        selectedCombo.getSelectionModel().selectFirst();
+    }
+
+//    @FXML
+//    public void clubMembershipReportGenerator(ActionEvent event) {
+//        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
+//
+//        if (selectedClub.equals("All Clubs")){
+//            setMembershipTable();
+//        }else {
+//            for(Student foundStudent : studentDetailArray){
+//                for (Club foundClub : foundStudent.){
+//
+//                }
+//            }
+//        }
+//
+//    }
+
+    public void setMembershipTable(){
+        // Check whether the sortedList is null and return the method, if it is null
+        if(studentDetailArray == null){
+            return;
+        }
+        // Clear the UpdateViewTable
+        clubMembershipTable.getItems().clear();
+
+        // Add Item details to the UpdateView Table using Sorted List
+        for(Student student : studentDetailArray) {
+
+            // Create an Item details object with the item details
+            Student tableStudent = new Student(student.getStudentAdmissionNum(),student.getUserName(),student.getFirstName(), student.getLastName(), student.getStudentGrade(), student.getGender(), student.getContactNumber());
+
+            // Add the item details to the UpdateViewTable
+            ObservableList<Student> observableMembersList = clubMembershipTable.getItems();
+            observableMembersList.add(tableStudent);
+            clubMembershipTable.setItems(observableMembersList);
+        }
+    }
+
     // Populate the given combo box with club names, including an option for "All clubs"
     public void populateGenerateReportClubs(ComboBox<String> selectedCombo){
         selectedCombo.getItems().clear();
@@ -2531,7 +2597,5 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Returns the earliest date found in the list
         return earliestDate;
     }
-
-
 }
 

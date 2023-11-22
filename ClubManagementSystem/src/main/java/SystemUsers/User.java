@@ -121,7 +121,7 @@ abstract public class User implements UserValidator {
             lNameValidateStatus = "empty";
             return false;
         }else{
-            if(containsSpecialCharactersAndDigits(this.lastName)){
+            if(!containsSpecialCharactersAndDigits(this.lastName)){
                 lNameValidateStatus = "format";
                 return false;
             }else{

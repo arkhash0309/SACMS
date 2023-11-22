@@ -268,7 +268,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="ManageClubPane" prefHeight="572.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane fx:id="createClubPane" layoutY="-2.0" prefHeight="575.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+                              <AnchorPane fx:id="createClubPane" layoutY="-2.0" prefHeight="575.0" prefWidth="872.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
                                  <children>
                                     <AnchorPane layoutX="21.0" layoutY="307.0" prefHeight="255.0" prefWidth="823.0" styleClass="dashboardPane" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="307.0">
                                        <children>
@@ -391,7 +391,7 @@
                                     </Button>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="UpdateClubDetailPane" layoutY="50.0" prefHeight="522.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                              <AnchorPane fx:id="UpdateClubDetailPane" layoutY="50.0" prefHeight="522.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                  <children>
                                     <AnchorPane prefHeight="255.0" prefWidth="823.0" styleClass="dashboardPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
                                        <children>
@@ -1011,7 +1011,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="49.0" prefWidth="864.0" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -1150,8 +1150,8 @@
                                        <children>
                                           <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
-                                                <ComboBox layoutX="27.0" layoutY="93.0" prefHeight="31.0" prefWidth="290.0" />
-                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="151.0" text="Generate Report">
+                                                <ComboBox fx:id="clubMembershipCombo" layoutX="27.0" layoutY="93.0" prefHeight="31.0" prefWidth="290.0" />
+                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" onAction="#clubMembershipReportGenerator" prefHeight="36.0" prefWidth="151.0" text="Generate Report">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -1174,12 +1174,35 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Label>
+                                                <Label layoutX="621.0" layoutY="82.0" prefHeight="26.0" prefWidth="109.0" text="Membership">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="27.0" layoutY="135.0" prefHeight="33.0" prefWidth="782.0" styleClass="selectorColor" text="  Membership Details">
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="1.0" focusAngle="172.91" focusDistance="1.0" proportional="false" radius="1.0">
+                                                         <stops>
+                                                            <Stop color="BLACK" />
+                                                            <Stop color="WHITE" offset="1.0" />
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
-                                          <TableView layoutX="47.0" layoutY="163.0" prefHeight="314.0" prefWidth="784.0">
+                                          <TableView fx:id="clubMembershipTable" layoutX="48.0" layoutY="197.0" prefHeight="281.0" prefWidth="782.0">
                                             <columns>
-                                              <TableColumn prefWidth="75.0" text="C1" />
-                                              <TableColumn prefWidth="75.0" text="C2" />
+                                              <TableColumn fx:id="memberAdmissionNumber" prefWidth="123.1999740600586" text="Admission Number" />
+                                              <TableColumn fx:id="memberUsername" prefWidth="86.39996337890625" text="Username" />
+                                                <TableColumn fx:id="memberFirstName" prefWidth="107.20001220703125" text="First Name" />
+                                                <TableColumn fx:id="memberLastName" prefWidth="102.39996337890625" text="Last Name" />
+                                                <TableColumn fx:id="memberGrade" prefWidth="51.200042724609375" text="Grade" />
+                                                <TableColumn fx:id="memberGender" prefWidth="62.4000244140625" text="Gender" />
+                                                <TableColumn fx:id="memberContactNumber" prefWidth="129.60003662109375" text="Contact Number" />
                                             </columns>
                                           </TableView>
                                        </children>
@@ -1225,7 +1248,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="12.0" layoutY="15.0" prefHeight="526.0" prefWidth="836.0" styleClass="EventMainPane">
                                  <children>

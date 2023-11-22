@@ -25,6 +25,9 @@ public class HelloApplication extends Application {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
+
+            System.out.println("Lakshan200");
+            System.out.println("Lakshan1234");
         }catch (Exception E){
             E.printStackTrace();
         }

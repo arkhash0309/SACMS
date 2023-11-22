@@ -4,6 +4,7 @@ import ClubManager.Club;
 import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
+import SystemUsers.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -485,6 +486,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public PasswordField profileAdvisorConfirmpw;
     @FXML
     public Label profileAdvisorConfirmpwError;
+    @FXML
+    public ComboBox<String> clubMembershipCombo;
     
     @FXML
     protected BarChart<?, ?> GenderRatioChart;
@@ -562,6 +565,23 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public Label eventDateRange;
 
     public int clubAdvisorId;
+
+    @FXML
+    public TableView<Student> clubMembershipTable;
+    @FXML
+    public TableColumn<?, ?> memberAdmissionNumber;
+    @FXML
+    public TableColumn<?, ?> memberContactNumber;
+    @FXML
+    public TableColumn<?, ?> memberFirstName;
+    @FXML
+    public TableColumn<?, ?> memberGender;
+    @FXML
+    public TableColumn<?, ?> memberGrade;
+    @FXML
+    public TableColumn<?, ?> memberLastName;
+    @FXML
+    public TableColumn<?, ?> memberUsername;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
