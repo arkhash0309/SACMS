@@ -566,6 +566,23 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public Label eventDateRange;
 
     public int clubAdvisorId;
+
+    @FXML
+    public TableView<Student> clubMembershipTable;
+    @FXML
+    public TableColumn<Student, Integer> memberAdmissionNumber;
+    @FXML
+    public TableColumn<Student, String> memberContactNumber;
+    @FXML
+    public TableColumn<Student, String> memberFirstName;
+    @FXML
+    public TableColumn<Student, Character> memberGender;
+    @FXML
+    public TableColumn<Student, Integer> memberGrade;
+    @FXML
+    public TableColumn<Student, String> memberLastName;
+    @FXML
+    public TableColumn<Student, String>memberUsername;
     @FXML
     protected ComboBox<String> registrationUserSelectComboBox;
 
@@ -591,7 +608,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Student, String> registrationStudentContactNumberColumn;
 
     @FXML
-    protected TableColumn<Student, Character> registrationStudentGenderColumn;
+    protected TableColumn<Student, String> registrationStudentGenderColumn;
     @FXML
     protected TableView<ClubAdvisor> registrationAdvisorTable;
 
@@ -609,23 +626,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<ClubAdvisor, String> registrationAdvisorContactNumber;
-
-    @FXML
-    public TableView<Student> clubMembershipTable;
-    @FXML
-    public TableColumn<?, ?> memberAdmissionNumber;
-    @FXML
-    public TableColumn<?, ?> memberContactNumber;
-    @FXML
-    public TableColumn<?, ?> memberFirstName;
-    @FXML
-    public TableColumn<?, ?> memberGender;
-    @FXML
-    public TableColumn<?, ?> memberGrade;
-    @FXML
-    public TableColumn<?, ?> memberLastName;
-    @FXML
-    public TableColumn<?, ?> memberUsername;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);

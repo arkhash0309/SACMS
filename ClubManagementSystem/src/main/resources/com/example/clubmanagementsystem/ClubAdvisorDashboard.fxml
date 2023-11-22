@@ -1235,7 +1235,7 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView fx:id="registrationStudentTable" layoutX="27.0" layoutY="128.0" prefHeight="317.0" prefWidth="763.0">
+                                                <TableView fx:id="registrationStudentTable" layoutX="27.0" layoutY="128.0" prefHeight="317.0" prefWidth="763.0" visible="false">
                                                   <columns>
                                                     <TableColumn fx:id="registrationStudentAdmissionNumberColumn" prefWidth="117.0" text="Admission Number" />
                                                       <TableColumn fx:id="registrationStudentUserName" prefWidth="141.0" text="User Name" />
@@ -1246,13 +1246,13 @@
                                                       <TableColumn fx:id="registrationStudentGenderColumn" prefWidth="64.0" text="Gender" />
                                                   </columns>
                                                 </TableView>
-                                                <TableView fx:id="registrationAdvisorTable" layoutX="27.0" layoutY="128.0" prefHeight="319.0" prefWidth="727.0" visible="false">
+                                                <TableView fx:id="registrationAdvisorTable" layoutX="27.0" layoutY="128.0" prefHeight="319.0" prefWidth="769.0">
                                                   <columns>
                                                     <TableColumn fx:id="registrationAdvisorID" prefWidth="95.0" text="Advisor ID" />
-                                                    <TableColumn fx:id="registrationAdvisorUserName" prefWidth="119.0" text="User Name" />
-                                                      <TableColumn fx:id="registrationAdvisorFirstName" prefWidth="164.0" text="First Name" />
-                                                      <TableColumn fx:id="registrationAdvisorLastName" prefWidth="176.0" text="Last Name" />
-                                                      <TableColumn fx:id="registrationAdvisorContactNumber" prefWidth="169.0" text="Contact Number" />
+                                                    <TableColumn fx:id="registrationAdvisorUserName" prefWidth="133.0" text="User Name" />
+                                                      <TableColumn fx:id="registrationAdvisorFirstName" prefWidth="177.0" text="First Name" />
+                                                      <TableColumn fx:id="registrationAdvisorLastName" prefWidth="181.0" text="Last Name" />
+                                                      <TableColumn fx:id="registrationAdvisorContactNumber" prefWidth="179.0" text="Contact Number" />
                                                   </columns>
                                                 </TableView>
                                              </children>
