@@ -120,7 +120,7 @@ abstract public class User implements UserValidator {
             lNameValidateStatus = "empty";
             return false;
         }else{
-            if(!containsSpecialCharactersAndDigits(this.lastName)){
+            if(containsSpecialCharactersAndDigits(this.lastName)){
                 lNameValidateStatus = "format";
                 return false;
             }else{
@@ -233,8 +233,7 @@ abstract public class User implements UserValidator {
                 System.out.println("Empty empty !!!!!!!");
                 passwordValidateStatus = "empty";
                 return false;
-            }
-            if(checkPasswordIsValid(this.getPassword())){
+            } else if(checkPasswordIsValid(this.getPassword())){
                 return true;
             }else{
                 passwordValidateStatus = "format";
@@ -246,8 +245,7 @@ abstract public class User implements UserValidator {
                 System.out.println("Empty empty !!!!!!!");
                 passwordValidateStatus = "empty";
                 return false;
-            }
-            if(checkPasswordIsValid(this.getPassword())){
+            }else if(checkPasswordIsValid(this.getPassword())){
                 return true;
             }else{
                 passwordValidateStatus = "format";
