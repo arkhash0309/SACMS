@@ -2181,7 +2181,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (clubDetailsList.isEmpty()){
             clubIdSetterValue = 100;
         }else {
-            clubIdSetterValue = clubDetailsList.get(-1).getClubId() + 1 ;
+            clubIdSetterValue = clubDetailsList.get(clubDetailsList.size() - 1).getClubId() + 1 ;
         }
     }
 
@@ -2194,9 +2194,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String advisorLastName = profileAdvisorLname.getText();
         String advisorUsername = profileAdvisorUsername.getText();
         String advisorContactNumber = profileAdvisorCnumber.getText();
-//        String advisorPassword = profileAdvisorpw.getText();
+        String advisorPassword = clubAdvisorDetailsList.get(0).getPassword();
 
-        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
+        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
         ClubAdvisor.fNameValidateStatus = "correct";
         ClubAdvisor.lNameValidateStatus = "correct";
@@ -2336,7 +2336,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
             profileAdvisorUsernameError.setText("User name cannot be empty.");
-        } else if (ClubAdvisor.userNameValidateStatus.equals("exists")) {
+        } else if (ClubAdvisor.userNameValidateStatus.equals("exist")) {
             profileAdvisorUsernameError.setText("Entered username already exists.");
         } else if (User.userNameValidateStatus.equals("blank")) {
             profileAdvisorUsernameError.setText("Username cannot contain spaces.");
@@ -2436,8 +2436,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         selectedCombo.getSelectionModel().selectFirst();
     }
 
-//    @FXML
-//    public void clubMembershipReportGenerator(ActionEvent event) {
+    @FXML
+    public void clubMembershipReportGenerator(ActionEvent event) {
 //        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
 //
 //        if (selectedClub.equals("All Clubs")){
@@ -2449,8 +2449,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //                }
 //            }
 //        }
-//
-//    }
+
+    }
 
     public void setMembershipTable(){
         // Check whether the sortedList is null and return the method, if it is null
@@ -2597,5 +2597,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Returns the earliest date found in the list
         return earliestDate;
     }
+
 }
 

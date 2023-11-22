@@ -331,7 +331,7 @@ public class ClubAdvisorLoginController {
 
         displayIdError();
 
-        if(!clubAdvisor.validateUserName("registration", "student")){
+        if(!clubAdvisor.validateUserName("registration", "clubAdvisor")){
             System.out.println("Wrong User Name");
             validStat = false;
         }else{

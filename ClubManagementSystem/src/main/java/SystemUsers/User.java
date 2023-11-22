@@ -121,7 +121,7 @@ abstract public class User implements UserValidator {
             lNameValidateStatus = "empty";
             return false;
         }else{
-            if(!containsSpecialCharactersAndDigits(this.lastName)){
+            if(containsSpecialCharactersAndDigits(this.lastName)){
                 lNameValidateStatus = "format";
                 return false;
             }else{
@@ -156,7 +156,7 @@ abstract public class User implements UserValidator {
     @Override
     public boolean validateUserName(String requiredWork, String user){
 
-        if(user.isEmpty()){
+        if(this.userName.isEmpty()){
             userNameValidateStatus = "empty";
             return false;
         }
@@ -171,6 +171,7 @@ abstract public class User implements UserValidator {
                 sql = "SELECT * FROM TeacherCredentials WHERE teacherUserName = ?";
             }
 
+            System.out.println("Laka" + this.getUserName());
             PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
             preparedStatement.setString(1, this.getUserName());
             ResultSet results = preparedStatement.executeQuery();
@@ -178,6 +179,8 @@ abstract public class User implements UserValidator {
             if (results.next()) {
                 columnName = results.getString(1);
             }
+
+            System.out.println(columnName + "data base");
 
             if (requiredWork.equals("registration") || requiredWork.equals("updation")) {
                 if(requiredWork.equals("updation") && !user.equals("student")){
@@ -227,22 +230,33 @@ abstract public class User implements UserValidator {
             return false;
         }
     }
+
     @Override
-    public boolean validatePassword(String requiredWork) {
+    public boolean validatePassword(String requiredWork) throws SQLException{
         if(requiredWork.equals("registration")){
             if(this.getPassword().isEmpty()){
                 System.out.println("Empty empty !!!!!!!");
                 passwordValidateStatus = "empty";
                 return false;
-            } else if(!checkPasswordIsValid(this.getPassword())){
+            } else if(checkPasswordIsValid(this.getPassword())){
+                return true;
+            }else{
+                System.out.println(" format format format");
+                passwordValidateStatus = "format";
                 return false;
+            }
+        }else{
+            // login and edit password
+            if(this.getPassword().isEmpty()){
+                System.out.println("Empty empty !!!!!!!");
+                passwordValidateStatus = "empty";
+                return false;
+            }else if(checkPasswordIsValid(this.getPassword())){
+                return true;
             }else{
                 passwordValidateStatus = "format";
                 return false;
             }
-        }else {
-            // login and edit
-            return false;
         }
     }
 
