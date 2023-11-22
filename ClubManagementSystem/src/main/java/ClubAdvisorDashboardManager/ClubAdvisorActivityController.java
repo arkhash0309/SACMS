@@ -69,8 +69,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @Override
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Setting the values to the combo box in Club membership report
         populateMembershipCombo(clubMembershipCombo);
-
+        //Setting up the club members details table columns
         memberAdmissionNumber.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
         memberUsername.setCellValueFactory(new PropertyValueFactory<>("userName"));
         memberFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -89,6 +90,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         findMaleFemaleStudentCount();
         // display enrolled student count
         displayEnrolledStudentCount();
+
+        //Setting up values for the columns of the Create Club Table
         // display number of club advisors
         displayNumberOfClubAdvisors();
         // display generate report combo box to select clubs
@@ -97,6 +100,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         populateGenerateReportEventsTable();
 
         //Set cell value factories for the columns of the Create Club Table
+
         createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         createClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
@@ -109,19 +113,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         attendanceStudentAdmissionNumColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
         attendanceStatusColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
 
-//        Club club1 = new Club(0001, "Rotaract", "Done with the work", "lkt.img");
-//        clubDetailsList.add(club1);
-//        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
-        for (Club club : clubDetailsList){
-            if (clubDetailsList == null){
-                return;
-            }
-//            observableClubDetailsList.add(club);
-        }
-//        createClubDetailsTable.setItems(observableClubDetailsList);
-
-
-        //Set cell value factories for the columns of the Update Club  Table
+        //Setting up values for the columns of the Update Club Table
         updateClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         updateClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         updateClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
@@ -134,7 +126,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // display the student update details
         displayStudentUpdateDetails();
 
-//        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
    // this method populate the combo boxes with entity types  and its tables
@@ -227,20 +218,19 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
   
      public void setCreateTable(){
-        // Check whether the sortedList is null and return the method, if it is null
+        // Check whether the Club Details List is null and, return the method if it is null
         if(clubDetailsList == null){
             return;
         }
-        // Clear the UpdateViewTable
+        // Clear the Created Clubs Table
         createClubDetailsTable.getItems().clear();
 
-        // Add Item details to the UpdateView Table using Sorted List
+        // Add Club details to the Created Clubs Table using an observable list
         for(Club club : clubDetailsList) {
-
-            // Create an Item details object with the item details
+            // Create a Club object with the Club details
             Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
 
-            // Add the item details to the UpdateViewTable
+            // Add the Club details to the Created Clubs Table
             ObservableList<Club> observableCreateClubList = createClubDetailsTable.getItems();
             observableCreateClubList.add(tableClub);
             createClubDetailsTable.setItems(observableCreateClubList);
@@ -248,25 +238,26 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     public void setUpdateTable(){
-        // Check whether the sortedList is null and return the method, if it is null
+        // Check whether the Club Details List is null and, return the method if it is null
         if(clubDetailsList == null){
             return;
         }
-        // Clear the UpdateViewTable
+        // Clear the Club Update Table
         updateClubDetailsTable.getItems().clear();
 
-        // Add Item details to the UpdateView Table using Sorted List
+        // Add Clubs to the Club Update Table using Observable List
         for(Club club : clubDetailsList) {
-
-            // Create an Item details object with the item details
+            // Create a Club object with the Club details
             Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
 
-            // Add the item details to the UpdateViewTable
+            //Add the Club details to the Update Clubs Table
             ObservableList<Club> observableUpdateClubList = updateClubDetailsTable.getItems();
             observableUpdateClubList.add(tableClub);
             updateClubDetailsTable.setItems(observableUpdateClubList);
         }
     }
+
+
 
 
     // This method is responsible on populating various event tables with data from Event.event details list
@@ -328,46 +319,53 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @Override
     public void clubCreationChecker(ActionEvent event) {
-//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
-//        clubDetailsList.add(club1);
+        //Setting the valid state to true
         validStat = true;
 
+        //Getting the user given club details from text fields
         int clubId = Integer.parseInt(this.clubId.getText());
         String clubName = this.clubName.getText();
         String clubDescription = this.clubDescription.getText();
-        String clubLogo = this.createClubImage.getImage().getUrl();
 
-        System.out.println(clubId);
-
+        //Creating a Club Object to validate details
         Club club = new Club(clubId,clubName,clubDescription);
 
+        //Validating club name using validateClubName method
         if (!club.validateClubName()){
-            System.out.println("Wrong Club Name");
             validStat = false;
         }
+        //Displaying relevant club name error if there is
         displayClubNameError(clubNameError);
 
+        //Validating club description using validateClubDescription method
         if (!club.validateClubDescription()){
             System.out.println("Wrong Club Description");
             validStat = false;
         }
+        //Displaying relevant club description error if there is
         displayClubDecriptionError(clubDescriptionError);
 
-        System.out.println("Valid Stat :" + validStat );
+        //Checking if all user given details are correct
         if (validStat) {
+            //Creating a new club object with the correct user given data
             Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
+            //Adding that club to the club details list
             clubDetailsList.add(clubData);
 
+            //Setting tables and comboboxes that is related to club
             setCreateTable();
             setUpdateTable();
             populateMembershipCombo(clubMembershipCombo);
 
+            //Displaying an alert
             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
             clubUpdateAlert.setTitle("School Club Management System");
             clubUpdateAlert.setHeaderText(clubName + " Club created successfully!");
             clubUpdateAlert.show();
 
+
+            //Generating the next club id for next club and, displaying
 
 //            Image defaultImage = new Image("C:/Users/Asus/Desktop/OOD CW/OOD-Coursework/ClubManagementSystem/src/main/resources/Images/360_F_93856984_YszdhleLIiJzQG9L9pSGDCIvNu5GEWCc.jpg");
 //            this.createClubImage.setImage(defaultImage);
@@ -387,14 +385,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
+          
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
 
+            //Resetting the club details text fields
             this.clubName.setText("");
             this.clubDescription.setText("");
 
         }else {
+            //Alerting if user has entered invalid values for club details
             Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
             clubUpdateAlert.setTitle("School Club Management System");
@@ -403,6 +403,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    //Resetting the club details text fields and error labels
     @Override
     void clubCreationReset(ActionEvent event) {
         clubName.setText("");
@@ -417,39 +418,45 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     public void clubUpdateChecker(ActionEvent event) {
-//        Club club1 = new Club(0001, "Rotract", "Done with the work", "lkt.img");
-//        clubDetailsList.add(club1);
+        //Setting the valid state to true
         validStat = true;
 
+        //Getting the user given club details from text fields
         int clubId = Integer.parseInt(updateClubID.getText());
         String clubName = updateClubName.getText();
         String clubDescription = updateClubDescription.getText();
 
+        //Creating a Club Object to validate details
         Club club = new Club(clubId,clubName,clubDescription);
 
+        //Validating club name using validateClubName method
         if (!club.validateClubName()){
             System.out.println("Wrong Club Name");
             validStat = false;
         }
+        //Displaying relevant club name error if there is
         displayClubNameError(updateClubNameError);
 
+        //Validating club description using validateClubDescription method
         if (!club.validateClubDescription()){
             System.out.println("Wrong Club Description");
             validStat = false;
         }
+        //Displaying relevant club description error if there is
         displayClubDecriptionError(updateClubDescriptionError);
 
-
-        System.out.println("Valid state : " + validStat);
+        //Checking if all user given details are correct
         if (validStat){
+            //Searching through the club details list to find the relevant club
             for (Club foundClub : clubDetailsList){
                 if (clubId == foundClub.getClubId()){
-                    foundClub.setClubName(clubName);
-                    foundClub.setClubDescription(clubDescription);
-                    //Set club logo
+                    foundClub.setClubName(clubName);                    //Changing the club name to new club name
+                    foundClub.setClubDescription(clubDescription);      //Changing the clob description to new one
+                    //Setting the new club logo
                     String clubLogo = this.updateClubImage.getImage().getUrl();
                     foundClub.setClubLogo(clubLogo);
 
+                    //Alerting when the user enters correct details
                     Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                     clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                     clubUpdateAlert.setTitle("School Club Management System");
@@ -2197,6 +2204,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String advisorContactNumber = profileAdvisorCnumber.getText();
         String advisorPassword = clubAdvisorDetailsList.get(0).getPassword();
 
+
         ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
         ClubAdvisor.fNameValidateStatus = "correct";
@@ -2214,7 +2222,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         if (!clubAdvisor.validateLastName()) {
             System.out.println("Incorrect Last Name.");
-            System.out.println(Student.lNameValidateStatus);
+            System.out.println(Student.lNameValidateStatus + " : Last Name");
             validStat = false;
         }
         displayNameError("lastName");
@@ -2387,8 +2395,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             profileAdvisorNewpwError.setText("");
         }
     }
-
-
 
     public void displayStudentUpdateDetails(){
         profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));

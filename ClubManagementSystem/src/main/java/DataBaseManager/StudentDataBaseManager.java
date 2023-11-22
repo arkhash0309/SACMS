@@ -12,11 +12,11 @@ import java.time.LocalTime;
 
 public class StudentDataBaseManager {
     private int StudentAdmissionNum;
-    private String StudentUserName;
+    private static String StudentUserName;
 
     public StudentDataBaseManager(String StudentUserName) throws SQLException {
-        this.StudentUserName = StudentUserName;
-        this.StudentAdmissionNum = getStudentAdmissionNum(this.StudentUserName);
+        this.setStudentUserName(StudentUserName);
+        this.StudentAdmissionNum = getStudentAdmissionNum(this.getStudentUserName());
         System.out.println(this.StudentAdmissionNum);
         populateStudentDetails();
         populateAllClubDetails();
@@ -276,4 +276,11 @@ public class StudentDataBaseManager {
     }
 
 
+    public static String getStudentUserName() {
+        return StudentUserName;
+    }
+
+    public static void setStudentUserName(String studentUserName) {
+        StudentUserName = studentUserName;
+    }
 }

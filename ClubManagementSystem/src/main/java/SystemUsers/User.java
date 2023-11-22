@@ -1,6 +1,7 @@
 package SystemUsers;
 
 import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
+import DataBaseManager.StudentDataBaseManager;
 import SystemDataValidator.UserValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 
@@ -186,6 +187,13 @@ abstract public class User implements UserValidator {
                 if(requiredWork.equals("updation") && !user.equals("student")){
                     if(this.userName.equals(ClubAdvisorActivityController.username)){
                         System.out.println("Buwa Buwa");
+                        userNameValidateStatus = "correct";
+                        return true;
+                    }
+                }
+
+                if(requiredWork.equals("updation") && user.equals("student")){
+                    if(this.getUserName().equals(StudentDataBaseManager.getStudentUserName())){
                         userNameValidateStatus = "correct";
                         return true;
                     }
