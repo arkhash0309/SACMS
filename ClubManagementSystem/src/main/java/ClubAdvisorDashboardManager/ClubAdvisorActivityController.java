@@ -60,9 +60,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     final FileChooser fileChooser = new FileChooser();
     public static String imagePath;
     public static int clubIdSetterValue;
-
-
-
     public LocalDate selectedUpcomingDate;
 
     public LocalDate selectedMostFutureDate;
@@ -1313,30 +1310,45 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(stat);
     }
 
+    /*This method is responsible on cancel an event.*/
     @FXML
     void cancelEventController(ActionEvent event) {
        try{
+           // Taking the selected event to be canceled from the event table
            Event selectedEvent = cancelEventTable.getSelectionModel().getSelectedItem();
+
+           // Get the event ID of the event to be canceled
            selectedEventId = cancelEventTable.getSelectionModel().getSelectedIndex();
            System.out.println(selectedEvent.getEventName());
 
+           // Ask the user whether they really want to cancel the event by sending an alert
            Alert cancelEvent = new Alert(Alert.AlertType.CONFIRMATION);
            cancelEvent.initModality(Modality.APPLICATION_MODAL);
            cancelEvent.setTitle("School Activity Club Management System");
            cancelEvent.setHeaderText("Do you really want to delete the event ?");
 
+           // Get the conformation of the user to cancel an event
            Optional<ButtonType> result = cancelEvent.showAndWait();
            if(result.get() != ButtonType.OK){
                return;
            }
 
+           // Create a clubAdvisor object
            ClubAdvisor clubAdvisor = new ClubAdvisor();
+           // call the cancel event method to update the database from ClubAdvisor class
            clubAdvisor.cancelEvent(selectedEvent, selectedEventId);
+
+           // populate all club advisor relate tables
            populateEventsTables();
+
+           // update the number of scheduled events
            displayNumberOfScheduledEvents();
+
+           // update the next event date
            getNextEventDate();
 
        }catch(NullPointerException error){
+           // Show the event cancel error alert
            Alert alert = new Alert(Alert.AlertType.ERROR);
            alert.setTitle("School Club Management System");
            alert.setHeaderText("Select an event from table to cancel the event");
@@ -1345,26 +1357,36 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // This method is used to search the cancel event
     @FXML
     void searchCancelEvent(ActionEvent event) {
+        // giving the searchbar and the table to be searched
         searchEvents(cancelEventTable, cancelEventSearchBar);
     }
 
+    // This method is used to search for update events
     @FXML
     void searchUpdateEventDetails(ActionEvent event) {
+        // giving the searchbar and the table to be searched
         searchEvents(updateEventTable, updateEventSearchBar);
     }
 
+    // This method is used to search events in create view
     @FXML
     void searchScheduledEventsInCreate(ActionEvent event) {
         searchEvents(scheduleCreatedEventTable, createdEventSearchBar);
     }
 
+    // This method searches for an event in the given table based on the given search bar input
     public void searchEvents(TableView<Event> tableView, TextField searchBar){
+        // Get the event name from the search bar
         String eventName = searchBar.getText();
         System.out.println(eventName);
 
+        // Initializing foundEvent to null
         Event foundEvent = null;
+
+        // Iterate through the items in the table to find a matching event
         for(Event eventVal : tableView.getItems()){
             if(eventVal.getEventName().equals(eventName)){
                 foundEvent = eventVal;
@@ -1372,16 +1394,21 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }
 
+        // If a matching event is found, perform the following actions
         if(foundEvent != null){
-            System.out.println(foundEvent.getEventName() + "Hello");
+            // Select the found event, in the table
             tableView.getSelectionModel().select(foundEvent);
+
+            // Get the selected event index and scroll to it in the table
             selectedEventId = tableView.getSelectionModel().getSelectedIndex();
             tableView.scrollTo(foundEvent);
 
+            // If the table is UpdateEventTable, call the updateRowSelection method
             if(tableView == updateEventTable){
                 updateRowSelection();
             }
         }else{
+            // If no matching event is found, display the error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("School Club Management System");
             alert.setHeaderText("The event " + eventName + " does not found");
@@ -1389,20 +1416,26 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // This method display the number of scheduled events
     public void displayNumberOfScheduledEvents(){
         numberOfScheduledEvents.setText(String.valueOf(Event.eventDetails.size()));
     }
 
+    // This method finds and displays the date of the next scheduled event
     public  void getNextEventDate() {
+        // If there are no events, set the nextEventDate label to "No events"
         if (Event.eventDetails.isEmpty()) {
             nextEventDate.setText("   No events");
             return;
         }
 
+        // Get the current date
         LocalDate currentDate = LocalDate.now();
 
+        // Initialize nextDate to null
         LocalDate nextDate = null;
 
+        // Iterate through the events to find the next scheduled event date
         for (Event event : Event.eventDetails) {
             LocalDate eventDate = event.getEventDate();
             if ((eventDate.isAfter(currentDate) || eventDate.isEqual(currentDate)) &&
@@ -1411,72 +1444,110 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }
 
+        // If a next event date is found display it
         if (nextDate != null) {
             nextEventDate.setText("   " + nextDate);
         }
     }
 
+    // Display number of club advisors
     public void displayNumberOfClubAdvisors(){
         numberOfClubs.setText(String.valueOf(Club.clubDetailsList.size()));
     }
 
+    // This method is responsible on filtering selected club related event details and put them into a table
     @FXML
     void filterSelectedClubEvents(ActionEvent event) {
         populateEventList(viewCreatedEventsTable, viewCreatedEventsSortComboBox);
     }
 
+    // This method selects a club from the ComboBox and populate the relevant details to a table
     public void populateEventList(TableView<Event> table, ComboBox<String> comboBoxName) {
+        // List to store dates of the selected events
         ArrayList<LocalDate> selectedEventDates = new ArrayList<>();
 
+        // Clear existing items in the table
         table.getItems().clear();
+
+        // List to store filtered events based on the selected club
         ArrayList<Event> filteredEvents = new ArrayList<>();
+
+        // Get the selected club from the comboBox
         String selectedClub = comboBoxName.getSelectionModel().getSelectedItem();
 
         // Null check before comparing selectedClub
         if (selectedClub != null) {
-            System.out.println(selectedClub + " bro");
-
+            // Check if the club is "All Clubs"
             if (selectedClub.equals("All Clubs")) {
+                // Check the club that has to be populated is generate report view table
                 if (table == generateReportEventViewTable) {
+                    // If it is the generateReportViewTable, populate that table
                     populateGenerateReportEventsTable();
                 } else {
+                    // If it is not in generateReportViewTable, populate all other event related tables
                     populateEventsTables();
                 }
                 return;
             } else {
+                // If the selected club is not all "All Clubs", collect the events only relevant to the selected club
                 for (Event events : Event.eventDetails) {
+                    // Check club name equals to the selected club
                     if (events.getClubName().equals(selectedClub)) {
                         filteredEvents.add(events);
                     }
                 }
             }
 
+            // Counter to keep track of the number of events for the selected club
             int count = 0;
+
+            // Iterate through the filtered events to create new Events objects and populate the table
             for (Event value : filteredEvents) {
+                // Retrieve the hosting club details for the event
                 Club hostingClubDetail = value.getHostingClub();
+
+                // Create a new event object with relevant details to display in the selected table
                 Event requiredEvent = new Event(value.getEventName(), value.getEventLocation(),
                         value.getEventType(), value.getEventDeliveryType(), value.getEventDate(),
                         value.getEventTime(), hostingClubDetail, value.getEventDescription(), value.getEventId());
 
+                // Retrieve the current items in the table
                 ObservableList<Event> viewScheduledEvents = table.getItems();
+
+                // Add an event object to the table
                 viewScheduledEvents.add(requiredEvent);
+
+                // Set the updated list of events to the table
                 table.setItems(viewScheduledEvents);
 
+                // Increment the event count
                 count++;
+
+                // Add the event date to the list of selected event dates
                 selectedEventDates.add(value.getEventDate());
             }
 
+            // Check if there are selected event dates
             if (!selectedEventDates.isEmpty()) {
+                // fins the earliest and most future dates among the selected event dates
                 selectedUpcomingDate = findEarliestDate(selectedEventDates);
                 selectedMostFutureDate = findMostFutureDate(selectedEventDates);
             }
 
+            // Check if the table is the generateReportEventViewTable
             if (table == generateReportEventViewTable) {
+                // Check if there are any events to when generating reports using event date list
                 if(!selectedEventDates.isEmpty()){
+                    // Update the label with the total count of upcoming events for generating reports
                     UpcomingEventCountGenerateReports.setText("Total :  " + count);
+
+                    // Update the label with the date range for generating reports
                     eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
                 }else{
+                    // Update the label with the total count of events when no events are selected for generating reports
                     UpcomingEventCountGenerateReports.setText("Total :  " + count);
+
+                    // Update the label to indicate that there are no events for generating reports
                     eventDateRange.setText("No Events");
                 }
 
@@ -1526,10 +1597,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         tb1.getColumns().addAll(attendanceColumn);
     }
 
+    // This method calculates and displays the count of male and female students in a bar chart
     public void findMaleFemaleStudentCount(){
+        // Initialize the count for both male and female students
         int maleRate = 0;
         int femaleRate = 0;
+
+        // Iterate through the student details array
         for(Student student : Student.studentDetailArray){
+            // Checking the gender of the registered student and updating its corresponding counter value
             if(student.getGender() == 'M'){
                 maleRate ++;
             }else{
@@ -1537,26 +1613,41 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }
 
+        // Create a new series for the XYChart to hold the data
         XYChart.Series setOfData = new XYChart.Series();
+
+        // Add data points for male and female student counts to the series
         setOfData.getData().add(new XYChart.Data<>("Male", maleRate));
         setOfData.getData().add(new XYChart.Data<>("Female", femaleRate));
+
+        // Add the series to the GenderRatioChart
         GenderRatioChart.getData().addAll(setOfData);
 
     }
 
-
+    // This method displays the count of enrolled students in each grade using a bar chart
     public void displayEnrolledStudentCount(){
+        // Create a HashMap to store the count of students for each grade
         HashMap<Integer, Integer> studentGrade = new HashMap<>();
+
+        // Iterate through the student details array
         for(Student student : Student.studentDetailArray){
+            // Get the grade of the student
             int grade = student.getStudentGrade();
+
+            // Update the count for the corresponding grade for the HashMap
             studentGrade.put(grade, studentGrade.getOrDefault(grade, 0) + 1);
         }
 
+        // Create a new series for XYChart to hold the data
         XYChart.Series setOfData = new XYChart.Series();
+
+        // Iterate through the entries in the studentGrade HashMap and add data point to its series
         for (Map.Entry<Integer, Integer> entry : studentGrade.entrySet()) {
             setOfData.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
         }
 
+        // Add the series to the EnrollStudentCountEachGrade chart
         EnrollStudentCountEachGrade.getData().addAll(setOfData);
 
     }
@@ -1623,53 +1714,70 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
 
-
+    // This method handles dragging of the club advisor dashboard when the mouse is detected
     @Override
     void ClubAdvisorDashboardDetected(MouseEvent event) {
+        // Get the current stage
         Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
+
+        // Set the new position of the stage based on mouse coordinates
         stage.setX(event.getScreenX()- xPosition);
         stage.setY(event.getScreenY() - yPosition);
     }
 
+    // This method is used to set the initial mouse coordinates when the club advisor pane is pressed
     @Override
     void ClubAdvisorPanePressed(MouseEvent event) {
+        // Set the initial mose coordinates for dragging
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
     }
 
+    // This method handles logging out the club Advisor dashboard and navigates to the club advisor login page
     @Override
     void dashBoardLogOut(MouseEvent event) throws IOException {
+        // Load the club advisor login page
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
+
+        // Get the reference to the current stage
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        // Set the new scene and show the stage
         scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
     }
 
+    // This method minimize the application when called
     @Override
     void MinimizePane(ActionEvent event) {
+        // Create an instance of ApplicationController and call the minimize app method
         ApplicationController applicationController = new ApplicationController();
         applicationController.MinimizeApp(ClubAdvisorDashboard);
     }
 
-
+    // This method closes the application when called
     @Override
     void ClosePane(ActionEvent event) {
+        // Create an instance of ApplicationController and call the closingApp method
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
 
+    // This method will make all club advisor panes invisible
     @Override
     public void makeAllClubAdvisorPanesInvisible(){
-        dashboardMainPane.setVisible(false);
-        ManageClubPane.setVisible(false);
-        ScheduleEventsPane.setVisible(false);
-        AttendancePane.setVisible(false);
-        GenerateReportsPane.setVisible(false);
-        ProfilePane.setVisible(false);
+        dashboardMainPane.setVisible(false); // set dashboardMainPane invisible
+        ManageClubPane.setVisible(false); // set  ManageClubPane invisible
+        ScheduleEventsPane.setVisible(false); // set ScheduleEventsPane invisible
+        AttendancePane.setVisible(false); // set AttendancePane invisible
+        GenerateReportsPane.setVisible(false); // set  GenerateReportsPane invisible
+        ProfilePane.setVisible(false); // set  ProfilePane invisible
     }
 
+    /* This method will set all the club advisor dashboard left pane buttons to linear gradient color,
+    * This is done to highlight the currently working pane related buttons */
     @Override
     public void makeAllButtonsColoured(){
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
@@ -1680,203 +1788,356 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 
+    // This method will direct to the dashboard club advisor pane
     @Override
     void GoToDashBoardClubAdvisor(ActionEvent event) {
+        // Making all club advisor panes invisible
         makeAllClubAdvisorPanesInvisible();
+        // calling the makeAllButtonsColoured method to color all buttons
         makeAllButtonsColoured();
+        // make dashboardMainPane visible
         dashboardMainPane.setVisible(true);
+        // highlight the dashboard button
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+        // display the number of club advisors
         displayNumberOfClubAdvisors();
     }
 
+    // This method will direct to the ManageClubPane pane
     @Override
     void GoToManageClubPane(ActionEvent event) {
+        // Making all club advisor panes invisible
         makeAllClubAdvisorPanesInvisible();
+
+        // calling the makeAllButtonsColoured method to color all buttons
         makeAllButtonsColoured();
+
+        // make ManageClubPane visible
         ManageClubPane.setVisible(true);
+
+        // highlight the Manage club button
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+
+        // set the club If to clubId label
         clubId.setText(String.valueOf(clubIdSetterValue));
+
+        // set create and update table values
         setCreateTable();
         setUpdateTable();
     }
 
+    // This method will direct to the ScheduleEvents pane
     @Override
     void GoToScheduleEvents(ActionEvent event) {
+        // Making all club advisor panes invisible
         makeAllClubAdvisorPanesInvisible();
+
+        // calling the makeAllButtonsColoured method to color all buttons
         makeAllButtonsColoured();
+
+        // make ScheduleEvents visible
         ScheduleEventsPane.setVisible(true);
+
+        // highlight the  ScheduleEvents button
         ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
         getCreatedClubs();
+
+        // Clear all update event labels
         clearAllUpdateEventLabels();
+
+        // Clear all schedule event labels
         clearAllScheduleEventLabels();
     }
 
+    // This method will direct to the TrackAttendance pane
     @Override
     void GoToTrackAttendance(ActionEvent event) {
+        // Making all club advisor panes invisible
         makeAllClubAdvisorPanesInvisible();
+
+        // calling the makeAllButtonsColoured method to color all buttons
         makeAllButtonsColoured();
+
+        // make AttendancePane visible
         AttendancePane.setVisible(true);
+
+        // highlight the  AttendancePane  button
         AttendanceButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+
+        // populate Attendance Club Name combo Box
         populateAttendanceClubNameComboBox();
     }
 
     @Override
     void GoToGenerateReports(ActionEvent event) {
+        // Making all club advisor panes invisible
         makeAllClubAdvisorPanesInvisible();
+
+        // calling the makeAllButtonsColoured method to color all buttons
         makeAllButtonsColoured();
+
+        // make  GenerateReportsPane visible
         GenerateReportsPane.setVisible(true);
+
+        // highlight the GenerateReportsButton  button
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+
+        // populate the attendance table
         populateAttendanceTable();
+
+        // populate generate report table
         populateGenerateReportEventsTable();
+
+        // populate Generate report clubs generate report club name combo box
         populateGenerateReportClubs(generateReportClubNameComboBox);
 
     }
 
+    // This method will direct to the club advisor profile pane
     @Override
     void GoToClubAdvisorProfile(ActionEvent event) {
+        // Making all club advisor panes invisible
         makeAllClubAdvisorPanesInvisible();
+
+        // calling the makeAllButtonsColoured method to color all buttons
         makeAllButtonsColoured();
+
+        // make visible profile pane
         ProfilePane.setVisible(true);
+
+        // highlight the AdvisorProfileButton button
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
+
+        // call display student update details method
         displayStudentUpdateDetails();
     }
 
-
+    // This method will direct to the EventAttendance pane
     @Override
     void GoToEventAttendance(ActionEvent event) {
+        // Making all generates report panes invisible
         makeAllPanesInvisibleGeneratingReport();
+
+        // Making EventAttendancePane visible
         EventAttendancePane.setVisible(true);
+
+        // highlight the GoToEventAttendanceButton button
         GoToEventAttendanceButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    // This method will direct to the ClubActivities pane
     @Override
     void GoToClubActivities(ActionEvent event) {
+        // Making all generates report panes invisible
         makeAllPanesInvisibleGeneratingReport();
+
+        // Making  ClubActivitiesPane visible
         ClubActivitiesPane.setVisible(true);
+
+        // highlight the  GoToClubActivitiesButton button
         GoToClubActivitiesButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+        // populate the generateReportClubNameComboBox with club names
         populateGenerateReportClubs(generateReportClubNameComboBox);
+
+        // populate generate report event tables
         populateGenerateReportEventsTable();
     }
 
+    // This method will direct to club membership report pane
     @Override
     void GoToClubMembership(ActionEvent event) {
+        // Making all generates report panes invisible
         makeAllPanesInvisibleGeneratingReport();
+
+        // Making MembershipReportPane visible
         MembershipReportPane.setVisible(true);
+
+        // highlight the  GoToClubMembershipButton button
         GoToClubMembershipButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    // This method will make all generate report panes invisible
     @Override
     public void makeAllPanesInvisibleGeneratingReport(){
-        ClubActivitiesPane.setVisible(false);
-        EventAttendancePane.setVisible(false);
-        MembershipReportPane.setVisible(false);
-        RegistrationReportPane.setVisible(false);
+        ClubActivitiesPane.setVisible(false); // make club activities pane invisible
+        EventAttendancePane.setVisible(false); // make event attendance pane invisible
+        MembershipReportPane.setVisible(false); // make membership report pane invisible
+        RegistrationReportPane.setVisible(false); // make registration report pane invisible
+        // make club membership button coloured
         GoToClubMembershipButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black;");
+
+        // make GoToEventAttendance button coloured
         GoToEventAttendanceButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black;");
+
+        // make GoToClubActivitiesButton button coloured
         GoToClubActivitiesButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black;");
+
+        // make  GoToRegistrationButton button coloured
         GoToRegistrationButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black;");
     }
 
+    // This make all event panes invisible
     @Override
     public void makeAllPanesInvisibleEventPane(){
-        UpdatesEventPane.setVisible(false);
-        ViewEventsPane.setVisible(false);
-        ScheduleEventsInnerPane.setVisible(false);
-        CancelEventsPane.setVisible(false);
+        UpdatesEventPane.setVisible(false); // make update event pane invisible
+        ViewEventsPane.setVisible(false); // make update view events pane invisible
+        ScheduleEventsInnerPane.setVisible(false); // make schedule events inner pane invisible
+        CancelEventsPane.setVisible(false); // make cancel events pane invisible
+
+        // make update event button colored
         UpdateEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black;");
+
+        // make view event button colored
         ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black");
+
+        // make schedule event button coloured
         ScheduleEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d)" +
                 ";-fx-text-fill: black");
+
+        // make cancel event button coloured
         CancelEventButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black");
     }
 
+    // This method will direct to update events pane
     @Override
     void GoToUpdateEventsPanes(ActionEvent event) {
+        // Hides all other panes related to event management
         makeAllPanesInvisibleEventPane();
+
+        // Makes the ScheduleEventsInnerPane visible
         UpdatesEventPane.setVisible(true);
+
+        // Updates the style of the ScheduleEventButton
         UpdateEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+        // Retrieves information about created clubs
         getCreatedClubs();
+
+        // Clears any existing labels related to scheduling events
         clearAllUpdateEventLabels();
+
+        // Clears input fields for updating events
         clearUpdateEventFields();
+
+        // Disables all input fields for updating events
         disableAllUpdateEventFields();
+
+        // Disables the update and clear buttons
         updateEventFieldButton.setDisable(true);
         clearEventFieldButton.setDisable(true);
     }
 
+    // Direct to view events pane
     @Override
     void GoToViewEventsPane(ActionEvent event) {
+        // Hides all other panes related to event management
         makeAllPanesInvisibleEventPane();
+
+        // Makes the ViewEventsPane visible
         ViewEventsPane.setVisible(true);
+
+        // Updates the style of the ViewEventButton
         ViewEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    // Direct to schedule events pane
     @Override
     void GoToScheduleEventsPane(ActionEvent event) {
+        // make all event panes invisible
         makeAllPanesInvisibleEventPane();
+
+        // Makes the ScheduleEventsInnerPane visible
         ScheduleEventsInnerPane.setVisible(true);
+
+        // Updates the style of the ScheduleEventButton
         ScheduleEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+
+        // Retrieves information about created clubs
         getCreatedClubs();
+
+        // Clears any existing labels related to scheduling events
         clearAllScheduleEventLabels();
     }
 
+    // Direct to cancel events pane
     @Override
     void GoToCancelEventsPane(ActionEvent event) {
+        // make all event panes invisible
         makeAllPanesInvisibleEventPane();
+
+        // Makes the CancelEventsPane visible
         CancelEventsPane.setVisible(true);
+
+        // Updates the style of the CancelEventButton
         CancelEventButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    // Make all club creation panes invisible
     @Override
     public void makeAllClubCreationPanesInvisible(){
-        createClubPane.setVisible(false);
-        UpdateClubDetailPane.setVisible(false);
+        createClubPane.setVisible(false); // make created club panes invisible
+        UpdateClubDetailPane.setVisible(false); // make UpdateClubDetailPane invisible
+        // style CreateClubDirectorButton
         CreateClubDirectorButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black;");
+        // style UpdateClubDirectorButton
         UpdateClubDirectorButton.setStyle("-fx-background-color: linear-gradient(to right, #165a6d, #6aa9bc, #6aa9bc, #165a6d);" +
                 "-fx-text-fill: black;");
-
     }
 
+    // Direct to create club pane
     @Override
     void GoToCreateClubPane(ActionEvent event) {
-        makeAllClubCreationPanesInvisible();
-        createClubPane.setVisible(true);
+        makeAllClubCreationPanesInvisible(); // Make all club creation panes invisible
+        createClubPane.setVisible(true); // make createdClubPane visible
+        // Updates the style of the CreateClubDirectorButton
         CreateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
-
+        // set club name error label empty
         clubNameError.setText("");
+        // set club description error label empty
         clubDescriptionError.setText("");
     }
 
+    // Direct to update club details pane
     @Override
     void GoToUpdateClubDetailsPane(ActionEvent event) {
+        // Make all club creation panes invisible
         makeAllClubCreationPanesInvisible();
+        // make UpdateClubDetailPane visible
         UpdateClubDetailPane.setVisible(true);
+        // Updates the style of the UpdateClubDirectorButton
         UpdateClubDirectorButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
-
+        // set update club name error label empty
         updateClubNameError.setText("");
+        // set update description error label empty
         updateClubDescriptionError.setText("");
     }
 
+    // Direct to registration pane
     @FXML
     void GoToRegistration(ActionEvent event) {
+        // Make all generate report pane invisible
         makeAllPanesInvisibleGeneratingReport();
+        // set registration report pane visible
         RegistrationReportPane.setVisible(true); // wrong
+        // Updates the style of the GoToRegistrationButton
         GoToRegistrationButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
