@@ -27,7 +27,7 @@ public class Student extends User implements StudentValidator {
         super(userName, password, firstName, lastName, contactNumber);
         this.studentAdmissionNum = studentAdmissionNum;
         this.studentGrade = studentGrade;
-        this.studentGender = studentGender;
+        this.setStudentGender(studentGender);
     }
 
     public Student(){
@@ -57,7 +57,7 @@ public class Student extends User implements StudentValidator {
         super(memberUserName,memberFirstName, memberLastName, memberContactNum);
         this.studentAdmissionNum = memberAdmissionNum;
         this.studentGrade = memberGrade;
-        this.studentGender = memberGender;
+        this.setStudentGender(memberGender);
     }
 
 
@@ -90,11 +90,11 @@ public class Student extends User implements StudentValidator {
     }
 
     public char getGender() {
-        return studentGender;
+        return getStudentGender();
     }
 
     public void setGender(char studentGender) {
-        this.studentGender = studentGender;
+        this.setStudentGender(studentGender);
     }
 
     @Override
@@ -190,6 +190,14 @@ public class Student extends User implements StudentValidator {
         deletedEvent.setHeaderText("You have successfully left the club!!!");
         deletedEvent.setTitle("School Club Management System");
         deletedEvent.show();
+    }
+
+    public char getStudentGender() {
+        return studentGender;
+    }
+
+    public void setStudentGender(char studentGender) {
+        this.studentGender = studentGender;
     }
 
 //    public static ArrayList<Club> getStudentJoinedClubs() {
