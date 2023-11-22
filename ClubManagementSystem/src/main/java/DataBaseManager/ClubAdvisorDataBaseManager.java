@@ -65,6 +65,11 @@ public class ClubAdvisorDataBaseManager {
                 "JOIN TeacherInCharge TIC ON TC.teacherInChargeId = TIC.teacherInChargeId " +
                 "WHERE TC.teacherUserName = ?";
 
+        String query2 = "SELECT TIC.teacherInChargeId, TC.teacherUserName, TC.teacherPassword, TIC.TICFName, TIC.TICLName, TIC.teacherContactNum " +
+                "FROM TeacherCredentials TC " +
+                "JOIN TeacherInCharge TIC ON TC.teacherInChargeId = TIC.teacherInChargeId " +
+                "WHERE TC.teacherUserName != ?";
+
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
             preparedStatement.setString(1, this.userName);
 
@@ -83,6 +88,30 @@ public class ClubAdvisorDataBaseManager {
                     System.out.println("Elama");
                 }
             }
+        }
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query2)) {
+            preparedStatement.setString(1, this.userName);
+
+            try (ResultSet result = preparedStatement.executeQuery()) {
+                while (result.next()) {
+                    ClubAdvisor clubAdvisor = new ClubAdvisor(
+                            result.getString("teacherUserName"),
+                            result.getString("teacherPassword"),
+                            result.getString("TICFName"),
+                            result.getString("TICLName"),
+                            result.getString("teacherContactNum"),
+                            result.getInt("teacherInChargeId")
+                    );
+
+                    ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisor);
+
+                }
+            }
+        }
+
+        for(ClubAdvisor clubAdvisor : ClubAdvisor.clubAdvisorDetailsList){
+            System.out.println(clubAdvisor.getClubAdvisorId() + ": club advisor Id");
         }
     }
 
@@ -191,7 +220,8 @@ public class ClubAdvisorDataBaseManager {
            }
 
        }
-
    }
+
+
 }
 

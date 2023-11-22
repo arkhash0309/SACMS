@@ -4,6 +4,7 @@ import ClubManager.Club;
 import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
+import SystemUsers.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import ClubManager.Event;
@@ -450,26 +452,19 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Attendance, CheckBox> stColumn;
 
     @FXML
-    public TextField profileAdvisorpw;
-    @FXML
     public TextField profileAdvisorUsername;
-    @FXML
-    public TextField profileAdvisorNewpw;
     @FXML
     public TextField profileAdvisorLname;
     @FXML
     public TextField profileAdvisorId;
     @FXML
     public TextField profileAdvisorFname;
-    @FXML
-    public PasswordField profileAdvisorConfirmpw;
+
 
     @FXML
     public TextField profileAdvisorCnumber;
     @FXML
     public Label profileAdvisorCnumberError;
-    @FXML
-    public Label profileAdvisorConfirmpwError;
     @FXML
     public Label profileAdvisorFnameError;
     @FXML
@@ -477,10 +472,22 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     public Label profileAdvisorLnameError;
     @FXML
-    public PasswordField profileAdvisorNewpwError;
+    public Label profileAdvisorUsernameError;
 
     @FXML
-    public Label profileAdvisorUsernameError;
+    public PasswordField profileAdvisorExistingpw;
+    @FXML
+    public Label profileAdvisorExistingpwError;
+    @FXML
+    public PasswordField profileAdvisorNewpw;
+    @FXML
+    public Label profileAdvisorNewpwError;
+    @FXML
+    public PasswordField profileAdvisorConfirmpw;
+    @FXML
+    public Label profileAdvisorConfirmpwError;
+    @FXML
+    public ComboBox<String> clubMembershipCombo;
     
     @FXML
     protected BarChart<?, ?> GenderRatioChart;
@@ -522,6 +529,59 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableView<String> attendanceTrackerTable;
+    @FXML
+    public TableView<Event> generateReportEventViewTable;
+    @FXML
+    public TableColumn<Event, String> generateReportClubName;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventName;
+
+    @FXML
+    public TableColumn<Event, LocalDate> generateReportEventDate;
+
+    @FXML
+    public TableColumn<Event, LocalTime> generateReportEventTime;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventLocation;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventType;
+
+    @FXML
+    public TableColumn<Event, String> generateReportDeliveryType;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventDescription;
+
+    @FXML
+    public ComboBox<String> generateReportClubNameComboBox;
+
+    @FXML
+    public Label UpcomingEventCountGenerateReports;
+
+    @FXML
+    public Label eventDateRange;
+
+    public int clubAdvisorId;
+
+    @FXML
+    public TableView<Student> clubMembershipTable;
+    @FXML
+    public TableColumn<?, ?> memberAdmissionNumber;
+    @FXML
+    public TableColumn<?, ?> memberContactNumber;
+    @FXML
+    public TableColumn<?, ?> memberFirstName;
+    @FXML
+    public TableColumn<?, ?> memberGender;
+    @FXML
+    public TableColumn<?, ?> memberGrade;
+    @FXML
+    public TableColumn<?, ?> memberLastName;
+    @FXML
+    public TableColumn<?, ?> memberUsername;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);

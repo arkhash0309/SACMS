@@ -211,6 +211,7 @@ public class ClubAdvisorLoginController {
         ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
         clubAdvisorDashboardControlller.showUserNameClubAdvisor.setText(userNameForShowInAdvisorDashboard);
         clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
+        clubAdvisorDashboardControlller.clubAdvisorId = clubAdvisorDataBaseManager.selectClubAdvisorId(userNameForShowInAdvisorDashboard);
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
                 "-fx-text-fill: white");
@@ -330,7 +331,7 @@ public class ClubAdvisorLoginController {
 
         displayIdError();
 
-        if(!clubAdvisor.validateUserName("registration", "student")){
+        if(!clubAdvisor.validateUserName("registration", "clubAdvisor")){
             System.out.println("Wrong User Name");
             validStat = false;
         }else{
@@ -358,29 +359,6 @@ public class ClubAdvisorLoginController {
             confirmPasswordLabel.setText(" ");
         }
 
-        String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
-            preparedStatement.setInt(1, Integer.parseInt(advisorId));
-            preparedStatement.setString(2, firstName);
-            preparedStatement.setString(3, lastName);
-            preparedStatement.setString(4, contactNum);
-            preparedStatement.executeUpdate(); // Remove the query string argument
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        String clubAdvisorCredentialsDetailsQuery = "INSERT INTO TeacherCredentials (teacherUserName, teacherPassword, teacherInChargeId) VALUES (?, ?, ?)";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
-            preparedStatement.setString(1, userName);
-            preparedStatement.setString(2, confirmPassword);
-            preparedStatement.setInt(3, Integer.parseInt(advisorId));
-            preparedStatement.executeUpdate(); // Remove the query string argument
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-
-
         System.out.println(validStat + " : Valid Stat");
         if(validStat){
             ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName, contactNum, Integer.parseInt(advisorId));
@@ -398,9 +376,29 @@ public class ClubAdvisorLoginController {
             alert.showAndWait();
 
             this.goToLoginPage(event);
+
+            String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
+                preparedStatement.setInt(1, Integer.parseInt(advisorId));
+                preparedStatement.setString(2, firstName);
+                preparedStatement.setString(3, lastName);
+                preparedStatement.setString(4, contactNum);
+                preparedStatement.executeUpdate(); // Remove the query string argument
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            String clubAdvisorCredentialsDetailsQuery = "INSERT INTO TeacherCredentials (teacherUserName, teacherPassword, teacherInChargeId) VALUES (?, ?, ?)";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
+                preparedStatement.setString(1, userName);
+                preparedStatement.setString(2, confirmPassword);
+                preparedStatement.setInt(3, Integer.parseInt(advisorId));
+                preparedStatement.executeUpdate(); // Remove the query string argument
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
         System.out.println("\n\n\n");
-
 
     }
 
