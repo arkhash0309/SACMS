@@ -613,19 +613,19 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     public TableView<Student> clubMembershipTable;
     @FXML
-    public TableColumn<?, ?> memberAdmissionNumber;
+    public TableColumn<Student, Integer> memberAdmissionNumber;
     @FXML
-    public TableColumn<?, ?> memberContactNumber;
+    public TableColumn<Student, String> memberContactNumber;
     @FXML
-    public TableColumn<?, ?> memberFirstName;
+    public TableColumn<Student, String> memberFirstName;
     @FXML
-    public TableColumn<?, ?> memberGender;
+    public TableColumn<Student, Character> memberGender;
     @FXML
-    public TableColumn<?, ?> memberGrade;
+    public TableColumn<Student, Integer> memberGrade;
     @FXML
-    public TableColumn<?, ?> memberLastName;
+    public TableColumn<Student, String> memberLastName;
     @FXML
-    public TableColumn<?, ?> memberUsername;
+    public TableColumn<Student, String> memberUsername;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
