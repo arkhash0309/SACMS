@@ -92,6 +92,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
         registrationAdvisorTable.setVisible(true);  // loading registrationAdvisorTable table when the respective FXML is loading
         populateClubAdvisorTable();
+        registrationStudentTable.setVisible(false);
 
 
         // make text fields not editable
@@ -1643,7 +1644,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-    public void populateAttendanceTable() {
+   /* public void populateAttendanceTable() {
         // Assuming Attendance.atdTracker is a list of Attendance objects
         ObservableList<Attendance> viewScheduledEvents = FXCollections.observableArrayList();
 
@@ -1682,7 +1683,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Add columns to the table view
         tb1.getColumns().addAll(attendanceColumn);
-    }
+    }*/
 
     // This method calculates and displays the count of male and female students in a bar chart
     public void findMaleFemaleStudentCount() {
@@ -1971,7 +1972,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
 
         // populate the attendance table
-        populateAttendanceTable();
+        /*populateAttendanceTable();*/
 
         // populate generate report table
         populateGenerateReportEventsTable();
@@ -2697,7 +2698,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             System.out.println("User is " + selectedUser);
             registrationAdvisorTable.setVisible(false); // setting registrationAdvisorTable in-order to make visible student table
             registrationStudentTable.setVisible(true); // setting registrationStudentTable table visible
-
 
         }
 
