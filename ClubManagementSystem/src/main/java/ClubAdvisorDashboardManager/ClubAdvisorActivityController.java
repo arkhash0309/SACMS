@@ -2630,16 +2630,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             registrationAdvisorTable.setItems(observableClubAdvisorRegistrationList);
         }
     }
-    public void populateClubStuentTable(){
-        if(studentDetailArray == null){
-            return;
-
-        registrationStudentTable.getItems().clear();
-
-        for(Student student = studentDetailArray){
-            Student student1 = new Student()
-        }
-    }
+//    public void populateClubStuentTable(){
+//        if(studentDetailArray == null){
+//            return;
+//
+//        registrationStudentTable.getItems().clear();
+//
+//        for(Student student = studentDetailArray){
+//            Student student1 = new Student()
+//        }
+//    }
 
 
     public void selectUserGettingFromComboBox(){ // this method is to obtain selected user from registrationUserSelectComboBox
