@@ -71,10 +71,7 @@ public class Student extends User implements StudentValidator {
 
     }
 
-    @Override
-    public void viewEvent() {
 
-    }
 
     public int getStudentAdmissionNum() {
         return studentAdmissionNum;

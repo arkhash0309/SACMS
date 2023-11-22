@@ -21,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import ClubManager.Event;
@@ -528,6 +529,42 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableView<String> attendanceTrackerTable;
+    @FXML
+    public TableView<Event> generateReportEventViewTable;
+    @FXML
+    public TableColumn<Event, String> generateReportClubName;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventName;
+
+    @FXML
+    public TableColumn<Event, LocalDate> generateReportEventDate;
+
+    @FXML
+    public TableColumn<Event, LocalTime> generateReportEventTime;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventLocation;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventType;
+
+    @FXML
+    public TableColumn<Event, String> generateReportDeliveryType;
+
+    @FXML
+    public TableColumn<Event, String> generateReportEventDescription;
+
+    @FXML
+    public ComboBox<String> generateReportClubNameComboBox;
+
+    @FXML
+    public Label UpcomingEventCountGenerateReports;
+
+    @FXML
+    public Label eventDateRange;
+
+    public int clubAdvisorId;
 
     @FXML
     public TableView<Student> clubMembershipTable;
