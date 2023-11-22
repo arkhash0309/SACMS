@@ -24,38 +24,43 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import static SystemUsers.ClubAdvisor.clubAdvisorDetailsList;
+import static SystemUsers.Student.studentDetailArray;
 
-public class StudentActivityController extends StudentDashboardController{
+public class StudentActivityController extends StudentDashboardController {
 
     public static boolean validStat = true;
     static int studentAdmissionNum;
     private String selectedGrade;
-
+    private char studentGender;
+    private String studentExistingAdmission;
     public static int studentAdmission;
-
+    private String studentEnteredExistingPassword;
     int updatedGrade;
     String studentExistingPassword;
-    public static String existingUserName;
-
     static int clubIndexStudentLeave;
 
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle) { // initialize method is used to load the details when studnetDashboard FXML is loading
+
+        studentGender = studentDetailArray.get(0).getGender();
+        studentAdmissionNum = studentDetailArray.get(0).getStudentAdmissionNum();
 
         setUpdateTextFields();
 
-        studentUpdateProfileGrade.getItems().add("Select Grade");
-        for (int grade = 6; grade<14; grade++) {
+        studentUpdateProfileGrade.getItems().add("Select Grade"); // firstly we are selecting "Select Grade" to update grade combo box
+        for (int grade = 6; grade < 14; grade++) {
             studentUpdateProfileGrade.getItems().add(String.valueOf(grade));
         }
         studentUpdateProfileGrade.getSelectionModel().selectFirst();
-        selectedGrade = "Selecet Grade";
-        studentUpdateProfileGrade.setOnAction(event -> validateGradeSelection());
+        selectedGrade = "Select Grade";
+        updatedGrade = -1;
 
 //        studentUpdateProfileID.setText(studentUpdateProfileID);
 
@@ -79,10 +84,11 @@ public class StudentActivityController extends StudentDashboardController{
         studentViewDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
         studentViewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
     }
+
     @Override
     void StudentLogout(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
@@ -91,8 +97,8 @@ public class StudentActivityController extends StudentDashboardController{
 
     @Override
     public void StudentDashboardDragDetected(MouseEvent mouseEvent) {
-        Stage stage =  (Stage)StudentDashboard.getScene().getWindow();
-        stage.setX(mouseEvent.getScreenX()- xPosition);
+        Stage stage = (Stage) StudentDashboard.getScene().getWindow();
+        stage.setX(mouseEvent.getScreenX() - xPosition);
         stage.setY(mouseEvent.getScreenY() - yPosition);
     }
 
@@ -116,7 +122,7 @@ public class StudentActivityController extends StudentDashboardController{
     }
 
     @Override
-    public void makeAllStudentDashBoardPanesInvisible(){
+    public void makeAllStudentDashBoardPanesInvisible() {
         EventStudentPane.setVisible(false);
         JoinLeaveClubPane.setVisible(false);
         StudentDashBoardPane.setVisible(false);
@@ -158,18 +164,24 @@ public class StudentActivityController extends StudentDashboardController{
 
     @FXML
     void studentProfileDirector(ActionEvent event) {
+        updatedGrade = -1;
         makeAllStudentDashBoardPanesInvisible();
         makeAllStudentButtonsColoured();
         StudentProfilePane.setVisible(true);
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
-    public void setUpdateTextFields(){ // this will set the values to student dashboard update profile
-        studentUpdateProfileID.setText(String.valueOf(Student.studentDetailArray.get(0).getStudentAdmissionNum()));
-        studentUpdateProfileFName.setText(Student.studentDetailArray.get(0).getFirstName());
-        studentUpdateProfileLName.setText(Student.studentDetailArray.get(0).getLastName());
-        studentUpdateProfileUserName.setText(Student.studentDetailArray.get(0).getUserName());
-        studentUpdateProfileContactNum.setText(Student.studentDetailArray.get(0).getContactNumber());
-        studentExistingPassword = Student.studentDetailArray.get(0).getPassword();
+
+    public void setUpdateTextFields() { // this will set the values to student dashboard update profile
+
+        studentExistingAdmission = String.valueOf(studentDetailArray.get(0).getStudentAdmissionNum());
+        studentUpdateProfileID.setText(String.valueOf(studentDetailArray.get(0).getStudentAdmissionNum()));
+        studentUpdateProfileFName.setText(studentDetailArray.get(0).getFirstName());
+        studentUpdateProfileLName.setText(studentDetailArray.get(0).getLastName());
+        studentUpdateProfileUserName.setText(studentDetailArray.get(0).getUserName());
+        String contactNumber = makeTenDigitsForNumber(Integer.parseInt(studentDetailArray.get(0).getContactNumber()));
+        studentUpdateProfileGrade.setValue(String.valueOf(studentDetailArray.get(0).getStudentGrade()));
+        studentUpdateProfileContactNum.setText(contactNumber);
+        studentExistingPassword = studentDetailArray.get(0).getPassword();
 
     }
 
@@ -177,17 +189,13 @@ public class StudentActivityController extends StudentDashboardController{
     public void onStudentProfileUpdateButtonClick() {
         validStat = true;
 
-//        String
-
         String updatedAdmissionNumber = studentUpdateProfileID.getText();
         String updatedFirstName = studentUpdateProfileFName.getText();
         String updatedLastName = studentUpdateProfileLName.getText();
         String updatedUserName = studentUpdateProfileUserName.getText();
         String updatedContactNum = studentUpdateProfileContactNum.getText();
-        System.out.println("Grade is " + updatedGrade);
 
-        Student student = new Student(studentUpdateProfileUserName.getText(), studentUpdateProfileExistingPassword.getText(),
-                studentUpdateProfileFName.getText(), studentUpdateProfileLName.getText());
+        Student student = new Student(updatedUserName, studentEnteredExistingPassword, updatedFirstName, updatedLastName);
 
         Student.fNameValidateStatus = "correct";
         Student.lNameValidateStatus = "correct";
@@ -209,30 +217,7 @@ public class StudentActivityController extends StudentDashboardController{
         }
         displayNameError("lastName");
 
-        try{
-            if (updatedAdmissionNumber.isEmpty()) {
-                validStat = false;
-                Student.admissionNumStatus = "empty";
-                throw new Exception();
-            }
-            int admissionNumValue = Integer.parseInt(updatedAdmissionNumber);
-            Student std2 = new Student(admissionNumValue);
-
-            if (!std2.validateStudentAdmissionNumber()) {
-                System.out.println("Invalid");
-                validStat = false;
-            } else {
-                Student.admissionNumStatus = "";
-            }
-        } catch (NumberFormatException e) {
-              Student.admissionNumStatus = "format";
-              System.out.println("Invalid Student ID");
-               validStat = false;
-        } catch (Exception e) {
-            validStat = false;
-        }
-
-        try{
+        try {
             String tempContactNum = updatedContactNum;
             if (tempContactNum.isEmpty()) {
                 User.contactNumberValidateStatus = "empty";
@@ -247,7 +232,7 @@ public class StudentActivityController extends StudentDashboardController{
             } else {
                 User.contactNumberValidateStatus = "";
             }
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Invalid ContactNumber 2");
             User.contactNumberValidateStatus = "format";
             validStat = false;
@@ -264,104 +249,190 @@ public class StudentActivityController extends StudentDashboardController{
         }
         displayUserNameError();
 
-        System.out.println(validStat + " : Valid Stat");
-        if (validStat) {
-            System.out.println("Not implemented yet");
+        // if student did not select grade in student dashboard, will set validateStat to false, in order to set the respective error label
+        if(validateGradeSelection() == -1){
+            validStat = false;
         }
 
+        System.out.println(validStat + " : Valid Stat");
+        if (validStat) {
+            for (Student foundStudent : studentDetailArray) { // here we are updating the studentDetailArray list , adding updated personal details of the student
+                if (foundStudent.getStudentAdmissionNum() == Integer.parseInt(updatedAdmissionNumber)) {
+                    foundStudent.setFirstName(updatedFirstName);
+                    foundStudent.setLastName(updatedLastName);
+                    foundStudent.setUserName(updatedUserName);
+//                    foundStudent.setGender(studentGender);
+                    foundStudent.setContactNumber(updatedContactNum);
+                }
+            }
+
+            // inserting updated details to database
+            String updatedPersonalDetailsQuery = "UPDATE Student set studentFName = ?, studentLName = ?, studentGrade = ?,Gender = ?, studentContactNum = ? where studentAdmissionNum = ?";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
+
+                preparedStatement.setString(1, updatedFirstName);
+                preparedStatement.setString(2, updatedLastName);
+                preparedStatement.setInt(3, updatedGrade);
+                preparedStatement.setString(4, String.valueOf(studentGender));
+                preparedStatement.setInt(5, Integer.parseInt(updatedContactNum));
+                preparedStatement.setString(6, String.valueOf(studentAdmissionNum));
+                preparedStatement.executeUpdate();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("School Club Management System");
+                alert.setHeaderText("You have successfully update your personal details.");
+                alert.showAndWait();
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+
+        }
         System.out.println("\n\n\n");
-
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("School Club Management System");
-        alert.setHeaderText("You have successfully update your credentials.");
-        alert.showAndWait();
-
 
     }
 
     public void onStudentProfilePasswordChangeButtonClick() throws SQLException {
-        String enteredExistingPassword = this.studentUpdateProfileExistingPassword.getText();
-        String updatedPassword = this.studentUpdateProfileNewPassword.getText();
-        String updateConfirmPassword = this.studentUpdateProfileConfirmPassword.getText();
-
-
-        existingPasswordChecker(studentExistingPassword, enteredExistingPassword);
-        ConfirmPasswordChecker(updatedPassword,updateConfirmPassword);
-        PasswordChecker(updatedPassword);
-
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("School Club Management System");
-        alert.setHeaderText("You have successfully update your credentials.");
-        alert.showAndWait();
-
-    }
-
-    void PasswordChecker(String studentUpdatedPassword){
-
         validStat = true;
-        String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?";
 
-        if(studentUpdatedPassword.isEmpty()){
-            studentUpdateNewPasswordLabel.setText("Password cannot be empty");
-        }else {
-            studentUpdateNewPasswordLabel.setText("");
+        int admissionNumber = Integer.parseInt(studentUpdateProfileID.getText()); // getting student admission number from studentUpdateProfileID text field
+        String updatedUserName = studentUpdateProfileUserName.getText(); // getting student updated username  from studentUpdateProfileUserName text field
+        String updatedPassword = studentUpdateProfileNewPassword.getText();  // getting student updated username  from studentUpdateProfileNewPassword text field
+        String updateConfirmPassword = studentUpdateProfileConfirmPassword.getText(); // getting student updateConfirmPassword from studentUpdateProfileConfirmPassword text field
+        studentEnteredExistingPassword = studentUpdateProfileExistingPassword.getText(); // getting student studentEnteredExistingPassword from studentUpdateProfileExistingPassword text field
+
+        existingPasswordChecker(studentExistingPassword, studentEnteredExistingPassword);
+        if(validStat){
+            PasswordChecker(updatedPassword);
+        }
+        if(validStat){
+            ConfirmPasswordChecker(updatedPassword, updateConfirmPassword);
         }
 
-        for (char specialChar : specialCharacters.toCharArray()) {
-            studentUpdatedPassword.contains(String.valueOf(specialChar));
+        // inserting updated credentials to database
+        if(validStat) {
+            String updatedStudentCredentialsQueryt = "update studentCredentials set studentUserName = ?, studentPassword = ?  where studentAdmissionNum = ?";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedStudentCredentialsQueryt)) {
+                preparedStatement.setString(1, updatedUserName);
+                preparedStatement.setString(2, updateConfirmPassword);
+                preparedStatement.setString(3, String.valueOf(admissionNumber));
+                preparedStatement.executeUpdate();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("School Club Management System");
+                alert.setHeaderText("You have successfully update your credentials.");
+                alert.showAndWait();
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        //Update database
+    }
+
+//     this method is used to validate student new password
+    void PasswordChecker(String studentUpdatedPassword){
+        String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; // this variable is used to check whether new password containing special characters
+        if(studentUpdatedPassword.equals("")){ // if new password is empty
+            studentUpdateNewPasswordLabel.setText("Password cannot be empty");
+            validStat = false;
+            return;
+        }else {
             validStat = true;
             studentUpdateNewPasswordLabel.setText("");
         }
 
-        if(studentUpdatedPassword.length() < 8 || studentUpdatedPassword.length() > 20){
-            studentUpdateNewPasswordLabel.setText("");
+        validStat = false;
+        for (char specialChar : specialCharacters.toCharArray()) { // here it is iterating character by character of the new password to check whether it is containing special characters.
+            if(studentUpdatedPassword.contains(String.valueOf(specialChar))){
+                validStat = true;
+            }
+        }
+        if(studentUpdatedPassword.length() >= 8 && studentUpdatedPassword.length() <= 20){ // here we are checking whether new password consist of more than 8 characters
             if(!validStat){
-                studentUpdateNewPasswordLabel.setText(""" 
-                    Password should consist of 8 characters
-                    including numbers and special characters.""");
-
+                studentUpdateNewPasswordLabel.setText("""
+                                    Password should consist of special 
+                                    characters""");
             }else {
+                validStat = true;
                 studentUpdateNewPasswordLabel.setText("");
             }
         }else{
-            studentUpdateNewPasswordLabel.setText(""" 
-                    Password should consist of 8 characters
-                    including numbers and special characters.""");
+            validStat = false;
+            studentUpdateNewPasswordLabel.setText("Password should consist of 8 characters");
         }
     }
+    // this method is to check confirm password is entered correctly
     void ConfirmPasswordChecker(String studentUpdatedPassword, String studentConfirmPassword){
 
-        if(studentConfirmPassword.isEmpty()){
+
+        if(studentConfirmPassword.isEmpty()){ // if confirm password field is empty
             studentUpdateConfirmPasswordLabel.setText("Password cannot be empty");
+            validStat = false;
         }else {
-            System.out.println("Not Going above line");
+            validStat = true;
             studentUpdateConfirmPasswordLabel.setText("");
 
-        }if(!studentConfirmPassword.equals(studentUpdatedPassword)){
+        }if(!studentConfirmPassword.equals(studentUpdatedPassword)){ // if both studentConfirmPassword and studentUpdatedPassword are not matching
             studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
+            validStat = false;
         } else{
+            validStat = true;
             studentUpdateConfirmPasswordLabel.setText("");
         }
     }
+    // this method will check whether existing password
     void existingPasswordChecker(String realExistingPassword, String enteredExistingPassword){
-        if (!realExistingPassword.equals(enteredExistingPassword)){
-            studentUpdateExistingPasswordLabel.setText("Please enter your current password correctly");
-        }else{
-            studentUpdateExistingPasswordLabel.setText("");
 
+        if(enteredExistingPassword.equals("")){ // here it is checking whether existing password is empty or not.
+            studentUpdateExistingPasswordLabel.setText("Password cannot be empty");
+            validStat = false;
+            return;
+        }else{
+            validStat = true;
+            studentUpdateExistingPasswordLabel.setText("");
         }
 
-        if(realExistingPassword.isEmpty()){
-            studentUpdateExistingPasswordLabel.setText("Password cannot be empty");
-        }else{
+        if (!realExistingPassword.equals(enteredExistingPassword)){ // if student did not enter the existing password correctly, this if condition will perform
+            studentUpdateExistingPasswordLabel.setText("""
+                                    Please enter your current password 
+                                    correctly""");
+            validStat = false;
+        }else{ // if password is correct
+            validStat = true;
             studentUpdateExistingPasswordLabel.setText("");
+
         }
     }
 
+    // this method will ensure that student chose his or her grade in student profile update section
+    private int validateGradeSelection(){
+        selectedGrade = studentUpdateProfileGrade.getValue();
 
+        if(selectedGrade == "Select Grade"){
+            updateGradeLabel.setText("Please select your grade");
+            return -1;
+        } else {
+            updateGradeLabel.setText("");
+            updatedGrade = Integer.parseInt(this.studentUpdateProfileGrade.getValue());// if student chose his or her grade correctly, updatedGrade variable will be assigned new grade
+            return updatedGrade;
+        }
+    }
+    // this method is to set zero to contact number, because when we retrieve the contact number from database
+    public static String makeTenDigitsForNumber(int number) {
+        String strNumber = Integer.toString(number);
 
+        if (strNumber.length() < 10) { // when strNumber is less than 10 digits
+            StringBuilder zeros = new StringBuilder();
+            for (int i = 0; i < 10 - strNumber.length(); i++) {
+                zeros.append('0');
+            }
+            return zeros.toString() + strNumber;
+        } else {
+            return strNumber.substring(0, 10);
+        }
+    }
 
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
@@ -382,20 +453,6 @@ public class StudentActivityController extends StudentDashboardController{
             }
         }
     }
-
-    private int validateGradeSelection(){
-        selectedGrade = studentUpdateProfileGrade.getValue();
-
-        if(selectedGrade == "Select Grade"){
-            updateGradeLabel.setText("Please select your grade");
-        } else {
-            updateGradeLabel.setText("");
-            updatedGrade = Integer.parseInt(this.studentUpdateProfileGrade.getValue());
-            return updatedGrade;
-        }
-        return updatedGrade;
-    }
-
 
 
 
@@ -470,15 +527,14 @@ public class StudentActivityController extends StudentDashboardController{
         if(!selectedClub.equals("None")) {
             for (Club club : Club.clubDetailsList) {
                 if (club.getClubName().equals(selectedClub)) {
-                    studentJoinClubID.setText(String.valueOf(club.getClubId()));
-                    studentJoinClubName.setText(club.getClubName());
+                    studentJoinClubID.setText(String.valueOf(club.getClubId())); // setting the club ID of the student selected club
+                    studentJoinClubName.setText(club.getClubName()); // setting the club name of the student selected club
 
                     for (ClubAdvisor advisor : ClubAdvisor.clubAdvisorDetailsList) {
-                        System.out.println("bn");
                         for (Club clubName : advisor.createdClubDetailsList) {
                             System.out.println("Incharge clubName ");
                             if (clubName.getClubName().equals(selectedClub)) {
-                                studentJoinClubAdvisorName.setText(advisor.getFirstName() + " " + advisor.getLastName());
+                                studentJoinClubAdvisorName.setText(advisor.getFirstName() + " " + advisor.getLastName()); // setting club advisor name of the respective club
                                 System.out.println("Incharge clubName " + "Hello");
                                 break;
                             }
@@ -533,12 +589,12 @@ public class StudentActivityController extends StudentDashboardController{
     }
 
     @FXML
-    void leaveClubController(ActionEvent event){
+    void leaveClubController(ActionEvent event){ // leave club method
         leaveClubController();
     }
 
 
-    public void leaveClubController(){
+    public void leaveClubController(){ // student leave club method
         try{
             Club selectedClub = leaveClubTable.getSelectionModel().getSelectedItem();
             clubIndexStudentLeave = leaveClubTable.getSelectionModel().getSelectedIndex();
@@ -566,7 +622,7 @@ public class StudentActivityController extends StudentDashboardController{
                 }
             }
 
-        }catch(NullPointerException error){
+        }catch(NullPointerException error){ // here we are setting alert message to student in order to confirm that he or she successfully left the club
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("School Club Management System");
             alert.setHeaderText("Select a club from table to leave a club");
@@ -755,4 +811,5 @@ public class StudentActivityController extends StudentDashboardController{
 
         UpcomingEventRateForTable.getData().addAll(setOfData);
     }
+
 }
