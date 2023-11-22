@@ -4,6 +4,7 @@ import ClubManager.Club;
 import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
+import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -565,6 +566,49 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public Label eventDateRange;
 
     public int clubAdvisorId;
+    @FXML
+    protected ComboBox<String> registrationUserSelectComboBox;
+
+    @FXML
+    protected TableView<Student> registrationStudentTable;
+
+    @FXML
+    protected TableColumn<Student, Integer> registrationStudentAdmissionNumberColumn;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentUserName;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentFirstNameColumn;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentLastNameColumn;
+
+    @FXML
+    protected TableColumn<Student, Integer> registrationStudentGradeColumn;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentContactNumberColumn;
+
+    @FXML
+    protected TableColumn<Student, Character> registrationStudentGenderColumn;
+    @FXML
+    protected TableView<ClubAdvisor> registrationAdvisorTable;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, Integer> registrationAdvisorID;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorUserName;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorFirstName;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorLastName;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorContactNumber;
 
     @FXML
     public TableView<Student> clubMembershipTable;
