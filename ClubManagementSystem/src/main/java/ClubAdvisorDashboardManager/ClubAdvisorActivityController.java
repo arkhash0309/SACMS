@@ -1,6 +1,7 @@
 package ClubAdvisorDashboardManager;
 
 import ClubManager.Club;
+import DataBaseManager.ClubAdvisorDataBaseManager;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import SystemUsers.User;
@@ -2181,7 +2182,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (clubDetailsList.isEmpty()){
             clubIdSetterValue = 100;
         }else {
-            clubIdSetterValue = clubDetailsList.get(clubDetailsList.size() - 1).getClubId() + 1 ;
+            clubIdSetterValue = ClubAdvisorDataBaseManager.lastClubIndex + 1 ;
         }
     }
 

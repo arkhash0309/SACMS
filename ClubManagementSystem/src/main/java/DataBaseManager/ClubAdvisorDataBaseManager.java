@@ -19,9 +19,13 @@ public class ClubAdvisorDataBaseManager {
 
     public static HashMap<Integer, Club> requiredClub = new HashMap<>();
 
+    public static HashMap<Student, ArrayList<Club>> joinedClubForEachStudent = new HashMap<>();
+
     private String userName;
 
     private int ClubAdvisorId;
+
+    public static int lastClubIndex;
 
     public ClubAdvisorDataBaseManager(String userName) throws SQLException {
         System.out.println("DataBase connector bn !!!");
@@ -32,11 +36,33 @@ public class ClubAdvisorDataBaseManager {
         populateClubDetailArray(Club.clubDetailsList, this.ClubAdvisorId);
         populateEventsDetailArray();
         populateStudentDetailArray();
+        getLastClubId();
+        setStudentJoinedClubDetails();
     }
 
     public ClubAdvisorDataBaseManager(){
 
+
+
     }
+
+    public void getLastClubId() {
+        String query = "SELECT MAX(clubId) AS maxClubId FROM Club";
+        int maxClubId = 0;
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                maxClubId = resultSet.getInt("maxClubId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        lastClubIndex = maxClubId;
+        System.out.println(lastClubIndex);
+    }
+
 
     public int selectClubAdvisorId(String userName){
         int teacherInChargeId = 0;
@@ -223,5 +249,72 @@ public class ClubAdvisorDataBaseManager {
    }
 
 
+   public void setStudentJoinedClubDetails(){
+        joinedClubForEachStudent.clear();
+
+        if(Student.studentDetailArray.isEmpty()) {
+            return;
+        }
+
+        for(Student student :Student.studentDetailArray){
+            ArrayList<Club> clubs = new ArrayList<>();
+
+            String query = "SELECT c.clubId, c.clubName, c.clubDescription, c.clubLogo " +
+                    "FROM StudentClub sc " +
+                    "JOIN Club c ON sc.clubId = c.clubId " +
+                    "WHERE sc.studentAdmissionNum = ?";
+
+
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
+
+                preparedStatement.setInt(1, student.getStudentAdmissionNum());
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int clubId = resultSet.getInt("clubId");
+                        String clubName = resultSet.getString("clubName");
+                        String clubDescription = resultSet.getString("clubDescription");
+                        String clubLogo = resultSet.getString("clubLogo");
+
+                        Club club = new Club(clubId, clubName, clubDescription, clubLogo);
+                        clubs.add(club);
+                    }
+                }
+
+                joinedClubForEachStudent.put(student, clubs);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle the exception as needed
+            }
+
+        }
+
+        printClubNamesForStudent();
+    }
+
+    // Just for testing purpose
+    public void printClubNamesForStudent() {
+        for(Student student : Student.studentDetailArray){
+            if (joinedClubForEachStudent.containsKey(student)) {
+                ArrayList<Club> clubs = joinedClubForEachStudent.get(student);
+
+                System.out.println("Club Names for Student: " + student.getStudentAdmissionNum());
+
+                for (Club club : clubs) {
+                    System.out.println(club.getClubName());
+                }
+            } else {
+                System.out.println("Student not found in the HashMap.");
+            }
+
+        }
+    }
+
+
 }
+
+
+
+
 
