@@ -1055,13 +1055,8 @@
                                        <children>
                                           <AnchorPane layoutX="22.0" layoutY="19.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
-                                                <ComboBox layoutX="27.0" layoutY="99.0" prefHeight="31.0" prefWidth="290.0" />
-                                                <Button layoutX="365.0" layoutY="81.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="151.0" text="Generate Report">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Button>
-                                                <Label layoutX="28.0" layoutY="64.0" prefHeight="26.0" prefWidth="289.0" styleClass="selectorColor" text="   Club Name">
+                                                <ComboBox fx:id="generateReportClubNameComboBox" layoutX="16.0" layoutY="102.0" onAction="#populateGenerateReportsEventsFilteredTable" prefHeight="26.0" prefWidth="300.0" styleClass="eventField" AnchorPane.topAnchor="96.0" />
+                                                <Label layoutX="15.0" layoutY="64.0" prefHeight="26.0" prefWidth="301.0" styleClass="selectorColor" text="   Club Name">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
@@ -1074,15 +1069,41 @@
                                                       </RadialGradient>
                                                    </textFill>
                                                 </Label>
-                                                <TableView layoutX="28.0" layoutY="144.0" prefHeight="314.0" prefWidth="777.0">
+                                                <TableView fx:id="generateReportEventViewTable" layoutX="17.0" layoutY="144.0" prefHeight="201.0" prefWidth="801.0">
                                                    <columns>
-                                                      <TableColumn prefWidth="75.0" text="C1" />
-                                                      <TableColumn prefWidth="75.0" text="C2" />
+                                                      <TableColumn fx:id="generateReportClubName" prefWidth="102.28570556640625" text="Club Name" />
+                                                      <TableColumn fx:id="generateReportEventName" prefWidth="110.71429443359375" text="Event Name" />
+                                                      <TableColumn fx:id="generateReportEventDate" prefWidth="76.4285888671875" text="Event Date" />
+                                                      <TableColumn fx:id="generateReportEventTime" prefWidth="50.857177734375" text="Time" />
+                                                      <TableColumn fx:id="generateReportEventLocation" prefWidth="114.4285888671875" text="Event Location" />
+                                                      <TableColumn fx:id="generateReportEventType" prefWidth="91.42852783203125" text="Event Type" />
+                                                      <TableColumn fx:id="generateReportDeliveryType" prefWidth="89.7142333984375" text="Delivery Type" />
+                                                      <TableColumn fx:id="generateReportEventDescription" prefWidth="161.42852783203125" text="Event Description" />
                                                    </columns>
                                                 </TableView>
                                                 <Label layoutX="8.0" layoutY="7.0" prefHeight="36.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report" textFill="WHITE" AnchorPane.bottomAnchor="438.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="476.0" layoutY="365.0" prefHeight="32.0" prefWidth="323.0" styleClass="selectorColor" text="  Number of Scheduled Events " textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="20.0" layoutY="366.0" prefHeight="31.0" prefWidth="313.0" styleClass="selectorColor" text="  Event Date Range" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="eventDateRange" layoutX="18.0" layoutY="397.0" prefHeight="51.0" prefWidth="318.0" AnchorPane.bottomAnchor="37.0">
+                                                   <font>
+                                                      <Font name="System Bold" size="23.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="UpcomingEventCountGenerateReports" layoutX="473.0" layoutY="397.0" prefHeight="51.0" prefWidth="329.0" AnchorPane.bottomAnchor="37.0">
+                                                   <font>
+                                                      <Font name="System Bold" size="25.0" />
                                                    </font>
                                                 </Label>
                                              </children>

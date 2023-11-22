@@ -25,10 +25,6 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         this.clubAdvisorId = clubAdvisorId;
     }
 
-    public ClubAdvisor(String userName, String firstName, String lastName, String contactNumber, int clubAdvisorId){
-        super(userName, firstName, lastName, contactNumber);
-        this.clubAdvisorId = clubAdvisorId;
-    }
 
     public ClubAdvisor(){
 
@@ -47,10 +43,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
-    @Override
-    public void viewEvent() {
 
-    }
 
     public  void createEvent(String eventName, String eventLocation,
                             String eventType, String eventDeliveryType,

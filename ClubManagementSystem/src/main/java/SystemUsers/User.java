@@ -62,6 +62,7 @@ abstract public class User implements UserValidator {
     }
 
     public String getPassword() {
+        System.out.println(password);
         return password;
     }
 
@@ -96,7 +97,7 @@ abstract public class User implements UserValidator {
     abstract public void registerToSystem();
 
     abstract public void loginToSystem();
-    abstract public void viewEvent();
+
 
     @Override
     public boolean validateFirstName(){
@@ -155,7 +156,7 @@ abstract public class User implements UserValidator {
     @Override
     public boolean validateUserName(String requiredWork, String user){
 
-        if(user.isEmpty()){
+        if(this.userName.isEmpty()){
             userNameValidateStatus = "empty";
             return false;
         }
@@ -170,6 +171,7 @@ abstract public class User implements UserValidator {
                 sql = "SELECT * FROM TeacherCredentials WHERE teacherUserName = ?";
             }
 
+            System.out.println("Laka" + this.getUserName());
             PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
             preparedStatement.setString(1, this.getUserName());
             ResultSet results = preparedStatement.executeQuery();
@@ -177,6 +179,8 @@ abstract public class User implements UserValidator {
             if (results.next()) {
                 columnName = results.getString(1);
             }
+
+            System.out.println(columnName + "data base");
 
             if (requiredWork.equals("registration") || requiredWork.equals("updation")) {
                 if(requiredWork.equals("updation") && !user.equals("student")){
@@ -226,6 +230,7 @@ abstract public class User implements UserValidator {
             return false;
         }
     }
+
     @Override
     public boolean validatePassword(String requiredWork) throws SQLException{
         if(requiredWork.equals("registration")){
@@ -236,6 +241,7 @@ abstract public class User implements UserValidator {
             } else if(checkPasswordIsValid(this.getPassword())){
                 return true;
             }else{
+                System.out.println(" format format format");
                 passwordValidateStatus = "format";
                 return false;
             }
@@ -269,10 +275,10 @@ abstract public class User implements UserValidator {
     }
 
     {
-       fNameValidateStatus = "";
-       lNameValidateStatus = "";
-       contactNumberValidateStatus = "";
-       userNameValidateStatus = "";
-       passwordValidateStatus = "";
+       fNameValidateStatus = "correct";
+       lNameValidateStatus = "correct";
+       contactNumberValidateStatus = "correct";
+       userNameValidateStatus = "correct";
+       passwordValidateStatus = "correct";
     }
 }
