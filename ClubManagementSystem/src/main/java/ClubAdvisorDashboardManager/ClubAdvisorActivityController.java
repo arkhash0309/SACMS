@@ -56,6 +56,7 @@ import java.time.LocalTime;
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
 
     public static String username; // Holds the username of the current user
+    private static String selectedUser; // holds the selected usertype from registrationUserSelectComboBox
     public static boolean validStat = true;  // Represents the validation status, initialized as true
     public static int selectedEventId; // Holds the ID of the selected event
     public static Event selectedEventValue; // Holds the details of the selected event
@@ -69,8 +70,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @Override
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        selectUserGettingFromComboBox();
         populateMembershipCombo(clubMembershipCombo);
-
         memberAdmissionNumber.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
         memberUsername.setCellValueFactory(new PropertyValueFactory<>("userName"));
         memberFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -211,8 +212,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         viewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
         viewEventTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
 
-        atColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
-        stColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceTracker"));
+//        atColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
+//        stColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceTracker"));
 
         // set cell value factories for generate reports event table
         generateReportClubName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
@@ -2597,6 +2598,32 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Returns the earliest date found in the list
         return earliestDate;
+    }
+
+    public void selectUserGettingFromComboBox(){ // this method is to obtain selected user from registrationUserSelectComboBox
+        registrationStudentTable.setVisible(false); // we are setting registrationStudentTable to invisible
+        registrationAdvisorTable.setVisible(false); // we are setting registrationAdvisorTable to invisible
+        registrationUserSelectComboBox.getItems().addAll("Club Advisor","Student"); // passing values to registrationUserSelectComboBox
+        registrationUserSelectComboBox.getSelectionModel().selectFirst(); // passing a default values to registrationUserSelectComboBox
+    }
+
+
+    public void onClickRegistrationGenerateReportButton(ActionEvent event){
+        selectedUser = registrationUserSelectComboBox.getValue();
+        if(selectedUser == "Student"){ // if selected user is Student
+            System.out.println("User is " + selectedUser);
+            registrationAdvisorTable.setVisible(false); // setting registrationAdvisorTable in-order to make visible student table
+            registrationStudentTable.setVisible(true); // setting registrationStudentTable table visible
+
+
+        }
+
+        if(selectedUser == "Club Advisor"){
+            System.out.println("User is " + selectedUser);
+            registrationStudentTable.setVisible(false);// setting registrationStudentTable in-order to make visible student table
+            registrationAdvisorTable.setVisible(true);// setting registrationAdvisorTable table visible
+        }
+
     }
 
 }

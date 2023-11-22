@@ -341,6 +341,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else {
             validStat = true;
             studentUpdateNewPasswordLabel.setText("");
+            studentUpdateProfileNewPassword.setText("");
         }
 
         validStat = false;
@@ -357,6 +358,7 @@ public class StudentActivityController extends StudentDashboardController {
             }else {
                 validStat = true;
                 studentUpdateNewPasswordLabel.setText("");
+                studentUpdateProfileNewPassword.setText("");
             }
         }else{
             validStat = false;
@@ -373,13 +375,15 @@ public class StudentActivityController extends StudentDashboardController {
         }else {
             validStat = true;
             studentUpdateConfirmPasswordLabel.setText("");
+            studentUpdateProfileConfirmPassword.setText("");
 
         }if(!studentConfirmPassword.equals(studentUpdatedPassword)){ // if both studentConfirmPassword and studentUpdatedPassword are not matching
             studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
             validStat = false;
         } else{
-            validStat = true;
+            validStat = true; // if confirm password is correct
             studentUpdateConfirmPasswordLabel.setText("");
+            studentUpdateProfileConfirmPassword.setText("");
         }
     }
     // this method will check whether existing password
@@ -392,6 +396,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else{
             validStat = true;
             studentUpdateExistingPasswordLabel.setText("");
+            studentUpdateProfileExistingPassword.setText("");
         }
 
         if (!realExistingPassword.equals(enteredExistingPassword)){ // if student did not enter the existing password correctly, this if condition will perform
@@ -402,6 +407,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else{ // if password is correct
             validStat = true;
             studentUpdateExistingPasswordLabel.setText("");
+            studentUpdateProfileExistingPassword.setText("");
 
         }
     }
@@ -419,7 +425,7 @@ public class StudentActivityController extends StudentDashboardController {
             return updatedGrade;
         }
     }
-    // this method is to set zero to contact number, because when we retrieve the contact number from database
+    // this method is to set zero to contact number, because when we retrieve the contact number from database, we will receive a 9 digit number, since the format is int in database
     public static String makeTenDigitsForNumber(int number) {
         String strNumber = Integer.toString(number);
 
