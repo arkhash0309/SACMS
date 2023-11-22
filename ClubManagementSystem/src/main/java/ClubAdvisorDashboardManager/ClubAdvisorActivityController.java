@@ -94,6 +94,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         populateClubAdvisorTable();
 
 
+        registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
+        registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
+        registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+        registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
+
+
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
         updateEventDateDatePicker.setEditable(false);
@@ -2673,16 +2682,25 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             registrationAdvisorTable.setItems(observableClubAdvisorRegistrationList);
         }
     }
-//    public void populateClubStuentTable(){
-//        if(studentDetailArray == null){
-//            return;
-//
-//        registrationStudentTable.getItems().clear();
-//
-//        for(Student student = studentDetailArray){
-//            Student student1 = new Student()
-//        }
-//    }
+    public void populateStudentRegisterTable(){
+        if(studentDetailArray == null){
+            return;
+        }
+
+        registrationStudentTable.getItems().clear();
+
+
+        for(Student student : studentDetailArray) {
+
+            Student student1 = new Student(student.getUserName(), student.getPassword(), student.getFirstName(),
+                    student.getLastName(), student.getContactNumber(), student.getStudentAdmissionNum(),
+                    student.getStudentGrade(), student.getGender());
+
+            ObservableList<Student> observableStudentRegistrationList = registrationStudentTable.getItems();
+            observableStudentRegistrationList.add(student);
+            registrationStudentTable.setItems(observableStudentRegistrationList);
+        }
+    }
 
 
     public void selectUserGettingFromComboBox(){ // this method is to obtain selected user from registrationUserSelectComboBox
@@ -2697,6 +2715,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             System.out.println("User is " + selectedUser);
             registrationAdvisorTable.setVisible(false); // setting registrationAdvisorTable in-order to make visible student table
             registrationStudentTable.setVisible(true); // setting registrationStudentTable table visible
+            populateStudentRegisterTable(); // when Student selected as the user respective table will visible
 
 
         }
