@@ -53,7 +53,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
-public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller{
+public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller {
 
     public static String username; // Holds the username of the current user
     private static String selectedUser; // holds the selected usertype from registrationUserSelectComboBox
@@ -70,6 +70,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @Override
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         selectUserGettingFromComboBox();
         populateMembershipCombo(clubMembershipCombo);
         memberAdmissionNumber.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
@@ -79,6 +80,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         memberGrade.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
         memberGender.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
         memberContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+
+        
+        registrationAdvisorID.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorId"));
+        registrationAdvisorUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        registrationAdvisorFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        registrationAdvisorLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        registrationAdvisorContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+        registrationAdvisorTable.setVisible(true);  // loading registrationAdvisorTable table when the respective FXML is loading
+        populateClubAdvisorTable();
+
 
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
@@ -113,8 +124,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //        Club club1 = new Club(0001, "Rotaract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
 //        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
-        for (Club club : clubDetailsList){
-            if (clubDetailsList == null){
+        for (Club club : clubDetailsList) {
+            if (clubDetailsList == null) {
                 return;
             }
 //            observableClubDetailsList.add(club);
@@ -138,8 +149,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //        updateClubDetailsTable.setItems(observableClubDetailsList);
     }
 
-   // this method populate the combo boxes with entity types  and its tables
-    public void populateComboBoxes(){
+    // this method populate the combo boxes with entity types  and its tables
+    public void populateComboBoxes() {
         // Initialize the event related combo boxes
         scheduleEventTypeCombo.getItems().addAll("None", "Meeting", "Activity");
         scheduleEventTypeCombo.getSelectionModel().selectFirst();
@@ -156,7 +167,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
         updateHourComboBox.getSelectionModel().selectFirst();
 
-        for(int minutes = 0; minutes < 60; minutes++){
+        for (int minutes = 0; minutes < 60; minutes++) {
             updateMinuteComboBox.getItems().add(String.format("%02d", minutes));
         }
         updateMinuteComboBox.getSelectionModel().selectFirst();
@@ -167,7 +178,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleEventHour.getSelectionModel().selectFirst();
 
 
-        for(int minutes = 0; minutes < 60; minutes++){
+        for (int minutes = 0; minutes < 60; minutes++) {
             scheduleEventMinutes.getItems().add(String.format("%02d", minutes));
         }
         scheduleEventMinutes.getSelectionModel().selectFirst();
@@ -226,20 +237,20 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         generateReportEventDescription.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
 
     }
-  
-     public void setCreateTable(){
+
+    public void setCreateTable() {
         // Check whether the sortedList is null and return the method, if it is null
-        if(clubDetailsList == null){
+        if (clubDetailsList == null) {
             return;
         }
         // Clear the UpdateViewTable
         createClubDetailsTable.getItems().clear();
 
         // Add Item details to the UpdateView Table using Sorted List
-        for(Club club : clubDetailsList) {
+        for (Club club : clubDetailsList) {
 
             // Create an Item details object with the item details
-            Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
+            Club tableClub = new Club(club.getClubId(), String.valueOf(club.getClubName()), String.valueOf(club.getClubDescription()), String.valueOf(club.getClubLogo()));
 
             // Add the item details to the UpdateViewTable
             ObservableList<Club> observableCreateClubList = createClubDetailsTable.getItems();
@@ -248,19 +259,19 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-    public void setUpdateTable(){
+    public void setUpdateTable() {
         // Check whether the sortedList is null and return the method, if it is null
-        if(clubDetailsList == null){
+        if (clubDetailsList == null) {
             return;
         }
         // Clear the UpdateViewTable
         updateClubDetailsTable.getItems().clear();
 
         // Add Item details to the UpdateView Table using Sorted List
-        for(Club club : clubDetailsList) {
+        for (Club club : clubDetailsList) {
 
             // Create an Item details object with the item details
-            Club tableClub = new Club(club.getClubId() , String.valueOf(club.getClubName()) , String.valueOf(club.getClubDescription()) , String.valueOf(club.getClubLogo()));
+            Club tableClub = new Club(club.getClubId(), String.valueOf(club.getClubName()), String.valueOf(club.getClubDescription()), String.valueOf(club.getClubLogo()));
 
             // Add the item details to the UpdateViewTable
             ObservableList<Club> observableUpdateClubList = updateClubDetailsTable.getItems();
@@ -271,11 +282,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     // This method is responsible on populating various event tables with data from Event.event details list
-    public void populateEventsTables(){
-       // Check if Event.eventDetails is null, if it is return without populating tables
-       if(Event.eventDetails == null){
-           return;
-       }
+    public void populateEventsTables() {
+        // Check if Event.eventDetails is null, if it is return without populating tables
+        if (Event.eventDetails == null) {
+            return;
+        }
 
         // Clear currently populated items in each TableView to prepare for population
         scheduleCreatedEventTable.getItems().clear();
@@ -291,37 +302,37 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         viewCreatedEventsTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         generateReportEventViewTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
-       // Iterate through each event in Event.eventDetails and put the details into Event related tables
-       for(Event value : Event.eventDetails){
-           // Extract relevant information from the Event Objects
-           Club hostingClub = value.getHostingClub();
-           Event event = new Event(value.getEventName(), value.getEventLocation(),
-                   value.getEventType(),value.getEventDeliveryType(), value.getEventDate(),
-                   value.getEventTime(), hostingClub, value.getEventDescription(), value.getEventId());
+        // Iterate through each event in Event.eventDetails and put the details into Event related tables
+        for (Event value : Event.eventDetails) {
+            // Extract relevant information from the Event Objects
+            Club hostingClub = value.getHostingClub();
+            Event event = new Event(value.getEventName(), value.getEventLocation(),
+                    value.getEventType(), value.getEventDeliveryType(), value.getEventDate(),
+                    value.getEventTime(), hostingClub, value.getEventDescription(), value.getEventId());
 
-           // Add the event to the items of each TableView
-           ObservableList<Event> viewScheduledEvents = scheduleCreatedEventTable.getItems();
-           viewScheduledEvents.add(event);
-           // Put the event items to schedule created event table
-           scheduleCreatedEventTable.setItems(viewScheduledEvents );
+            // Add the event to the items of each TableView
+            ObservableList<Event> viewScheduledEvents = scheduleCreatedEventTable.getItems();
+            viewScheduledEvents.add(event);
+            // Put the event items to schedule created event table
+            scheduleCreatedEventTable.setItems(viewScheduledEvents);
 
-           // Put the event items to update event table
-           ObservableList<Event> updateScheduledEvents = updateEventTable.getItems();
-           updateScheduledEvents.add(event);
-           updateEventTable.setItems(updateScheduledEvents );
+            // Put the event items to update event table
+            ObservableList<Event> updateScheduledEvents = updateEventTable.getItems();
+            updateScheduledEvents.add(event);
+            updateEventTable.setItems(updateScheduledEvents);
 
-           // Put the event items to cancelEventTable
-           ObservableList<Event> cancelScheduledEvents = cancelEventTable.getItems();
-           cancelScheduledEvents.add(event);
-           cancelEventTable.setItems(cancelScheduledEvents );
+            // Put the event items to cancelEventTable
+            ObservableList<Event> cancelScheduledEvents = cancelEventTable.getItems();
+            cancelScheduledEvents.add(event);
+            cancelEventTable.setItems(cancelScheduledEvents);
 
-           // Put the event items to viewCreatedEvents table
-           ObservableList<Event> viewCreatedScheduledEvents = viewCreatedEventsTable.getItems();
-           viewCreatedScheduledEvents.add(event);
-           viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
-           viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
+            // Put the event items to viewCreatedEvents table
+            ObservableList<Event> viewCreatedScheduledEvents = viewCreatedEventsTable.getItems();
+            viewCreatedScheduledEvents.add(event);
+            viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
+            viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
 
-       }
+        }
 
 
     }
@@ -340,21 +351,21 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         System.out.println(clubId);
 
-        Club club = new Club(clubId,clubName,clubDescription);
+        Club club = new Club(clubId, clubName, clubDescription);
 
-        if (!club.validateClubName()){
+        if (!club.validateClubName()) {
             System.out.println("Wrong Club Name");
             validStat = false;
         }
         displayClubNameError(clubNameError);
 
-        if (!club.validateClubDescription()){
+        if (!club.validateClubDescription()) {
             System.out.println("Wrong Club Description");
             validStat = false;
         }
         displayClubDecriptionError(clubDescriptionError);
 
-        System.out.println("Valid Stat :" + validStat );
+        System.out.println("Valid Stat :" + validStat);
         if (validStat) {
             Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
             clubDetailsList.add(clubData);
@@ -395,7 +406,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             this.clubName.setText("");
             this.clubDescription.setText("");
 
-        }else {
+        } else {
             Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
             clubUpdateAlert.setTitle("School Club Management System");
@@ -426,15 +437,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String clubName = updateClubName.getText();
         String clubDescription = updateClubDescription.getText();
 
-        Club club = new Club(clubId,clubName,clubDescription);
+        Club club = new Club(clubId, clubName, clubDescription);
 
-        if (!club.validateClubName()){
+        if (!club.validateClubName()) {
             System.out.println("Wrong Club Name");
             validStat = false;
         }
         displayClubNameError(updateClubNameError);
 
-        if (!club.validateClubDescription()){
+        if (!club.validateClubDescription()) {
             System.out.println("Wrong Club Description");
             validStat = false;
         }
@@ -442,9 +453,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
         System.out.println("Valid state : " + validStat);
-        if (validStat){
-            for (Club foundClub : clubDetailsList){
-                if (clubId == foundClub.getClubId()){
+        if (validStat) {
+            for (Club foundClub : clubDetailsList) {
+                if (clubId == foundClub.getClubId()) {
                     foundClub.setClubName(clubName);
                     foundClub.setClubDescription(clubDescription);
                     //Set club logo
@@ -488,7 +499,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     }
                 }
             }
-        }else {
+        } else {
             Alert clubUpdateAlert = new Alert(Alert.AlertType.WARNING);
             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
             clubUpdateAlert.setTitle("School Club Management System");
@@ -496,6 +507,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             clubUpdateAlert.show();
         }
     }
+
     @FXML
     void clubUpdationReset(ActionEvent event) {
         updateClubID.setText(String.valueOf(""));
@@ -541,21 +553,22 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-    public void displayClubNameError(Label labelID){
-        if (Club.clubNameValidateStatus.equals("empty")){
+    public void displayClubNameError(Label labelID) {
+        if (Club.clubNameValidateStatus.equals("empty")) {
             labelID.setText("Club Name cannot be empty");
         } else if (Club.clubNameValidateStatus.equals("format")) {
             labelID.setText("Club Name can contain only letters");
-        }else if (Club.clubNameValidateStatus.equals("exist")){
+        } else if (Club.clubNameValidateStatus.equals("exist")) {
             labelID.setText("That club name already exists !!!");
-        }else {
+        } else {
             labelID.setText("");
         }
     }
-    public void displayClubDecriptionError(Label labelID){
-        if (Club.clubDescriptionValidateStatus.equals("empty")){
+
+    public void displayClubDecriptionError(Label labelID) {
+        if (Club.clubDescriptionValidateStatus.equals("empty")) {
             labelID.setText("Club Description cannot be empty");
-        }else{
+        } else {
             labelID.setText("");
         }
     }
@@ -568,7 +581,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateClubDescriptionError.setText("");
     }
 
-    public void updateClubTableSelect(){
+    public void updateClubTableSelect() {
         int row = updateClubDetailsTable.getSelectionModel().getSelectedIndex();
         System.out.println(row);
 
@@ -580,7 +593,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-    public void OpenImageHandler(ActionEvent event){
+    public void OpenImageHandler(ActionEvent event) {
         fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
 
         //Set the initial directory of the fileChooser to the user's home directory
@@ -588,12 +601,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         //
         fileChooser.getExtensionFilters().clear();
         //
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         //
         File file = fileChooser.showOpenDialog(null);
 
         //Check whether if a file is selected by the user
-        if(file != null){
+        if (file != null) {
             //get the button that handles the event
             Button clickedButton = (Button) event.getSource();
 
@@ -603,14 +616,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             imagePath = file.getPath();
 
             //Check whether the image imported is from the update or from the adding pane
-            if (fxID.equals("createClubImageButton")){
+            if (fxID.equals("createClubImageButton")) {
                 //Set the input image view as the selected image
                 createClubImage.setImage(new Image(String.valueOf(file.toURI())));
-            }else{
+            } else {
                 //Set the update image view as the selected image
                 updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
             }
-        }else {
+        } else {
             //Show the import image error alert
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("School Activity Club Management System");
@@ -620,7 +633,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-    public void updateOpenImageHandler(ActionEvent event){
+    public void updateOpenImageHandler(ActionEvent event) {
         fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
 
         //Set the initial directory of the fileChooser to the user's home directory
@@ -628,12 +641,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         //
         fileChooser.getExtensionFilters().clear();
         //
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         //
         File file = fileChooser.showOpenDialog(null);
 
         //Check whether if a file is selected by the user
-        if(file != null){
+        if (file != null) {
             //get the button that handles the event
             Button clickedButton = (Button) event.getSource();
 
@@ -643,14 +656,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             imagePath = file.getPath();
 
             //Check whether the image imported is from the update or from the adding pane
-            if (fxID.equals("updateClubImageButton")){
+            if (fxID.equals("updateClubImageButton")) {
                 //Set the input image view as the selected image
                 updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
-            }else{
+            } else {
                 //Set the update image view as the selected image
                 updateClubImage.setImage(new Image(String.valueOf(file.toURI())));
             }
-        }else {
+        } else {
             //Show the import image error alert
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Import Image Error !!!");
@@ -661,12 +674,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // This method is used to clear all schedule event fields in event scheduling
     @Override
-    public void clearScheduleEventFields(ActionEvent event){
+    public void clearScheduleEventFields(ActionEvent event) {
         clearEventScheduleFieldsDefault();
     }
 
     // This method will be used to clear scheduled event fields when creating event details
-    public void clearEventScheduleFieldsDefault(){
+    public void clearEventScheduleFieldsDefault() {
         scheduleEventNameTextField.setText(""); // set schedule EventName field empty
         scheduleEventsLocationTextField.setText(""); // set schedule event location empty
         scheduleEventDescriptionTextField.setText(""); // set event description empty
@@ -684,7 +697,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method will be used clear update event fields when updating event details
-    public void clearUpdateEventFields(){
+    public void clearUpdateEventFields() {
         // set the update event club as not selected by setting the first value
         updateEventClubCombo.getSelectionModel().selectFirst();
         // set the update event type combo box as not selected  by setting the first value
@@ -711,9 +724,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method will clear all the update related event fields
-   @Override
-    protected void clearUpdateEventFields(ActionEvent event){
-       clearUpdateEventFields();
+    @Override
+    protected void clearUpdateEventFields(ActionEvent event) {
+        clearUpdateEventFields();
     }
 
     // This method will check whether there are validation errors in the user given event name in both create and update
@@ -727,30 +740,30 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         EventManager eventManager = new EventManager();
 
         // Check whether typing in the schedule event textfield
-        if(String.valueOf(event.getTarget()).equals(targetName)){
+        if (String.valueOf(event.getTarget()).equals(targetName)) {
             // if it is the schedule event text field get the text from text field
             eventName = scheduleEventNameTextField.getText();
 
             System.out.println(event.getTarget());
             // validate the event name using validate event name method in eventManager class
-            if(!eventManager.validateEventName(eventName)){
+            if (!eventManager.validateEventName(eventName)) {
                 // set the error label if the event name is null
                 scheduleErrorLabelEventName.setText("Event name cannot be empty");
-            }else{
+            } else {
                 // set the error label empty if the event name is correct
                 scheduleErrorLabelEventName.setText("");
             }
-        }else{
+        } else {
             // if the selected textfield is not event scheduling text field, update error labels
             // get the text input of update textfield
             eventName = updateEventNameTextField.getText();
             System.out.println(event.getTarget());
 
             // validate the event name using validate event name method in event manager class
-            if(!eventManager.validateEventName(eventName)){
+            if (!eventManager.validateEventName(eventName)) {
                 // set the error label if the event name is empty
                 updateErrorLabelEventName.setText("Event name cannot be empty");
-            }else{
+            } else {
                 // set the error label empty if the event name is correct
                 updateErrorLabelEventName.setText(" ");
             }
@@ -771,28 +784,28 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         EventManager eventManager = new EventManager();
 
         // Check whether typing in the schedule event textfield
-        if(String.valueOf(event.getTarget()).equals(targetLocation)){
+        if (String.valueOf(event.getTarget()).equals(targetLocation)) {
             // if it is the schedule event text field get the text from text field
             eventLocation = scheduleEventsLocationTextField.getText();
 
             System.out.println(event.getTarget());
             // validate the event location using validate event location method in eventManager class
-            if(!eventManager.validateEventLocation(eventLocation)){
+            if (!eventManager.validateEventLocation(eventLocation)) {
                 // set the error label if the event location is null
                 scheduleErrorLabelEventLocation.setText("Event Location cannot be empty");
-            }else{
+            } else {
                 // set the error label empty if the event location is correct
                 scheduleErrorLabelEventLocation.setText(" ");
             }
-        }else{
+        } else {
             // if it is the update event text field get the text from text field
             eventLocation = updateEventLocationTextField.getText();
 
             // validate the event location using validate event location method in eventManager class
-            if(!eventManager.validateEventLocation(eventLocation)){
+            if (!eventManager.validateEventLocation(eventLocation)) {
                 // set the error label if the update event location error label if update location is null
                 updateErrorLabelEventLocation.setText("Event Location cannot be empty");
-            }else{
+            } else {
                 // set the update location error label empty if the given location is correct
                 updateErrorLabelEventLocation.setText(" ");
             }
@@ -812,26 +825,26 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         EventManager eventManager = new EventManager();
 
         // check the event location textfield belongs to event scheduling
-        if(String.valueOf(event.getTarget()).equals(targetType)){
+        if (String.valueOf(event.getTarget()).equals(targetType)) {
             // get the current event scheduling type value to declared variable
             selectedOption = scheduleEventTypeCombo.getSelectionModel().getSelectedItem();
             System.out.println(event.getTarget());
 
             // do the event type validation
-            if(eventManager.validateEventType(selectedOption)){
+            if (eventManager.validateEventType(selectedOption)) {
                 // if the event type validation is correct set the label value
                 scheduleErrorLabelEventType.setText("Event type cannot be None");
-            }else{
+            } else {
                 // if the event type validation is incorrect set the label value as null
                 scheduleErrorLabelEventType.setText(" ");
             }
-        }else{
+        } else {
             // if the selected option is in update text field, set the value to selected option
             selectedOption = updateEventTypeCombo.getSelectionModel().getSelectedItem();
-            if(eventManager.validateEventType(selectedOption)){
+            if (eventManager.validateEventType(selectedOption)) {
                 // Show the update error label if the validation status is false(None)
                 updateErrorLabelEventType.setText("Event type cannot be None");
-            }else{
+            } else {
                 // Show the update error label if the validation status is true
                 updateErrorLabelEventType.setText(" ");
             }
@@ -842,7 +855,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @FXML
     void checkDeliveryTypeError(ActionEvent event) {
         // set the id of the delivery type text field
-        String targetDelivery= "ComboBox[id=ScheduleEventsDeliveryType, styleClass=combo-box-base combo-box eventField]";
+        String targetDelivery = "ComboBox[id=ScheduleEventsDeliveryType, styleClass=combo-box-base combo-box eventField]";
         // declare the selectedOption
         String selectedOption;
 
@@ -851,23 +864,23 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(event.getTarget());
 
         // check whether the user typing text field
-        if(String.valueOf(event.getTarget()).equals(targetDelivery)){
+        if (String.valueOf(event.getTarget()).equals(targetDelivery)) {
             // set the selected option value if the event delivery type belongs to event scheduling
-            selectedOption= ScheduleEventsDeliveryType.getSelectionModel().getSelectedItem();
-            if(eventManager.validateEventType(selectedOption)){
+            selectedOption = ScheduleEventsDeliveryType.getSelectionModel().getSelectedItem();
+            if (eventManager.validateEventType(selectedOption)) {
                 // set the error label if the user selected delivery type is None (type)
                 scheduleErrorLabelEventDeliveryType.setText("Event delivery type cannot be None");
-            }else{
+            } else {
                 // set the error label empty if the selected delivery type is correct
                 scheduleErrorLabelEventDeliveryType.setText(" ");
             }
-        }else{
+        } else {
             // set the selected option value if the event delivery type belongs to event updating
-            selectedOption= updateEventDeliveryTypeCombo.getSelectionModel().getSelectedItem();
-            if(eventManager.validateEventType(selectedOption)){
+            selectedOption = updateEventDeliveryTypeCombo.getSelectionModel().getSelectedItem();
+            if (eventManager.validateEventType(selectedOption)) {
                 // set the error label if the user selected delivery type is None (type)
                 updateErrorLabelDeliveryType.setText("Event delivery type cannot be None");
-            }else{
+            } else {
                 // set the error label empty if the selected delivery type is correct
                 updateErrorLabelDeliveryType.setText(" ");
             }
@@ -887,27 +900,27 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         EventManager eventManager = new EventManager();
 
         // check the selected date is in the update or schedule field
-        if(String.valueOf(event.getTarget()).equals(targetDate)){
+        if (String.valueOf(event.getTarget()).equals(targetDate)) {
             // If the selected date is in the scheduling get its value
             selectedDate = scheduleEventDatePicker.getValue();
 
             System.out.println(event.getTarget());
-            if(!eventManager.validateEventDate(selectedDate)){
+            if (!eventManager.validateEventDate(selectedDate)) {
                 // display error, if the event date is not valid
                 scheduleErrorLabelEventDate.setText("Event date cannot be a past date");
-            }else{
+            } else {
                 // display None, if the event date is valid
                 scheduleErrorLabelEventDate.setText(" ");
             }
-        }else{
+        } else {
             // get the current date value if the update option is selected
             selectedDate = updateEventDateDatePicker.getValue();
 
             System.out.println(event.getTarget());
-            if(!eventManager.validateEventDate(selectedDate)){
+            if (!eventManager.validateEventDate(selectedDate)) {
                 // display error if the event date is not valid
                 updateErrorLabelEventDate.setText("Event date cannot be a past date");
-            }else{
+            } else {
                 // display None if the event date is valid
                 updateErrorLabelEventDate.setText(" ");
             }
@@ -929,73 +942,73 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(event.getTarget());
 
         // Check the selected club is in the update or schedule field
-        if(String.valueOf(event.getTarget()).equals(targetClub)){
+        if (String.valueOf(event.getTarget()).equals(targetClub)) {
 
-            selectedClub= scheduleEventsClubName.getSelectionModel().getSelectedItem();
-            if(eventManager.validateEventType(selectedClub)){
+            selectedClub = scheduleEventsClubName.getSelectionModel().getSelectedItem();
+            if (eventManager.validateEventType(selectedClub)) {
                 // display error, if the event club name is not valid
                 scheduleErrorLabelClubName.setText("Club Name cannot be None");
-            }else{
+            } else {
                 // display None if the club name is valid
                 scheduleErrorLabelClubName.setText(" ");
             }
-        }else{
+        } else {
             // set the event update Club as selectedClub
             selectedClub = updateEventClubCombo.getSelectionModel().getSelectedItem();
 
-            if(eventManager.validateEventType(selectedClub)){
-                 // display error, if the event club name is not valid
-                 updateErrorLabelClubName.setText("Club Name cannot be None");
-            }else{
-                 // display None if the club name is valid
-                 updateErrorLabelClubName.setText(" ");
+            if (eventManager.validateEventType(selectedClub)) {
+                // display error, if the event club name is not valid
+                updateErrorLabelClubName.setText("Club Name cannot be None");
+            } else {
+                // display None if the club name is valid
+                updateErrorLabelClubName.setText(" ");
             }
         }
         System.out.println(event.getTarget());
     }
 
     // Method to populate comboBoxes with their club names for scheduling and updating events
-    public void getCreatedClubs(){
+    public void getCreatedClubs() {
         // Check if None is already their in the scheduleEventsClubName ComboBox
-        if(!scheduleEventsClubName.getItems().contains("None")){
+        if (!scheduleEventsClubName.getItems().contains("None")) {
             // If not exist add it to scheduleEventsClubName comboBox
             scheduleEventsClubName.getItems().add("None");
         }
 
         // Check if None is already their in the updateEventClubCombo ComboBox
-        if(!updateEventClubCombo.getItems().contains("None")){
+        if (!updateEventClubCombo.getItems().contains("None")) {
             // If not exist add it to updateEventClubCombo comboBox
             updateEventClubCombo.getItems().add("None");
         }
 
         // Check if None is already their in the viewCreatedEventsSortComboBox ComboBox
-        if(!viewCreatedEventsSortComboBox.getItems().contains("All Clubs")){
+        if (!viewCreatedEventsSortComboBox.getItems().contains("All Clubs")) {
             // If not exist add it to viewCreatedEventsSortComboBox comboBox
             viewCreatedEventsSortComboBox.getItems().add("All Clubs");
         }
 
         // Iterate through each Club in the clubDetails list to populate the combo box
-        for(Club club: Club.clubDetailsList){
+        for (Club club : Club.clubDetailsList) {
             String clubName;
             clubName = club.getClubName();
 
             // Check if the clubName is already present in each ComboBox
-            boolean scheduleContainStatus =  scheduleEventsClubName.getItems().contains(clubName);
-            boolean updateContainsStatus =   updateEventClubCombo.getItems().contains(clubName);
+            boolean scheduleContainStatus = scheduleEventsClubName.getItems().contains(clubName);
+            boolean updateContainsStatus = updateEventClubCombo.getItems().contains(clubName);
             boolean viewContainsStatus = viewCreatedEventsSortComboBox.getItems().contains(clubName);
 
             // If the clubName is not already present, add it to each ComboBox
-            if(!scheduleContainStatus){
+            if (!scheduleContainStatus) {
                 // Add the club names to scheduleEventsClubName
                 scheduleEventsClubName.getItems().add(clubName);
             }
 
-            if(!updateContainsStatus){
+            if (!updateContainsStatus) {
                 // Add the club names to updateEventClubCombo
                 updateEventClubCombo.getItems().add(clubName);
             }
 
-            if(!viewContainsStatus){
+            if (!viewContainsStatus) {
                 // Add the club names to viewCreatedEventsSortComboBox
                 viewCreatedEventsSortComboBox.getItems().add(clubName);
             }
@@ -1013,8 +1026,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-   /*This method is responsible on taking the user inputs and
-   show error and information messages when scheduling events*/
+    /*This method is responsible on taking the user inputs and
+    show error and information messages when scheduling events*/
     @FXML
     void scheduleEventController(ActionEvent event) {
 
@@ -1052,12 +1065,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         boolean stat = eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,
                 eventDate, clubName, eventStartHour, eventStartMinute, "create", eventDescription);
         // If the validation status is true, populate all event related tables in event scheduling section
-        if(stat){
+        if (stat) {
             clearEventScheduleFieldsDefault(); // clear all event scheduling fields
             populateEventsTables(); // populating the tables
             displayNumberOfScheduledEvents(); // Update number of scheduled events
             getNextEventDate(); // get the next event date
-        }else{
+        } else {
             // Show the event creation alert if event details are not valid
             Alert eventCreateAlert = new Alert(Alert.AlertType.WARNING);
             eventCreateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -1070,68 +1083,68 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method is responsible on displaying event scheduling and updating error labels
-    public void DisplayEventErrors(){
+    public void DisplayEventErrors() {
         // Check if the event date is not set to a future date
-        if(!EventManager.eventDateStatus){
+        if (!EventManager.eventDateStatus) {
             // both update and scheduling date error labels will be displayed
             scheduleErrorLabelEventDate.setText("It is compulsory to set a future date");
             updateErrorLabelEventDate.setText("It is compulsory to set a future date");
-        }else{
+        } else {
             // clear the error messages if the event date is valid
             scheduleErrorLabelEventDate.setText(" ");
             updateErrorLabelEventDate.setText(" ");
         }
 
         // Check if the event type is set to "None"
-        if(!EventManager.eventTypeStatus){
+        if (!EventManager.eventTypeStatus) {
             // both update and scheduling event type error will be displayed
             scheduleErrorLabelEventType.setText("Event type cannot be None");
             updateErrorLabelEventType.setText("Event type cannot be None");
-        }else{
+        } else {
             // Clear the error messages if the event type is valid
             scheduleErrorLabelEventType.setText(" ");
             updateErrorLabelEventType.setText(" ");
         }
 
         // Check if the event delivery type is set to "None"
-        if(!EventManager.eventDeliveryTypeStatus){
+        if (!EventManager.eventDeliveryTypeStatus) {
             // both and scheduling event type error will be displayed
             scheduleErrorLabelEventDeliveryType.setText("Event delivery type cannot be None");
             updateErrorLabelDeliveryType.setText("Event delivery type cannot be None");
-        }else{
+        } else {
             // Clear the error messages if the event type is valid
             scheduleErrorLabelEventDeliveryType.setText("");
             updateErrorLabelDeliveryType.setText(" ");
         }
 
         // Check if the event location is empty
-        if(!EventManager.eventLocationStatus){
+        if (!EventManager.eventLocationStatus) {
             // both and scheduling event type error will be displayed
             scheduleErrorLabelEventLocation.setText("Event Location cannot be empty");
             updateErrorLabelEventLocation.setText("Event Location cannot be empty");
-        }else{
+        } else {
             // Clear the error messages if the event location is valid
             scheduleErrorLabelEventLocation.setText(" ");
             updateErrorLabelEventLocation.setText(" ");
         }
 
         // Check if the event name is empty
-        if(!EventManager.eventNameStatus){
+        if (!EventManager.eventNameStatus) {
             // both and scheduling event type error will be displayed
             scheduleErrorLabelEventName.setText("Event name cannot be empty");
             updateErrorLabelEventName.setText("Event name cannot be empty");
-        }else{
+        } else {
             // Clear the error messages if the event name is valid
             scheduleErrorLabelEventName.setText(" ");
             updateErrorLabelEventName.setText(" ");
         }
 
         // Check if the club name is set to "None"
-        if(!EventManager.eventClubNameStatus){
+        if (!EventManager.eventClubNameStatus) {
             // both and scheduling event type error will be displayed
             scheduleErrorLabelClubName.setText("Club Name cannot be None");
             updateErrorLabelClubName.setText("Club Name cannot be None");
-        }else{
+        } else {
             // Clear the error messages if the club name is valid
             scheduleErrorLabelClubName.setText("");
             updateErrorLabelClubName.setText(" ");
@@ -1139,8 +1152,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-   // This method clears all error labels in scheduling events
-    public void clearAllScheduleEventLabels(){
+    // This method clears all error labels in scheduling events
+    public void clearAllScheduleEventLabels() {
         scheduleErrorLabelEventName.setText(""); // clear event name error label
         scheduleErrorLabelEventLocation.setText(" "); // clear event location error label
         scheduleErrorLabelEventDate.setText(" "); // clear event date error label
@@ -1150,7 +1163,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method clear all error labels in updating events
-    public void clearAllUpdateEventLabels(){
+    public void clearAllUpdateEventLabels() {
         updateErrorLabelEventDate.setText(" "); // clear update event date error label
         updateErrorLabelDeliveryType.setText(" "); // clear update delivery type error label
         updateErrorLabelEventType.setText(" "); // clear update event type error label
@@ -1166,12 +1179,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     /*This table selects the row that has to be updated in updateEventTable,
-    * and it is responsible on enabling updating fields for events and populate them with the selected event details.
-    * and, its sets the selected event value and Id for do the updates in the database.*/
-    public void updateRowSelection(){
-        try{
+     * and it is responsible on enabling updating fields for events and populate them with the selected event details.
+     * and, its sets the selected event value and Id for do the updates in the database.*/
+    public void updateRowSelection() {
+        try {
             // Check if an item is selected in the update events table
-            if(!(updateEventTable.getSelectionModel().getSelectedItem() == null)){
+            if (!(updateEventTable.getSelectionModel().getSelectedItem() == null)) {
                 // Enabling input fields for updating events
                 enableAllUpdateEventFields();
             }
@@ -1181,7 +1194,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             clearEventFieldButton.setDisable(false);
 
             // Get the selected event details and index
-            selectedEventValue =  updateEventTable.getSelectionModel().getSelectedItem();
+            selectedEventValue = updateEventTable.getSelectionModel().getSelectedItem();
             selectedEventId = updateEventTable.getSelectionModel().getSelectedIndex();
 
             // Set all the UI components including text-fields, combo boxes and text area with selected event details
@@ -1198,11 +1211,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             int hour = startTime.getHour();
 
             // Check if the hour is less than 10
-            if(hour < 10){
+            if (hour < 10) {
                 // If the hour is a single digit, prepend '0' before setting the value in the combo box
                 String hourVal = "0" + hour;
                 updateHourComboBox.setValue(hourVal);
-            }else{
+            } else {
                 // If the hour is two digits, set the value in the combo box as a string
                 updateHourComboBox.setValue(String.valueOf(hour));
             }
@@ -1210,11 +1223,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             int minute = startTime.getMinute();
             // Check if the minute is less than 10
-            if(minute < 10){
+            if (minute < 10) {
                 // If the minute is a single digit, prepend '0' before setting the value in the combo box
                 String minuteVal = "0" + minute;
                 updateMinuteComboBox.setValue(minuteVal);
-            }else{
+            } else {
                 // If the minute is two digits, set the value in the combo box as a string
                 updateMinuteComboBox.setValue(String.valueOf(minute));
             }
@@ -1222,15 +1235,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             System.out.println(selectedEventValue.getClubName());
 
-        }catch(NullPointerException E){
+        } catch (NullPointerException E) {
             // Handling the case where no values are selected
             System.out.println("No values");
         }
 
     }
 
-   // This method disables all update fields in event updating
-    public void disableAllUpdateEventFields(){
+    // This method disables all update fields in event updating
+    public void disableAllUpdateEventFields() {
         updateEventClubCombo.setDisable(true); // Disable update event club combo box
         updateEventTypeCombo.setDisable(true); // Disable update event type combo box
         updateEventDeliveryTypeCombo.setDisable(true); // Disable update event delivery type combo box
@@ -1245,7 +1258,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method enables all update fields in event updating
-    public void enableAllUpdateEventFields(){
+    public void enableAllUpdateEventFields() {
         updateEventClubCombo.setDisable(false); // Enable update event club combo box
         updateEventTypeCombo.setDisable(false); // Enable update event type combo box
         updateEventDeliveryTypeCombo.setDisable(false); // Enable update event delivery type combo box
@@ -1295,7 +1308,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         boolean stat = eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,
                 eventDate, clubName, eventStartHour, eventStartMinute, "update", eventDescription);
 
-        if(stat){
+        if (stat) {
             // Passing the updated eventName to Event class using its setter
             selectedEventValue.setEventName(eventName);
             // Passing the updated eventLocation to Event class using its setter
@@ -1330,7 +1343,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             disableAllUpdateEventFields();
             // Clear all update event fields
             clearUpdateEventFields();
-        }else{
+        } else {
             // display alert if the user given update details are wrong
             Alert eventUpdateAlert = new Alert(Alert.AlertType.WARNING);
             eventUpdateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -1347,47 +1360,47 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     /*This method is responsible on cancel an event.*/
     @FXML
     void cancelEventController(ActionEvent event) {
-       try{
-           // Taking the selected event to be canceled from the event table
-           Event selectedEvent = cancelEventTable.getSelectionModel().getSelectedItem();
+        try {
+            // Taking the selected event to be canceled from the event table
+            Event selectedEvent = cancelEventTable.getSelectionModel().getSelectedItem();
 
-           // Get the event ID of the event to be canceled
-           selectedEventId = cancelEventTable.getSelectionModel().getSelectedIndex();
-           System.out.println(selectedEvent.getEventName());
+            // Get the event ID of the event to be canceled
+            selectedEventId = cancelEventTable.getSelectionModel().getSelectedIndex();
+            System.out.println(selectedEvent.getEventName());
 
-           // Ask the user whether they really want to cancel the event by sending an alert
-           Alert cancelEvent = new Alert(Alert.AlertType.CONFIRMATION);
-           cancelEvent.initModality(Modality.APPLICATION_MODAL);
-           cancelEvent.setTitle("School Activity Club Management System");
-           cancelEvent.setHeaderText("Do you really want to delete the event ?");
+            // Ask the user whether they really want to cancel the event by sending an alert
+            Alert cancelEvent = new Alert(Alert.AlertType.CONFIRMATION);
+            cancelEvent.initModality(Modality.APPLICATION_MODAL);
+            cancelEvent.setTitle("School Activity Club Management System");
+            cancelEvent.setHeaderText("Do you really want to delete the event ?");
 
-           // Get the conformation of the user to cancel an event
-           Optional<ButtonType> result = cancelEvent.showAndWait();
-           if(result.get() != ButtonType.OK){
-               return;
-           }
+            // Get the conformation of the user to cancel an event
+            Optional<ButtonType> result = cancelEvent.showAndWait();
+            if (result.get() != ButtonType.OK) {
+                return;
+            }
 
-           // Create a clubAdvisor object
-           ClubAdvisor clubAdvisor = new ClubAdvisor();
-           // call the cancel event method to update the database from ClubAdvisor class
-           clubAdvisor.cancelEvent(selectedEvent, selectedEventId);
+            // Create a clubAdvisor object
+            ClubAdvisor clubAdvisor = new ClubAdvisor();
+            // call the cancel event method to update the database from ClubAdvisor class
+            clubAdvisor.cancelEvent(selectedEvent, selectedEventId);
 
-           // populate all club advisor relate tables
-           populateEventsTables();
+            // populate all club advisor relate tables
+            populateEventsTables();
 
-           // update the number of scheduled events
-           displayNumberOfScheduledEvents();
+            // update the number of scheduled events
+            displayNumberOfScheduledEvents();
 
-           // update the next event date
-           getNextEventDate();
+            // update the next event date
+            getNextEventDate();
 
-       }catch(NullPointerException error){
-           // Show the event cancel error alert
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("School Club Management System");
-           alert.setHeaderText("Select an event from table to cancel the event");
-           alert.show();
-       }
+        } catch (NullPointerException error) {
+            // Show the event cancel error alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("Select an event from table to cancel the event");
+            alert.show();
+        }
 
     }
 
@@ -1412,7 +1425,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method searches for an event in the given table based on the given search bar input
-    public void searchEvents(TableView<Event> tableView, TextField searchBar){
+    public void searchEvents(TableView<Event> tableView, TextField searchBar) {
         // Get the event name from the search bar
         String eventName = searchBar.getText();
         System.out.println(eventName);
@@ -1421,15 +1434,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         Event foundEvent = null;
 
         // Iterate through the items in the table to find a matching event
-        for(Event eventVal : tableView.getItems()){
-            if(eventVal.getEventName().equals(eventName)){
+        for (Event eventVal : tableView.getItems()) {
+            if (eventVal.getEventName().equals(eventName)) {
                 foundEvent = eventVal;
                 break;
             }
         }
 
         // If a matching event is found, perform the following actions
-        if(foundEvent != null){
+        if (foundEvent != null) {
             // Select the found event, in the table
             tableView.getSelectionModel().select(foundEvent);
 
@@ -1438,10 +1451,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             tableView.scrollTo(foundEvent);
 
             // If the table is UpdateEventTable, call the updateRowSelection method
-            if(tableView == updateEventTable){
+            if (tableView == updateEventTable) {
                 updateRowSelection();
             }
-        }else{
+        } else {
             // If no matching event is found, display the error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("School Club Management System");
@@ -1451,12 +1464,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method display the number of scheduled events
-    public void displayNumberOfScheduledEvents(){
+    public void displayNumberOfScheduledEvents() {
         numberOfScheduledEvents.setText(String.valueOf(Event.eventDetails.size()));
     }
 
     // This method finds and displays the date of the next scheduled event
-    public  void getNextEventDate() {
+    public void getNextEventDate() {
         // If there are no events, set the nextEventDate label to "No events"
         if (Event.eventDetails.isEmpty()) {
             nextEventDate.setText("   No events");
@@ -1485,7 +1498,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // Display number of club advisors
-    public void displayNumberOfClubAdvisors(){
+    public void displayNumberOfClubAdvisors() {
         numberOfClubs.setText(String.valueOf(Club.clubDetailsList.size()));
     }
 
@@ -1571,13 +1584,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // Check if the table is the generateReportEventViewTable
             if (table == generateReportEventViewTable) {
                 // Check if there are any events to when generating reports using event date list
-                if(!selectedEventDates.isEmpty()){
+                if (!selectedEventDates.isEmpty()) {
                     // Update the label with the total count of upcoming events for generating reports
                     UpcomingEventCountGenerateReports.setText("Total :  " + count);
 
                     // Update the label with the date range for generating reports
                     eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
-                }else{
+                } else {
                     // Update the label with the total count of events when no events are selected for generating reports
                     UpcomingEventCountGenerateReports.setText("Total :  " + count);
 
@@ -1605,7 +1618,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 atd2.setAttendanceStatus(newVal);
 
                 // Print a message or perform any other actions as needed
-                System.out.println("Attendance status for student "  + " updated to: " + newVal);
+                System.out.println("Attendance status for student " + " updated to: " + newVal);
             });
         }
 
@@ -1632,18 +1645,18 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method calculates and displays the count of male and female students in a bar chart
-    public void findMaleFemaleStudentCount(){
+    public void findMaleFemaleStudentCount() {
         // Initialize the count for both male and female students
         int maleRate = 0;
         int femaleRate = 0;
 
 
         // Iterate through the student details array
-        for(Student student : Student.studentDetailArray){
+        for (Student student : Student.studentDetailArray) {
             // Checking the gender of the registered student and updating its corresponding counter value
-            if(student.getGender() == 'M'){
-                maleRate ++;
-            }else{
+            if (student.getGender() == 'M') {
+                maleRate++;
+            } else {
                 femaleRate++;
             }
         }
@@ -1661,13 +1674,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // This method displays the count of enrolled students in each grade using a bar chart
-    public void displayEnrolledStudentCount(){
+    public void displayEnrolledStudentCount() {
         // Create a HashMap to store the count of students for each grade
         HashMap<Integer, Integer> studentGrade = new HashMap<>();
 
 
         // Iterate through the student details array
-        for(Student student : Student.studentDetailArray){
+        for (Student student : Student.studentDetailArray) {
             // Get the grade of the student
             int grade = student.getStudentGrade();
 
@@ -1692,13 +1705,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // the club name combo box is cleared
         attendanceClubNameComboBox.getItems().clear();
 
-        if(!attendanceClubNameComboBox.getItems().contains("Please Select")){
+        if (!attendanceClubNameComboBox.getItems().contains("Please Select")) {
             // the default option of please select is added to the combo box
             attendanceClubNameComboBox.getItems().add("Please select");
         }
 
         // the following is done for every club in the clubDetailsList
-        for(Club club : clubDetailsList){
+        for (Club club : clubDetailsList) {
             // the club names are added to the combo box from the array list
             attendanceClubNameComboBox.getItems().add(club.getClubName());
         }
@@ -1715,17 +1728,17 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(selectedClub + "ding dong bell");
 
         // if no club is selected, the method is returned (not executed)
-        if(selectedClub == null){
+        if (selectedClub == null) {
             return;
         }
 
         // if "Please Select" is chosen, the method is returned (not executed)
-        if(selectedClub.equals("Please Select")){
+        if (selectedClub.equals("Please Select")) {
             return;
-        }else{
+        } else {
             // a object of data type Event is created to iterate over the eventDetails array list
-            for(Event events : Event.eventDetails){
-                if(events.getClubName().equals(selectedClub)){
+            for (Event events : Event.eventDetails) {
+                if (events.getClubName().equals(selectedClub)) {
                     filteredEvents.add(events); // the events for the respective club is added to the areay list
                 }
             }
@@ -1734,13 +1747,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         attendanceEventNameComboBox.getItems().clear();
 
         // check if the option "Please select" is already available
-        if(!attendanceEventNameComboBox.getItems().contains("Please Select")){
+        if (!attendanceEventNameComboBox.getItems().contains("Please Select")) {
             // option is added if not available
             attendanceEventNameComboBox.getItems().add("Please select");
         }
 
         // an object event1 of data type Event is created to iterate over the filteredEvents array list
-        for(Event event1 : filteredEvents){
+        for (Event event1 : filteredEvents) {
             // the events are retrieved and added
             attendanceEventNameComboBox.getItems().add(event1.getEventName());
         }
@@ -1749,15 +1762,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-
     // This method handles dragging of the club advisor dashboard when the mouse is detected
     @Override
     void ClubAdvisorDashboardDetected(MouseEvent event) {
         // Get the current stage
-        Stage stage =  (Stage)ClubAdvisorDashboard.getScene().getWindow();
+        Stage stage = (Stage) ClubAdvisorDashboard.getScene().getWindow();
 
         // Set the new position of the stage based on mouse coordinates
-        stage.setX(event.getScreenX()- xPosition);
+        stage.setX(event.getScreenX() - xPosition);
         stage.setY(event.getScreenY() - yPosition);
     }
 
@@ -1776,7 +1788,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
 
         // Get the reference to the current stage
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         // Set the new scene and show the stage
         scene = new Scene(root);
@@ -1803,7 +1815,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // This method will make all club advisor panes invisible
     @Override
-    public void makeAllClubAdvisorPanesInvisible(){
+    public void makeAllClubAdvisorPanesInvisible() {
         dashboardMainPane.setVisible(false); // set dashboardMainPane invisible
         ManageClubPane.setVisible(false); // set  ManageClubPane invisible
         ScheduleEventsPane.setVisible(false); // set ScheduleEventsPane invisible
@@ -1813,9 +1825,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     /* This method will set all the club advisor dashboard left pane buttons to linear gradient color,
-    * This is done to highlight the currently working pane related buttons */
+     * This is done to highlight the currently working pane related buttons */
     @Override
-    public void makeAllButtonsColoured(){
+    public void makeAllButtonsColoured() {
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ScheduleEventsButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
@@ -1998,7 +2010,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // This method will make all generate report panes invisible
     @Override
-    public void makeAllPanesInvisibleGeneratingReport(){
+    public void makeAllPanesInvisibleGeneratingReport() {
         ClubActivitiesPane.setVisible(false); // make club activities pane invisible
         EventAttendancePane.setVisible(false); // make event attendance pane invisible
         MembershipReportPane.setVisible(false); // make membership report pane invisible
@@ -2022,7 +2034,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // This make all event panes invisible
     @Override
-    public void makeAllPanesInvisibleEventPane(){
+    public void makeAllPanesInvisibleEventPane() {
         UpdatesEventPane.setVisible(false); // make update event pane invisible
         ViewEventsPane.setVisible(false); // make update view events pane invisible
         ScheduleEventsInnerPane.setVisible(false); // make schedule events inner pane invisible
@@ -2125,7 +2137,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // Make all club creation panes invisible
     @Override
-    public void makeAllClubCreationPanesInvisible(){
+    public void makeAllClubCreationPanesInvisible() {
         createClubPane.setVisible(false); // make created club panes invisible
         UpdateClubDetailPane.setVisible(false); // make UpdateClubDetailPane invisible
         // style CreateClubDirectorButton
@@ -2180,10 +2192,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     static {
-        if (clubDetailsList.isEmpty()){
+        if (clubDetailsList.isEmpty()) {
             clubIdSetterValue = 100;
-        }else {
-            clubIdSetterValue = ClubAdvisorDataBaseManager.lastClubIndex + 1 ;
+        } else {
+            clubIdSetterValue = ClubAdvisorDataBaseManager.lastClubIndex + 1;
         }
     }
 
@@ -2220,7 +2232,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
         displayNameError("lastName");
 
-        try{
+        try {
             String tempContactNum = advisorContactNumber;
             if (tempContactNum.isEmpty()) {
                 User.contactNumberValidateStatus = "empty";
@@ -2235,7 +2247,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             } else {
                 User.contactNumberValidateStatus = "";
             }
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Invalid ContactNumber 2");
             User.contactNumberValidateStatus = "format";
             validStat = false;
@@ -2253,9 +2265,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         displayUserNameError();
 
         System.out.println("Valid state : " + validStat);
-        if (validStat){
-            for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList){
-                if (advisorId == foundClubAdvisor.getClubAdvisorId()){
+        if (validStat) {
+            for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
+                if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
                     foundClubAdvisor.setClubAdvisorId(advisorId);
                     foundClubAdvisor.setFirstName(advisorFirstName);
                     foundClubAdvisor.setLastName(advisorLastName);
@@ -2286,8 +2298,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String advisorNewPassword = profileAdvisorNewpw.getText();
         String advisorConfirmPassword = profileAdvisorConfirmpw.getText();
 
-        for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList){
-            if (advisorExistingPassword.equals(foundAdvisor.getPassword())){
+        for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
+            if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
                 profileAdvisorExistingpwError.setText("");
                 ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
@@ -2308,9 +2320,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 }
 
                 System.out.println("Valid state : " + validStat);
-                if (validStat){
-                    for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList){
-                        if (advisorId == foundClubAdvisor.getClubAdvisorId()){
+                if (validStat) {
+                    for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
+                        if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
                             foundClubAdvisor.setPassword(advisorNewPassword);
 
                             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -2327,7 +2339,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                         }
                     }
                 }
-            }else {
+            } else {
                 profileAdvisorExistingpwError.setText("Wrong password!");
             }
         }
@@ -2348,10 +2360,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             profileAdvisorUsernameError.setText("");
         }
     }
+
     public void displayContactNumError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
             profileAdvisorCnumberError.setText("Contact number cannot be empty.");
-        } else if (User.contactNumberValidateStatus.equals("length")){
+        } else if (User.contactNumberValidateStatus.equals("length")) {
             profileAdvisorCnumberError.setText("Contact number should be 10 digits.");
         } else if (User.contactNumberValidateStatus.equals("format")) {
             profileAdvisorCnumberError.setText("It should contain only numbers.");
@@ -2359,6 +2372,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             profileAdvisorCnumberError.setText("");
         }
     }
+
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
             if (ClubAdvisor.fNameValidateStatus.equals("empty")) {
@@ -2378,7 +2392,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }
     }
-  
+
     public void displayPasswordError() {
         if (User.passwordValidateStatus.equals("empty")) {
             profileAdvisorNewpwError.setText("Password cannot be empty.");
@@ -2390,15 +2404,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-
-    public void displayStudentUpdateDetails(){
+    public void displayStudentUpdateDetails() {
         profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));
         profileAdvisorFname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getFirstName()));
         profileAdvisorLname.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getLastName()));
         profileAdvisorUsername.setText(String.valueOf(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName())));
         String contactNumber = makeTenDigitsForNumber(Integer.parseInt(ClubAdvisor.clubAdvisorDetailsList.get(0).getContactNumber()));
         profileAdvisorCnumber.setText((contactNumber));
-        username =  String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName());
+        username = String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName());
     }
 
 //    public void displayExistingPassword(){
@@ -2407,7 +2420,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     /* This method ensures that the input number is represented
-    * as ten digit string, if not put zeros to the beginning*/
+     * as ten digit string, if not put zeros to the beginning*/
     public static String makeTenDigitsForNumber(int number) {
         // Convert the number to string
         String strNumber = Integer.toString(number);
@@ -2427,12 +2440,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-    public void populateMembershipCombo(ComboBox<String> selectedCombo){
+    public void populateMembershipCombo(ComboBox<String> selectedCombo) {
         selectedCombo.getItems().clear();
-        if (!selectedCombo.getItems().contains("Select a club")){
+        if (!selectedCombo.getItems().contains("Select a club")) {
             selectedCombo.getItems().add("Select a club");
         }
-        for (Club club : clubDetailsList){
+        for (Club club : clubDetailsList) {
             selectedCombo.getItems().add(club.getClubName());
         }
         selectedCombo.getSelectionModel().selectFirst();
@@ -2454,19 +2467,19 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
-    public void setMembershipTable(){
+    public void setMembershipTable() {
         // Check whether the sortedList is null and return the method, if it is null
-        if(studentDetailArray == null){
+        if (studentDetailArray == null) {
             return;
         }
         // Clear the UpdateViewTable
         clubMembershipTable.getItems().clear();
 
         // Add Item details to the UpdateView Table using Sorted List
-        for(Student student : studentDetailArray) {
+        for (Student student : studentDetailArray) {
 
             // Create an Item details object with the item details
-            Student tableStudent = new Student(student.getStudentAdmissionNum(),student.getUserName(),student.getFirstName(), student.getLastName(), student.getStudentGrade(), student.getGender(), student.getContactNumber());
+            Student tableStudent = new Student(student.getStudentAdmissionNum(), student.getUserName(), student.getFirstName(), student.getLastName(), student.getStudentGrade(), student.getGender(), student.getContactNumber());
 
             // Add the item details to the UpdateViewTable
             ObservableList<Student> observableMembersList = clubMembershipTable.getItems();
@@ -2476,16 +2489,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // Populate the given combo box with club names, including an option for "All clubs"
-    public void populateGenerateReportClubs(ComboBox<String> selectedCombo){
+    public void populateGenerateReportClubs(ComboBox<String> selectedCombo) {
         selectedCombo.getItems().clear();
 
         // Adds "All Clubs" option if it doesn't already exist
-        if(!selectedCombo.getItems().contains("All Clubs")){
+        if (!selectedCombo.getItems().contains("All Clubs")) {
             selectedCombo.getItems().add("All Clubs");
         }
 
         // Adds each club name to the ComboBox
-        for(Club club: clubDetailsList){
+        for (Club club : clubDetailsList) {
             selectedCombo.getItems().add(club.getClubName());
         }
 
@@ -2496,7 +2509,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     // Populate the generateReportEventViewTable with events based on the selected club filter
     @FXML
     void populateGenerateReportsEventsFilteredTable(ActionEvent event) {
-       populateEventList(generateReportEventViewTable, generateReportClubNameComboBox);
+        populateEventList(generateReportEventViewTable, generateReportClubNameComboBox);
     }
 
     // Populate the generateReportEventViewTable with all events and updates relevant UI elements
@@ -2541,7 +2554,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             selectedUpcomingDate = findEarliestDate(selectedEventDates);
             // get the most future event date
             selectedMostFutureDate = findMostFutureDate(selectedEventDates);
-        }else{
+        } else {
             // set event date range labels
             UpcomingEventCountGenerateReports.setText("Total: " + count);
             eventDateRange.setText("No Events");
@@ -2600,9 +2613,28 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         return earliestDate;
     }
 
+    public void populateClubAdvisorTable() {
+        if (clubAdvisorDetailsList == null) {
+            return;
+        }
+
+        registrationAdvisorTable.getItems().clear();
+
+
+        for (ClubAdvisor clubAdvisor : clubAdvisorDetailsList) {
+
+            ClubAdvisor clubAdvisor1 =  new ClubAdvisor(clubAdvisor.getUserName(), clubAdvisor.getPassword(),
+                    clubAdvisor.getFirstName(), clubAdvisor.getLastName(), clubAdvisor.getContactNumber(),
+                    clubAdvisor.getClubAdvisorId());
+
+            ObservableList<ClubAdvisor> observableClubAdvisorRegistrationList = registrationAdvisorTable.getItems();
+            observableClubAdvisorRegistrationList.add(clubAdvisor1);
+            registrationAdvisorTable.setItems(observableClubAdvisorRegistrationList);
+        }
+    }
+
+
     public void selectUserGettingFromComboBox(){ // this method is to obtain selected user from registrationUserSelectComboBox
-        registrationStudentTable.setVisible(false); // we are setting registrationStudentTable to invisible
-        registrationAdvisorTable.setVisible(false); // we are setting registrationAdvisorTable to invisible
         registrationUserSelectComboBox.getItems().addAll("Club Advisor","Student"); // passing values to registrationUserSelectComboBox
         registrationUserSelectComboBox.getSelectionModel().selectFirst(); // passing a default values to registrationUserSelectComboBox
     }
@@ -2622,9 +2654,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             System.out.println("User is " + selectedUser);
             registrationStudentTable.setVisible(false);// setting registrationStudentTable in-order to make visible student table
             registrationAdvisorTable.setVisible(true);// setting registrationAdvisorTable table visible
+            populateClubAdvisorTable(); //
         }
-
     }
-
 }
-

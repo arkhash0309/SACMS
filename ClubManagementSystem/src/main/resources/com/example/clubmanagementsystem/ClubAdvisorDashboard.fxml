@@ -1211,8 +1211,8 @@
                                        <children>
                                           <AnchorPane layoutX="26.0" layoutY="21.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane">
                                              <children>
-                                                <ComboBox fx:id="registrationUserSelectComboBox" layoutX="27.0" layoutY="93.0" prefHeight="27.0" prefWidth="235.0" styleClass="eventField" />
-                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" onAction="#onClickRegistrationGenerateReportButton" prefHeight="30.0" prefWidth="137.0" text="Generate Report">
+                                                <ComboBox fx:id="registrationUserSelectComboBox" layoutX="27.0" layoutY="93.0" onAction="#onClickRegistrationGenerateReportButton" prefHeight="27.0" prefWidth="235.0" styleClass="eventField" />
+                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="137.0" text="Generate Report">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -1235,7 +1235,7 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView fx:id="registrationStudentTable" layoutX="27.0" layoutY="128.0" prefHeight="317.0" prefWidth="780.0" visible="false">
+                                                <TableView fx:id="registrationStudentTable" layoutX="27.0" layoutY="128.0" prefHeight="317.0" prefWidth="763.0">
                                                   <columns>
                                                     <TableColumn fx:id="registrationStudentAdmissionNumberColumn" prefWidth="117.0" text="Admission Number" />
                                                       <TableColumn fx:id="registrationStudentUserName" prefWidth="141.0" text="User Name" />
@@ -1243,16 +1243,16 @@
                                                       <TableColumn fx:id="registrationStudentLastNameColumn" prefWidth="130.0" text="Last Name" />
                                                       <TableColumn fx:id="registrationStudentGradeColumn" prefWidth="59.0" text="Grade" />
                                                       <TableColumn fx:id="registrationStudentContactNumberColumn" prefWidth="106.0" text="Contact Number" />
-                                                      <TableColumn fx:id="registrationStudentGenderColumn" prefWidth="83.0" text="Gender" />
+                                                      <TableColumn fx:id="registrationStudentGenderColumn" prefWidth="64.0" text="Gender" />
                                                   </columns>
                                                 </TableView>
-                                                <TableView fx:id="registrationAdvisorTable" layoutX="27.0" layoutY="128.0" prefHeight="319.0" prefWidth="538.0">
+                                                <TableView fx:id="registrationAdvisorTable" layoutX="27.0" layoutY="128.0" prefHeight="319.0" prefWidth="727.0" visible="false">
                                                   <columns>
-                                                    <TableColumn fx:id="registrationAdvisorID" prefWidth="75.0" text="Advisor ID" />
-                                                    <TableColumn fx:id="registrationAdvisorUserName" prefWidth="92.0" text="User Name" />
-                                                      <TableColumn fx:id="registrationAdvisorFirstName" prefWidth="129.0" text="First Name" />
-                                                      <TableColumn fx:id="registrationAdvisorLastName" prefWidth="115.0" text="Last Name" />
-                                                      <TableColumn fx:id="registrationAdvisorContactNumber" prefWidth="120.0" text="Contact Number" />
+                                                    <TableColumn fx:id="registrationAdvisorID" prefWidth="95.0" text="Advisor ID" />
+                                                    <TableColumn fx:id="registrationAdvisorUserName" prefWidth="119.0" text="User Name" />
+                                                      <TableColumn fx:id="registrationAdvisorFirstName" prefWidth="164.0" text="First Name" />
+                                                      <TableColumn fx:id="registrationAdvisorLastName" prefWidth="176.0" text="Last Name" />
+                                                      <TableColumn fx:id="registrationAdvisorContactNumber" prefWidth="169.0" text="Contact Number" />
                                                   </columns>
                                                 </TableView>
                                              </children>
