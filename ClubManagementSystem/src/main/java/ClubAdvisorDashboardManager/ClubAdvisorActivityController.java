@@ -258,6 +258,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+
+
     // This method is responsible on populating various event tables with data from Event.event details list
     public void populateEventsTables(){
        // Check if Event.eventDetails is null, if it is return without populating tables
