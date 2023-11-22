@@ -1235,7 +1235,7 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView fx:id="registrationStudentTable" layoutX="27.0" layoutY="128.0" prefHeight="317.0" prefWidth="763.0" visible="false">
+                                                <TableView fx:id="registrationStudentTable" layoutX="27.0" layoutY="128.0" prefHeight="275.0" prefWidth="763.0" visible="false">
                                                   <columns>
                                                     <TableColumn fx:id="registrationStudentAdmissionNumberColumn" prefWidth="117.0" text="Admission Number" />
                                                       <TableColumn fx:id="registrationStudentUserName" prefWidth="141.0" text="User Name" />
@@ -1246,7 +1246,7 @@
                                                       <TableColumn fx:id="registrationStudentGenderColumn" prefWidth="64.0" text="Gender" />
                                                   </columns>
                                                 </TableView>
-                                                <TableView fx:id="registrationAdvisorTable" layoutX="27.0" layoutY="128.0" prefHeight="319.0" prefWidth="769.0">
+                                                <TableView fx:id="registrationAdvisorTable" layoutX="27.0" layoutY="128.0" prefHeight="273.0" prefWidth="769.0">
                                                   <columns>
                                                     <TableColumn fx:id="registrationAdvisorID" prefWidth="95.0" text="Advisor ID" />
                                                     <TableColumn fx:id="registrationAdvisorUserName" prefWidth="133.0" text="User Name" />
@@ -1255,6 +1255,11 @@
                                                       <TableColumn fx:id="registrationAdvisorContactNumber" prefWidth="179.0" text="Contact Number" />
                                                   </columns>
                                                 </TableView>
+                                                <Label fx:id="userCountLabel" layoutX="29.0" layoutY="416.0" prefHeight="44.0" prefWidth="316.0">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                        </children>

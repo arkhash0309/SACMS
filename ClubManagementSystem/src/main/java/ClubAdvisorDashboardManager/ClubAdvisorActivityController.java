@@ -55,6 +55,8 @@ import java.time.LocalTime;
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller {
 
+    private int numberofAdvisors; // hold the count of club advisors
+    private int numbeOfStudents; // hold the count of student
     public static String username; // Holds the username of the current user
     private static String selectedUser; // holds the selected usertype from registrationUserSelectComboBox
     public static boolean validStat = true;  // Represents the validation status, initialized as true
@@ -2665,6 +2667,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     public void populateClubAdvisorTable() {
+        numberofAdvisors = 0; // for counting purpose of number of club advisors
         if (clubAdvisorDetailsList == null) {
             return;
         }
@@ -2672,7 +2675,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorTable.getItems().clear();
 
         for (ClubAdvisor clubAdvisor : clubAdvisorDetailsList) {
-
+            numberofAdvisors += 1;
             ClubAdvisor clubAdvisor1 =  new ClubAdvisor(clubAdvisor.getUserName(), clubAdvisor.getPassword(),
                     clubAdvisor.getFirstName(), clubAdvisor.getLastName(), clubAdvisor.getContactNumber(),
                     clubAdvisor.getClubAdvisorId());
@@ -2681,8 +2684,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             observableClubAdvisorRegistrationList.add(clubAdvisor1);
             registrationAdvisorTable.setItems(observableClubAdvisorRegistrationList);
         }
+        userCountLabel.setText("No of Advisors: " + String.valueOf(numberofAdvisors));
     }
     public void populateStudentRegisterTable(){
+        numbeOfStudents = 0;
         if(studentDetailArray == null){
             return;
         }
@@ -2691,7 +2696,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
         for(Student student : studentDetailArray) {
-
+            numbeOfStudents +=1;
             Student student1 = new Student(student.getUserName(), student.getPassword(), student.getFirstName(),
                     student.getLastName(), student.getContactNumber(), student.getStudentAdmissionNum(),
                     student.getStudentGrade(), student.getGender());
@@ -2700,6 +2705,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             observableStudentRegistrationList.add(student);
             registrationStudentTable.setItems(observableStudentRegistrationList);
         }
+        userCountLabel.setText("No of Students: " + String.valueOf(numbeOfStudents));
     }
 
 

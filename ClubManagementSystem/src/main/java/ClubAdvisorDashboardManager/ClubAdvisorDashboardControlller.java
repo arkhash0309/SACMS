@@ -626,6 +626,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<ClubAdvisor, String> registrationAdvisorContactNumber;
+    @FXML
+    protected Label userCountLabel;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
