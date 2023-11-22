@@ -2619,7 +2619,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         registrationAdvisorTable.getItems().clear();
 
-
         for (ClubAdvisor clubAdvisor : clubAdvisorDetailsList) {
 
             ClubAdvisor clubAdvisor1 =  new ClubAdvisor(clubAdvisor.getUserName(), clubAdvisor.getPassword(),
@@ -2631,13 +2630,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             registrationAdvisorTable.setItems(observableClubAdvisorRegistrationList);
         }
     }
-
     public void populateClubStuentTable(){
         if(studentDetailArray == null){
             return;
-        }
 
         registrationStudentTable.getItems().clear();
+
+        for(Student student = studentDetailArray){
+            Student student1 = new Student()
+        }
     }
 
 
