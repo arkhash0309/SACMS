@@ -52,6 +52,14 @@ public class Student extends User implements StudentValidator {
         super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
     }
 
+    //Created for inserting details into generate report membership table
+    public Student(int memberAdmissionNum, String memberUserName, String memberFirstName, String memberLastName,int memberGrade,char memberGender, String memberContactNum) {
+        super(memberUserName,memberFirstName, memberLastName, memberContactNum);
+        this.studentAdmissionNum = memberAdmissionNum;
+        this.studentGrade = memberGrade;
+        this.studentGender = memberGender;
+    }
+
 
     @Override
     public void registerToSystem() {
@@ -187,11 +195,7 @@ public class Student extends User implements StudentValidator {
         deletedEvent.show();
     }
 
-
-
-
-
-
-
-
+//    public static ArrayList<Club> getStudentJoinedClubs() {
+//        return studentJoinedClubs;
+//    }
 }
