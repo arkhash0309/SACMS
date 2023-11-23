@@ -1,14 +1,19 @@
 package SystemUsers;
 
+import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
 import ClubManager.Club;
 import ClubManager.Event;
 import ClubManager.EventManager;
 import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -262,6 +267,10 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         }else{
             return true;
         }
+    }
+
+    public void generateEventDetailReport(TableView<Event> tableView, Stage stage) throws IOException {
+        ClubAdvisorActivityController.generateCsv(tableView, stage);
     }
 
 }

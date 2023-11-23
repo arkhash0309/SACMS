@@ -2781,7 +2781,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void GeneratePdfReportForEvents(ActionEvent event) throws IOException {
-        generateCsv(generateReportEventViewTable, stage);
+        ClubAdvisor clubAdvisor = new ClubAdvisor();
+        clubAdvisor.generateEventDetailReport(generateReportEventViewTable, stage);
     }
 
     public static void generateCsv(TableView<Event> tableView, Stage stage) throws IOException {
