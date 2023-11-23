@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,14 +29,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.w3c.dom.Document;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpCookie;
 import java.net.URL;
@@ -2773,6 +2777,52 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             populateClubAdvisorTable(); //
         }
     }
+
+
+    @FXML
+    void GeneratePdfReportForEvents(ActionEvent event) throws IOException {
+        generateCsv(generateReportEventViewTable, stage);
+    }
+
+    public static void generateCsv(TableView<Event> tableView, Stage stage) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writeCsvContent(writer, tableView);
+                System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
+            }
+        }else{
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("Report Generated Successfully");
+        alert.show();
+    }
+
+    private static void writeCsvContent(FileWriter writer, TableView<Event> tableView) throws IOException {
+        ObservableList<TableColumn<Event, ?>> columns = tableView.getColumns();
+
+        // Write headers
+        for (TableColumn<Event, ?> column : columns) {
+            writer.write(column.getText() + ",");
+        }
+        writer.write("\n");
+
+        // Write data
+        for (Event event : tableView.getItems()) {
+            for (TableColumn<Event, ?> column : columns) {
+                String cellValue = column.getCellData(event).toString();
+                writer.write(cellValue + ",");
+            }
+            writer.write("\n");
+        }
+    }
+
 
 
 }
