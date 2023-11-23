@@ -47,6 +47,12 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     public String studentLoginToSystem() {
         return null;
     }
+//    @Override
+//    public String studentRegisteringToSystem(){
+//        return null;
+//    }
+
+
     @Override
     public String advisorLoginToSystem(){
         String correctPassword = null; // store correct password from database
