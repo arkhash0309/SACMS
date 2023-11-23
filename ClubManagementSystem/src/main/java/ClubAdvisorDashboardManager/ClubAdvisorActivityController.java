@@ -94,6 +94,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
         registrationAdvisorTable.setVisible(true);  // loading registrationAdvisorTable table when the respective FXML is loading
         populateClubAdvisorTable();
+        registrationStudentTable.setVisible(false);
 
 
         registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
@@ -434,7 +435,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-          
+
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
 
@@ -1654,7 +1655,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-    public void populateAttendanceTable() {
+   /* public void populateAttendanceTable() {
         // Assuming Attendance.atdTracker is a list of Attendance objects
         ObservableList<Attendance> viewScheduledEvents = FXCollections.observableArrayList();
 
@@ -1693,7 +1694,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Add columns to the table view
         tb1.getColumns().addAll(attendanceColumn);
-    }
+    }*/
 
     // This method calculates and displays the count of male and female students in a bar chart
     public void findMaleFemaleStudentCount() {
@@ -1982,7 +1983,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         GenerateReportsButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
 
         // populate the attendance table
-        populateAttendanceTable();
+        /*populateAttendanceTable();*/
 
         // populate generate report table
         populateGenerateReportEventsTable();
@@ -2352,6 +2353,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
             if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
+                profileAdvisorExistingpw.setText("");
                 profileAdvisorExistingpwError.setText("");
                 ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
@@ -2368,6 +2370,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     profileAdvisorConfirmpwError.setText("Passwords do not match");
                     validStat = false;
                 } else {
+                    profileAdvisorConfirmpw.setText("");
                     profileAdvisorConfirmpwError.setText("");
                 }
 
@@ -2451,6 +2454,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         } else if (User.passwordValidateStatus.equals("format")) {
             profileAdvisorNewpwError.setText("Password should consists of 8\ncharacters including numbers and\nspecial characters.");
         } else {
+            profileAdvisorNewpw.setText("");
             profileAdvisorNewpwError.setText("");
         }
     }
@@ -2723,7 +2727,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             registrationStudentTable.setVisible(true); // setting registrationStudentTable table visible
             populateStudentRegisterTable(); // when Student selected as the user respective table will visible
 
-
         }
 
         if(selectedUser == "Club Advisor"){
@@ -2733,4 +2736,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             populateClubAdvisorTable(); //
         }
     }
+
+
 }

@@ -185,19 +185,9 @@ public class StudentLoginController {
 
     //studentCredentialChecker will check whether entered credentials are correct according to the given values
     boolean studentCredentialChecker() {
-        String correctPassword = null; // store correct password from database
-        String credentialChdeckQuery = "select studentPassword from studentCredentials where studentUserName = ?";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
-            preparedStatement.setString(1, studentLoginPageUserName); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
-            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
-                while (results.next()) { // this will loop the rows
-                    correctPassword = results.getString("studentPassword"); // getting the password
-                }
-            }
+        Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+       String correctPassword = student.studentLoginToSystem();
 
         loginStatus = true;
         if (!studentLoginPagePassword.equals(correctPassword)) {

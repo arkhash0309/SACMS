@@ -6,6 +6,7 @@ import ClubManager.EventManager;
 import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 
 import java.sql.*;
@@ -26,11 +27,15 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     }
 
 
-    public ClubAdvisor(){
-
+    public ClubAdvisor(String userName, String password){
+        super(userName, password);
     }
     public ClubAdvisor(String contactNumber){
         super(contactNumber);
+    }
+
+    public ClubAdvisor(){
+
     }
 
     @Override
@@ -39,10 +44,44 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     }
 
     @Override
-    public void loginToSystem() {
+    public String studentLoginToSystem() {
+        return null;
+    }
+    @Override
+    public String advisorLoginToSystem(){
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "SELECT teacherPassword FROM TeacherCredentials WHERE teacherUserName = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
+            preparedStatement.setString(1, this.getUserName()); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("teacherPassword"); // get the password
+                }
+            }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return correctPassword;
     }
 
+
+    public void createClub(int clubId, String clubName, String clubDescription, String clubLogo, int clubAdvisorId){
+        String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+        ) {
+            preparedStatement.setInt(1, clubId); // Set clubId
+            preparedStatement.setString(2, clubName); // Set clubName
+            preparedStatement.setString(3, clubDescription); // Set clubDescription
+            preparedStatement.setString(4, clubLogo); // Set clubLogo
+            preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public  void createEvent(String eventName, String eventLocation,

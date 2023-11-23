@@ -5,7 +5,6 @@ import ClubManager.Event;
 import SystemDataValidator.StudentValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.control.Alert;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +26,7 @@ public class Student extends User implements StudentValidator {
         super(userName, password, firstName, lastName, contactNumber);
         this.studentAdmissionNum = studentAdmissionNum;
         this.studentGrade = studentGrade;
-        this.studentGender = studentGender;
+        this.setStudentGender(studentGender);
     }
 
     public Student(){
@@ -47,9 +46,17 @@ public class Student extends User implements StudentValidator {
         this.studentAdmissionNum = admissionNumValue;
     }
 
+    public Student(String userName, String password){
+        super(userName, password);
+    }
+
     public Student(String updatedUserName, String updatedFirstName, String updatedLastName,
                    String updatedContactNum, String updatedAdmissionNum) {
         super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
+    }
+    @Override
+    public String advisorLoginToSystem(){
+        return null;
     }
 
     //Created for inserting details into generate report membership table
@@ -57,21 +64,12 @@ public class Student extends User implements StudentValidator {
         super(memberUserName,memberFirstName, memberLastName, memberContactNum);
         this.studentAdmissionNum = memberAdmissionNum;
         this.studentGrade = memberGrade;
-        this.studentGender = memberGender;
+        this.setStudentGender(memberGender);
     }
-
-
     @Override
     public void registerToSystem() {
 
     }
-
-    @Override
-    public void loginToSystem() {
-
-    }
-
-
 
     public int getStudentAdmissionNum() {
         return studentAdmissionNum;
@@ -90,11 +88,30 @@ public class Student extends User implements StudentValidator {
     }
 
     public char getGender() {
-        return studentGender;
+        return getStudentGender();
     }
 
     public void setGender(char studentGender) {
-        this.studentGender = studentGender;
+        this.setStudentGender(studentGender);
+    }
+
+    @Override
+    public String studentLoginToSystem() {
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "select studentPassword from studentCredentials where studentUserName = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
+            preparedStatement.setString(1, this.getUserName()); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("studentPassword"); // getting the password
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return correctPassword;
     }
 
     @Override
@@ -190,6 +207,14 @@ public class Student extends User implements StudentValidator {
         deletedEvent.setHeaderText("You have successfully left the club!!!");
         deletedEvent.setTitle("School Club Management System");
         deletedEvent.show();
+    }
+
+    public char getStudentGender() {
+        return studentGender;
+    }
+
+    public void setStudentGender(char studentGender) {
+        this.studentGender = studentGender;
     }
 
 //    public static ArrayList<Club> getStudentJoinedClubs() {
