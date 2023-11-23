@@ -127,12 +127,12 @@
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font></Label>
-                              <Label fx:id="advisorUserNameEmpty" layoutX="56.0" layoutY="143.0" prefHeight="17.0" prefWidth="156.0" textFill="RED">
+                              <Label fx:id="advisorUserNameEmpty" layoutX="56.0" layoutY="143.0" prefHeight="17.0" prefWidth="156.0" textFill="#781616">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="advisorPasswordEmpty" layoutX="58.0" layoutY="210.0" prefHeight="17.0" prefWidth="160.0" textFill="RED">
+                              <Label fx:id="advisorPasswordEmpty" layoutX="58.0" layoutY="210.0" prefHeight="17.0" prefWidth="160.0" textFill="#781616">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

@@ -30,23 +30,18 @@ import static com.example.clubmanagementsystem.HelloApplication.statement;
 
 
 public class StudentLoginController {
-    private static String selectedGradeVal;
-    private static String selcetedGenderVal;
-    private int grade;
-    private String gender;
-
-    public static boolean validateStatus = true;
-    static boolean loginStatus;
-    String studentLoginPageUserName;
-    String studentLoginPagePassword;
-
+    private static String selectedGradeVal; // holds the user selected grade
+    private static String selcetedGenderVal; // holds the user selected gender
+    private int grade; // hold the grade from Grade combo box
+    private String gender; // hold the gender from the Gender combo box
+    public static boolean validateStatus = true; // uses to validation purposes of admission number, name, contact number etc
+    static boolean loginStatus; // uses to validate user entered username and password in login screen
+    String studentLoginPageUserName; // holds user entered user name in login page
+    String studentLoginPagePassword; // hold user entered password in login page
+    public  static String userNameForShowInStudentDashboard;
     private Scene scene;
     private Stage stage;
-
-    private Parent root;
-
     private double xPosition;
-
     private double yPosition;
 
     @FXML
@@ -60,18 +55,18 @@ public class StudentLoginController {
 
     @FXML
     private Label studentLoginPasswordErrorLabel;
+
     @FXML
     private Label studentRegistrationGradeEmptyLabel;
+
     @FXML
     private Label studentRegistrationGenderEmptyLabel;
+
     @FXML
     private CheckBox showPasswordCheckBox;
 
     @FXML
     private StackPane StudentLoginForm;
-
-    @FXML
-    private Button studentLoginButton;
 
     @FXML
     private PasswordField studentRegisterPassword;
@@ -81,6 +76,7 @@ public class StudentLoginController {
 
     @FXML
     private TextField studentRegisterLastName;
+
     @FXML
     private TextField PasswordTextField;
 
@@ -95,12 +91,12 @@ public class StudentLoginController {
 
     @FXML
     private TextField studentRegisterUserName;
+
     @FXML
     private TextField LoginStudentUserName;
+
     @FXML
     private TextField studentLoginPassword;
-    @FXML
-    private TextField studentRegistrationGradeTextField;
 
     @FXML
     private ComboBox<String> Grade;
@@ -127,13 +123,7 @@ public class StudentLoginController {
     private Label studentRegisterPasswordErrorLabel;
 
     @FXML
-    public Label usernameLabel;
-
-    public  static String userNameForShowInStudentDashboard;
-
-
-    @FXML
-    void DirectToStartPage(ActionEvent event) throws IOException {
+    void DirectToStartPage(ActionEvent event) throws IOException { // method to direct user to back to main login page
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -155,42 +145,42 @@ public class StudentLoginController {
     }
 
     @FXML
-    void minimizeTheProgram(ActionEvent event) {
+    void minimizeTheProgram(ActionEvent event) { // minimize button in registration page
         ApplicationController applicationController = new ApplicationController();
         applicationController.MinimizeApp(StudentLoginForm);
     }
 
     @FXML
-    void ExitTheProgram(ActionEvent event) {
+    void ExitTheProgram(ActionEvent event) { // back button of student registration page
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
 
-    boolean fieldsChecker() {
+    boolean fieldsChecker() { /* this method is used to check whether both studentLoginPagePassword and studentLoginPageUserName field are
+                                  empty or not */
         loginStatus = true;
-        studentLoginPageUserName = LoginStudentUserName.getText();
-        studentLoginPagePassword = studentLoginPassword.getText();
+        studentLoginPageUserName = LoginStudentUserName.getText(); // receiving username from user in login page
+        studentLoginPagePassword = studentLoginPassword.getText(); // receiving password from user in login page
 
         userNameForShowInStudentDashboard = studentLoginPageUserName;
-        if (studentLoginPageUserName.isEmpty()) {
+        if (studentLoginPageUserName.isEmpty()) { // if username is empty, error label will be set
             loginStatus = false;
             studentLoginUserNameErrorLabel.setText("This field cannot be empty");
         }
-        if (studentLoginPagePassword.isEmpty()) {
-            loginStatus = false;
+        if (studentLoginPagePassword.isEmpty()) { // if password is field is empty, error label will be set
+            loginStatus = false; // loginStatus will be false
             studentLoginPasswordErrorLabel.setText("This field cannot be empty");
         }
         return loginStatus;
     }
 
     //studentCredentialChecker will check whether entered credentials are correct according to the given values
-    boolean studentCredentialChecker() {
+    boolean studentCredentialChecker() { /* this method will check, whether entered username and password are correct
+                                            according to the existing values*/
         Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
-
-       String correctPassword = student.loginToSystem();
-
+       String correctPassword = student.studentLoginToSystem(); // calling studentLoginToSystem method
         loginStatus = true;
-        if (!studentLoginPagePassword.equals(correctPassword)) {
+        if (!studentLoginPagePassword.equals(correctPassword)) { // entered password is incorrect, error label will be set
             loginStatus = false;
             studentIncorrectCredential.setText("User name or Password Incorrect");
         }
@@ -201,7 +191,8 @@ public class StudentLoginController {
         if (showPasswordCheckBox.isSelected()) { // when user select show password checkbox
             studentLoginPassword.setVisible(false); //studentLoginPassword textfield will disable
             PasswordTextField.setVisible(true); // PasswordTextField textfield will enable
-            PasswordTextField.setText(studentLoginPassword.getText()); // this will take the values from studnetLoginPassword textfield and will set to PasswordTextField
+            PasswordTextField.setText(studentLoginPassword.getText()); /* this will take the values from studnetLoginPassword
+                                                                           textfield and will set to PasswordTextField*/
         } else { // this will execute if user keep the checkbox as it is
             PasswordTextField.setVisible(false);
             studentLoginPassword.setVisible(true);
@@ -211,15 +202,15 @@ public class StudentLoginController {
 
 
     @FXML
-    void DirectToStudentDashboard(ActionEvent event) throws IOException, SQLException {
+    void DirectToStudentDashboard(ActionEvent event) throws IOException, SQLException { // when user click on
 
-        if (!fieldsChecker()) {
+        if (!fieldsChecker()) { // calling to fieldsChecker
             return;
         }
-        studentLoginUserNameErrorLabel.setText("");
-        studentLoginPasswordErrorLabel.setText("");
+        studentLoginUserNameErrorLabel.setText(""); // clearing set values of respective labels
+        studentLoginPasswordErrorLabel.setText("");  // clearing set values of respective labels
 
-        if (!studentCredentialChecker()) {
+        if (!studentCredentialChecker()) { // calling studentCredentialChecker method
             return;
         }
         studentLoginPasswordErrorLabel.setText("");
@@ -570,7 +561,7 @@ public class StudentLoginController {
         }
     }
 
-        
+
 
     public void displayContactValError() {
         if (User.contactNumberValidateStatus.equals("empty")) {

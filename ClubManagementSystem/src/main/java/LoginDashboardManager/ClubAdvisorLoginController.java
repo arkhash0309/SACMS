@@ -1,6 +1,7 @@
 package LoginDashboardManager;
 
 import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
+import ClubManager.Club;
 import DataBaseManager.ClubAdvisorDataBaseManager;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
@@ -166,19 +167,8 @@ public class ClubAdvisorLoginController {
 
     //advisorCredentialsChecker will check whether entered credentials are correct according to the given values
     boolean advisorCredentialsChecker() {
-        String correctPassword = null; // store correct password from database
-        String credentialChdeckQuery = "SELECT teacherPassword FROM TeacherCredentials WHERE teacherUserName = ?";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
-            preparedStatement.setString(1, clubAdvisortLoginPageUserName); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
-            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
-                while (results.next()) { // this will loop the rows
-                    correctPassword = results.getString("teacherPassword"); // get the password
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        ClubAdvisor advisor = new ClubAdvisor(clubAdvisortLoginPageUserName,clubAdvisorLoginPagePassword);
+        String correctPassword = advisor.advisorLoginToSystem();
         loginStatus = true;
         if(!clubAdvisorLoginPagePassword.equals(correctPassword)){
             loginStatus = false;
