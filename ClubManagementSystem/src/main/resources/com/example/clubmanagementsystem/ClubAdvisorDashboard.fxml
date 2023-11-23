@@ -1011,7 +1011,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="49.0" prefWidth="864.0" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -1267,7 +1267,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="ProfilePane" prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="12.0" layoutY="15.0" prefHeight="526.0" prefWidth="836.0" styleClass="EventMainPane">
                                  <children>
@@ -1362,44 +1362,44 @@
                                     <Button layoutX="579.0" layoutY="468.0" mnemonicParsing="false" onAction="#advisorProfilePasswordChecker" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Change Password" />
                                     <Label fx:id="profileAdvisorIdError" layoutX="25.0" layoutY="150.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="profileAdvisorFnameError" layoutX="293.0" layoutY="150.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="profileAdvisorLnameError" layoutX="567.0" layoutY="150.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="profileAdvisorUsernameError" layoutX="25.0" layoutY="252.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="profileAdvisorCnumberError" layoutX="293.0" layoutY="252.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="profileAdvisorNewpwError" accessibleRole="TEXT_AREA" alignment="TOP_LEFT" layoutX="305.0" layoutY="445.0" prefHeight="55.0" prefWidth="238.0" textFill="#781616" AnchorPane.topAnchor="439.0">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="profileAdvisorConfirmpwError" layoutX="567.0" layoutY="439.0" prefHeight="23.0" prefWidth="238.0" textFill="#781616">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <PasswordField fx:id="profileAdvisorNewpw" layoutX="303.0" layoutY="405.0" prefHeight="31.0" prefWidth="243.0" styleClass="eventField" />
                                     <PasswordField fx:id="profileAdvisorConfirmpw" layoutX="566.0" layoutY="406.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />
                                     <Label fx:id="profileAdvisorExistingpwError" layoutX="32.0" layoutY="439.0" prefHeight="22.0" prefWidth="239.0" textFill="#781616">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
                                     <PasswordField fx:id="profileAdvisorExistingpw" layoutX="32.0" layoutY="405.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />

@@ -287,7 +287,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Clear the Club Update Table
         updateClubDetailsTable.getItems().clear();
 
-
         // Add Item details to the UpdateView Table using Sorted List
         for (Club club : clubDetailsList) {
 
@@ -354,10 +353,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             viewCreatedScheduledEvents.add(event);
             viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
             viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
-
         }
-
-
     }
 
 
@@ -421,24 +417,21 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //            this.createClubImage.setImage(defaultImage);
 
             //Update database
-//            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
-//
-//            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
-//            ) {
-//                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
-//                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
-//                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
-//                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
-//                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
-//                preparedStatement.executeUpdate();
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
+            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
 
-            ClubAdvisor clubAdvisor = new ClubAdvisor();
-            clubAdvisor.createClub(clubIdSetterValue,clubData.getClubName(),clubData.getClubDescription(),clubData.getClubLogo(),clubAdvisorId);
-          
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+            ) {
+                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
+                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
+                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
+                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
+                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
 
@@ -2330,6 +2323,19 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     foundClubAdvisor.setUserName(advisorUsername);
                     foundClubAdvisor.setContactNumber(advisorContactNumber);
 
+                    String updatedPersonalDetailsQuery = "UPDATE TeacherInCharge set TICFName = ?, TICLName = ?, " +
+                            "teacherContactNum = ? where teacherInChargeId = ?";
+                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
+                        preparedStatement.setString(1, advisorFirstName);
+                        preparedStatement.setString(2, advisorLastName);
+                        preparedStatement.setInt(3, Integer.parseInt(advisorContactNumber));
+                        preparedStatement.setString(4, String.valueOf(advisorId));
+                        preparedStatement.executeUpdate();
+
+                        System.out.println("Working as desired");
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
                     Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                     clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                     clubUpdateAlert.setTitle("School Club Management System");
@@ -2356,6 +2362,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
             if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
+                profileAdvisorExistingpw.setText("");
                 profileAdvisorExistingpwError.setText("");
                 ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
@@ -2372,6 +2379,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     profileAdvisorConfirmpwError.setText("Passwords do not match");
                     validStat = false;
                 } else {
+                    profileAdvisorConfirmpw.setText("");
                     profileAdvisorConfirmpwError.setText("");
                 }
 
@@ -2380,6 +2388,35 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
                         if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
                             foundClubAdvisor.setPassword(advisorNewPassword);
+
+                            String updatedAdvisorCredentialsQueryt = "update TeacherCredentials set teacherUserName = ?, teacherPassword  = ?  where teacherInChargeId = ?";
+
+                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedAdvisorCredentialsQueryt)) {
+                                preparedStatement.setString(1, advisorUsername);
+                                preparedStatement.setString(2, advisorConfirmPassword);
+                                preparedStatement.setString(3, String.valueOf(advisorId));
+                                preparedStatement.executeUpdate();
+
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+
+//                            String updateUserNameQuery = "UPDATE TeacherCredentials SET teacherUserName = ? WHERE teacherInChargeId = ?";
+//
+//                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateUserNameQuery)) {
+//
+//                                preparedStatement.setString(1, advisorUsername);
+//                                preparedStatement.setInt(2, advisorId);
+//
+//                                preparedStatement.executeUpdate();
+//
+//                            } catch (SQLException e) {
+//                                System.out.println("error updation");
+//                                e.printStackTrace(); // Handle the exception as needed
+//                                return;
+//                            }
+
+
 
                             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -2455,6 +2492,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         } else if (User.passwordValidateStatus.equals("format")) {
             profileAdvisorNewpwError.setText("Password should consists of 8\ncharacters including numbers and\nspecial characters.");
         } else {
+            profileAdvisorNewpw.setText("");
             profileAdvisorNewpwError.setText("");
         }
     }
@@ -2481,7 +2519,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public static String makeTenDigitsForNumber(int number) {
         // Convert the number to string
         String strNumber = Integer.toString(number);
-
         // If the number has less than 10 digits, add leading zeros
         if (strNumber.length() < 10) {
             StringBuilder zeros = new StringBuilder();
@@ -2510,16 +2547,17 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     public void clubMembershipReportGenerator(ActionEvent event) {
-        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
-
-        if (selectedClub.equals("All Clubs")){
-            setMembershipTable();
-        }else {
-            for(Student foundStudent : studentDetailArray){
-                ArrayList<Club> club = ClubAdvisorDataBaseManager.joinedClubForEachStudent.get(foundStudent);
-            }
-        }
-
+//        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
+//
+//        if (selectedClub.equals("All Clubs")){
+//            setMembershipTable();
+//        }else {
+//            for(Student foundStudent : studentDetailArray){
+//                for (Club foundClub : foundStudent.){
+//
+//                }
+//            }
+//        }
 
     }
 

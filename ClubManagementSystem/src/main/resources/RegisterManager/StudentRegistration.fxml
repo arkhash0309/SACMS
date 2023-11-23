@@ -186,43 +186,43 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="studentRegisterUserNameErrorLabel" layoutX="21.0" layoutY="373.0" prefHeight="21.0" prefWidth="249.0" textFill="#500c0c">
+                              <Label fx:id="studentRegisterUserNameErrorLabel" layoutX="21.0" layoutY="373.0" prefHeight="21.0" prefWidth="249.0" textFill="#781616">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="studentRegisterFNameErrorLabel" layoutX="19.0" layoutY="121.0" prefHeight="18.0" prefWidth="242.0" textFill="#500c0c" AnchorPane.topAnchor="125.0">
+                              <Label fx:id="studentRegisterFNameErrorLabel" layoutX="19.0" layoutY="121.0" prefHeight="18.0" prefWidth="242.0" textFill="#781616" AnchorPane.topAnchor="125.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="studentRegisterLNameErrorLabel" layoutX="311.0" layoutY="121.0" prefHeight="18.0" prefWidth="240.0" textFill="#500c0c" AnchorPane.topAnchor="125.0">
+                              <Label fx:id="studentRegisterLNameErrorLabel" layoutX="311.0" layoutY="121.0" prefHeight="18.0" prefWidth="240.0" textFill="#781616" AnchorPane.topAnchor="125.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="studentRegisterAdmissionNumErrorLabel" layoutX="26.0" layoutY="200.0" prefHeight="18.0" prefWidth="238.0" textFill="#500c0c" AnchorPane.topAnchor="208.0">
+                              <Label fx:id="studentRegisterAdmissionNumErrorLabel" layoutX="26.0" layoutY="200.0" prefHeight="18.0" prefWidth="238.0" textFill="#781616" AnchorPane.topAnchor="208.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="studentRegisterContactNumErrorLabel" layoutX="311.0" layoutY="200.0" prefHeight="18.0" prefWidth="241.0" textFill="#500c0c" AnchorPane.topAnchor="208.0">
+                              <Label fx:id="studentRegisterContactNumErrorLabel" layoutX="311.0" layoutY="200.0" prefHeight="18.0" prefWidth="241.0" textFill="#781616" AnchorPane.topAnchor="208.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="studentRegisterPasswordErrorLabel" layoutX="311.0" layoutY="375.0" prefHeight="41.0" prefWidth="241.0" textFill="#500c0c">
+                              <Label fx:id="studentRegisterPasswordErrorLabel" layoutX="311.0" layoutY="375.0" prefHeight="41.0" prefWidth="241.0" textFill="#781616">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="studentRegisterConfirmPasswordErrorLabel" layoutX="20.0" layoutY="458.0" prefHeight="18.0" prefWidth="248.0" textFill="#500c0c">
+                              <Label fx:id="studentRegisterConfirmPasswordErrorLabel" layoutX="20.0" layoutY="458.0" prefHeight="18.0" prefWidth="248.0" textFill="#781616">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
                               <ComboBox fx:id="Grade" layoutX="20.0" layoutY="261.0" prefHeight="31.0" prefWidth="251.0" promptText="Select your Grade" styleClass="eventField" AnchorPane.topAnchor="263.0" />
                               <ComboBox fx:id="Gender" layoutX="310.0" layoutY="261.0" prefHeight="25.0" prefWidth="244.0" promptText="Select your Gender" styleClass="eventField" AnchorPane.topAnchor="263.0" />
-                              <Label fx:id="studentRegistrationGradeEmptyLabel" layoutX="21.0" layoutY="294.0" prefHeight="21.0" prefWidth="249.0" textFill="#500c0c">
+                              <Label fx:id="studentRegistrationGradeEmptyLabel" layoutX="21.0" layoutY="294.0" prefHeight="21.0" prefWidth="249.0" textFill="#781616">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="studentRegistrationGenderEmptyLabel" layoutX="311.0" layoutY="294.0" prefHeight="21.0" prefWidth="244.0" textFill="#500c0c">
+                              <Label fx:id="studentRegistrationGenderEmptyLabel" layoutX="311.0" layoutY="294.0" prefHeight="21.0" prefWidth="244.0" textFill="#781616">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
