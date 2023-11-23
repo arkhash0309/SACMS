@@ -2353,7 +2353,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
             if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
-                profileAdvisorExistingpw.setText("");
+//                profileAdvisorExistingpw.setText("");
                 profileAdvisorExistingpwError.setText("");
                 ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
@@ -2371,7 +2371,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     validStat = false;
                 } else {
                     profileAdvisorConfirmpw.setText("");
-                    profileAdvisorConfirmpwError.setText("");
+//                    profileAdvisorConfirmpwError.setText("");
                 }
 
                 System.out.println("Valid state : " + validStat);
@@ -2454,7 +2454,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         } else if (User.passwordValidateStatus.equals("format")) {
             profileAdvisorNewpwError.setText("Password should consists of 8\ncharacters including numbers and\nspecial characters.");
         } else {
-            profileAdvisorNewpw.setText("");
+//            profileAdvisorNewpw.setText("");
             profileAdvisorNewpwError.setText("");
         }
     }
