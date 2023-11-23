@@ -6,6 +6,7 @@ import ClubManager.EventManager;
 import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 
 import java.sql.*;
@@ -42,6 +43,25 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     public String loginToSystem() {
         return null;
     }
+
+
+    public void createClub(int clubId, String clubName, String clubDescription, String clubLogo, int clubAdvisorId){
+        String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+        ) {
+            preparedStatement.setInt(1, clubId); // Set clubId
+            preparedStatement.setString(2, clubName); // Set clubName
+            preparedStatement.setString(3, clubDescription); // Set clubDescription
+            preparedStatement.setString(4, clubLogo); // Set clubLogo
+            preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public  void createEvent(String eventName, String eventLocation,
                             String eventType, String eventDeliveryType,
