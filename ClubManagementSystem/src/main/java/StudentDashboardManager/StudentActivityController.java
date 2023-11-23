@@ -2,6 +2,7 @@ package StudentDashboardManager;
 
 import ClubManager.Club;
 import ClubManager.Event;
+import DataBaseManager.StudentDataBaseManager;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import SystemUsers.User;
@@ -52,7 +53,7 @@ public class StudentActivityController extends StudentDashboardController {
         studentGender = studentDetailArray.get(0).getGender();
         studentAdmissionNum = studentDetailArray.get(0).getStudentAdmissionNum();
 
-        setUpdateTextFields();
+
 
         studentUpdateProfileGrade.getItems().add("Select Grade"); // firstly we are selecting "Select Grade" to update grade combo box
         for (int grade = 6; grade < 14; grade++) {
@@ -83,6 +84,8 @@ public class StudentActivityController extends StudentDashboardController {
         studentViewEventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         studentViewDeliveryTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
         studentViewEventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
+        setUpdateTextFields();
     }
 
     @Override
@@ -182,6 +185,7 @@ public class StudentActivityController extends StudentDashboardController {
         studentUpdateProfileGrade.setValue(String.valueOf(studentDetailArray.get(0).getStudentGrade()));
         studentUpdateProfileContactNum.setText(contactNumber);
         studentExistingPassword = studentDetailArray.get(0).getPassword();
+        studentUpdateProfileGrade.getSelectionModel().select(String.valueOf(studentDetailArray.get(0).getStudentGrade()));
 
     }
 
@@ -300,7 +304,9 @@ public class StudentActivityController extends StudentDashboardController {
         String updatedUserName = studentUpdateProfileUserName.getText(); // getting student updated username  from studentUpdateProfileUserName text field
         String updatedPassword = studentUpdateProfileNewPassword.getText();  // getting student updated username  from studentUpdateProfileNewPassword text field
         String updateConfirmPassword = studentUpdateProfileConfirmPassword.getText(); // getting student updateConfirmPassword from studentUpdateProfileConfirmPassword text field
-        studentEnteredExistingPassword = studentUpdateProfileExistingPassword.getText(); // getting student studentEnteredExistingPassword from studentUpdateProfileExistingPassword text field
+        // getting student studentEnteredExistingPassword from studentUpdateProfileExistingPassword text field
+        studentEnteredExistingPassword = studentUpdateProfileExistingPassword.getText();
+
 
         existingPasswordChecker(studentExistingPassword, studentEnteredExistingPassword);
         if(validStat){
@@ -313,21 +319,42 @@ public class StudentActivityController extends StudentDashboardController {
         // inserting updated credentials to database
         if(validStat) {
             String updatedStudentCredentialsQueryt = "update studentCredentials set studentUserName = ?, studentPassword = ?  where studentAdmissionNum = ?";
+
             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedStudentCredentialsQueryt)) {
                 preparedStatement.setString(1, updatedUserName);
                 preparedStatement.setString(2, updateConfirmPassword);
                 preparedStatement.setString(3, String.valueOf(admissionNumber));
                 preparedStatement.executeUpdate();
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("School Club Management System");
-                alert.setHeaderText("You have successfully update your credentials.");
-                alert.showAndWait();
-
             } catch (Exception e) {
                 System.out.println(e);
             }
+
+            String updateUserNameQuery = "UPDATE studentCredentials SET studentUserName = ? WHERE studentAdmissionNum = ?";
+
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateUserNameQuery)) {
+
+                preparedStatement.setString(1, updatedUserName);
+                preparedStatement.setInt(2, admissionNumber);
+
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println("error updation");
+                e.printStackTrace(); // Handle the exception as needed
+                return;
+            }
+
+            StudentDataBaseManager.setStudentUserName(updatedUserName);
+
+            System.out.println("Updation done");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("You have successfully update your credentials.");
+            alert.showAndWait();
         }
+
         //Update database
     }
 
@@ -341,6 +368,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else {
             validStat = true;
             studentUpdateNewPasswordLabel.setText("");
+            studentUpdateProfileNewPassword.setText("");
         }
 
         validStat = false;
@@ -357,6 +385,7 @@ public class StudentActivityController extends StudentDashboardController {
             }else {
                 validStat = true;
                 studentUpdateNewPasswordLabel.setText("");
+                studentUpdateProfileNewPassword.setText("");
             }
         }else{
             validStat = false;
@@ -373,13 +402,15 @@ public class StudentActivityController extends StudentDashboardController {
         }else {
             validStat = true;
             studentUpdateConfirmPasswordLabel.setText("");
+            studentUpdateProfileConfirmPassword.setText("");
 
         }if(!studentConfirmPassword.equals(studentUpdatedPassword)){ // if both studentConfirmPassword and studentUpdatedPassword are not matching
             studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
             validStat = false;
         } else{
-            validStat = true;
+            validStat = true; // if confirm password is correct
             studentUpdateConfirmPasswordLabel.setText("");
+            studentUpdateProfileConfirmPassword.setText("");
         }
     }
     // this method will check whether existing password
@@ -392,6 +423,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else{
             validStat = true;
             studentUpdateExistingPasswordLabel.setText("");
+            studentUpdateProfileExistingPassword.setText("");
         }
 
         if (!realExistingPassword.equals(enteredExistingPassword)){ // if student did not enter the existing password correctly, this if condition will perform
@@ -402,6 +434,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else{ // if password is correct
             validStat = true;
             studentUpdateExistingPasswordLabel.setText("");
+            studentUpdateProfileExistingPassword.setText("");
 
         }
     }
@@ -419,7 +452,7 @@ public class StudentActivityController extends StudentDashboardController {
             return updatedGrade;
         }
     }
-    // this method is to set zero to contact number, because when we retrieve the contact number from database
+    // this method is to set zero to contact number, because when we retrieve the contact number from database, we will receive a 9 digit number, since the format is int in database
     public static String makeTenDigitsForNumber(int number) {
         String strNumber = Integer.toString(number);
 
@@ -471,7 +504,7 @@ public class StudentActivityController extends StudentDashboardController {
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
             studentUpdateUserNameLabel.setText("User name cannot be empty.");
-        } else if (Student.userNameValidateStatus.equals("exists")) {
+        } else if (Student.userNameValidateStatus.equals("exist")) {
             studentUpdateUserNameLabel.setText("Entered username already exists.");
         } else if (User.userNameValidateStatus.equals("blank")) {
             studentUpdateUserNameLabel.setText("Username cannot contain spaces.");
