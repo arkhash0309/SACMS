@@ -49,7 +49,12 @@ abstract public class User implements UserValidator {
 //    public User(String userName, String password){
 //        this.userName = userName;
 //        this.password = password;
-//    }
+//   }
+
+    public User(String UserName,String password){
+        this.userName = UserName;
+        this.password = password;
+    }
 
     public User(){
 
@@ -97,7 +102,7 @@ abstract public class User implements UserValidator {
 
     abstract public void registerToSystem();
 
-    abstract public void loginToSystem();
+    abstract public String loginToSystem();
 
 
     @Override

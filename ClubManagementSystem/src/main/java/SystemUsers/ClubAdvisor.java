@@ -39,11 +39,9 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     }
 
     @Override
-    public void loginToSystem() {
-
+    public String loginToSystem() {
+        return null;
     }
-
-
 
     public  void createEvent(String eventName, String eventLocation,
                             String eventType, String eventDeliveryType,
