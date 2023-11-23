@@ -54,6 +54,10 @@ public class Student extends User implements StudentValidator {
                    String updatedContactNum, String updatedAdmissionNum) {
         super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
     }
+    @Override
+    public String advisorLoginToSystem(){
+        return null;
+    }
 
     //Created for inserting details into generate report membership table
     public Student(int memberAdmissionNum, String memberUserName, String memberFirstName, String memberLastName,int memberGrade,char memberGender, String memberContactNum) {
@@ -62,30 +66,9 @@ public class Student extends User implements StudentValidator {
         this.studentGrade = memberGrade;
         this.setStudentGender(memberGender);
     }
-
-
     @Override
     public void registerToSystem() {
 
-    }
-
-    @Override
-    public String loginToSystem() {
-        String correctPassword = null; // store correct password from database
-        String credentialChdeckQuery = "select studentPassword from studentCredentials where studentUserName = ?";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
-            preparedStatement.setString(1, this.getUserName()); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
-            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
-                while (results.next()) { // this will loop the rows
-                    correctPassword = results.getString("studentPassword"); // getting the password
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return correctPassword;
     }
 
     public int getStudentAdmissionNum() {
@@ -110,6 +93,25 @@ public class Student extends User implements StudentValidator {
 
     public void setGender(char studentGender) {
         this.setStudentGender(studentGender);
+    }
+
+    @Override
+    public String studentLoginToSystem() {
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "select studentPassword from studentCredentials where studentUserName = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
+            preparedStatement.setString(1, this.getUserName()); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("studentPassword"); // getting the password
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return correctPassword;
     }
 
     @Override

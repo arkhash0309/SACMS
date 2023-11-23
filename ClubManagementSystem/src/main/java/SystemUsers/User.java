@@ -102,7 +102,9 @@ abstract public class User implements UserValidator {
 
     abstract public void registerToSystem();
 
-    abstract public String loginToSystem();
+    abstract public String studentLoginToSystem();
+    abstract public String advisorLoginToSystem();
+
 
 
     @Override

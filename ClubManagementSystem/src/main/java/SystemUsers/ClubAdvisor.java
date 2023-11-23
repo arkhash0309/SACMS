@@ -27,11 +27,15 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     }
 
 
-    public ClubAdvisor(){
-
+    public ClubAdvisor(String userName, String password){
+        super(userName, password);
     }
     public ClubAdvisor(String contactNumber){
         super(contactNumber);
+    }
+
+    public ClubAdvisor(){
+
     }
 
     @Override
@@ -40,8 +44,25 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     }
 
     @Override
-    public String loginToSystem() {
+    public String studentLoginToSystem() {
         return null;
+    }
+    @Override
+    public String advisorLoginToSystem(){
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "SELECT teacherPassword FROM TeacherCredentials WHERE teacherUserName = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
+            preparedStatement.setString(1, this.getUserName()); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("teacherPassword"); // get the password
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return correctPassword;
     }
 
 

@@ -187,7 +187,7 @@ public class StudentLoginController {
     boolean studentCredentialChecker() {
         Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
 
-       String correctPassword = student.loginToSystem();
+       String correctPassword = student.studentLoginToSystem();
 
         loginStatus = true;
         if (!studentLoginPagePassword.equals(correctPassword)) {
