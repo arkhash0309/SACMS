@@ -429,22 +429,23 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //            this.createClubImage.setImage(defaultImage);
 
             //Update database
-            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+//            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+//
+//            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+//            ) {
+//                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
+//                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
+//                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
+//                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
+//                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+//                preparedStatement.executeUpdate();
+//
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
 
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
-            ) {
-                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
-                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
-                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
-                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
-                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
-                preparedStatement.executeUpdate();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
 
-          
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
 
