@@ -2716,7 +2716,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorTable.getItems().clear();
 
         for (ClubAdvisor clubAdvisor : clubAdvisorDetailsList) {
-            numberofAdvisors += 1;
+            numberofAdvisors += 1; // when a club advisor is found, increasing the numberofAdvisors by one
             ClubAdvisor clubAdvisor1 =  new ClubAdvisor(clubAdvisor.getUserName(), clubAdvisor.getPassword(),
                     clubAdvisor.getFirstName(), clubAdvisor.getLastName(), clubAdvisor.getContactNumber(),
                     clubAdvisor.getClubAdvisorId());
@@ -2725,7 +2725,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             observableClubAdvisorRegistrationList.add(clubAdvisor1);
             registrationAdvisorTable.setItems(observableClubAdvisorRegistrationList);
         }
-        userCountLabel.setText("No of Advisors: " + String.valueOf(numberofAdvisors));
+        userCountLabel.setText("No of Advisors: " + (numberofAdvisors));
     }
     public void populateStudentRegisterTable(){
         numbeOfStudents = 0;
@@ -2737,16 +2737,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
         for(Student student : studentDetailArray) {
-            numbeOfStudents +=1;
+            numbeOfStudents +=1; // this is to show the number of selected users in
             Student student1 = new Student(student.getUserName(), student.getPassword(), student.getFirstName(),
                     student.getLastName(), student.getContactNumber(), student.getStudentAdmissionNum(),
                     student.getStudentGrade(), student.getGender());
 
             ObservableList<Student> observableStudentRegistrationList = registrationStudentTable.getItems();
-            observableStudentRegistrationList.add(student);
+            observableStudentRegistrationList.add(student1);
             registrationStudentTable.setItems(observableStudentRegistrationList);
         }
-        userCountLabel.setText("No of Students: " + String.valueOf(numbeOfStudents));
+        userCountLabel.setText("No of Students: " + (numbeOfStudents));
     }
 
 
@@ -2762,7 +2762,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             System.out.println("User is " + selectedUser);
             registrationAdvisorTable.setVisible(false); // setting registrationAdvisorTable in-order to make visible student table
             registrationStudentTable.setVisible(true); // setting registrationStudentTable table visible
-            populateStudentRegisterTable(); // when Student selected as the user respective table will visible
+                populateStudentRegisterTable(); // when Student selected as the user respective table will visible
 
         }
 
