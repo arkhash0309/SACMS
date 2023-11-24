@@ -287,7 +287,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Clear the Club Update Table
         updateClubDetailsTable.getItems().clear();
 
-
         // Add Item details to the UpdateView Table using Sorted List
         for (Club club : clubDetailsList) {
 
@@ -354,10 +353,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             viewCreatedScheduledEvents.add(event);
             viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
             viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
-
         }
-
-
     }
 
 
@@ -2327,6 +2323,19 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     foundClubAdvisor.setUserName(advisorUsername);
                     foundClubAdvisor.setContactNumber(advisorContactNumber);
 
+                    String updatedPersonalDetailsQuery = "UPDATE TeacherInCharge set TICFName = ?, TICLName = ?, " +
+                            "teacherContactNum = ? where teacherInChargeId = ?";
+                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
+                        preparedStatement.setString(1, advisorFirstName);
+                        preparedStatement.setString(2, advisorLastName);
+                        preparedStatement.setInt(3, Integer.parseInt(advisorContactNumber));
+                        preparedStatement.setString(4, String.valueOf(advisorId));
+                        preparedStatement.executeUpdate();
+
+                        System.out.println("Working as desired");
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
                     Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                     clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                     clubUpdateAlert.setTitle("School Club Management System");
@@ -2379,6 +2388,35 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
                         if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
                             foundClubAdvisor.setPassword(advisorNewPassword);
+
+                            String updatedAdvisorCredentialsQueryt = "update TeacherCredentials set teacherUserName = ?, teacherPassword  = ?  where teacherInChargeId = ?";
+
+                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedAdvisorCredentialsQueryt)) {
+                                preparedStatement.setString(1, advisorUsername);
+                                preparedStatement.setString(2, advisorConfirmPassword);
+                                preparedStatement.setString(3, String.valueOf(advisorId));
+                                preparedStatement.executeUpdate();
+
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+
+//                            String updateUserNameQuery = "UPDATE TeacherCredentials SET teacherUserName = ? WHERE teacherInChargeId = ?";
+//
+//                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateUserNameQuery)) {
+//
+//                                preparedStatement.setString(1, advisorUsername);
+//                                preparedStatement.setInt(2, advisorId);
+//
+//                                preparedStatement.executeUpdate();
+//
+//                            } catch (SQLException e) {
+//                                System.out.println("error updation");
+//                                e.printStackTrace(); // Handle the exception as needed
+//                                return;
+//                            }
+
+
 
                             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -2481,7 +2519,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public static String makeTenDigitsForNumber(int number) {
         // Convert the number to string
         String strNumber = Integer.toString(number);
-
         // If the number has less than 10 digits, add leading zeros
         if (strNumber.length() < 10) {
             StringBuilder zeros = new StringBuilder();

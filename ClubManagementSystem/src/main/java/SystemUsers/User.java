@@ -59,6 +59,7 @@ abstract public class User implements UserValidator {
     public User(){
 
     }
+
     public String getUserName() {
         return userName;
     }
@@ -101,12 +102,10 @@ abstract public class User implements UserValidator {
     }
 
     abstract public void registerToSystem();
-
     abstract public String studentLoginToSystem();
     abstract public String advisorLoginToSystem();
-
-
-
+//    abstract public String studentRegisteringToSystem();
+//    abstract public String advisorRegisteringToSystem();
     @Override
     public boolean validateFirstName(){
         if(this.firstName.isEmpty()){
