@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import static ClubManager.Club.clubDetailsList;
+
 public class ClubAdvisor extends User implements ClubAdvisorValidator {
     private int clubAdvisorId;
     public static ArrayList<ClubAdvisor> clubAdvisorDetailsList = new ArrayList<>();
@@ -77,7 +79,12 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     }
 
 
-    public void createClub(int clubId, String clubName, String clubDescription, String clubLogo, int clubAdvisorId){
+    public void createClub(int clubId, String clubName, String clubDescription, String imagePath, int clubAdvisorId){
+        //Creating a new club object with the correct user given data
+        Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
+        //Adding that club to the club details list
+        clubDetailsList.add(clubData);
+
         String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
@@ -85,8 +92,27 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
             preparedStatement.setInt(1, clubId); // Set clubId
             preparedStatement.setString(2, clubName); // Set clubName
             preparedStatement.setString(3, clubDescription); // Set clubDescription
-            preparedStatement.setString(4, clubLogo); // Set clubLogo
+            preparedStatement.setString(4, imagePath); // Set clubLogo
             preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateClub(int clubId, String clubName, String clubDescription, String imagePath, int clubAdvisorId){
+//        //Update database
+        String updateQuery = "UPDATE Club SET clubName=?, clubDescription=?, clubLogo=?, teacherInChargeId=? WHERE clubId=?";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateQuery)
+        ) {
+            preparedStatement.setString(1, clubName);
+            preparedStatement.setString(2, clubDescription);
+            preparedStatement.setString(3, imagePath);
+            preparedStatement.setInt(4, clubAdvisorId);
+            preparedStatement.setInt(5, clubId);
+
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
