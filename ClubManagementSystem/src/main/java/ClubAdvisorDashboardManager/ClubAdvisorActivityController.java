@@ -2769,7 +2769,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             registrationAdvisorTable.setVisible(true);// setting registrationAdvisorTable table visible
             populateClubAdvisorTable(); //
         }
+
     }
+
 
 
 }
