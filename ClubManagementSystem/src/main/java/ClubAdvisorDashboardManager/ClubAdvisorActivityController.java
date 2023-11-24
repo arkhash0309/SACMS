@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,14 +29,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.w3c.dom.Document;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpCookie;
 import java.net.URL;
@@ -287,7 +291,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Clear the Club Update Table
         updateClubDetailsTable.getItems().clear();
 
-
         // Add Item details to the UpdateView Table using Sorted List
         for (Club club : clubDetailsList) {
 
@@ -354,10 +357,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             viewCreatedScheduledEvents.add(event);
             viewCreatedEventsTable.setItems(viewCreatedScheduledEvents);
             viewCreatedEventsSortComboBox.getSelectionModel().selectFirst(); // select the first item of the view Events
-
         }
-
-
     }
 
 
@@ -429,21 +429,20 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //            this.createClubImage.setImage(defaultImage);
 
             //Update database
-//            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
-//
-//            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
-//            ) {
-//                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
-//                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
-//                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
-//                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
-//                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
-//                preparedStatement.executeUpdate();
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
+            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
 
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+            ) {
+                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
+                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
+                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
+                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
+                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
           
             clubIdSetterValue += 1;
@@ -2343,6 +2342,19 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     foundClubAdvisor.setUserName(advisorUsername);
                     foundClubAdvisor.setContactNumber(advisorContactNumber);
 
+                    String updatedPersonalDetailsQuery = "UPDATE TeacherInCharge set TICFName = ?, TICLName = ?, " +
+                            "teacherContactNum = ? where teacherInChargeId = ?";
+                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
+                        preparedStatement.setString(1, advisorFirstName);
+                        preparedStatement.setString(2, advisorLastName);
+                        preparedStatement.setInt(3, Integer.parseInt(advisorContactNumber));
+                        preparedStatement.setString(4, String.valueOf(advisorId));
+                        preparedStatement.executeUpdate();
+
+                        System.out.println("Working as desired");
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
                     Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                     clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                     clubUpdateAlert.setTitle("School Club Management System");
@@ -2369,6 +2381,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
             if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
+                profileAdvisorExistingpw.setText("");
                 profileAdvisorExistingpwError.setText("");
                 ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
@@ -2385,6 +2398,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     profileAdvisorConfirmpwError.setText("Passwords do not match");
                     validStat = false;
                 } else {
+                    profileAdvisorConfirmpw.setText("");
                     profileAdvisorConfirmpwError.setText("");
                 }
 
@@ -2393,6 +2407,35 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
                         if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
                             foundClubAdvisor.setPassword(advisorNewPassword);
+
+                            String updatedAdvisorCredentialsQueryt = "update TeacherCredentials set teacherUserName = ?, teacherPassword  = ?  where teacherInChargeId = ?";
+
+                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedAdvisorCredentialsQueryt)) {
+                                preparedStatement.setString(1, advisorUsername);
+                                preparedStatement.setString(2, advisorConfirmPassword);
+                                preparedStatement.setString(3, String.valueOf(advisorId));
+                                preparedStatement.executeUpdate();
+
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+
+//                            String updateUserNameQuery = "UPDATE TeacherCredentials SET teacherUserName = ? WHERE teacherInChargeId = ?";
+//
+//                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateUserNameQuery)) {
+//
+//                                preparedStatement.setString(1, advisorUsername);
+//                                preparedStatement.setInt(2, advisorId);
+//
+//                                preparedStatement.executeUpdate();
+//
+//                            } catch (SQLException e) {
+//                                System.out.println("error updation");
+//                                e.printStackTrace(); // Handle the exception as needed
+//                                return;
+//                            }
+
+
 
                             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
@@ -2468,6 +2511,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         } else if (User.passwordValidateStatus.equals("format")) {
             profileAdvisorNewpwError.setText("Password should consists of 8\ncharacters including numbers and\nspecial characters.");
         } else {
+            profileAdvisorNewpw.setText("");
             profileAdvisorNewpwError.setText("");
         }
     }
@@ -2494,7 +2538,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public static String makeTenDigitsForNumber(int number) {
         // Convert the number to string
         String strNumber = Integer.toString(number);
-
         // If the number has less than 10 digits, add leading zeros
         if (strNumber.length() < 10) {
             StringBuilder zeros = new StringBuilder();
@@ -2554,6 +2597,18 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 }
             }
         }
+
+//        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
+//
+//        if (selectedClub.equals("All Clubs")){
+//            setMembershipTable();
+//        }else {
+//            for(Student foundStudent : studentDetailArray){
+//                for (Club foundClub : foundStudent.){
+//
+//                }
+//            }
+//        }
 
 
     }
@@ -2770,6 +2825,53 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             populateClubAdvisorTable(); //
         }
     }
+
+
+    @FXML
+    void GeneratePdfReportForEvents(ActionEvent event) throws IOException {
+        ClubAdvisor clubAdvisor = new ClubAdvisor();
+        clubAdvisor.generateEventDetailReport(generateReportEventViewTable, stage);
+    }
+
+    public static void generateCsv(TableView<Event> tableView, Stage stage) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writeCsvContent(writer, tableView);
+                System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
+            }
+        }else{
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("Report Generated Successfully");
+        alert.show();
+    }
+
+    private static void writeCsvContent(FileWriter writer, TableView<Event> tableView) throws IOException {
+        ObservableList<TableColumn<Event, ?>> columns = tableView.getColumns();
+
+        // Write headers
+        for (TableColumn<Event, ?> column : columns) {
+            writer.write(column.getText() + ",");
+        }
+        writer.write("\n");
+
+        // Write data
+        for (Event event : tableView.getItems()) {
+            for (TableColumn<Event, ?> column : columns) {
+                String cellValue = column.getCellData(event).toString();
+                writer.write(cellValue + ",");
+            }
+            writer.write("\n");
+        }
+    }
+
 
 
 }
