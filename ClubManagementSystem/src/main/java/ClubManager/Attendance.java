@@ -33,7 +33,6 @@ public class Attendance {
         return attendanceStatusProperty;
     }
 
-
     public boolean isAttendanceStatus() {
         return attendanceStatusProperty.get();
     }

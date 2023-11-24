@@ -320,25 +320,6 @@ public class ClubAdvisorDataBaseManager {
 
     }
 
-    // Just for testing purpose
-    public void printClubNamesForStudent() {
-        for(Student student : Student.studentDetailArray){
-            if (joinedClubForEachStudent.containsKey(student)) {
-                ArrayList<Club> clubs = joinedClubForEachStudent.get(student);
-
-                System.out.println("Club Names for Student: " + student.getStudentAdmissionNum());
-
-                for (Club club : clubs) {
-                    System.out.println(club.getClubName());
-                }
-            } else {
-                System.out.println("Student not found in the HashMap.");
-            }
-
-        }
-    }
-
-
 }
 
 

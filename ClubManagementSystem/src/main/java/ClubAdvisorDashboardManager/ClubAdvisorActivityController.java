@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,14 +29,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.w3c.dom.Document;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpCookie;
 import java.net.URL;
@@ -72,6 +76,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @Override
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
         //Setting the values to the combo box in Club membership report
         populateMembershipCombo(clubMembershipCombo);
@@ -125,6 +130,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // populate all generate report event tables
         populateGenerateReportEventsTable();
 
+        // Set the membership table in Club Advisor Report
+        setMembershipTable();
+
         //Set cell value factories for the columns of the Create Club Table
 
         createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
@@ -142,12 +150,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //        Club club1 = new Club(0001, "Rotaract", "Done with the work", "lkt.img");
 //        clubDetailsList.add(club1);
 //        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
-        for (Club club : clubDetailsList) {
-            if (clubDetailsList == null) {
-                return;
-            }
-//            observableClubDetailsList.add(club);
-        }
+//        for (Club club : clubDetailsList) {
+//            if (clubDetailsList == null) {
+//                return;
+//            }
+////            observableClubDetailsList.add(club);
+//        }
 //        createClubDetailsTable.setItems(observableClubDetailsList);
 
 
@@ -379,24 +387,32 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         //Displaying relevant club name error if there is
         displayClubNameError(clubNameError);
 
-
         //Validating club description using validateClubDescription method
         if (!club.validateClubDescription()){
-
             System.out.println("Wrong Club Description");
             validStat = false;
         }
         //Displaying relevant club description error if there is
         displayClubDecriptionError(clubDescriptionError);
 
+        if (imagePath.isEmpty()){
+            //Displaying an alert
+            Alert clubUpdateAlert = new Alert(Alert.AlertType.ERROR);
+            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+            clubUpdateAlert.setTitle("School Club Management System");
+            clubUpdateAlert.setHeaderText("Please import an image!");
+            clubUpdateAlert.show();
+        }
 
         //Checking if all user given details are correct
-
         if (validStat) {
-            //Creating a new club object with the correct user given data
-            Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
-            //Adding that club to the club details list
-            clubDetailsList.add(clubData);
+//            //Creating a new club object with the correct user given data
+//            Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
+//            //Adding that club to the club details list
+//            clubDetailsList.add(clubData);
+
+            ClubAdvisor clubAdvisor = new ClubAdvisor();
+            clubAdvisor.createClub(clubIdSetterValue,clubName,clubDescription,imagePath,clubAdvisorId);
 
             //Setting tables and comboboxes that is related to club
             setCreateTable();
@@ -417,20 +433,22 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //            this.createClubImage.setImage(defaultImage);
 
             //Update database
-            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+//            String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+//
+//            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+//            ) {
+//                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
+//                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
+//                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
+//                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
+//                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+//                preparedStatement.executeUpdate();
+//
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
 
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
-            ) {
-                preparedStatement.setInt(1, clubIdSetterValue); // Set clubId
-                preparedStatement.setString(2, clubData.getClubName()); // Set clubName
-                preparedStatement.setString(3, clubData.getClubDescription()); // Set clubDescription
-                preparedStatement.setString(4, clubData.getClubLogo()); // Set clubLogo
-                preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
-                preparedStatement.executeUpdate();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
 
             clubIdSetterValue += 1;
             this.clubId.setText(String.valueOf(clubIdSetterValue));
@@ -530,21 +548,23 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     populateMembershipCombo(clubMembershipCombo);
 
                     //Update database
-                    String updateQuery = "UPDATE Club SET clubName=?, clubDescription=?, clubLogo=?, teacherInChargeId=? WHERE clubId=?";
-
-                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateQuery)
-                    ) {
-                        preparedStatement.setString(1, clubName);
-                        preparedStatement.setString(2, clubDescription);
-                        preparedStatement.setString(3, clubLogo);
-                        preparedStatement.setInt(4, clubAdvisorId);
-                        preparedStatement.setInt(5, clubId);
-
-                        preparedStatement.executeUpdate();
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    ClubAdvisor clubAdvisor = new ClubAdvisor();
+                    clubAdvisor.updateClub(clubIdSetterValue,clubName,clubDescription,imagePath,clubAdvisorId);
+//                    String updateQuery = "UPDATE Club SET clubName=?, clubDescription=?, clubLogo=?, teacherInChargeId=? WHERE clubId=?";
+//
+//                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateQuery)
+//                    ) {
+//                        preparedStatement.setString(1, clubName);
+//                        preparedStatement.setString(2, clubDescription);
+//                        preparedStatement.setString(3, clubLogo);
+//                        preparedStatement.setInt(4, clubAdvisorId);
+//                        preparedStatement.setInt(5, clubId);
+//
+//                        preparedStatement.executeUpdate();
+//
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         } else {
@@ -2249,34 +2269,38 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void advisorProfileUpdateChecker(ActionEvent event) {
+        //Setting the valid state as true
         validStat = true;
 
+        //Getting the advisor id
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
+        //Getting the new advisor details to update
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
         String advisorUsername = profileAdvisorUsername.getText();
         String advisorContactNumber = profileAdvisorCnumber.getText();
+        //Getting the advisor password from arraylist to create the object
         String advisorPassword = clubAdvisorDetailsList.get(0).getPassword();
 
-
+        //Creating a ClubAdvisor object to validate data entered by the user
         ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
+        //Setting all validate statuses as correct before validation
         ClubAdvisor.fNameValidateStatus = "correct";
         ClubAdvisor.lNameValidateStatus = "correct";
         ClubAdvisor.contactNumberValidateStatus = "correct";
         ClubAdvisor.passwordValidateStatus = "correct";
         ClubAdvisor.userNameValidateStatus = "correct";
 
+        //Validating advisor first name to get a valid data
         if (!clubAdvisor.validateFirstName()) {
-            System.out.println("Incorrect First Name.");
-            System.out.println(ClubAdvisor.fNameValidateStatus + " : First Name");
             validStat = false;
         }
+        //Displaying an error if the user entered data for advisor first name is invalid so
         displayNameError("firstName");
 
+        //Validating advisor last name to get a valid data
         if (!clubAdvisor.validateLastName()) {
-            System.out.println("Incorrect Last Name.");
-            System.out.println(Student.lNameValidateStatus + " : Last Name");
             validStat = false;
         }
         displayNameError("lastName");
@@ -2536,8 +2560,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     public void populateMembershipCombo(ComboBox<String> selectedCombo) {
         selectedCombo.getItems().clear();
-        if (!selectedCombo.getItems().contains("Select a club")) {
-            selectedCombo.getItems().add("Select a club");
+        if (!selectedCombo.getItems().contains("All Clubs")) {
+            selectedCombo.getItems().add("All Clubs");
         }
         for (Club club : clubDetailsList) {
             selectedCombo.getItems().add(club.getClubName());
@@ -2547,6 +2571,40 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     public void clubMembershipReportGenerator(ActionEvent event) {
+        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
+
+        // Clear the UpdateViewTable
+        clubMembershipTable.getItems().clear();
+        if (selectedClub.equals("All Clubs")){
+            setMembershipTable();
+        }else {
+            for(Student foundStudent : studentDetailArray){
+                ArrayList<Club> clubList = ClubAdvisorDataBaseManager.joinedClubForEachStudent.get(foundStudent);
+                for (Club club : clubList){
+                    if (selectedClub.equals(club.getClubName())){
+                        System.out.println("Hello" + foundStudent.getContactNumber());
+                        // Check whether the sortedList is null and return the method, if it is null
+                        if (studentDetailArray == null) {
+                            return;
+                        }
+
+                        System.out.println(foundStudent.getContactNumber());
+                        // Create an Item details object with the item details
+                        Student tableStudent = new Student(foundStudent.getStudentAdmissionNum(),
+                                    foundStudent.getUserName(), foundStudent.getFirstName(), foundStudent.getLastName(),
+                                    foundStudent.getStudentGrade(), foundStudent.getGender(),
+                                makeTenDigitsForNumber(Integer.parseInt(foundStudent.getContactNumber())));
+
+                        // Add the item details to the UpdateViewTable
+                        ObservableList<Student> observableMembersList = clubMembershipTable.getItems();
+                        observableMembersList.add(tableStudent);
+                        clubMembershipTable.setItems(observableMembersList);
+
+                    }
+                }
+            }
+        }
+
 //        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
 //
 //        if (selectedClub.equals("All Clubs")){
@@ -2559,6 +2617,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 //            }
 //        }
 
+
     }
 
     public void setMembershipTable() {
@@ -2566,6 +2625,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (studentDetailArray == null) {
             return;
         }
+
         // Clear the UpdateViewTable
         clubMembershipTable.getItems().clear();
 
@@ -2573,7 +2633,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         for (Student student : studentDetailArray) {
 
             // Create an Item details object with the item details
-            Student tableStudent = new Student(student.getStudentAdmissionNum(), student.getUserName(), student.getFirstName(), student.getLastName(), student.getStudentGrade(), student.getGender(), student.getContactNumber());
+            Student tableStudent = new Student(student.getStudentAdmissionNum(), student.getUserName(),
+                    student.getFirstName(), student.getLastName(), student.getStudentGrade(), student.getGender(),
+                    makeTenDigitsForNumber(Integer.parseInt(student.getContactNumber())));
 
             // Add the item details to the UpdateViewTable
             ObservableList<Student> observableMembersList = clubMembershipTable.getItems();
@@ -2772,7 +2834,53 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             registrationAdvisorTable.setVisible(true);// setting registrationAdvisorTable table visible
             populateClubAdvisorTable(); //
         }
+
     }
 
+
+    @FXML
+    void GeneratePdfReportForEvents(ActionEvent event) throws IOException {
+        ClubAdvisor clubAdvisor = new ClubAdvisor();
+        clubAdvisor.generateEventDetailReport(generateReportEventViewTable, stage);
+    }
+
+    public static void generateCsv(TableView<Event> tableView, Stage stage) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writeCsvContent(writer, tableView);
+                System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
+            }
+        }else{
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("Report Generated Successfully");
+        alert.show();
+    }
+
+    private static void writeCsvContent(FileWriter writer, TableView<Event> tableView) throws IOException {
+        ObservableList<TableColumn<Event, ?>> columns = tableView.getColumns();
+
+        // Write headers
+        for (TableColumn<Event, ?> column : columns) {
+            writer.write(column.getText() + ",");
+        }
+        writer.write("\n");
+
+        // Write data
+        for (Event event : tableView.getItems()) {
+            for (TableColumn<Event, ?> column : columns) {
+                String cellValue = column.getCellData(event).toString();
+                writer.write(cellValue + ",");
+            }
+            writer.write("\n");
+        }
+    }
 
 }
