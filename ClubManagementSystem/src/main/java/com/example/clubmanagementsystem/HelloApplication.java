@@ -50,6 +50,7 @@ public class HelloApplication extends Application {
             throw new RuntimeException(e);
         }
 
+        System.out.println("blablaalbblalal");
         launch();
 
         // Closing the database connection after terminating the application

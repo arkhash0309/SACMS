@@ -2825,6 +2825,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             registrationAdvisorTable.setVisible(true);// setting registrationAdvisorTable table visible
             populateClubAdvisorTable(); //
         }
+
     }
 
 
@@ -2872,7 +2873,5 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             writer.write("\n");
         }
     }
-
-
 
 }
