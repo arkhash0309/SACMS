@@ -10,6 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+// This class
 public class StudentDataBaseManager {
     private int StudentAdmissionNum;
     private static String StudentUserName;

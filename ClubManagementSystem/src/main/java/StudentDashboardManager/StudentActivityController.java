@@ -368,7 +368,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else {
             validStat = true;
             studentUpdateNewPasswordLabel.setText("");
-            studentUpdateProfileNewPassword.setText("");
+            studentUpdateProfileNewPassword.setText("");// clearing password text field, to sure privacy measurements
         }
 
         validStat = false;
@@ -385,7 +385,7 @@ public class StudentActivityController extends StudentDashboardController {
             }else {
                 validStat = true;
                 studentUpdateNewPasswordLabel.setText("");
-                studentUpdateProfileNewPassword.setText("");
+                studentUpdateProfileNewPassword.setText("");// clearing password text field, to sure privacy measurements
             }
         }else{
             validStat = false;
@@ -402,7 +402,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else {
             validStat = true;
             studentUpdateConfirmPasswordLabel.setText("");
-            studentUpdateProfileConfirmPassword.setText("");
+            studentUpdateProfileConfirmPassword.setText("");// clearing password text field, to sure privacy measurements
 
         }if(!studentConfirmPassword.equals(studentUpdatedPassword)){ // if both studentConfirmPassword and studentUpdatedPassword are not matching
             studentUpdateConfirmPasswordLabel.setText("Passwords are not matching");
@@ -410,7 +410,7 @@ public class StudentActivityController extends StudentDashboardController {
         } else{
             validStat = true; // if confirm password is correct
             studentUpdateConfirmPasswordLabel.setText("");
-            studentUpdateProfileConfirmPassword.setText("");
+            studentUpdateProfileConfirmPassword.setText("");// clearing password text field, to sure privacy measurements
         }
     }
     // this method will check whether existing password
@@ -423,7 +423,7 @@ public class StudentActivityController extends StudentDashboardController {
         }else{
             validStat = true;
             studentUpdateExistingPasswordLabel.setText("");
-            studentUpdateProfileExistingPassword.setText("");
+            studentUpdateProfileExistingPassword.setText(""); // clearing password text field, to sure privacy measurements
         }
 
         if (!realExistingPassword.equals(enteredExistingPassword)){ // if student did not enter the existing password correctly, this if condition will perform
@@ -453,20 +453,19 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
     // this method is to set zero to contact number, because when we retrieve the contact number from database, we will receive a 9 digit number, since the format is int in database
-    public static String makeTenDigitsForNumber(int number) {
-        String strNumber = Integer.toString(number);
-
-        if (strNumber.length() < 10) { // when strNumber is less than 10 digits
-            StringBuilder zeros = new StringBuilder();
-            for (int i = 0; i < 10 - strNumber.length(); i++) {
-                zeros.append('0');
-            }
-            return zeros.toString() + strNumber;
+    public void displayUserNameError() {
+        if (User.userNameValidateStatus.equals("empty")) {
+            studentUpdateUserNameLabel.setText("User name cannot be empty.");
+        } else if (Student.userNameValidateStatus.equals("exist")) {
+            studentUpdateUserNameLabel.setText("Entered username already exists.");
+        } else if (User.userNameValidateStatus.equals("blank")) {
+            studentUpdateUserNameLabel.setText("Username cannot contain spaces.");
+        } else if (User.userNameValidateStatus.equals("length")) {
+            studentUpdateUserNameLabel.setText("The length should be 5 to 10 characters.");
         } else {
-            return strNumber.substring(0, 10);
+            studentUpdateUserNameLabel.setText("");
         }
     }
-
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
             if (Student.fNameValidateStatus.equals("empty")) {
@@ -486,9 +485,6 @@ public class StudentActivityController extends StudentDashboardController {
             }
         }
     }
-
-
-
     public void displayContactNumError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
             studentUpdateContactNumLabel.setText("Contact number cannot be empty.");
@@ -500,18 +496,20 @@ public class StudentActivityController extends StudentDashboardController {
             studentUpdateContactNumLabel.setText("");
         }
     }
-
-    public void displayUserNameError() {
-        if (User.userNameValidateStatus.equals("empty")) {
-            studentUpdateUserNameLabel.setText("User name cannot be empty.");
-        } else if (Student.userNameValidateStatus.equals("exist")) {
-            studentUpdateUserNameLabel.setText("Entered username already exists.");
-        } else if (User.userNameValidateStatus.equals("blank")) {
-            studentUpdateUserNameLabel.setText("Username cannot contain spaces.");
-        } else if (User.userNameValidateStatus.equals("length")) {
-            studentUpdateUserNameLabel.setText("The length should be 5 to 10 characters.");
+    public static String makeTenDigitsForNumber(int number) {
+        // Convert the number to string
+        String strNumber = Integer.toString(number);
+        // If the number has less than 10 digits, add leading zeros
+        if (strNumber.length() < 10) { // when strNumber is less than 10 digits
+            StringBuilder zeros = new StringBuilder();
+            for (int i = 0; i < 10 - strNumber.length(); i++) {
+                zeros.append('0');
+            }
+            // combine leading zeros and the original number
+            return zeros.toString() + strNumber;
         } else {
-            studentUpdateUserNameLabel.setText("");
+            // If the number has more than 10 digits, truncate it to the first ten digits
+            return strNumber.substring(0, 10);
         }
     }
 
