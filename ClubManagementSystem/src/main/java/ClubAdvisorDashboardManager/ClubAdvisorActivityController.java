@@ -77,6 +77,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         //Setting the values to the combo box in Club membership report
         populateMembershipCombo(clubMembershipCombo);
         //Setting up the club members details table columns
@@ -128,6 +129,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         populateGenerateReportClubs(generateReportClubNameComboBox);
         // populate all generate report event tables
         populateGenerateReportEventsTable();
+
+        // Set the membership table in Club Advisor Report
+        setMembershipTable();
 
         //Set cell value factories for the columns of the Create Club Table
 
@@ -2578,16 +2582,18 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 ArrayList<Club> clubList = ClubAdvisorDataBaseManager.joinedClubForEachStudent.get(foundStudent);
                 for (Club club : clubList){
                     if (selectedClub.equals(club.getClubName())){
-                        System.out.println(club.getClubName());
+                        System.out.println("Hello" + foundStudent.getContactNumber());
                         // Check whether the sortedList is null and return the method, if it is null
                         if (studentDetailArray == null) {
                             return;
                         }
 
+                        System.out.println(foundStudent.getContactNumber());
                         // Create an Item details object with the item details
                         Student tableStudent = new Student(foundStudent.getStudentAdmissionNum(),
                                     foundStudent.getUserName(), foundStudent.getFirstName(), foundStudent.getLastName(),
-                                    foundStudent.getStudentGrade(), foundStudent.getGender(), foundStudent.getContactNumber());
+                                    foundStudent.getStudentGrade(), foundStudent.getGender(),
+                                makeTenDigitsForNumber(Integer.parseInt(foundStudent.getContactNumber())));
 
                         // Add the item details to the UpdateViewTable
                         ObservableList<Student> observableMembersList = clubMembershipTable.getItems();
@@ -2619,6 +2625,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (studentDetailArray == null) {
             return;
         }
+
         // Clear the UpdateViewTable
         clubMembershipTable.getItems().clear();
 
@@ -2626,7 +2633,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         for (Student student : studentDetailArray) {
 
             // Create an Item details object with the item details
-            Student tableStudent = new Student(student.getStudentAdmissionNum(), student.getUserName(), student.getFirstName(), student.getLastName(), student.getStudentGrade(), student.getGender(), student.getContactNumber());
+            Student tableStudent = new Student(student.getStudentAdmissionNum(), student.getUserName(),
+                    student.getFirstName(), student.getLastName(), student.getStudentGrade(), student.getGender(),
+                    makeTenDigitsForNumber(Integer.parseInt(student.getContactNumber())));
 
             // Add the item details to the UpdateViewTable
             ObservableList<Student> observableMembersList = clubMembershipTable.getItems();
