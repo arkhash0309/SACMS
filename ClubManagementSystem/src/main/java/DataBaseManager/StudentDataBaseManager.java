@@ -203,13 +203,18 @@ public class StudentDataBaseManager {
         }
     }
 
+    // This method populates the details of the student joined clubs
     public void populateStudentJoinedClubs(){
+        // clear the studentJoinedClubs
         Student.studentJoinedClubs.clear();
+
+        // Select the club details using club related details
         String query = "SELECT C.clubId, C.clubName, C.clubDescription, C.clubLogo " +
                 "FROM Club C " +
                 "JOIN StudentClub SC ON C.clubId = SC.clubId " +
                 "WHERE SC.studentAdmissionNum = ?";
 
+        // execute the statement to populate the student joined
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
             preparedStatement.setInt(1, this.StudentAdmissionNum);
 
@@ -220,6 +225,7 @@ public class StudentDataBaseManager {
                     String clubDescription = result.getString("clubDescription");
                     String clubLogo = result.getString("clubLogo");
 
+                    // Create the club Object by including  clubId, clubName, clubDescription, clubLogo
                     Club clubDetail = new Club(clubId, clubName, clubDescription, clubLogo);
 
                     Student.studentJoinedClubs.add(clubDetail);
@@ -229,18 +235,19 @@ public class StudentDataBaseManager {
             e.printStackTrace();
             // Handle the exception appropriately
         }
-
-
-
     }
 
-
+    // This method populate the event details array list
     public void populateEventDetails(){
+        // Clear the studentEvent detail
         Student.studentEvent.clear();
+
+        // Iterate through the Club arraylist to select the event related details
         for(Club club : Student.studentJoinedClubs){
             String query = "SELECT EventId, eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
                     "FROM EventDetails WHERE clubId = ?";
 
+            // Execute the prepared statement
             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
                 preparedStatement.setInt(1, club.getClubId());
 
@@ -251,6 +258,8 @@ public class StudentDataBaseManager {
                         LocalDate localDate = eventDate.toLocalDate();
                         LocalTime localTime = eventTime.toLocalTime();
 
+                        /*Create an object of the event by including event name, location, type,
+                         deliveryType, description */
                         Event event = new Event(
                                 result.getString("eventName"),
                                 result.getString("eventLocation"),
@@ -263,6 +272,7 @@ public class StudentDataBaseManager {
                                 result.getInt("EventId")
                         );
 
+                        // populate details related to each student
                         Student.studentEvent.add(event);
                     }
                 }
@@ -273,12 +283,17 @@ public class StudentDataBaseManager {
         }
     }
 
+    // Populate all event related details to event details list
     public void populateAllEvents(){
+        // Clear the event details list
         Event.eventDetails.clear();
+        // Iterate through the Club details list to populate all events scheduled by club advisors
         for(Club club : Club.clubDetailsList){
+            // query that gives event details related to each club
             String query = "SELECT EventId, eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
                     "FROM EventDetails WHERE clubId = ?";
 
+            // Execute the prepared statement
             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
                 preparedStatement.setInt(1, club.getClubId());
 
@@ -289,6 +304,8 @@ public class StudentDataBaseManager {
                         LocalDate localDate = eventDate.toLocalDate();
                         LocalTime localTime = eventTime.toLocalTime();
 
+                        /*Create an event object by including event name, location, type,
+                        delivery type, description, event Id */
                         Event event = new Event(
                                 result.getString("eventName"),
                                 result.getString("eventLocation"),
@@ -301,6 +318,7 @@ public class StudentDataBaseManager {
                                 result.getInt("EventId")
                         );
 
+                        // Add the event object to the event details list
                         Event.eventDetails.add(event);
                     }
                 }
@@ -312,11 +330,12 @@ public class StudentDataBaseManager {
 
     }
 
-
+    // Method to get the login students username
     public static String getStudentUserName() {
         return StudentUserName;
     }
 
+    // method to set the login students username
     public static void setStudentUserName(String studentUserName) {
         StudentUserName = studentUserName;
     }
