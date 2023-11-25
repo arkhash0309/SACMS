@@ -2314,6 +2314,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateTeacherUserNameQuery)){
                         preparedStatement.setString(1, advisorUsername);
                         preparedStatement.setString(2, String.valueOf(advisorId));
+                        preparedStatement.executeUpdate();
                         profileAdvisorUsername.setText(advisorUsername);
                         System.out.println("Username, Working as desired");
                     }catch (Exception e){

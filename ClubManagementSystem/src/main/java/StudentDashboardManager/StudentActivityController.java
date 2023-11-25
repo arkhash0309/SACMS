@@ -288,6 +288,7 @@ public class StudentActivityController extends StudentDashboardController {
             try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateStudentUserNameQuery)){
                 preparedStatement.setString(1, updatedUserName);
                 preparedStatement.setString(2, String.valueOf(updatedAdmissionNumber));
+                preparedStatement.executeUpdate();
                 studentUpdateProfileUserName.setText(updatedUserName);
                 System.out.println("Username, Working as desired");
             }catch (Exception e){
