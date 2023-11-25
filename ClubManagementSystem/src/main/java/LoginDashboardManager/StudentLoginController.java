@@ -178,7 +178,7 @@ public class StudentLoginController {
     boolean studentCredentialChecker() { /* this method will check, whether entered username and password are correct
                                             according to the existing values*/
         Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
-       String correctPassword = student.studentLoginToSystem(); // calling studentLoginToSystem method
+       String correctPassword = student.LoginToSystem(); // calling studentLoginToSystem method
         loginStatus = true;
         if (!studentLoginPagePassword.equals(correctPassword)) { // entered password is incorrect, error label will be set
             loginStatus = false;

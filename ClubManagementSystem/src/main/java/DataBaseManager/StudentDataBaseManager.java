@@ -174,9 +174,10 @@ public class StudentDataBaseManager {
 
             // Execute the select statements for clubs
             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
-                // 
+                // Execute the sql statement
                 preparedStatement.setString(1, clubAdvisor.getUserName());
 
+                // Get the result of the prepared statement
                 try (ResultSet result = preparedStatement.executeQuery()) {
                     while (result.next()) {
                         int clubId = result.getInt("clubId");
@@ -184,12 +185,14 @@ public class StudentDataBaseManager {
                         String clubDescription = result.getString("clubDescription");
                         String clubLogo = result.getString("clubLogo");
 
-
+                        // Parse the values using a club object
                         Club club = new Club(clubId, clubName, clubDescription, clubLogo);
 
+                        // Add the club details to createdClubDetaild Array List
                         clubAdvisor.createdClubDetailsList.add(club);
                     }
 
+                    // Update the data in the required index
                     ClubAdvisor.clubAdvisorDetailsList.set(count, clubAdvisor);
                 }
             } catch (SQLException e) {

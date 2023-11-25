@@ -2523,6 +2523,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Clear the UpdateViewTable
         clubMembershipTable.getItems().clear();
+        if(selectedClub == null){
+            return;
+        }
+
         if (selectedClub.equals("All Clubs")){
             setMembershipTable();
         }else {
