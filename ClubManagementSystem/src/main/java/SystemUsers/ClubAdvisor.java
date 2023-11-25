@@ -295,6 +295,10 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         }
     }
 
+    public void generateMembershipDetailReport(TableView<Student> tableView, Stage stage) throws IOException {
+        ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
+    }
+
     public void generateEventDetailReport(TableView<Event> tableView, Stage stage) throws IOException {
         ClubAdvisorActivityController.generateCsv(tableView, stage);
     }
