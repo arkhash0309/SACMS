@@ -168,7 +168,7 @@ public class ClubAdvisorLoginController {
     //advisorCredentialsChecker will check whether entered credentials are correct according to the given values
     boolean advisorCredentialsChecker() {
         ClubAdvisor advisor = new ClubAdvisor(clubAdvisortLoginPageUserName,clubAdvisorLoginPagePassword);
-        String correctPassword = advisor.advisorLoginToSystem();
+        String correctPassword = advisor.LoginToSystem();
         loginStatus = true;
         if(!clubAdvisorLoginPagePassword.equals(correctPassword)){
             loginStatus = false;

@@ -50,10 +50,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
-    @Override
-    public String studentLoginToSystem() {
-        return null;
-    }
+
 //    @Override
 //    public String studentRegisteringToSystem(){
 //        return null;
@@ -61,7 +58,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
 
     @Override
-    public String advisorLoginToSystem(){
+    public String LoginToSystem(){
         String correctPassword = null; // store correct password from database
         String credentialChdeckQuery = "SELECT teacherPassword FROM TeacherCredentials WHERE teacherUserName = ?";
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
@@ -293,6 +290,10 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         }else{
             return true;
         }
+    }
+
+    public void generateMembershipDetailReport(TableView<Student> tableView, Stage stage) throws IOException {
+        ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
     }
 
     public void generateEventDetailReport(TableView<Event> tableView, Stage stage) throws IOException {
