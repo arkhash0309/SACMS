@@ -2308,6 +2308,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     }catch (Exception e){
                         System.out.println(e);
                     }
+
+                    String updateTeacherUserNameQuery = "update TeacherCredentials set teacherUserName = ? " + "where teacherInChargeId = ?"; // advisor username update queryi
+
+
                     Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                     clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                     clubUpdateAlert.setTitle("School Club Management System");
