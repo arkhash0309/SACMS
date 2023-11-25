@@ -160,7 +160,11 @@ public class StudentLoginController {
                                   empty or not */
         loginStatus = true;
         studentLoginPageUserName = LoginStudentUserName.getText(); // receiving username from user in login page
-        studentLoginPagePassword = studentLoginPassword.getText(); // receiving password from user in login page
+        if(studentLoginPassword.isVisible()){
+            studentLoginPagePassword = studentLoginPassword.getText(); // receiving password from user in login page
+        }else{
+            studentLoginPagePassword =  PasswordTextField.getText(); // receiving password from user in login page
+        }
 
         userNameForShowInStudentDashboard = studentLoginPageUserName;
         if (studentLoginPageUserName.isEmpty()) { // if username is empty, error label will be set

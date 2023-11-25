@@ -281,15 +281,23 @@ public class StudentActivityController extends StudentDashboardController {
                 preparedStatement.setInt(5, Integer.parseInt(updatedContactNum));
                 preparedStatement.setString(6, String.valueOf(studentAdmissionNum));
                 preparedStatement.executeUpdate();
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("School Club Management System");
-                alert.setHeaderText("You have successfully update your personal details.");
-                alert.showAndWait();
-
             } catch (Exception e) {
                 System.out.println(e);
             }
+            String updateStudentUserNameQuery = "update studentCredentials set studentUserName = ? " + "where studentAdmissionNum = ?"; // student username update query
+            try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateStudentUserNameQuery)){
+                preparedStatement.setString(1, updatedUserName);
+                preparedStatement.setString(2, String.valueOf(updatedAdmissionNumber));
+                preparedStatement.executeUpdate();
+                studentUpdateProfileUserName.setText(updatedUserName);
+                System.out.println("Username, Working as desired");
+            }catch (Exception e){
+                System.out.println(e);
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("You have successfully update your personal details.");
+            alert.showAndWait();
 
 
         }

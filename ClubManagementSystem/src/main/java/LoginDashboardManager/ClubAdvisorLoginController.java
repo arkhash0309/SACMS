@@ -151,7 +151,11 @@ public class ClubAdvisorLoginController {
     boolean fieldsChecker() {
         loginStatus = true;
         clubAdvisortLoginPageUserName = advisorLoginUserName.getText();
-        clubAdvisorLoginPagePassword = advisorLoginPassword.getText();
+        if(advisorLoginPassword.isVisible()){
+            clubAdvisorLoginPagePassword = advisorLoginPassword.getText(); // receiving password from user in login page
+        }else{
+            clubAdvisorLoginPagePassword =  PasswordTextField.getText(); // receiving password from user in login page
+        }
 
         userNameForShowInAdvisorDashboard = clubAdvisortLoginPageUserName;
         if(clubAdvisortLoginPageUserName.isEmpty()){

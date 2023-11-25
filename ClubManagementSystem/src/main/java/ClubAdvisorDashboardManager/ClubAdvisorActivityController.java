@@ -55,6 +55,7 @@ import static SystemUsers.Student.studentJoinedClubs;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.concurrent.ExecutionException;
 
 
 public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlller {
@@ -2304,10 +2305,22 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                         preparedStatement.setString(4, String.valueOf(advisorId));
                         preparedStatement.executeUpdate();
 
-                        System.out.println("Working as desired");
+                        System.out.println("Personal Details, Working as desired");
                     }catch (Exception e){
                         System.out.println(e);
                     }
+
+                    String updateTeacherUserNameQuery = "update TeacherCredentials set teacherUserName = ? " + "where teacherInChargeId = ?"; // advisor username update queryi
+                    try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateTeacherUserNameQuery)){
+                        preparedStatement.setString(1, advisorUsername);
+                        preparedStatement.setString(2, String.valueOf(advisorId));
+                        preparedStatement.executeUpdate();
+                        profileAdvisorUsername.setText(advisorUsername);
+                        System.out.println("Username, Working as desired");
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
+
                     Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                     clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                     clubUpdateAlert.setTitle("School Club Management System");
@@ -2368,28 +2381,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                                 preparedStatement.setString(2, advisorConfirmPassword);
                                 preparedStatement.setString(3, String.valueOf(advisorId));
                                 preparedStatement.executeUpdate();
-
                             } catch (Exception e) {
                                 System.out.println(e);
                             }
-
-//                            String updateUserNameQuery = "UPDATE TeacherCredentials SET teacherUserName = ? WHERE teacherInChargeId = ?";
-//
-//                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateUserNameQuery)) {
-//
-//                                preparedStatement.setString(1, advisorUsername);
-//                                preparedStatement.setInt(2, advisorId);
-//
-//                                preparedStatement.executeUpdate();
-//
-//                            } catch (SQLException e) {
-//                                System.out.println("error updation");
-//                                e.printStackTrace(); // Handle the exception as needed
-//                                return;
-//                            }
-
-
-
                             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                             clubUpdateAlert.setTitle("School Club Management System");
@@ -2480,10 +2474,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         profileAdvisorCnumber.setText((contactNumber));
         username = String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getUserName());
     }
-
-//    public void displayExistingPassword(){
-//        profileAdvisorpw.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getPassword()));
-//    }
 
 
     /* This method ensures that the input number is represented
