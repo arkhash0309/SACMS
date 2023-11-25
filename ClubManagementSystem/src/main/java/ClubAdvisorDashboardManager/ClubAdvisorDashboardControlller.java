@@ -584,6 +584,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     public TableColumn<Student, String>memberUsername;
     @FXML
+    public Label membershipReportNumber;
+    @FXML
     protected ComboBox<String> registrationUserSelectComboBox;
 
     @FXML
