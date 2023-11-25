@@ -293,7 +293,6 @@ public class StudentActivityController extends StudentDashboardController {
             }catch (Exception e){
                 System.out.println(e);
             }
-
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("School Club Management System");
             alert.setHeaderText("You have successfully update your personal details.");
