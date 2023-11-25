@@ -73,8 +73,8 @@
                      <children>
                         <AnchorPane layoutX="6.0" prefHeight="572.0" prefWidth="239.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Circle fill="WHITE" layoutX="110.0" layoutY="63.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
-                              <ImageView fitHeight="76.0" fitWidth="73.0" layoutX="75.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                              <Circle fill="WHITE" layoutX="119.0" layoutY="62.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="74.0" fitWidth="66.0" layoutX="86.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../Images/lecturer-removebg-preview.png" />
                                  </image>
@@ -1051,7 +1051,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="50.0" prefHeight="519.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                  <children>
-                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="22.0" layoutY="19.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
@@ -1152,7 +1152,7 @@
                                           <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
                                                 <ComboBox fx:id="clubMembershipCombo" layoutX="27.0" layoutY="93.0" onAction="#clubMembershipReportGenerator" prefHeight="31.0" prefWidth="290.0" styleClass="eventField" />
-                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="151.0" styleClass="button2" text="Generate Report">
+                                                <Button layoutX="339.0" layoutY="438.0" mnemonicParsing="false" onAction="#GeneratePdfReportForMembership" prefHeight="36.0" prefWidth="151.0" styleClass="button2" text="Generate Report">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -1188,9 +1188,14 @@
                                                       </RadialGradient>
                                                    </textFill>
                                                 </Label>
+                                                <Label fx:id="membershipReportNumber" layoutX="420.0" layoutY="70.0" prefHeight="46.0" prefWidth="298.0" text="Number of Members :">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
-                                          <TableView fx:id="clubMembershipTable" layoutX="48.0" layoutY="197.0" prefHeight="281.0" prefWidth="782.0">
+                                          <TableView fx:id="clubMembershipTable" layoutX="48.0" layoutY="197.0" prefHeight="246.0" prefWidth="782.0">
                                             <columns>
                                               <TableColumn fx:id="memberAdmissionNumber" prefWidth="121.14285278320312" text="Admission Number" />
                                               <TableColumn fx:id="memberUsername" prefWidth="102.85714721679688" text="Username" />
@@ -1208,7 +1213,7 @@
                                           <AnchorPane layoutX="26.0" layoutY="21.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane">
                                              <children>
                                                 <ComboBox fx:id="registrationUserSelectComboBox" layoutX="27.0" layoutY="93.0" onAction="#onClickRegistrationGenerateReportButton" prefHeight="27.0" prefWidth="235.0" styleClass="eventField" />
-                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="137.0" text="Generate Report">
+                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" onAction="#GenerateRegistrationReport" prefHeight="30.0" prefWidth="137.0" styleClass="button2" text="Generate Report">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>

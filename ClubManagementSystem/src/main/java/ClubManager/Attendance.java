@@ -2,7 +2,6 @@ package ClubManager;
 
 import SystemUsers.Student;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
