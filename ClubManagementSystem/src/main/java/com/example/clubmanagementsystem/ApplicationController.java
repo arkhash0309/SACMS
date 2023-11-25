@@ -6,7 +6,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.util.Optional;
 
 // This class is responsible on handling the application ribbon for all the stages

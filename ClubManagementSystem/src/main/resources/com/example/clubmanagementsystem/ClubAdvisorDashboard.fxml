@@ -73,8 +73,8 @@
                      <children>
                         <AnchorPane layoutX="6.0" prefHeight="572.0" prefWidth="239.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Circle fill="WHITE" layoutX="110.0" layoutY="63.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
-                              <ImageView fitHeight="76.0" fitWidth="73.0" layoutX="75.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                              <Circle fill="WHITE" layoutX="119.0" layoutY="62.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="74.0" fitWidth="66.0" layoutX="86.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../Images/lecturer-removebg-preview.png" />
                                  </image>
