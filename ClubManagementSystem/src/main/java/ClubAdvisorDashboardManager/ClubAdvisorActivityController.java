@@ -2310,12 +2310,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                         System.out.println(e);
                     }
 
-                    String updateTeacherUserNameQuery = "update TeacherCredentials set teacherUserName = ? " + "where teacherInChargeId = ?"; // advisor username update queryi
+                    String updateTeacherUserNameQuery = "update TeacherCredentials set teacherUserName = ? " + "where teacherInChargeId = ?";
+                    // advisor username update query
                     try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateTeacherUserNameQuery)){
                         preparedStatement.setString(1, advisorUsername);
                         preparedStatement.setString(2, String.valueOf(advisorId));
                         preparedStatement.executeUpdate();
                         profileAdvisorUsername.setText(advisorUsername);
+                        showUserNameClubAdvisor.setText(advisorUsername); // setting newly updated username to dashboard
+                        showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
                         System.out.println("Username, Working as desired");
                     }catch (Exception e){
                         System.out.println(e);
@@ -2797,12 +2800,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void GenerateRegistrationReport(ActionEvent event) throws IOException {
-        /*ClubAdvisor clubAdvisor = new ClubAdvisor();
+        ClubAdvisor clubAdvisor = new ClubAdvisor();
         if(registrationUserSelectComboBox.getValue().equals("Club Advisor")){
             clubAdvisor.generateClubAdvisorRegistrationDetailReport(registrationAdvisorTable, stage);
         }else{
             clubAdvisor.generateStudentRegistrationReport(registrationStudentTable, stage);
-        }*/
+        }
         
     }
 
@@ -2884,7 +2887,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-    /*private static void writeClubAdvisorCsvContent(FileWriter writer, TableView<ClubAdvisor> tableView) throws IOException {
+    private static void writeClubAdvisorCsvContent(FileWriter writer, TableView<ClubAdvisor> tableView) throws IOException {
         ObservableList<TableColumn<ClubAdvisor, ?>> columns = tableView.getColumns();
 
         // Write headers
@@ -2922,8 +2925,4 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.setHeaderText("Report Generated Successfully");
         alert.show();
     }
-*/
-
-
-
 }

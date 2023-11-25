@@ -290,6 +290,8 @@ public class StudentActivityController extends StudentDashboardController {
                 preparedStatement.setString(2, String.valueOf(updatedAdmissionNumber));
                 preparedStatement.executeUpdate();
                 studentUpdateProfileUserName.setText(updatedUserName);
+                showUserName.setText(updatedUserName); // setting newly updated username to dashboard
+                showUserName.setStyle("-fx-text-alignment: center");
                 System.out.println("Username, Working as desired");
             }catch (Exception e){
                 System.out.println(e);
