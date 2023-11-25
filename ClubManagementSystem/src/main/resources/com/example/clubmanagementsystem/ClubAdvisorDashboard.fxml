@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
     <stylesheets>
         <URL value="@ClubAdvisorDashboard.css" />
     </stylesheets>
@@ -1213,7 +1213,7 @@
                                           <AnchorPane layoutX="26.0" layoutY="21.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane">
                                              <children>
                                                 <ComboBox fx:id="registrationUserSelectComboBox" layoutX="27.0" layoutY="93.0" onAction="#onClickRegistrationGenerateReportButton" prefHeight="27.0" prefWidth="235.0" styleClass="eventField" />
-                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="137.0" text="Generate Report">
+                                                <Button layoutX="375.0" layoutY="72.0" mnemonicParsing="false" onAction="#GenerateRegistrationReport" prefHeight="30.0" prefWidth="137.0" styleClass="button2" text="Generate Report">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>

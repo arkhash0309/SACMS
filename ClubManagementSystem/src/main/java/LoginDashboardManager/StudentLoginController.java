@@ -164,12 +164,14 @@ public class StudentLoginController {
 
         userNameForShowInStudentDashboard = studentLoginPageUserName;
         if (studentLoginPageUserName.isEmpty()) { // if username is empty, error label will be set
+            System.out.println("Empty user name !!!");
             loginStatus = false;
             studentLoginUserNameErrorLabel.setText("This field cannot be empty");
         }
         if (studentLoginPagePassword.isEmpty()) { // if password is field is empty, error label will be set
             loginStatus = false; // loginStatus will be false
             studentLoginPasswordErrorLabel.setText("This field cannot be empty");
+            System.out.println("Empty password !!!");
         }
         return loginStatus;
     }
@@ -177,7 +179,7 @@ public class StudentLoginController {
     //studentCredentialChecker will check whether entered credentials are correct according to the given values
     boolean studentCredentialChecker() { /* this method will check, whether entered username and password are correct
                                             according to the existing values*/
-        Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
+       Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
        String correctPassword = student.LoginToSystem(); // calling studentLoginToSystem method
         loginStatus = true;
         if (!studentLoginPagePassword.equals(correctPassword)) { // entered password is incorrect, error label will be set

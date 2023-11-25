@@ -2805,6 +2805,17 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clubAdvisor.generateEventDetailReport(generateReportEventViewTable, stage);
     }
 
+    @FXML
+    void GenerateRegistrationReport(ActionEvent event) throws IOException {
+        /*ClubAdvisor clubAdvisor = new ClubAdvisor();
+        if(registrationUserSelectComboBox.getValue().equals("Club Advisor")){
+            clubAdvisor.generateClubAdvisorRegistrationDetailReport(registrationAdvisorTable, stage);
+        }else{
+            clubAdvisor.generateStudentRegistrationReport(registrationStudentTable, stage);
+        }*/
+        
+    }
+
     public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -2842,6 +2853,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             writer.write("\n");
         }
     }
+
     public static void generateCsv(TableView<Event> tableView, Stage stage) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -2862,6 +2874,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.show();
     }
 
+
     private static void writeCsvContent(FileWriter writer, TableView<Event> tableView) throws IOException {
         ObservableList<TableColumn<Event, ?>> columns = tableView.getColumns();
 
@@ -2880,5 +2893,47 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             writer.write("\n");
         }
     }
+
+    /*private static void writeClubAdvisorCsvContent(FileWriter writer, TableView<ClubAdvisor> tableView) throws IOException {
+        ObservableList<TableColumn<ClubAdvisor, ?>> columns = tableView.getColumns();
+
+        // Write headers
+        for (TableColumn<ClubAdvisor, ?> column : columns) {
+            writer.write(column.getText() + ",");
+        }
+        writer.write("\n");
+
+        // Write data
+        for (ClubAdvisor clubAdvisor: tableView.getItems()) {
+            for (TableColumn<ClubAdvisor, ?> column : columns) {
+                String cellValue = column.getCellData(clubAdvisor).toString();
+                writer.write(cellValue + ",");
+            }
+            writer.write("\n");
+        }
+    }
+
+    public static void generateAdvisorCsv(TableView<ClubAdvisor> tableView, Stage stage) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writeClubAdvisorCsvContent(writer, tableView);
+                System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
+            }
+        }else{
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("Report Generated Successfully");
+        alert.show();
+    }
+*/
+
+
 
 }
