@@ -1871,12 +1871,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-
-
-
-
-
-
     // This method handles dragging of the club advisor dashboard when the mouse is detected
     @Override
     void ClubAdvisorDashboardDetected(MouseEvent event) {

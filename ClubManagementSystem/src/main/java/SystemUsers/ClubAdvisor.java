@@ -322,4 +322,5 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         // Replace the old trackingEvent with the updated one in the static eventDetails list
         Event.eventDetails.set(eventIndex, trackingEvent);
     }
+
 }

@@ -20,7 +20,8 @@ public class Event {
     // The following arraylist will store the all event related details
     public static ArrayList<Event> eventDetails = new ArrayList<>();
 
-    public static ArrayList<Attendance> eventAttendance = new ArrayList<>();
+    public ArrayList<Attendance> eventAttendance = new ArrayList<>();
+
 
     // Constructor for creating an Event object to create and update events
     public Event(String eventName, String eventLocation, String eventType,
@@ -136,4 +137,9 @@ public class Event {
     public void setEventId(int eventId) {
         this.eventId = eventId;
     }
+
+    public void SetEventAttendanceList(ArrayList<Attendance> eventAttendance){
+        this.eventAttendance = eventAttendance;
+    }
+
 }
