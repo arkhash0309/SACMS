@@ -54,6 +54,7 @@ public class HelloApplication extends Application {
 
         // Closing the database connection after terminating the application
         connection.close();
+        System.out.println("Lakshan");
 
     }
 
