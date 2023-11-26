@@ -1790,8 +1790,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     void selectStudentsForEvents(ActionEvent event) {
         // an object of data type Event is created and set to null initially
         Event eventToBeTracked = null;
-        // An array list of data type Student is created
-        ArrayList<Student> studentAttendanceList = new ArrayList<>();
         // the name of the event is retrieved from the combo box value
         String eventName = attendanceEventNameComboBox.getValue();
         System.out.println(eventName);
@@ -1802,38 +1800,44 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // if the event name in the array list is equal to the value in the combo box
             if (event1.getEventName().equals(eventName)) {
                 eventRelatedClubName = event1.getHostingClub().getClubName();
-                /*the details of that specific entry is assigned to
-                the event variable declared initially at the beginning of the method.*/
+            /*the details of that specific entry is assigned to
+            the event variable declared initially at the beginning of the method.*/
                 eventToBeTracked = event1;
                 break; // break statement is used to move out of the loop
             }
         }
 
-        if(eventToBeTracked == null){
+        if (eventToBeTracked == null) {
             return;
         }
 
-        // a for loop is iterated for each entry in the studentDetailArray Array list
-        for (Student student : Student.studentDetailArray) {
-            // a for loop is iterated for each entry in the studentJoinedClubs Array list
-            for (Club club : Student.studentJoinedClubs) {
-                /* if the club nam is same as the club  related to the event,
-                the student is added to the respective attendance sheet */
+        // An array list of data type Student is created
+        ArrayList<Student> studentAttendanceList = new ArrayList<>();
+
+        // Iterate through joinedClubForEachStudent
+        for (Map.Entry<Student, ArrayList<Club>> entry : ClubAdvisorDataBaseManager.joinedClubForEachStudent.entrySet()) {
+            Student student = entry.getKey();
+            ArrayList<Club> joinedClubs = entry.getValue();
+
+            // Check if the student has joined the club related to the event
+            for (Club club : joinedClubs) {
                 if (club.getClubName().equals(eventRelatedClubName)) {
                     studentAttendanceList.add(student);
                     break; // a break statement is used to move out of the loop
                 }
             }
+        }
 
-
+        // Create attendance objects
+        for (Student student : studentAttendanceList) {
             CheckBox attendanceCheckBox = new CheckBox();  // a checkbox is created
             // an object of data type Attendance is created with the initial attendance status set to false
             Attendance attendance = new Attendance(false, student, eventToBeTracked, attendanceCheckBox);
             boolean attendanceStat = true;
 
-            /* for each entry in the eventAttendance Array list, if the student is the same as
-            the student in the sheet, then the loop is exited */
-            for (Attendance attendance1 : eventToBeTracked.eventAttendance){
+        /* for each entry in the eventAttendance Array list, if the student is the same as
+        the student in the sheet, then the loop is exited */
+            for (Attendance attendance1 : eventToBeTracked.eventAttendance) {
                 if ((student.getStudentAdmissionNum() == attendance1.student.getStudentAdmissionNum())) {
                     attendanceStat = false;
                     break;
@@ -1845,8 +1849,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 // the object attendance is added to the variable of data type Event
                 eventToBeTracked.eventAttendance.add(attendance);
             }
-
         }
+
         // for each entry in the Array list
         for (Attendance attendance2 : eventToBeTracked.eventAttendance) {
             System.out.println(attendance2.student.getStudentAdmissionNum());
@@ -1855,6 +1859,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             System.out.println(attendance2.getEventName());
         }
         System.out.println(eventToBeTracked.eventAttendance.size());
+
+        attendanceTrackerTable.getItems().clear();
         // an observable array list is created to add the details into the table view
         ObservableList<Attendance> attendanceObservableList = FXCollections.observableArrayList(eventToBeTracked.eventAttendance);
 
@@ -1867,25 +1873,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // the details in the observable array list are set to the table view
         attendanceTrackerTable.setItems(attendanceObservableList);
-
     }
-
-
-    @FXML
-    void onAttendanceSubmitButtonClick(ActionEvent event) {
-        ObservableList<Attendance> attendanceTableRetrieval = attendanceTrackerTable.getItems();
-        attendanceTableRetrieval.clear();
-        populateAttendanceClubNameComboBox();
-    }
-
-
-
-
-
-
-
-
-
 
 
     // This method handles dragging of the club advisor dashboard when the mouse is detected

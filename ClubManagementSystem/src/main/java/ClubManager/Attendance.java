@@ -97,10 +97,5 @@ public class Attendance {
     public boolean attendanceStatusProperty() {
         return attendanceStatusProperty;
     }
-
-
-
-
-
-
+    
 }
