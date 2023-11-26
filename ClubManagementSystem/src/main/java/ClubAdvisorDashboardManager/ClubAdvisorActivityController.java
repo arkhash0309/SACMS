@@ -1611,7 +1611,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 }
 
             }
-        
+        }
     }
 
 
@@ -2773,7 +2773,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             System.out.println("User is " + selectedUser);
             registrationAdvisorTable.setVisible(false); // setting registrationAdvisorTable in-order to make visible student table
             registrationStudentTable.setVisible(true); // setting registrationStudentTable table visible
-                populateStudentRegisterTable(); // when Student selected as the user respective table will visible
+            populateStudentRegisterTable(); // when Student selected as the user respective table will visible
 
         }
 
@@ -2806,7 +2806,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }else{
             clubAdvisor.generateStudentRegistrationReport(registrationStudentTable, stage);
         }
-        
+
     }
 
     public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
