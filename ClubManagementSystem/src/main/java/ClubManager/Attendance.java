@@ -97,5 +97,11 @@ public class Attendance {
     public boolean attendanceStatusProperty() {
         return attendanceStatusProperty;
     }
-    
+
+
+    public void setAttendanceStatusProperty(boolean attendanceStatusProperty) {
+        this.attendanceStatusProperty = attendanceStatusProperty;
+    }
+
+
 }

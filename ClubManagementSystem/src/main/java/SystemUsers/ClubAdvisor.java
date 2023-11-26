@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+
 import static ClubManager.Club.clubDetailsList;
 
 public class ClubAdvisor extends User implements ClubAdvisorValidator {
@@ -308,6 +309,18 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     public void generateStudentRegistrationReport(TableView<Student> tableView, Stage stage) throws IOException {
         ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
+    }
+
+    public void TrackAttendance(Event trackingEvent, ObservableList<Attendance> attendanceData) {
+        // Update the eventAttendance list in the selected event
+        trackingEvent.eventAttendance.clear();
+        trackingEvent.eventAttendance.addAll(attendanceData);
+
+        // Find the index of the trackingEvent in the static eventDetails list
+        int eventIndex = Event.eventDetails.indexOf(trackingEvent);
+
+        // Replace the old trackingEvent with the updated one in the static eventDetails list
+        Event.eventDetails.set(eventIndex, trackingEvent);
     }
 
 }
