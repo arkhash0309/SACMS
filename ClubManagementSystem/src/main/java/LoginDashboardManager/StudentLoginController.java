@@ -516,11 +516,6 @@ public class StudentLoginController {
         }
     }
 
-
-
-
-
-
     public void setComboBoxValuesStudentRegistration(){
         Grade.getItems().add("Select Grade");
         for (int ComboGrade = 6; ComboGrade<13; ComboGrade++) {

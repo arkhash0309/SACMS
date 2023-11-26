@@ -16,6 +16,7 @@ public class Event {
     private int eventId;
     String hostingClubName;
     public static ArrayList<Event> eventDetails = new ArrayList<>();
+    public ArrayList<Attendance> eventAttendance = new ArrayList<>();
 
     public Event(String eventName, String eventLocation, String eventType,
                  String eventDeliveryType, LocalDate eventDate, LocalTime eventTime, Club hostingClub,

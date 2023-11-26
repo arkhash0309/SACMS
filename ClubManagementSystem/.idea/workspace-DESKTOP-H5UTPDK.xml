@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3da40ac3-758b-41c3-9a18-3da61690b716" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/ClubAdvisorDashboardManager/ClubAdvisorActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ClubAdvisorDashboardManager/ClubAdvisorActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ClubManager/Attendance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ClubManager/Attendance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ClubManager/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ClubManager/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/StudentDashboardManager/StudentActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/StudentDashboardManager/StudentActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SystemUsers/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SystemUsers/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2XtWlUk3yqjXVlGymmABD1uk9ZR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "",
+    "last_opened_file_path": "C:/Users/arkha/OneDrive/Desktop/Search Algorithms/BreadthFirstSearch",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3da40ac3-758b-41c3-9a18-3da61690b716" name="Changes" comment="" />
+      <created>1699449009535</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699449009535</updated>
+      <workItem from="1699449010511" duration="1648000" />
+      <workItem from="1699459554413" duration="972000" />
+      <workItem from="1699510791322" duration="671000" />
+      <workItem from="1699537411883" duration="6670000" />
+      <workItem from="1699574268652" duration="891000" />
+      <workItem from="1699614587859" duration="1810000" />
+      <workItem from="1699624011109" duration="1187000" />
+      <workItem from="1699631901119" duration="2920000" />
+      <workItem from="1699678870726" duration="11125000" />
+      <workItem from="1699696382751" duration="9285000" />
+      <workItem from="1699762287602" duration="7120000" />
+      <workItem from="1699867563515" duration="1214000" />
+      <workItem from="1699889193050" duration="741000" />
+      <workItem from="1699890228296" duration="3252000" />
+      <workItem from="1699939215368" duration="8044000" />
+      <workItem from="1700018263257" duration="5346000" />
+      <workItem from="1700036237670" duration="10007000" />
+      <workItem from="1700065583291" duration="1000" />
+      <workItem from="1700093489867" duration="1800000" />
+      <workItem from="1700112005294" duration="3744000" />
+      <workItem from="1700123122836" duration="1026000" />
+      <workItem from="1700135437942" duration="3469000" />
+      <workItem from="1700141932101" duration="8232000" />
+      <workItem from="1700154060334" duration="5076000" />
+      <workItem from="1700304038646" duration="10588000" />
+      <workItem from="1700358061108" duration="18655000" />
+      <workItem from="1700479125886" duration="3169000" />
+      <workItem from="1700491790533" duration="158000" />
+      <workItem from="1700535665701" duration="13769000" />
+      <workItem from="1700659944464" duration="2657000" />
+      <workItem from="1700699145366" duration="340000" />
+      <workItem from="1700833599778" duration="53000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

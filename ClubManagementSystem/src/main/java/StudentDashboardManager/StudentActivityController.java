@@ -152,11 +152,11 @@ public class StudentActivityController extends StudentDashboardController{
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
-
+    // method to validate the entries in updating profile
     public void onStudentProfileUpdateButtonClick() {
-        validStat = true;
+        validStat = true; // the boolean value is initially set to true
 
-
+        // the values are retrieved from the text fields
         String updatedAdmissionNumber = studentUpdateProfileID.getText();
         String updatedFirstName = studentUpdateProfileFName.getText();
         String updatedLastName = studentUpdateProfileLName.getText();
@@ -170,29 +170,33 @@ public class StudentActivityController extends StudentDashboardController{
 //            return;
 //        }
 
+        // an object of data type Student is created to hold the details of the student
         Student student = new Student(studentUpdateProfileUserName.getText(), studentUpdateProfileExistingPassword.getText(),
                 studentUpdateProfileFName.getText(), studentUpdateProfileLName.getText());
 
+        // the validateStatus is set to an initial value of correct
         Student.fNameValidateStatus = "correct";
         Student.lNameValidateStatus = "correct";
         Student.contactNumberValidateStatus = "correct";
         Student.passwordValidateStatus = "correct";
         Student.userNameValidateStatus = "correct";
 
+        // the first name is validated
         if (!student.validateFirstName()) {
             System.out.println("Incorrect First Name.");
             System.out.println(Student.fNameValidateStatus + " : First Name");
-            validStat = false;
+            validStat = false; // boolean value is set to false
         }
-        displayNameError("firstName");
+        displayNameError("firstName"); //method to display the error message is called and the error type is specified
 
         if (!student.validateLastName()) {
             System.out.println("Incorrect Last Name.");
             System.out.println(Student.lNameValidateStatus);
-            validStat = false;
+            validStat = false; // boolean value is set to false
         }
-        displayNameError("lastName");
+        displayNameError("lastName"); //method to display the error message is called and the error type is specified
 
+        // a try catch approach is carried out
         try{
             if (updatedAdmissionNumber.isEmpty()) {
                 validStat = false;
@@ -208,47 +212,62 @@ public class StudentActivityController extends StudentDashboardController{
             } else {
                 Student.admissionNumStatus = "";
             }
-        } catch (NumberFormatException e) {
+        }
+
+        catch (NumberFormatException e) {
               Student.admissionNumStatus = "format";
               System.out.println("Invalid Student ID");
-               validStat = false;
-        } catch (Exception e) {
-            validStat = false;
+               validStat = false; // boolean value is set to false
+        }
+        // exceptions are caught
+        catch (Exception e) {
+            validStat = false; // boolean value is set to false
         }
         displayAdmissionNumError();
-        try{
-            String tempContactNum = updatedContactNum;
-            if (tempContactNum.isEmpty()) {
-                User.contactNumberValidateStatus = "empty";
-                throw new Exception();
-            }
-            Double.parseDouble(updatedContactNum.trim());
-            Student std1 = new Student(tempContactNum);
 
+
+        // a try catch approach is carried out
+        try{
+            // the contact number is stored in a temporary String variable
+            String tempContactNum = updatedContactNum;
+            // check if the field is empty
+            if (tempContactNum.isEmpty()) {
+                User.contactNumberValidateStatus = "empty"; // the respective status is specified
+                throw new Exception(); // an exception is thrown
+            }
+            // the contact number is converted to a double and the value is trimmed to remove leading zeros
+            Double.parseDouble(updatedContactNum.trim());
+            Student std1 = new Student(tempContactNum); // a new object of data type Student is created by passing the contact number
+
+            // the contact number is passed through the validation method for contact numbers
             if (!std1.validateContactNumber()) {
-                validStat = false;
+                validStat = false; // boolean value is set to false
                 System.out.println("Invalid Contact Number 1");
             } else {
-                User.contactNumberValidateStatus = "";
+                User.contactNumberValidateStatus = ""; // the respective status is specified
             }
-        } catch(NumberFormatException e) {
+        }
+        // number format exceptions are caught
+        catch(NumberFormatException e) {
             System.out.println("Invalid ContactNumber 2");
-            User.contactNumberValidateStatus = "format";
-            validStat = false;
-        } catch (Exception e) {
-            validStat = false;
+            User.contactNumberValidateStatus = "format"; // the respective status is specified
+            validStat = false; // boolean value is set to false
         }
-        displayContactNumError();
+        // exceptions are caught
+        catch (Exception e) {
+            validStat = false; // boolean value is set to false
+        }
+        displayContactNumError(); // method to display the error message for contact number is called
 
-        if (!student.validateUserName("updation", "student")) {
+        /* the username is validated by calling the method for username validation and the
+        type of validation (update) is specified to ensure the value is validated accordingly*/
+        if (!student.validateUserName("update", "student")) {
             System.out.println("Wrong user name.");
-            validStat = false;
+            validStat = false; // boolean value is set to false
         } else {
-            User.userNameValidateStatus = "";
+            User.userNameValidateStatus = ""; // the respective status is specified
         }
-        displayUserNameError();
-
-
+        displayUserNameError(); // method to display the error message for username is called
 
         System.out.println(validStat + " : Valid Stat");
         if (validStat) {
@@ -260,115 +279,174 @@ public class StudentActivityController extends StudentDashboardController{
         System.out.println("\n\n\n");
     }
 
+    /* the below method is used to validate the change in password in case the user wishes to change it.
+    This is done by creating an on action event. */
     public void onStudentProfilePasswordChangeButtonClick() throws SQLException {
+        // the values are retrieved from the text fields
         String updatedPassword = this.studentUpdateProfileNewPassword.getText();
         String updateConfirmPassword = this.studentUpdateProfileConfirmPassword.getText();
 
+        // an object of data type Student is created ny passing the updatedPassword value
         Student newStd = new Student(updatedPassword);
+        /* the new password is validated by specifying the type of validation (update)
+        so that the relevant validations can take place */
         if (!newStd.validatePassword("update")) {
             System.out.println("Wrong password.");
-            validStat = false;
+            validStat = false; // boolean value is set to false
         } else {
             User.passwordValidateStatus = "";
         }
-        displayPasswordError();
+        displayPasswordError(); // method to display the error message for password is called
 
+        // the check takes place to see if the fields are empty
         if (updateConfirmPassword.isEmpty()) {
-            studentUpdateConfirmPasswordLabel.setText("Cannot be empty.");
-            validStat = false;
+            studentUpdateConfirmPasswordLabel.setText("Cannot be empty."); // the error message is set to the label
+            validStat = false; // boolean value is set to false
 
-        } else if (!updateConfirmPassword.equals(updatedPassword)) {
-            studentUpdateConfirmPasswordLabel.setText("Passwords do not match");
-            validStat = false;
-        } else {
-            studentUpdateConfirmPasswordLabel.setText("");
+        }
+        // the check takes place to see if the passwords match
+        else if (!updateConfirmPassword.equals(updatedPassword)) {
+            studentUpdateConfirmPasswordLabel.setText("Passwords do not match"); // the error message is set to the label
+            validStat = false; // boolean value is set to false
+        }
+        // if the entered details are valid
+        else {
+            studentUpdateConfirmPasswordLabel.setText(""); // the label value is set to empty
         }
 
+        // if the passed boolean value is true
         if (validStat) {
+            // the new password is set to the existing password
             studentUpdateProfileExistingPassword.setText(updatedPassword);
         }
     }
 
+    // method to display error messages related to first and last name
     public void displayNameError(String nameType) {
+        // if it is the first name
         if (nameType.equals("firstName")) {
+            // if the value is empty
             if (Student.fNameValidateStatus.equals("empty")) {
                 studentUpdateFNameLabel.setText("First Name cannot be empty.");
-            } else if (Student.fNameValidateStatus.equals("format")) {
+            }
+            // if the first name contains characters other than letters
+            else if (Student.fNameValidateStatus.equals("format")) {
                 studentUpdateFNameLabel.setText("First Name can contain only letters.");
-            } else {
+            }
+            // if a valid entry is made
+            else {
                 studentUpdateFNameLabel.setText("");
             }
-        } else if (nameType.equals("lastName")) {
+        }
+        // if it is the last name
+        else if (nameType.equals("lastName")) {
+            // if the value is empty
             if (Student.lNameValidateStatus.equals("empty")) {
                 studentUpdateLNameLabel.setText("Last Name cannot be empty.");
-            } else if (Student.lNameValidateStatus.equals("format")) {
+            }
+            // if the first name contains characters other than letters
+            else if (Student.lNameValidateStatus.equals("format")) {
                 studentUpdateLNameLabel.setText("Last name can contain only letters.");
-            } else {
+            }
+            // if a valid entry is made
+            else {
                 studentUpdateLNameLabel.setText("");
             }
         }
     }
 
+    // method to display error messages related to contact num
     public void displayContactNumError() {
+        // if the value is empty
         if (User.contactNumberValidateStatus.equals("empty")) {
             studentUpdateContactNumLabel.setText("Contact number cannot be empty.");
-        } else if (User.contactNumberValidateStatus.equals("length")){
+        }
+        // if the contact number is not 10 digits
+        else if (User.contactNumberValidateStatus.equals("length")){
             studentUpdateContactNumLabel.setText("Contact number should be 10 digits.");
-        } else if (User.contactNumberValidateStatus.equals("format")) {
+        }
+        // if the contact number contains characters other than numbers
+        else if (User.contactNumberValidateStatus.equals("format")) {
             studentUpdateContactNumLabel.setText("It should contain only numbers.");
-        } else {
+        }
+        // if a valid entry is made
+        else {
             studentUpdateContactNumLabel.setText("");
         }
     }
 
+    // method to display error messages related to admission number
+    public void displayAdmissionNumError() {
+        // if the value is empty
+        if (Student.admissionNumStatus.equals("empty")) {
+            studentUpdateIDLabel.setText("Admission Number cannot be empty.");
+        }
+        // if the admission number is not 6 digits
+        else if (Student.admissionNumStatus.equals("length")) {
+            studentUpdateIDLabel.setText("Admission Number has to be 6 digits.");
+        }
+        // if the admission number is already assigned to another individual
+        else if (Student.admissionNumStatus.equals("exist")) {
+            studentUpdateIDLabel.setText("Admission Number already exists.");
+        }
+        // if the admission number contains characters other than numbers
+        else if (Student.admissionNumStatus.equals("format")) {
+            studentUpdateIDLabel.setText("Admission Number contain only numbers.");
+        }
+        // if a valid entry is made
+        else {
+            studentUpdateIDLabel.setText("");
+        }
+    }
+
+    // method to display error messages related to username
     public void displayUserNameError() {
+        // if the value is empty
         if (User.userNameValidateStatus.equals("empty")) {
             studentUpdateUserNameLabel.setText("User name cannot be empty.");
-        } else if (Student.userNameValidateStatus.equals("exists")) {
+        }
+        // if the username is already assigned to another individual
+        else if (Student.userNameValidateStatus.equals("exists")) {
             studentUpdateUserNameLabel.setText("Entered username already exists.");
-        } else if (User.userNameValidateStatus.equals("blank")) {
+        }
+        // if the username contains spaces
+        else if (User.userNameValidateStatus.equals("blank")) {
             studentUpdateUserNameLabel.setText("Username cannot contain spaces.");
-        } else if (User.userNameValidateStatus.equals("length")) {
+        }
+        // if the username is not between 5 and 10 characters
+        else if (User.userNameValidateStatus.equals("length")) {
             studentUpdateUserNameLabel.setText("The length should be 5 to 10 characters.");
-        } else {
+        }
+        // if a valid entry is made
+        else {
             studentUpdateUserNameLabel.setText("");
         }
     }
 
+    // method to display error messages related to password
     public void displayPasswordError() {
+        // if the value is empty
         if (User.passwordValidateStatus.equals("empty")) {
             studentUpdateNewPasswordLabel.setText("Password cannot be empty.");
-        } else if (User.passwordValidateStatus.equals("format")) {
+        }
+        // if the format of the password is incorrect
+        else if (User.passwordValidateStatus.equals("format")) {
             studentUpdateNewPasswordLabel.setText("Password should consists of 8 characters including numbers and special characters.");
-        } else {
+        }
+        // if a valid entry is made
+        else {
             studentUpdateNewPasswordLabel.setText("");
         }
     }
 
     @Override
+    // method to set styles to the buttons on the left hand side pane
     public void makeAllStudentButtonsColoured(){
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ViewEventButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ManageclubButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
-    public void displayAdmissionNumError() {
-        if (Student.admissionNumStatus.equals("empty")) {
-            studentUpdateIDLabel.setText("Admission Number cannot be empty.");
-        } else if (Student.admissionNumStatus.equals("length")) {
-            studentUpdateIDLabel.setText("Admission Number has to be 6 digits.");
-        } else if (Student.admissionNumStatus.equals("exist")) {
-            studentUpdateIDLabel.setText("Admission Number already exists.");
-        } else if (Student.admissionNumStatus.equals("format")) {
-            studentUpdateIDLabel.setText("Admission Number contain only numbers.");
-        } else {
-            studentUpdateIDLabel.setText("");
-        }
-    }
-
-
-
-
 
     public void getCreatedClubs(){
 

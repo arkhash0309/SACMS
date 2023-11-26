@@ -178,8 +178,8 @@ abstract public class User implements UserValidator {
                 columnName = results.getString(1);
             }
 
-            if (requiredWork.equals("registration") || requiredWork.equals("updation")) {
-                if(requiredWork.equals("updation") && !user.equals("student")){
+            if (requiredWork.equals("registration") || requiredWork.equals("update")) {
+                if(requiredWork.equals("update") && !user.equals("student")){
                     if(this.userName.equals(ClubAdvisorActivityController.username)){
                         System.out.println("Buwa Buwa");
                         userNameValidateStatus = "correct";

@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
     <stylesheets>
         <URL value="@ClubAdvisorDashboard.css" />
     </stylesheets>
@@ -948,7 +948,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -964,7 +964,7 @@
                                              </children>
                                           </AnchorPane>
                                           <ComboBox fx:id="attendanceClubNameComboBox" layoutX="27.0" layoutY="109.0" onAction="#populateEventList" prefHeight="30.0" prefWidth="232.0" styleClass="eventField" AnchorPane.topAnchor="109.0" />
-                                          <ComboBox fx:id="attendanceEventNameComboBox" layoutX="304.0" layoutY="109.0" prefHeight="30.0" prefWidth="232.0" styleClass="eventField" AnchorPane.topAnchor="109.0" />
+                                          <ComboBox fx:id="attendanceEventNameComboBox" layoutX="304.0" layoutY="109.0" onAction="#selectStudentsForEvents" prefHeight="30.0" prefWidth="232.0" styleClass="eventField" AnchorPane.topAnchor="109.0" />
                                           <Label layoutX="305.0" layoutY="75.0" prefHeight="25.0" prefWidth="231.0" styleClass="updateClubLabels" text=" Event Name" textFill="WHITE" AnchorPane.topAnchor="75.0">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
@@ -1002,7 +1002,7 @@
                                                 <TableColumn fx:id="attendanceStatusColumn" prefWidth="129.60003662109375" text="Attendance Status" />
                                             </columns>
                                           </TableView>
-                                          <Button layoutX="620.0" layoutY="309.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" styleClass="button2" text="Submit ">
+                                          <Button fx:id="attendanceSubmitButton" layoutX="620.0" layoutY="309.0" mnemonicParsing="false" onAction="#onAttendanceSubmitButtonClick" prefHeight="32.0" prefWidth="154.0" styleClass="button2" text="Submit ">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font></Button>
@@ -1011,7 +1011,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="GenerateReportsPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="49.0" prefWidth="864.0" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
