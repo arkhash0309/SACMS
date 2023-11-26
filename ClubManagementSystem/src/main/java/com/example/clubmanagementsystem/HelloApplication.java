@@ -11,8 +11,8 @@ import java.sql.*;
 // HelloApplication will run as the application launcher
 public class HelloApplication extends Application {
     // static variables are declared for database connection to use in any class
-    public static Connection connection;
-    public static Statement statement;
+    public static Connection connection; // Assign database connection
+    public static Statement statement; // prepare statement
     @Override
     public void start(Stage stage) throws IOException {
         try{

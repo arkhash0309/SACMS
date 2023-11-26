@@ -2,7 +2,6 @@ package ClubAdvisorDashboardManager;
 
 import ClubManager.Club;
 import ClubManager.Attendance;
-import ClubManager.Club;
 import ClubManager.Event;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
@@ -24,8 +23,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import ClubManager.Event;
 
 
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
@@ -529,7 +526,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Attendance, CheckBox> attendanceStatusColumn;
 
     @FXML
-    protected TableView<String> attendanceTrackerTable;
+    protected TableView<Attendance> attendanceTrackerTable;
     @FXML
     public TableView<Event> generateReportEventViewTable;
     @FXML
