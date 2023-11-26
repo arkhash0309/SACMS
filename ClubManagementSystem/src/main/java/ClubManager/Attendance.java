@@ -98,8 +98,9 @@ public class Attendance {
         return attendanceStatusProperty;
     }
 
-
-
+    public void setAttendanceStatusProperty(boolean attendanceStatusProperty) {
+        this.attendanceStatusProperty = attendanceStatusProperty;
+    }
 
 
 

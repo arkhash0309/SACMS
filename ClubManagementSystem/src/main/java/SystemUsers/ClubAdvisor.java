@@ -1,11 +1,13 @@
 package SystemUsers;
 
 import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
+import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
 import ClubManager.EventManager;
 import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
@@ -18,6 +20,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
 
 import static ClubManager.Club.clubDetailsList;
 
@@ -306,5 +309,17 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     public void generateStudentRegistrationReport(TableView<Student> tableView, Stage stage) throws IOException {
         ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
+    }
+
+    public void TrackAttendance(Event trackingEvent, ObservableList<Attendance> attendanceData) {
+        // Update the eventAttendance list in the selected event
+        trackingEvent.eventAttendance.clear();
+        trackingEvent.eventAttendance.addAll(attendanceData);
+
+        // Find the index of the trackingEvent in the static eventDetails list
+        int eventIndex = Event.eventDetails.indexOf(trackingEvent);
+
+        // Replace the old trackingEvent with the updated one in the static eventDetails list
+        Event.eventDetails.set(eventIndex, trackingEvent);
     }
 }
