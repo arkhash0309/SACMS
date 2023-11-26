@@ -20,6 +20,8 @@ public class Event {
     // The following arraylist will store the all event related details
     public static ArrayList<Event> eventDetails = new ArrayList<>();
 
+    public static ArrayList<Attendance> eventAttendance = new ArrayList<>();
+
     // Constructor for creating an Event object to create and update events
     public Event(String eventName, String eventLocation, String eventType,
                  String eventDeliveryType, LocalDate eventDate, LocalTime eventTime, Club hostingClub,
