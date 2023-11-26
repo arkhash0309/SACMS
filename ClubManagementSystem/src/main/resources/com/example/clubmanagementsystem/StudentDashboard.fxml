@@ -149,7 +149,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
 
-                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentDashBoardPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
@@ -361,7 +361,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="StudentProfilePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StudentProfilePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="21.0" prefHeight="526.0" prefWidth="823.0" styleClass="EventMainPane" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="21.0">
                                  <children>
@@ -441,7 +441,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <Button layoutX="316.0" layoutY="277.0" mnemonicParsing="false" onAction="#onStudentProfileUpdateButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Update" />
+                                    <Button layoutX="590.0" layoutY="274.0" mnemonicParsing="false" onAction="#onStudentProfileUpdateButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Update" />
                                     <Label layoutX="294.0" layoutY="376.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text=" New Password" textFill="#fff7f7">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
@@ -452,50 +452,50 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="315.0" layoutY="477.0" mnemonicParsing="false" onAction="#onStudentProfilePasswordChangeButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Change Password" />
+                                    <Button layoutX="590.0" layoutY="473.0" mnemonicParsing="false" onAction="#onStudentProfilePasswordChangeButtonClick" prefHeight="35.0" prefWidth="193.0" styleClass="button2" text="Change Password" />
                                     <Label layoutX="566.0" layoutY="181.0" prefHeight="24.0" prefWidth="240.0" styleClass="updateClubLabels" text="  Student Grade" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
                                     <ComboBox fx:id="studentUpdateProfileGrade" layoutX="567.0" layoutY="218.0" prefHeight="30.0" prefWidth="240.0" styleClass="eventField" />
-                                    <Label fx:id="studentUpdateIDLabel" layoutX="24.0" layoutY="147.0" prefHeight="20.0" prefWidth="240.0" textFill="RED">
+                                    <Label fx:id="studentUpdateIDLabel" layoutX="24.0" layoutY="147.0" prefHeight="20.0" prefWidth="240.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateLNameLabel" layoutX="567.0" layoutY="147.0" prefHeight="20.0" prefWidth="238.0" textFill="RED">
+                                    <Label fx:id="studentUpdateLNameLabel" layoutX="567.0" layoutY="147.0" prefHeight="20.0" prefWidth="238.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateFNameLabel" layoutX="292.0" layoutY="147.0" prefHeight="20.0" prefWidth="240.0" textFill="RED">
+                                    <Label fx:id="studentUpdateFNameLabel" layoutX="292.0" layoutY="147.0" prefHeight="20.0" prefWidth="240.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateUserNameLabel" layoutX="24.0" layoutY="247.0" prefHeight="20.0" prefWidth="241.0" textFill="RED">
+                                    <Label fx:id="studentUpdateUserNameLabel" layoutX="24.0" layoutY="247.0" prefHeight="20.0" prefWidth="241.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateContactNumLabel" layoutX="292.0" layoutY="245.0" prefHeight="20.0" prefWidth="241.0" textFill="RED">
+                                    <Label fx:id="studentUpdateContactNumLabel" layoutX="292.0" layoutY="245.0" prefHeight="20.0" prefWidth="241.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateExistingPasswordLabel" layoutX="26.0" layoutY="445.0" prefHeight="20.0" prefWidth="240.0" textFill="RED">
+                                    <Label fx:id="studentUpdateExistingPasswordLabel" layoutX="26.0" layoutY="445.0" prefHeight="34.0" prefWidth="240.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateNewPasswordLabel" layoutX="296.0" layoutY="446.0" prefHeight="20.0" prefWidth="242.0" textFill="RED">
+                                    <Label fx:id="studentUpdateNewPasswordLabel" layoutX="296.0" layoutY="446.0" prefHeight="46.0" prefWidth="242.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
-                                    <Label fx:id="studentUpdateConfirmPasswordLabel" layoutX="569.0" layoutY="447.0" prefHeight="43.0" prefWidth="237.0" textFill="RED">
+                                    <Label fx:id="studentUpdateConfirmPasswordLabel" layoutX="569.0" layoutY="447.0" prefHeight="22.0" prefWidth="237.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font></Label>
                                     <PasswordField fx:id="studentUpdateProfileExistingPassword" layoutX="26.0" layoutY="422.0" prefHeight="25.0" prefWidth="240.0" styleClass="eventField" />
                                     <PasswordField fx:id="studentUpdateProfileNewPassword" layoutX="296.0" layoutY="422.0" prefHeight="25.0" prefWidth="242.0" styleClass="eventField" />
                                     <PasswordField fx:id="studentUpdateProfileConfirmPassword" layoutX="569.0" layoutY="422.0" prefHeight="25.0" prefWidth="237.0" styleClass="eventField" />
-                                    <TextField fx:id="studentUpdateProfileID" layoutX="26.0" layoutY="117.0" prefHeight="31.0" prefWidth="239.0" styleClass="eventField" />
-                                    <Label fx:id="updateGradeLabel" layoutX="569.0" layoutY="249.0" prefHeight="17.0" prefWidth="237.0" textFill="RED">
+                                    <TextField fx:id="studentUpdateProfileID" editable="false" layoutX="26.0" layoutY="117.0" prefHeight="31.0" prefWidth="239.0" styleClass="eventField" />
+                                    <Label fx:id="updateGradeLabel" layoutX="569.0" layoutY="249.0" prefHeight="17.0" prefWidth="237.0" textFill="#781616">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>

@@ -1,17 +1,25 @@
 package SystemUsers;
 
+import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
 import ClubManager.Club;
 import ClubManager.Event;
 import ClubManager.EventManager;
 import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import static ClubManager.Club.clubDetailsList;
 
 public class ClubAdvisor extends User implements ClubAdvisorValidator {
     private int clubAdvisorId;
@@ -25,11 +33,16 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         this.clubAdvisorId = clubAdvisorId;
     }
 
-    public ClubAdvisor(){
 
+    public ClubAdvisor(String userName, String password){
+        super(userName, password);
     }
     public ClubAdvisor(String contactNumber){
         super(contactNumber);
+    }
+
+    public ClubAdvisor(){
+
     }
 
     @Override
@@ -37,11 +50,73 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
-    @Override
-    public void loginToSystem() {
 
+//    @Override
+//    public String studentRegisteringToSystem(){
+//        return null;
+//    }
+
+
+    @Override
+    public String LoginToSystem(){
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "SELECT teacherPassword FROM TeacherCredentials WHERE teacherUserName = ?";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
+            preparedStatement.setString(1, this.getUserName()); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("teacherPassword"); // get the password
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return correctPassword;
     }
 
+
+
+    public void createClub(int clubId, String clubName, String clubDescription, String imagePath, int clubAdvisorId){
+        //Creating a new club object with the correct user given data
+        Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
+        //Adding that club to the club details list
+        clubDetailsList.add(clubData);
+
+        String insertQuery = "INSERT INTO Club (clubId, clubName, clubDescription, clubLogo, teacherInChargeId) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)
+        ) {
+            preparedStatement.setInt(1, clubId); // Set clubId
+            preparedStatement.setString(2, clubName); // Set clubName
+            preparedStatement.setString(3, clubDescription); // Set clubDescription
+            preparedStatement.setString(4, imagePath); // Set clubLogo
+            preparedStatement.setInt(5, clubAdvisorId); // Set teacherInChargeId
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateClub(int clubId, String clubName, String clubDescription, String imagePath, int clubAdvisorId){
+//        //Update database
+        String updateQuery = "UPDATE Club SET clubName=?, clubDescription=?, clubLogo=?, teacherInChargeId=? WHERE clubId=?";
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateQuery)
+        ) {
+            preparedStatement.setString(1, clubName);
+            preparedStatement.setString(2, clubDescription);
+            preparedStatement.setString(3, imagePath);
+            preparedStatement.setInt(4, clubAdvisorId);
+            preparedStatement.setInt(5, clubId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public  void createEvent(String eventName, String eventLocation,
@@ -218,4 +293,19 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         }
     }
 
+    public void generateMembershipDetailReport(TableView<Student> tableView, Stage stage) throws IOException {
+        ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
+    }
+
+    public void generateEventDetailReport(TableView<Event> tableView, Stage stage) throws IOException {
+        ClubAdvisorActivityController.generateCsv(tableView, stage);
+    }
+
+    public void generateClubAdvisorRegistrationDetailReport(TableView<ClubAdvisor> tableView, Stage stage) throws IOException {
+        ClubAdvisorActivityController.generateAdvisorCsv(tableView, stage);
+    }
+
+    public void generateStudentRegistrationReport(TableView<Student> tableView, Stage stage) throws IOException {
+        ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
+    }
 }

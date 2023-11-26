@@ -12,19 +12,29 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// This class handles loading data when user do the login to ClubAdvisorDataBaseManager
 public class ClubAdvisorDataBaseManager {
+    // Static variables to store data requires data that should be loaded to club advisor related work
     public static int loginClubAdvisorId;
 
     public static ArrayList<Integer> clubIdList = new ArrayList<>();
 
     public static HashMap<Integer, Club> requiredClub = new HashMap<>();
 
+    public static HashMap<Student, ArrayList<Club>> joinedClubForEachStudent = new HashMap<>();
+
+    // Username is taken to identify the club advisor who logged into the system
+
     private String userName;
+
+    // club advisor id is taken to identify the club advisor who logged into the system
 
     private int ClubAdvisorId;
 
+    public static int lastClubIndex;
+
+    // Constructor for ClubAdvisorDataBaseManager, This handles all the methods loading to lists
     public ClubAdvisorDataBaseManager(String userName) throws SQLException {
-        System.out.println("DataBase connector bn !!!");
         this.userName = userName;
         this.ClubAdvisorId = selectClubAdvisorId(this.userName);
         System.out.println(this.ClubAdvisorId);
@@ -32,14 +42,39 @@ public class ClubAdvisorDataBaseManager {
         populateClubDetailArray(Club.clubDetailsList, this.ClubAdvisorId);
         populateEventsDetailArray();
         populateStudentDetailArray();
+        getLastClubId();
+        setStudentJoinedClubDetails();
     }
 
+    // default constructor for club advisor database manager
     public ClubAdvisorDataBaseManager(){
 
     }
 
+    // This method gets the last club id that has been stored in the system
+    public void getLastClubId() {
+        // Query to find the maximum club id
+        String query = "SELECT MAX(clubId) AS maxClubId FROM Club";
+        int maxClubId = 0;
+
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                maxClubId = resultSet.getInt("maxClubId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // assign the maximum club id created to the system
+        lastClubIndex = maxClubId;
+        System.out.println(lastClubIndex);
+    }
+
+    // This method selects the club advisor id
     public int selectClubAdvisorId(String userName){
         int teacherInChargeId = 0;
+        // select statement to find out the id of the club advisor
         String selectTeacherInChargeIdQuery = "SELECT teacherInChargeId FROM TeacherCredentials WHERE teacherUserName = ?";
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(selectTeacherInChargeIdQuery)) {
             preparedStatement.setString(1, userName);
@@ -56,20 +91,29 @@ public class ClubAdvisorDataBaseManager {
 
     }
 
-    // for club advisor login
+    // This method populates the club advisor details array by creating Club advisor objects
     public void populateClubAdvisorArray() throws SQLException {
         ClubAdvisor.clubAdvisorDetailsList.clear();
 
+        // Query is to select the login club advisor related details
         String query = "SELECT TIC.teacherInChargeId, TC.teacherUserName, TC.teacherPassword, TIC.TICFName, TIC.TICLName, TIC.teacherContactNum " +
                 "FROM TeacherCredentials TC " +
                 "JOIN TeacherInCharge TIC ON TC.teacherInChargeId = TIC.teacherInChargeId " +
                 "WHERE TC.teacherUserName = ?";
 
+        // Query2 is to select the other club advisor details
+        String query2 = "SELECT TIC.teacherInChargeId, TC.teacherUserName, TC.teacherPassword, TIC.TICFName, TIC.TICLName, TIC.teacherContactNum " +
+                "FROM TeacherCredentials TC " +
+                "JOIN TeacherInCharge TIC ON TC.teacherInChargeId = TIC.teacherInChargeId " +
+                "WHERE TC.teacherUserName != ?";
+
+        // query 1, Statement is executed to create Club Advisor Objects
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
             preparedStatement.setString(1, this.userName);
 
             try (ResultSet result = preparedStatement.executeQuery()) {
                 while (result.next()) {
+                    // creation of club advisor object
                     ClubAdvisor clubAdvisor = new ClubAdvisor(
                             result.getString("teacherUserName"),
                             result.getString("teacherPassword"),
@@ -79,26 +123,56 @@ public class ClubAdvisorDataBaseManager {
                             result.getInt("teacherInChargeId")
                     );
 
+                    // Adding details to club advisor detail array
                     ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisor);
-                    System.out.println("Elama");
+
                 }
             }
         }
+
+        // query 2, statement is executed to create and populate club advisor details array
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query2)) {
+            preparedStatement.setString(1, this.userName);
+
+            try (ResultSet result = preparedStatement.executeQuery()) {
+                while (result.next()) {
+                    // Creation of club advisor object
+                    ClubAdvisor clubAdvisor = new ClubAdvisor(
+                            result.getString("teacherUserName"),
+                            result.getString("teacherPassword"),
+                            result.getString("TICFName"),
+                            result.getString("TICLName"),
+                            result.getString("teacherContactNum"),
+                            result.getInt("teacherInChargeId")
+                    );
+
+                    // Adding details to club advisor details list
+                    ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisor);
+
+                }
+            }
+        }
+
+        for(ClubAdvisor clubAdvisor : ClubAdvisor.clubAdvisorDetailsList){
+            System.out.println(clubAdvisor.getClubAdvisorId() + ": club advisor Id");
+        }
     }
 
-
+    // This method populates the all student details to student details array
     public void populateStudentDetailArray(){
         Student.studentDetailArray.clear();
+        // query to select all the details of the student
         String query = "SELECT STC.studentUserName, STC.studentPassword, STD.studentAdmissionNum, STD.studentFName, " +
                 "STD.studentLName, STD.studentGrade, STD.studentContactNum, STD.Gender " +
                 "FROM Student STD " +
                 "JOIN studentCredentials STC ON STD.studentAdmissionNum = STC.studentAdmissionNum";
 
-
+        // Execute the statement to create student objects and add it to the student detail array
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
 
             try (ResultSet result = preparedStatement.executeQuery()) {
                 while (result.next()) {
+                    // Creation of student objects
                     Student student  = new Student(
                             result.getString("studentUserName"),
                             result.getString("studentPassword"),
@@ -110,6 +184,7 @@ public class ClubAdvisorDataBaseManager {
                             result.getString("Gender").charAt(0)
                     );
 
+                    // Adding the created student object to student detail array
                     Student.studentDetailArray.add(student);
                 }
             }
@@ -118,24 +193,21 @@ public class ClubAdvisorDataBaseManager {
         }
     }
 
-
-
-   public void populateStudentClubArray(){
-        String query = "SELECT ";
-   }
-
-
+    // This method populates the club detail array
    public void populateClubDetailArray(ArrayList<Club> clubDetailArray, int clubAdvisorId){
        Club.clubDetailsList.clear();
        clubIdList.clear();
+       // select the related club details to the selected club advisor
        String query = "SELECT C.clubId, C.clubName, C.clubDescription, C.clubLogo " +
                "FROM Club C JOIN TeacherInCharge TIC ON C.teacherInChargeId = TIC.teacherInChargeId " +
                "WHERE TIC.teacherInChargeId = ?";
 
+       // the selected club details will be populated by making Club objects
        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
            preparedStatement.setInt(1, clubAdvisorId);
            try (ResultSet result = preparedStatement.executeQuery()) {
                while (result.next()) {
+                   // Creation of student objects
                    Club club  = new Club(
                            result.getInt("clubId"),
                            result.getString("clubName"),
@@ -145,6 +217,7 @@ public class ClubAdvisorDataBaseManager {
 
                    System.out.println(result.getString("clubLogo"));
 
+                   // populating the club detail array with populated club objects
                    clubDetailArray.add(club);
                    clubIdList.add(result.getInt("clubId"));
                    requiredClub.put(result.getInt("clubId"), club);
@@ -155,12 +228,15 @@ public class ClubAdvisorDataBaseManager {
        }
    }
 
+   // This method populate the event detail array by considering the club advisor logged in to the system
    public void populateEventsDetailArray(){
        Event.eventDetails.clear();
+       // select the event details for the selected club id
        for(int clubId : clubIdList){
            String query = "SELECT EventId, eventName, eventDate, eventTime, eventLocation, eventType, eventDeliveryType, eventDescription " +
                    "FROM EventDetails WHERE clubId = ?";
 
+           // populate the event array list using the selected event details by creating event objects
            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
                preparedStatement.setInt(1, clubId);
 
@@ -171,6 +247,7 @@ public class ClubAdvisorDataBaseManager {
                        LocalDate localDate = eventDate.toLocalDate();
                        LocalTime localTime = eventTime.toLocalTime();
 
+                       // Creation of event objects
                        Event event = new Event(
                                result.getString("eventName"),
                                result.getString("eventLocation"),
@@ -191,7 +268,61 @@ public class ClubAdvisorDataBaseManager {
            }
 
        }
-
    }
+
+   // this method will find out the clubs that each student has joined that has enrolled with the system
+   public void setStudentJoinedClubDetails(){
+        // clear joinedClubForEachStudent array list
+        joinedClubForEachStudent.clear();
+
+        // Check whether student details array is empty
+        if(Student.studentDetailArray.isEmpty()) {
+            return;
+        }
+
+        // Iterate through student array to get the clubs that each student has joined
+        for(Student student :Student.studentDetailArray){
+            ArrayList<Club> clubs = new ArrayList<>();
+
+            // Get the club related details that each student has joined
+            String query = "SELECT c.clubId, c.clubName, c.clubDescription, c.clubLogo " +
+                    "FROM StudentClub sc " +
+                    "JOIN Club c ON sc.clubId = c.clubId " +
+                    "WHERE sc.studentAdmissionNum = ?";
+
+            // This creates a club object and send details to clubs that student has joined
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
+
+                preparedStatement.setInt(1, student.getStudentAdmissionNum());
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int clubId = resultSet.getInt("clubId");
+                        String clubName = resultSet.getString("clubName");
+                        String clubDescription = resultSet.getString("clubDescription");
+                        String clubLogo = resultSet.getString("clubLogo");
+
+                        // Creating a club object
+                        Club club = new Club(clubId, clubName, clubDescription, clubLogo);
+                        clubs.add(club);
+                    }
+                }
+
+                // find each student joined club using a hash map
+                joinedClubForEachStudent.put(student, clubs);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle the exception as needed
+            }
+
+        }
+
+    }
+
 }
+
+
+
+
 

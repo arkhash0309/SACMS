@@ -4,6 +4,8 @@ import ClubManager.Club;
 import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
+import SystemUsers.ClubAdvisor;
+import SystemUsers.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -451,26 +453,19 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Attendance, CheckBox> stColumn;
 
     @FXML
-    public TextField profileAdvisorpw;
-    @FXML
     public TextField profileAdvisorUsername;
-    @FXML
-    public TextField profileAdvisorNewpw;
     @FXML
     public TextField profileAdvisorLname;
     @FXML
     public TextField profileAdvisorId;
     @FXML
     public TextField profileAdvisorFname;
-    @FXML
-    public PasswordField profileAdvisorConfirmpw;
+
 
     @FXML
     public TextField profileAdvisorCnumber;
     @FXML
     public Label profileAdvisorCnumberError;
-    @FXML
-    public Label profileAdvisorConfirmpwError;
     @FXML
     public Label profileAdvisorFnameError;
     @FXML
@@ -478,10 +473,22 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     public Label profileAdvisorLnameError;
     @FXML
-    public PasswordField profileAdvisorNewpwError;
+    public Label profileAdvisorUsernameError;
 
     @FXML
-    public Label profileAdvisorUsernameError;
+    public PasswordField profileAdvisorExistingpw;
+    @FXML
+    public Label profileAdvisorExistingpwError;
+    @FXML
+    public PasswordField profileAdvisorNewpw;
+    @FXML
+    public Label profileAdvisorNewpwError;
+    @FXML
+    public PasswordField profileAdvisorConfirmpw;
+    @FXML
+    public Label profileAdvisorConfirmpwError;
+    @FXML
+    public ComboBox<String> clubMembershipCombo;
     
     @FXML
     protected BarChart<?, ?> GenderRatioChart;
@@ -552,7 +559,77 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     @FXML
     public ComboBox<String> generateReportClubNameComboBox;
 
+    @FXML
+    public Label UpcomingEventCountGenerateReports;
+
+    @FXML
+    public Label eventDateRange;
+
     public int clubAdvisorId;
+
+    @FXML
+    public TableView<Student> clubMembershipTable;
+    @FXML
+    public TableColumn<Student, Integer> memberAdmissionNumber;
+    @FXML
+    public TableColumn<Student, String> memberContactNumber;
+    @FXML
+    public TableColumn<Student, String> memberFirstName;
+    @FXML
+    public TableColumn<Student, Character> memberGender;
+    @FXML
+    public TableColumn<Student, Integer> memberGrade;
+    @FXML
+    public TableColumn<Student, String> memberLastName;
+    @FXML
+    public TableColumn<Student, String>memberUsername;
+    @FXML
+    public Label membershipReportNumber;
+    @FXML
+    protected ComboBox<String> registrationUserSelectComboBox;
+
+    @FXML
+    protected TableView<Student> registrationStudentTable;
+
+    @FXML
+    protected TableColumn<Student, Integer> registrationStudentAdmissionNumberColumn;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentUserName;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentFirstNameColumn;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentLastNameColumn;
+
+    @FXML
+    protected TableColumn<Student, Integer> registrationStudentGradeColumn;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentContactNumberColumn;
+
+    @FXML
+    protected TableColumn<Student, String> registrationStudentGenderColumn;
+    @FXML
+    protected TableView<ClubAdvisor> registrationAdvisorTable;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, Integer> registrationAdvisorID;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorUserName;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorFirstName;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorLastName;
+
+    @FXML
+    protected TableColumn<ClubAdvisor, String> registrationAdvisorContactNumber;
+    @FXML
+    protected Label userCountLabel;
 
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);

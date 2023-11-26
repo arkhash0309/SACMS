@@ -1,6 +1,7 @@
 package LoginDashboardManager;
 
 import ClubAdvisorDashboardManager.ClubAdvisorActivityController;
+import ClubManager.Club;
 import DataBaseManager.ClubAdvisorDataBaseManager;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.User;
@@ -150,7 +151,11 @@ public class ClubAdvisorLoginController {
     boolean fieldsChecker() {
         loginStatus = true;
         clubAdvisortLoginPageUserName = advisorLoginUserName.getText();
-        clubAdvisorLoginPagePassword = advisorLoginPassword.getText();
+        if(advisorLoginPassword.isVisible()){
+            clubAdvisorLoginPagePassword = advisorLoginPassword.getText(); // receiving password from user in login page
+        }else{
+            clubAdvisorLoginPagePassword =  PasswordTextField.getText(); // receiving password from user in login page
+        }
 
         userNameForShowInAdvisorDashboard = clubAdvisortLoginPageUserName;
         if(clubAdvisortLoginPageUserName.isEmpty()){
@@ -166,19 +171,8 @@ public class ClubAdvisorLoginController {
 
     //advisorCredentialsChecker will check whether entered credentials are correct according to the given values
     boolean advisorCredentialsChecker() {
-        String correctPassword = null; // store correct password from database
-        String credentialChdeckQuery = "SELECT teacherPassword FROM TeacherCredentials WHERE teacherUserName = ?";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
-            preparedStatement.setString(1, clubAdvisortLoginPageUserName); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
-            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
-                while (results.next()) { // this will loop the rows
-                    correctPassword = results.getString("teacherPassword"); // get the password
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        ClubAdvisor advisor = new ClubAdvisor(clubAdvisortLoginPageUserName,clubAdvisorLoginPagePassword);
+        String correctPassword = advisor.LoginToSystem();
         loginStatus = true;
         if(!clubAdvisorLoginPagePassword.equals(correctPassword)){
             loginStatus = false;
@@ -209,8 +203,11 @@ public class ClubAdvisorLoginController {
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
         Parent root = loader. load();
         ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
-        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setText(userNameForShowInAdvisorDashboard);
-        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
+
+        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setText(userNameForShowInAdvisorDashboard); /*
+         setting username label in advisor dashboard*/
+        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: center"); // centering username in dashboard
+
         clubAdvisorDashboardControlller.clubAdvisorId = clubAdvisorDataBaseManager.selectClubAdvisorId(userNameForShowInAdvisorDashboard);
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
@@ -331,7 +328,7 @@ public class ClubAdvisorLoginController {
 
         displayIdError();
 
-        if(!clubAdvisor.validateUserName("registration", "student")){
+        if(!clubAdvisor.validateUserName("registration", "clubAdvisor")){
             System.out.println("Wrong User Name");
             validStat = false;
         }else{
@@ -359,29 +356,6 @@ public class ClubAdvisorLoginController {
             confirmPasswordLabel.setText(" ");
         }
 
-        String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
-            preparedStatement.setInt(1, Integer.parseInt(advisorId));
-            preparedStatement.setString(2, firstName);
-            preparedStatement.setString(3, lastName);
-            preparedStatement.setString(4, contactNum);
-            preparedStatement.executeUpdate(); // Remove the query string argument
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        String clubAdvisorCredentialsDetailsQuery = "INSERT INTO TeacherCredentials (teacherUserName, teacherPassword, teacherInChargeId) VALUES (?, ?, ?)";
-        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
-            preparedStatement.setString(1, userName);
-            preparedStatement.setString(2, confirmPassword);
-            preparedStatement.setInt(3, Integer.parseInt(advisorId));
-            preparedStatement.executeUpdate(); // Remove the query string argument
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-
-
         System.out.println(validStat + " : Valid Stat");
         if(validStat){
             ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName, contactNum, Integer.parseInt(advisorId));
@@ -399,9 +373,29 @@ public class ClubAdvisorLoginController {
             alert.showAndWait();
 
             this.goToLoginPage(event);
+
+            String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
+                preparedStatement.setInt(1, Integer.parseInt(advisorId));
+                preparedStatement.setString(2, firstName);
+                preparedStatement.setString(3, lastName);
+                preparedStatement.setString(4, contactNum);
+                preparedStatement.executeUpdate(); // Remove the query string argument
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            String clubAdvisorCredentialsDetailsQuery = "INSERT INTO TeacherCredentials (teacherUserName, teacherPassword, teacherInChargeId) VALUES (?, ?, ?)";
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
+                preparedStatement.setString(1, userName);
+                preparedStatement.setString(2, confirmPassword);
+                preparedStatement.setInt(3, Integer.parseInt(advisorId));
+                preparedStatement.executeUpdate(); // Remove the query string argument
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
         System.out.println("\n\n\n");
-
 
     }
 

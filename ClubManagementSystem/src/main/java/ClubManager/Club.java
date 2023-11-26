@@ -2,21 +2,14 @@ package ClubManager;
 
 
 import SystemUsers.ClubAdvisor;
-import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import SystemDataValidator.ClubValidator;
-import SystemUsers.ClubAdvisor;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Club implements ClubValidator {
     private String clubAdvisorName;
@@ -119,13 +112,6 @@ public class Club implements ClubValidator {
             absoluteImage.setFitHeight(height);
         }
     }
-
-
-
-
-
-
-
 
     public static String clubNameValidateStatus;
 

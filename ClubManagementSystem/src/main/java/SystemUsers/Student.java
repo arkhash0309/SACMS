@@ -5,7 +5,6 @@ import ClubManager.Event;
 import SystemDataValidator.StudentValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.scene.control.Alert;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,12 +26,18 @@ public class Student extends User implements StudentValidator {
         super(userName, password, firstName, lastName, contactNumber);
         this.studentAdmissionNum = studentAdmissionNum;
         this.studentGrade = studentGrade;
-        this.studentGender = studentGender;
+        this.setStudentGender(studentGender);
     }
 
     public Student(){
 
     }
+//    public Student(Integer studentAdmissionNum, String firstName, String lastName, Integer grade, String contactNumber, Character gender){
+////        super(firstName,lastName,contactNumber);
+//        this.studentAdmissionNum = studentAdmissionNum;
+//        this.studentGrade = studentGrade;
+//        this.setStudentGender(studentGender);
+//    }
 
     public Student(String userName, String password, String firstName, String lastName) {
         super(userName, password, firstName, lastName);
@@ -47,22 +52,31 @@ public class Student extends User implements StudentValidator {
         this.studentAdmissionNum = admissionNumValue;
     }
 
+    public Student(String userName, String password){
+        super(userName, password);
+    }
+
     public Student(String updatedUserName, String updatedFirstName, String updatedLastName,
                    String updatedContactNum, String updatedAdmissionNum) {
         super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
     }
 
+//    @Override
+//    public String advisorRegisteringToSystem(){
+//        return null;
+//    }
+
+    //Created for inserting details into generate report membership table
+    public Student(int memberAdmissionNum, String memberUserName, String memberFirstName, String memberLastName,int memberGrade,char memberGender, String memberContactNum) {
+        super(memberUserName,null,memberFirstName, memberLastName, memberContactNum);
+        this.studentAdmissionNum = memberAdmissionNum;
+        this.studentGrade = memberGrade;
+        this.setStudentGender(memberGender);
+    }
 
     @Override
     public void registerToSystem() {
-
     }
-
-    @Override
-    public void loginToSystem() {
-
-    }
-
 
 
     public int getStudentAdmissionNum() {
@@ -82,12 +96,61 @@ public class Student extends User implements StudentValidator {
     }
 
     public char getGender() {
-        return studentGender;
+        return getStudentGender();
     }
 
     public void setGender(char studentGender) {
-        this.studentGender = studentGender;
+        this.setStudentGender(studentGender);
     }
+
+    @Override
+    public String LoginToSystem() { // this method will check whether entered password is correct
+        String correctPassword = null; // store correct password from database
+        String credentialChdeckQuery = "select studentPassword from studentCredentials where studentUserName = ?"; // sql query
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
+            preparedStatement.setString(1, this.getUserName()); // we are setting the clubAdvisortLoginPageUserName to where the question mark is
+            try (ResultSet results = preparedStatement.executeQuery()) { // results variable will store all the rows in Student table
+                while (results.next()) { // this will loop the rows
+                    correctPassword = results.getString("studentPassword"); // getting the password
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return correctPassword;
+    }
+
+//    @Override
+//    public String studentRegisteringToSystem(){
+//        String studentPersonalDetailsQuery = "INSERT INTO Student (studentAdmissionNum, studentFName, studentLName, " +
+//                "studentGrade, studentContactNum, Gender) VALUES (?, ?, ?, ?, ?, ?)";
+//        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentPersonalDetailsQuery)) {
+//            preparedStatement.setInt(1, Integer.parseInt(String.valueOf(this.getStudentAdmissionNum())));
+//            preparedStatement.setString(2, this.getFirstName());
+//            preparedStatement.setString(3, this.getLastName());
+//            preparedStatement.setInt(4, this.studentGrade); // Assuming grade is an INT
+//            preparedStatement.setInt(5, Integer.parseInt(this.getContactNumber()));
+//            preparedStatement.setString(6, String.valueOf(this.studentGender));
+//            preparedStatement.executeUpdate();
+//        } catch (Exception e) {
+//            System.out.println("Error 1");
+//            System.out.println(e);
+//        }
+//        String studentCredentialsDetailsQuery = "INSERT INTO studentCredentials (studentUserName," +
+//                " studentPassword, studentAdmissionNum) VALUES (?, ?, ?)";
+//        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentCredentialsDetailsQuery)) {
+//            preparedStatement.setString(1, this.getUserName());
+//            preparedStatement.setString(2, this.getPassword());
+//            preparedStatement.setInt(3, Integer.parseInt(String.valueOf(this.getStudentAdmissionNum())));
+//            preparedStatement.executeUpdate();
+//        } catch (Exception e) {
+//            System.out.println("Error 2");
+//            System.out.println(e);
+//        }
+//        return studentPersonalDetailsQuery;
+//    }
 
     @Override
     public boolean validateStudentAdmissionNumber() throws SQLException {
@@ -184,11 +247,15 @@ public class Student extends User implements StudentValidator {
         deletedEvent.show();
     }
 
+    public char getStudentGender() {
+        return studentGender;
+    }
 
+    public void setStudentGender(char studentGender) {
+        this.studentGender = studentGender;
+    }
 
-
-
-
-
-
+//    public static ArrayList<Club> getStudentJoinedClubs() {
+//        return studentJoinedClubs;
+//    }
 }
