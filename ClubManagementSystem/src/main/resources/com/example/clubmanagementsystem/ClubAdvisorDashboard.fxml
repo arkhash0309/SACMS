@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
+<StackPane fx:id="ClubAdvisorDashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#ClubAdvisorDashboardDetected" onMousePressed="#ClubAdvisorPanePressed" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClubAdvisorDashboardManager.ClubAdvisorActivityController">
     <stylesheets>
         <URL value="@ClubAdvisorDashboard.css" />
     </stylesheets>
@@ -172,7 +172,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="dashboardMainPane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="830.0" styleClass="dashboardPane">
                                  <children>
@@ -948,7 +948,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="AttendancePane" prefHeight="567.0" prefWidth="862.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="572.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -1051,7 +1051,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="50.0" prefHeight="519.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                  <children>
-                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="22.0" layoutY="19.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
@@ -1115,16 +1115,19 @@
                                        <children>
                                           <AnchorPane layoutX="22.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
-                                                <ComboBox layoutX="24.0" layoutY="99.0" prefHeight="30.0" prefWidth="250.0" AnchorPane.topAnchor="102.0" />
-                                                <Button layoutX="633.0" layoutY="84.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="144.0" text="Generate Report">
+                                                <ComboBox fx:id="ReportAttendanceClubName" layoutX="24.0" layoutY="99.0" onAction="#populateGenerateReportAttendanceClubName" prefHeight="30.0" prefWidth="250.0" styleClass="eventField" AnchorPane.topAnchor="102.0" />
+                                                <Button fx:id="generateReportAttendanceButton" layoutX="633.0" layoutY="84.0" mnemonicParsing="false" onAction="#GenerateAttendanceMarking" prefHeight="36.0" prefWidth="144.0" styleClass="button2" text="Generate Report">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Button>
-                                                <TableView layoutX="24.0" layoutY="167.0" prefHeight="300.0" prefWidth="774.0">
+                                                <TableView fx:id="generateReportAttendanceTable" layoutX="24.0" layoutY="157.0" prefHeight="214.0" prefWidth="785.0">
                                                    <columns>
-                                                      <TableColumn prefWidth="75.0" text="C1" />
-                                                      <TableColumn prefWidth="75.0" text="C2" />
+                                                      <TableColumn fx:id="generateReportAttendanceClubName" prefWidth="106.99996948242188" text="Club Name" />
+                                                      <TableColumn fx:id="generateReportAttendanceEventName" prefWidth="134.857177734375" text="  Event Name" />
+                                                      <TableColumn fx:id="generateReportAttendanceAdmissionNum" prefWidth="172.71429443359375" text="Student Admission Num" />
+                                                      <TableColumn fx:id="generateReportAttendanceStudentName" prefWidth="185.57147216796875" text="Student  Name" />
+                                                      <TableColumn fx:id="generateReportAttendanceStatus" prefWidth="175.42852783203125" text="Attendance Status" />
                                                    </columns>
                                                 </TableView>
                                                 <Label layoutX="8.0" layoutY="6.0" prefHeight="40.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club and Event To Genrate The Report" textFill="WHITE">
@@ -1137,17 +1140,47 @@
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox layoutX="332.0" layoutY="102.0" prefHeight="30.0" prefWidth="250.0" AnchorPane.topAnchor="102.0" />
+                                                <ComboBox fx:id="ReportAttendanceEventName" layoutX="332.0" layoutY="102.0" onAction="#populateGenerateReportAttendanceEventName" prefHeight="30.0" prefWidth="250.0" styleClass="eventField" AnchorPane.topAnchor="102.0" />
                                                 <Label layoutX="332.0" layoutY="63.0" prefHeight="25.0" prefWidth="250.0" styleClass="selectorColor" text="  Event Name" textFill="WHITE" AnchorPane.topAnchor="63.0">
                                                    <font>
                                                       <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="305.0" layoutY="381.0" prefHeight="28.0" prefWidth="236.0" styleClass="selectorColor" text="  Total Attended Students  :" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="24.0" layoutY="381.0" prefHeight="28.0" prefWidth="243.0" styleClass="selectorColor" text="  Total Absent Students  :" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="totalAbsentStudents" layoutX="24.0" layoutY="421.0" prefHeight="40.0" prefWidth="243.0">
+                                                   <font>
+                                                      <Font name="System Bold" size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="totalAttendedStudents" layoutX="305.0" layoutY="421.0" prefHeight="40.0" prefWidth="237.0">
+                                                   <font>
+                                                      <Font name="System Bold" size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="572.0" layoutY="381.0" prefHeight="28.0" prefWidth="236.0" styleClass="selectorColor" text="  Total Attended Students  :" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="totalStudentCountAttendance" layoutX="572.0" layoutY="421.0" prefHeight="40.0" prefWidth="237.0">
+                                                   <font>
+                                                      <Font name="System Bold" size="19.0" />
                                                    </font>
                                                 </Label>
                                              </children>
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>

@@ -625,9 +625,44 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<ClubAdvisor, String> registrationAdvisorContactNumber;
+
     @FXML
     protected Label userCountLabel;
 
+    @FXML
+    protected ComboBox<String> ReportAttendanceClubName;
+
+    @FXML
+    protected ComboBox<String> ReportAttendanceEventName;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceClubName;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceEventName;
+
+    @FXML
+    protected TableColumn<Attendance, Integer> generateReportAttendanceAdmissionNum;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceStudentName;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceStatus;
+
+    @FXML
+    protected TableView<Attendance> generateReportAttendanceTable;
+
+    @FXML
+    protected Label totalAbsentStudents;
+
+    @FXML
+    protected Label totalAttendedStudents;
+    @FXML
+    protected Label totalStudentCountAttendance;
+
+    @FXML
+    protected Button generateReportAttendanceButton;
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 

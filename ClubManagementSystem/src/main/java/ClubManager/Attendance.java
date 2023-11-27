@@ -1,8 +1,6 @@
 package ClubManager;
 
 import SystemUsers.Student;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
@@ -17,6 +15,8 @@ public class Attendance {
     private Event event;
     private boolean attendanceStatusProperty;
     public static ArrayList<Attendance> atdTracker = new ArrayList<>();
+    private String nameAttendanceStatus;
+
     @FXML
     private CheckBox attendanceTracker;
 
@@ -71,13 +71,14 @@ public class Attendance {
     public Attendance(boolean attendanceStatus, Student student, Event event, CheckBox attendanceTracker) {
         this.attendanceStatusProperty = attendanceStatus;
         this.student = student;
-        this.event = event;
+        this.setEvent(event);
         this.attendanceTracker = attendanceTracker;
         setClubName(event);
         setEventName(event);
         setStudentAdmissionNum(student);
         setStudentName(student);
         checkboxStatusTracker();
+        setNameAttendanceStatus();
     }
 
     public Attendance(boolean attendanceStatus, CheckBox stat) {
@@ -104,4 +105,27 @@ public class Attendance {
     }
 
 
+    public String getNameAttendanceStatus() {
+        return nameAttendanceStatus;
+    }
+
+    public void setNameAttendanceStatus() {
+        if(this.attendanceStatusProperty){
+            this.nameAttendanceStatus = "Attended";
+        }else{
+            this.nameAttendanceStatus = "Absent";
+        }
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public Attendance(){
+
+    }
 }

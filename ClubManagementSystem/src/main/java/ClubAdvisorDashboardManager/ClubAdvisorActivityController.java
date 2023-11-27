@@ -22,6 +22,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -251,6 +252,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         generateReportEventType.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         generateReportDeliveryType.setCellValueFactory(new PropertyValueFactory<>("eventDeliveryType"));
         generateReportEventDescription.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
+
+        // Set cell value factories for GenerateReportAttendanceTable
+        generateReportAttendanceClubName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        generateReportAttendanceEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        generateReportAttendanceAdmissionNum.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
+        generateReportAttendanceStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        generateReportAttendanceStatus.setCellValueFactory(new PropertyValueFactory<>("nameAttendanceStatus"));
 
     }
 
@@ -1728,6 +1737,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void selectStudentsForEvents(ActionEvent event) {
+
         // an object of data type Event is created and set to null initially
         Event eventToBeTracked = null;
         // the name of the event is retrieved from the combo box value
@@ -1768,6 +1778,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }
 
+        System.out.println("Length of student attendance : " + studentAttendanceList.size());
+        System.out.println("Size....... :" +  eventToBeTracked.eventAttendance.size());
         // Create attendance objects
         for (Student student : studentAttendanceList) {
             CheckBox attendanceCheckBox = new CheckBox();  // a checkbox is created
@@ -2023,6 +2035,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // populate Attendance Club Name combo Box
         populateAttendanceClubNameComboBox();
+
+        attendanceTrackerTable.getItems().clear();
     }
 
     @Override
@@ -2047,6 +2061,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // populate Generate report clubs generate report club name combo box
         populateGenerateReportClubs(generateReportClubNameComboBox);
+
+        //populated Generate report ClubName Combo Box
+        populateGenerateReportClubNameComboBox();
 
     }
 
@@ -2081,6 +2098,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // highlight the GoToEventAttendanceButton button
         GoToEventAttendanceButton.setStyle("-fx-text-fill: white; " +
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
+        populateGenerateReportClubNameComboBox();
+        totalAbsentStudents.setText("0 students");
+        totalAttendedStudents.setText("0 students");
+        totalStudentCountAttendance.setText("0 students");
+        generateReportAttendanceButton.setDisable(true);
     }
 
     // This method will direct to the ClubActivities pane
@@ -2889,9 +2911,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clubAdvisor.generateMembershipDetailReport(clubMembershipTable, stage);
     }
 
+    // This method handles generating report for events
     @FXML
     void GeneratePdfReportForEvents(ActionEvent event) throws IOException {
+        // Creating and object of clubAdvisor
         ClubAdvisor clubAdvisor = new ClubAdvisor();
+        // Call the generate report method 
         clubAdvisor.generateEventDetailReport(generateReportEventViewTable, stage);
     }
 
@@ -2906,7 +2931,43 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
-    public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
+    @FXML
+    void GenerateAttendanceMarking(ActionEvent event) throws IOException {
+        ClubAdvisor clubAdvisor = new ClubAdvisor();
+        if(!(ReportAttendanceEventName.getValue().equals("Please Select") ||
+                ReportAttendanceClubName.getValue().equals("Please Select"))){
+            clubAdvisor.generateStudentAttendanceReport(generateReportAttendanceTable, stage);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("School Club Management System");
+            alert.setHeaderText("Please Select an event to generate a report.");
+            alert.show();
+        }
+    }
+
+    public static void generateAttendanceCsv(TableView<Attendance> tableView, Stage stage) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writeAttendanceContent(writer, tableView);
+                System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
+            }
+        }else{
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("School Club Management System");
+        alert.setHeaderText("Report Generated Successfully");
+        alert.show();
+    }
+
+
+
+        public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File file = fileChooser.showSaveDialog(stage);
@@ -2924,6 +2985,25 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.setTitle("School Club Management System");
         alert.setHeaderText("Report Generated Successfully");
         alert.show();
+    }
+
+    private static void writeAttendanceContent(FileWriter writer, TableView<Attendance> tableView) throws IOException {
+        ObservableList<TableColumn<Attendance, ?>> columns = tableView.getColumns();
+
+        // Write headers
+        for (TableColumn<Attendance, ?> column : columns) {
+            writer.write(column.getText() + ",");
+        }
+        writer.write("\n");
+
+        // Write data
+        for (Attendance attendance : tableView.getItems()) {
+            for (TableColumn<Attendance, ?> column : columns) {
+                String cellValue = column.getCellData(attendance).toString();
+                writer.write(cellValue + ",");
+            }
+            writer.write("\n");
+        }
     }
     private static void writeMembershipCsvContent(FileWriter writer, TableView<Student> tableView) throws IOException {
         ObservableList<TableColumn<Student, ?>> columns = tableView.getColumns();
@@ -3021,5 +3101,117 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.setTitle("School Club Management System");
         alert.setHeaderText("Report Generated Successfully");
         alert.show();
+    }
+
+
+    @FXML
+    void populateGenerateReportAttendanceClubName(ActionEvent event) {
+        // a new array list to hold the events filtered to the respective club
+        ArrayList<Event> filteredEvents = new ArrayList<>();
+        // the selected club name is retrieved from the club name combo box
+        String selectedClub = ReportAttendanceClubName.getSelectionModel().getSelectedItem();
+        System.out.println(selectedClub + "ding dong bell");
+
+        // if no club is selected, the method is returned (not executed)
+        if(selectedClub == null){
+            return;
+        }
+
+        // if "Please Select" is chosen, the method is returned (not executed)
+        if(selectedClub.equals("Please Select")){
+            return;
+        }else{
+            // a object of data type Event is created to iterate over the eventDetails array list
+            for(Event events : Event.eventDetails){
+                if(events.getClubName().equals(selectedClub)){
+                    filteredEvents.add(events); // the events for the respective club is added to the areay list
+                }
+            }
+        }
+        // the event name combo box is cleared
+        ReportAttendanceEventName.getItems().clear();
+
+        // check if the option "Please select" is already available
+        if(!ReportAttendanceEventName.getItems().contains("Please Select")){
+            // option is added if not available
+            ReportAttendanceEventName.getItems().add("Please select");
+        }
+
+        // an object event1 of data type Event is created to iterate over the filteredEvents array list
+        for(Event event1 : filteredEvents){
+            // the events are retrieved and added
+            ReportAttendanceEventName.getItems().add(event1.getEventName());
+        }
+        // retrieves the current selection in the combo box
+        ReportAttendanceEventName.getSelectionModel().selectFirst();
+        generateReportAttendanceButton.setDisable(true);
+
+    }
+
+    public void populateGenerateReportClubNameComboBox(){
+        // the club name combo box is cleared
+        ReportAttendanceClubName.getItems().clear();
+
+        if(!ReportAttendanceClubName.getItems().contains("Please Select")){
+            // the default option of please select is added to the combo box
+            ReportAttendanceClubName.getItems().add("Please select");
+        }
+
+        // the following is done for every club in the clubDetailsList
+        for(Club club : clubDetailsList){
+            // the club names are added to the combo box from the array list
+            ReportAttendanceClubName.getItems().add(club.getClubName());
+        }
+        // retrieves the current selection in the combo box
+        ReportAttendanceClubName.getSelectionModel().selectFirst();
+        generateReportAttendanceButton.setDisable(true);
+    }
+
+    @FXML
+    void populateGenerateReportAttendanceEventName(ActionEvent event) {
+        int totalAttended = 0;
+        int totalAbsent = 0;
+
+        totalAbsentStudents.setText("");
+        totalAttendedStudents.setText("");
+        generateReportAttendanceTable.getItems().clear();
+        String eventName = ReportAttendanceEventName.getValue();
+
+        if(eventName == null){
+            return;
+        }
+
+        if(eventName.equals("Please Select")){
+            return;
+        }
+
+        for(Event eventVall : Event.eventDetails){
+              if(eventVall.getEventName().equals(eventName)){
+
+                  ObservableList<Attendance> observableMembersList;
+                  for(Attendance attendance : eventVall.eventAttendance){
+                          CheckBox checkBox = new CheckBox();
+                          Attendance tableMembers = new Attendance(attendance.attendanceStatusProperty(),
+                                  attendance.getStudent(), attendance.getEvent(), checkBox);
+                          observableMembersList = generateReportAttendanceTable.getItems();
+                          observableMembersList.add(tableMembers);
+                          generateReportAttendanceTable.setItems(observableMembersList);
+
+                          if(attendance.attendanceStatusProperty()){
+                              totalAttended++;
+                          }else{
+                              totalAbsent++;
+                          }
+                  }
+              }
+
+            totalAbsentStudents.setText(totalAbsent + " students");
+            totalAttendedStudents.setText(totalAttended + " students");
+            int totalAttendance = (totalAttended  + totalAbsent);
+            totalStudentCountAttendance.setText(totalAttendance+ " students");
+        }
+
+        generateReportAttendanceButton.setDisable(false);
+
     }
 }
