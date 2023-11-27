@@ -102,9 +102,6 @@ public class Club implements ClubValidator {
         }
     }
 
-
-    public static String clubNameValidateStatus;
-
     @Override
     public boolean validateClubId() {
         return false;
