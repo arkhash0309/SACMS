@@ -66,16 +66,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // This method initializes all variables and call methods when loading club advisor dashboard
     @Override
-
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        selectUserGettingFromComboBox();
 
         //Setting the values to the combo box in Club membership report
         populateMembershipCombo(clubMembershipCombo);
         //Setting up the club members details table columns
-
-        selectUserGettingFromComboBox();
-        populateMembershipCombo(clubMembershipCombo);
         memberAdmissionNumber.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
         memberUsername.setCellValueFactory(new PropertyValueFactory<>("userName"));
         memberFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -93,7 +90,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         populateClubAdvisorTable();
         registrationStudentTable.setVisible(false);
 
-
         registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
         registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -101,7 +97,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
         registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
         registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
-
 
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
@@ -124,9 +119,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Set the membership table in Club Advisor Report
         setMembershipTable();
-
         //Set cell value factories for the columns of the Create Club Table
-
         createClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
         createClubTableName.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         createClubTableDescription.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
@@ -138,18 +131,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         attendanceStudentNameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         attendanceStudentAdmissionNumColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum"));
         attendanceStatusColumn.setCellValueFactory(new PropertyValueFactory<>("attendanceStatus"));
-
-//        Club club1 = new Club(0001, "Rotaract", "Done with the work", "lkt.img");
-//        clubDetailsList.add(club1);
-//        ObservableList<Club> observableClubDetailsList = FXCollections.observableArrayList();
-//        for (Club club : clubDetailsList) {
-//            if (clubDetailsList == null) {
-//                return;
-//            }
-////            observableClubDetailsList.add(club);
-//        }
-//        createClubDetailsTable.setItems(observableClubDetailsList);
-
 
         //Set cell value factories for the columns of the Update Club  Table
         updateClubTableId.setCellValueFactory(new PropertyValueFactory<>("clubId"));
@@ -266,13 +247,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void setCreateTable() {
         // Check whether the sortedList is null and return the method, if it is null
         if (clubDetailsList == null) {
-
             return;
         }
         // Clear the Created Clubs Table
         createClubDetailsTable.getItems().clear();
-
-
         // Add Club details to the Created Clubs Table using an observable list
         for(Club club : clubDetailsList) {
             // Create a Club object with the Club details
@@ -285,11 +263,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-
     public void setUpdateTable() {
         // Check whether the sortedList is null and return the method, if it is null
         if (clubDetailsList == null) {
-
             return;
         }
         // Clear the Club Update Table
@@ -300,16 +276,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             // Create an Item details object with the item details
             Club tableClub = new Club(club.getClubId(), String.valueOf(club.getClubName()), String.valueOf(club.getClubDescription()), String.valueOf(club.getClubLogo()));
-
             //Add the Club details to the Update Clubs Table
             ObservableList<Club> observableUpdateClubList = updateClubDetailsTable.getItems();
             observableUpdateClubList.add(tableClub);
             updateClubDetailsTable.setItems(observableUpdateClubList);
         }
     }
-
-
-
 
     // This method is responsible on populating various event tables with data from Event.event details list
     public void populateEventsTables() {
@@ -517,6 +489,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             clubUpdateAlert.show();
         }
     }
+
     //Resetting the club details text fields and error labels
     @FXML
     void clubUpdationReset(ActionEvent event) {
@@ -561,12 +534,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     //Method which displays the club name error
     public void displayClubNameError(Label labelID) {
         if (Club.clubNameValidateStatus.equals("empty")) {
+            //If the club name is empty an error will display
             labelID.setText("Club Name cannot be empty");
         } else if (Club.clubNameValidateStatus.equals("format")) {
-            labelID.setText("Club Name can contain only letters");
+            //If the club name value contains digits or special characters an error will display
+            labelID.setText("Club Name can contain only\nletters");
         } else if (Club.clubNameValidateStatus.equals("exist")) {
-            labelID.setText("That club name already exists !!!");
+            //If the user entered value for club name already taken an error will display
+            labelID.setText("That club name already exists");
         } else {
+            //When the user enters a valid club name
             labelID.setText("");
         }
     }
@@ -574,8 +551,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     //Method which displays the club Description error
     public void displayClubDecriptionError(Label labelID) {
         if (Club.clubDescriptionValidateStatus.equals("empty")) {
+            //If the club description is empty an error will display
             labelID.setText("Club Description cannot be empty");
         } else {
+            //If the club description is valid error wil clear
             labelID.setText("");
         }
     }
@@ -583,8 +562,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     @FXML
     public void updateClubTableSelect(MouseEvent event) {
         updateClubTableSelect();
-        //Enable the upload photo button when the user selects a club to update
+        //Enable the update buttons when the user selects a club to update
         updateClubImageButton.setDisable(false);
+        updateClubButton.setDisable(false);
 
         //Resetting the error labels when a user selects a club
         updateClubNameError.setText("");
@@ -609,11 +589,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         //Set the initial directory of the fileChooser to the user's home directory
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        //
+        //Clear any existing extension filters
         fileChooser.getExtensionFilters().clear();
-        //
+        //Add a new extension filter for image files
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        //
+        //Show the open dialog and get the selected file
         File file = fileChooser.showOpenDialog(null);
 
         //Check whether if a file is selected by the user
@@ -649,11 +629,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         //Set the initial directory of the fileChooser to the user's home directory
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        //
+        //Clear any existing extension filters
         fileChooser.getExtensionFilters().clear();
-        //
+        //Add a new extension filter for image files
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        //
+        //Show the open dialog and get the selected file
         File file = fileChooser.showOpenDialog(null);
 
         //Check whether if a file is selected by the user
@@ -676,9 +656,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         } else {
             //Show the import image error alert
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Import Image Error !!!");
-            alert.show(); //Display the error
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("School Activity Club Management System");
+            alert.setHeaderText(null);
+            alert.setContentText("Image is not imported!");
+            alert.showAndWait();
         }
     }
 
@@ -2308,10 +2290,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // set update description error label empty
         updateClubDescriptionError.setText("");
 
+        //Resetting the update club text fields
         updateClubID.setText("");
         updateClubName.setText("");
         updateClubDescription.setText("");
+
+        //Disabling the update button until user selects a club to update
         updateClubImageButton.setDisable(true);
+        updateClubButton.setDisable(true);
     }
 
     // Direct to registration pane
@@ -2371,10 +2357,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (!clubAdvisor.validateLastName()) {
             validStat = false;
         }
+        //Displaying an error if the user entered data for advisor last name is invalid so
         displayNameError("lastName");
 
         try {
+            //Getting the contact number for a temporary variable
             String tempContactNum = advisorContactNumber;
+            //If contact number is empty
             if (tempContactNum.isEmpty()) {
                 User.contactNumberValidateStatus = "empty";
                 throw new Exception();
@@ -2382,39 +2371,43 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             Double.parseDouble(advisorContactNumber.trim());
             ClubAdvisor clubAdvisor1 = new ClubAdvisor(tempContactNum);
 
+            //Validating advisor contact number
             if (!clubAdvisor1.validateContactNumber()) {
                 validStat = false;
-                System.out.println("Invalid Contact Number 1");
             } else {
                 User.contactNumberValidateStatus = "";
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid ContactNumber 2");
             User.contactNumberValidateStatus = "format";
             validStat = false;
         } catch (Exception e) {
             validStat = false;
         }
+        //Displaying an error if the user entered data for advisor contact number is invalid
         displayContactNumError();
 
+        //Validating advisor username
         if (!clubAdvisor.validateUserName("updation", "advisor")) {
-            System.out.println("Wrong user name.");
             validStat = false;
         } else {
             User.userNameValidateStatus = "";
         }
+        //Displaying an error if the user entered data for advisor username is invalid
         displayUserNameError();
 
-        System.out.println("Valid state : " + validStat);
         if (validStat) {
+            //When all details are valid
             for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
+                //Searching for the relevant club advisor in the detail list
                 if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
+                    //Updating the advisor's details
                     foundClubAdvisor.setClubAdvisorId(advisorId);
                     foundClubAdvisor.setFirstName(advisorFirstName);
                     foundClubAdvisor.setLastName(advisorLastName);
                     foundClubAdvisor.setUserName(advisorUsername);
                     foundClubAdvisor.setContactNumber(advisorContactNumber);
 
+                    //Updating the details of the club advisor in database
                     String updatedPersonalDetailsQuery = "UPDATE TeacherInCharge set TICFName = ?, TICLName = ?, " +
                             "teacherContactNum = ? where teacherInChargeId = ?";
                     try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
@@ -2443,13 +2436,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                         System.out.println(e);
                     }
 
+
+                    //Alerting when the profile details successfully updated
                     Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                     clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                     clubUpdateAlert.setTitle("School Club Management System");
                     clubUpdateAlert.setHeaderText("Profile details successfully updated!!!");
                     clubUpdateAlert.show();
-
-                    //Update database
                 }
             }
         }
@@ -2457,7 +2450,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void advisorProfilePasswordChecker(ActionEvent event) throws SQLException {
+        //Setting default validStat as true
         validStat = true;
+        //Getting the data from text fields to create the object and validation
         int advisorId = Integer.parseInt(profileAdvisorId.getText());
         String advisorFirstName = profileAdvisorFname.getText();
         String advisorLastName = profileAdvisorLname.getText();
@@ -2467,36 +2462,48 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String advisorNewPassword = profileAdvisorNewpw.getText();
         String advisorConfirmPassword = profileAdvisorConfirmpw.getText();
 
+        //Searching through the advisor details list
         for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
+            //Checking to see if the user entered password matches with the foundAdvisor's password in the advisor details list
             if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
-                profileAdvisorExistingpw.setText("");
+                //Clearing existing password error
                 profileAdvisorExistingpwError.setText("");
+                //Creating a ClubAdvisor object for validation
                 ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
 
+                //New password validation
                 if (!clubAdvisor.validatePassword("update")) {
-                    System.out.println("Wrong password.");
+                    //Setting the validStat as false if the password is invalid
                     validStat = false;
                 }
+                //Displaying the password error if there is any
                 displayPasswordError();
 
+                //Validating confirm password value
                 if (advisorConfirmPassword.isEmpty()) {
+                    //If the confirm password value is empty error will be displayed
                     profileAdvisorConfirmpwError.setText("Cannot be empty.");
                     validStat = false;
                 } else if (!advisorConfirmPassword.equals(advisorNewPassword)) {
+                    //If the co0nfirm password value doesn't match the new password value a error will be displayed
                     profileAdvisorConfirmpwError.setText("Passwords do not match");
                     validStat = false;
                 } else {
-                    profileAdvisorConfirmpw.setText("");
+                    //If the confirm password value is valid error label will clear
                     profileAdvisorConfirmpwError.setText("");
                 }
 
-                System.out.println("Valid state : " + validStat);
+                //If all the values are valid password will be changed
                 if (validStat) {
+                    //Searching in the advisor details to find the respective advisor
                     for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
                         if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
+                            //Change the password in the advisor details list
                             foundClubAdvisor.setPassword(advisorNewPassword);
 
-                            String updatedAdvisorCredentialsQueryt = "update TeacherCredentials set teacherUserName = ?, teacherPassword  = ?  where teacherInChargeId = ?";
+                            //Changing password of the advisor in the database
+                            String updatedAdvisorCredentialsQueryt = "update TeacherCredentials set teacherUserName = ?, " +
+                                    "teacherPassword  = ?  where teacherInChargeId = ?";
 
                             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedAdvisorCredentialsQueryt)) {
                                 preparedStatement.setString(1, advisorUsername);
@@ -2506,69 +2513,89 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                             } catch (Exception e) {
                                 System.out.println(e);
                             }
+
+
+                            //Alerting when the password successfully changed
+
                             Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
                             clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
                             clubUpdateAlert.setTitle("School Club Management System");
                             clubUpdateAlert.setHeaderText("Profile password successfully changed!!!");
                             clubUpdateAlert.show();
 
+                            //Clearing the text fields
                             profileAdvisorExistingpw.setText("");
                             profileAdvisorNewpw.setText("");
                             profileAdvisorConfirmpw.setText("");
-
-                            //Update database
                         }
                     }
                 }
             } else {
+                //If the user entered existing password is wrong error will display
                 profileAdvisorExistingpwError.setText("Wrong password!");
             }
         }
-
-
     }
+
 
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
+            //If the username is empty an error will show
             profileAdvisorUsernameError.setText("User name cannot be empty.");
         } else if (ClubAdvisor.userNameValidateStatus.equals("exist")) {
+            //If the username is already taken an error will show
             profileAdvisorUsernameError.setText("Entered username already exists.");
         } else if (User.userNameValidateStatus.equals("blank")) {
+            //If the username is blank an error will show
             profileAdvisorUsernameError.setText("Username cannot contain spaces.");
         } else if (User.userNameValidateStatus.equals("length")) {
+            //If the username is invalid an error will show
             profileAdvisorUsernameError.setText("The length should be 5 to 10 characters.");
         } else {
+            //When a valid username enters error will clear
             profileAdvisorUsernameError.setText("");
         }
     }
 
     public void displayContactNumError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
+            //If the contact number field is empty an error will display
             profileAdvisorCnumberError.setText("Contact number cannot be empty.");
         } else if (User.contactNumberValidateStatus.equals("length")) {
+            //If the contact number value isn't ten digits an error will display
             profileAdvisorCnumberError.setText("Contact number should be 10 digits.");
         } else if (User.contactNumberValidateStatus.equals("format")) {
+            //If the contact number value is invalid an error will display
             profileAdvisorCnumberError.setText("It should contain only numbers.");
         } else {
+            //When a valid contact number enters error will clear
             profileAdvisorCnumberError.setText("");
         }
     }
 
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
+            //when name type is first name
             if (ClubAdvisor.fNameValidateStatus.equals("empty")) {
+                //If name is empty an error will display
                 profileAdvisorFnameError.setText("First Name cannot be empty.");
             } else if (ClubAdvisor.fNameValidateStatus.equals("format")) {
+                //If name value contains digits or special characters an error will display
                 profileAdvisorFnameError.setText("First Name can contain only letters.");
             } else {
+                //If name value is valid error will clear
                 profileAdvisorFnameError.setText("");
             }
         } else if (nameType.equals("lastName")) {
+            //when name type is last name
             if (ClubAdvisor.lNameValidateStatus.equals("empty")) {
+                //If name is empty an error will display
                 profileAdvisorLnameError.setText("Last Name cannot be empty.");
             } else if (ClubAdvisor.lNameValidateStatus.equals("format")) {
+                //If name value contains digits or special characters an error will display
                 profileAdvisorLnameError.setText("Last name can contain only letters.");
             } else {
+                //If name value is valid error will clear
                 profileAdvisorLnameError.setText("");
             }
         }
@@ -2576,11 +2603,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     public void displayPasswordError() {
         if (User.passwordValidateStatus.equals("empty")) {
-            profileAdvisorNewpwError.setText("Password cannot be empty.");
+            //If the password state is "empty" respective error will be displayed
+            profileAdvisorNewpwError.setText("New Password cannot be empty.");
         } else if (User.passwordValidateStatus.equals("format")) {
+            //If the password state is "format" respective error will be displayed
             profileAdvisorNewpwError.setText("Password should consists of 8\ncharacters including numbers and\nspecial characters.");
         } else {
-            profileAdvisorNewpw.setText("");
+            //If the password is valid error will disappear
             profileAdvisorNewpwError.setText("");
         }
     }
@@ -2617,50 +2646,58 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-
     public void populateMembershipCombo(ComboBox<String> selectedCombo) {
+        //Clearing the values in combo box
         selectedCombo.getItems().clear();
+        //If the combo box doesn't have the "All Clubs" as a value it will be added
         if (!selectedCombo.getItems().contains("All Clubs")) {
             selectedCombo.getItems().add("All Clubs");
         }
+        //Club names of the club which the respective advisor has created will be added to the combo box values
         for (Club club : clubDetailsList) {
             selectedCombo.getItems().add(club.getClubName());
         }
+        //Setting the selected club as the first in the list
         selectedCombo.getSelectionModel().selectFirst();
     }
 
     @FXML
     public void clubMembershipReportGenerator(ActionEvent event) {
+        //Getting the selected club from the combo box
         String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
 
         // Clear the UpdateViewTable
         clubMembershipTable.getItems().clear();
+
+        //If user choose "All Clubs" members from all the club will be displayed
         if(selectedClub == null){
             return;
         }
 
         if (selectedClub.equals("All Clubs")){
             setMembershipTable();
-        }else {
+        }else {//When the user selects a specific club
+            //Creating a observable list to pass members details for table
             ObservableList<Student> observableMembersList = null;
+            //Searching through the students list
             for (Student foundStudent : studentDetailArray) {
+                //Getting clubs that "foundStudent" has joined
                 ArrayList<Club> clubList = ClubAdvisorDataBaseManager.joinedClubForEachStudent.get(foundStudent);
+                //Searching through that club list to see if "foundStudent" is a member of the club that user selected
                 for (Club club : clubList) {
                     if (selectedClub.equals(club.getClubName())) {
-                        System.out.println("Hello" + foundStudent.getContactNumber());
                         // Check whether the sortedList is null and return the method, if it is null
                         if (studentDetailArray == null) {
                             return;
                         }
 
-                        System.out.println(foundStudent.getContactNumber());
-                        // Create an Item details object with the item details
+                        //If the "foundStudent" is a member of the selected club, a Student object with that "foundStudent" details will be created
                         Student tableStudent = new Student(foundStudent.getStudentAdmissionNum(),
                                 foundStudent.getUserName(), foundStudent.getFirstName(), foundStudent.getLastName(),
                                 foundStudent.getStudentGrade(), foundStudent.getGender(),
                                 makeTenDigitsForNumber(Integer.parseInt(foundStudent.getContactNumber())));
 
-                        // Add the item details to the UpdateViewTable
+                        //The object created above will be added to the observable list and sent to the table
                         observableMembersList = clubMembershipTable.getItems();
                         observableMembersList.add(tableStudent);
                         clubMembershipTable.setItems(observableMembersList);
@@ -2668,22 +2705,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     }
                 }
             }
+            //Displaying the number of members
             membershipReportNumber.setText("Number of Members : " + observableMembersList.size());
         }
-
-//        String selectedClub = clubMembershipCombo.getSelectionModel().getSelectedItem();
-//
-//        if (selectedClub.equals("All Clubs")){
-//            setMembershipTable();
-//        }else {
-//            for(Student foundStudent : studentDetailArray){
-//                for (Club foundClub : foundStudent.){
-//
-//                }
-//            }
-//        }
-
-
     }
 
     public void setMembershipTable() {
@@ -2709,6 +2733,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             observableMembersList.add(tableStudent);
             clubMembershipTable.setItems(observableMembersList);
         }
+        //Displaying the number of members
         membershipReportNumber.setText("Number of Members : " + observableMembersList.size());
     }
 
@@ -2987,6 +3012,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.show();
     }
 
+
+    //Writes the contents of a TableView to a CSV file using the provided FileWriter
+
     private static void writeAttendanceContent(FileWriter writer, TableView<Attendance> tableView) throws IOException {
         ObservableList<TableColumn<Attendance, ?>> columns = tableView.getColumns();
 
@@ -3005,21 +3033,29 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             writer.write("\n");
         }
     }
+
     private static void writeMembershipCsvContent(FileWriter writer, TableView<Student> tableView) throws IOException {
+        // Get the list of columns in the Table
         ObservableList<TableColumn<Student, ?>> columns = tableView.getColumns();
 
         // Write headers
         for (TableColumn<Student, ?> column : columns) {
+            // Write each column header followed by a comma
             writer.write(column.getText() + ",");
         }
+        // Move to the next line after writing all headers
         writer.write("\n");
 
         // Write data
         for (Student student : tableView.getItems()) {
+            // Iterate through each row in the Table
             for (TableColumn<Student, ?> column : columns) {
+                // Get the cell value for the current row and column
                 String cellValue = column.getCellData(student).toString();
+                // Write each cell value followed by a comma
                 writer.write(cellValue + ",");
             }
+            // Move to the next line after writing all cell values for the current row
             writer.write("\n");
         }
     }
