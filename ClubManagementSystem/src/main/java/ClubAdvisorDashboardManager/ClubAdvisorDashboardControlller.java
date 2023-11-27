@@ -2,7 +2,6 @@ package ClubAdvisorDashboardManager;
 
 import ClubManager.Club;
 import ClubManager.Attendance;
-import ClubManager.Club;
 import ClubManager.Event;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
@@ -24,8 +23,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import ClubManager.Event;
 
 
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
@@ -529,7 +526,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Attendance, CheckBox> attendanceStatusColumn;
 
     @FXML
-    protected TableView<String> attendanceTrackerTable;
+    protected TableView<Attendance> attendanceTrackerTable;
     @FXML
     public TableView<Event> generateReportEventViewTable;
     @FXML
@@ -628,9 +625,44 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected TableColumn<ClubAdvisor, String> registrationAdvisorContactNumber;
+
     @FXML
     protected Label userCountLabel;
 
+    @FXML
+    protected ComboBox<String> ReportAttendanceClubName;
+
+    @FXML
+    protected ComboBox<String> ReportAttendanceEventName;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceClubName;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceEventName;
+
+    @FXML
+    protected TableColumn<Attendance, Integer> generateReportAttendanceAdmissionNum;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceStudentName;
+
+    @FXML
+    protected TableColumn<Attendance, String> generateReportAttendanceStatus;
+
+    @FXML
+    protected TableView<Attendance> generateReportAttendanceTable;
+
+    @FXML
+    protected Label totalAbsentStudents;
+
+    @FXML
+    protected Label totalAttendedStudents;
+    @FXML
+    protected Label totalStudentCountAttendance;
+
+    @FXML
+    protected Button generateReportAttendanceButton;
     @FXML
     abstract protected void clearScheduleEventFields(ActionEvent event);
 

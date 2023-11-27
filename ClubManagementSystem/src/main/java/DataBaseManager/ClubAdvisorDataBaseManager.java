@@ -1,16 +1,19 @@
 package DataBaseManager;
 
+import ClubManager.Attendance;
 import ClubManager.Club;
 import ClubManager.Event;
 import SystemUsers.ClubAdvisor;
 import SystemUsers.Student;
 import com.example.clubmanagementsystem.HelloApplication;
+import javafx.scene.control.CheckBox;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 // This class handles loading data when user do the login to ClubAdvisorDataBaseManager
 public class ClubAdvisorDataBaseManager {
@@ -44,6 +47,7 @@ public class ClubAdvisorDataBaseManager {
         populateStudentDetailArray();
         getLastClubId();
         setStudentJoinedClubDetails();
+        populateAttendanceDetailsArray();
     }
 
     // default constructor for club advisor database manager
@@ -320,7 +324,65 @@ public class ClubAdvisorDataBaseManager {
 
     }
 
+    // This method populate attend related details into all event based attendance array lists
+    public void populateAttendanceDetailsArray() throws SQLException {
+       // Iterate through the event details array list
+       for(Event event : Event.eventDetails){
+           // clear the event attendance arraylist for all the students
+           event.eventAttendance.clear();
+           // find the event related club by iterating through joined clubForeachStudentHashMap
+           for (Map.Entry<Student, ArrayList<Club>> entry : joinedClubForEachStudent.entrySet()) {
+               Student student = entry.getKey();  // get the student object
+               ArrayList<Club> clubs = entry.getValue(); // get the club array list for the student object
+               for(Club club : clubs){
+                   if(event.getClubName().equals(club.getClubName())){
+                       // SQL query to retrieve data from StudentAttendance table based on eventId and clubId
+                       String sql = "SELECT * FROM StudentAttendance WHERE EventId = ? AND clubId = ? AND studentAdmissionNum = ?";
+
+                       // Prepare the statement
+                       try (PreparedStatement statement = HelloApplication.connection.prepareStatement(sql)) {
+                           // Set parameters for the eventId and clubId
+                           statement.setInt(1, event.getEventId());
+                           statement.setInt(2, club.getClubId());
+                           statement.setInt(3, student.getStudentAdmissionNum());
+
+                           // Execute the query
+                           try (ResultSet resultSet = statement.executeQuery()) {
+                               // Iterate over the result set and retrieve values
+                               while (resultSet.next()) {
+                                   // get the attendance status of the result from query
+                                   boolean attendanceStatus = resultSet.getBoolean("attendanceStatus");
+                                   // Make a checkbox object
+                                   CheckBox checkBox = new CheckBox();
+                                   // Add it to the attendance list
+                                   Attendance attendance = new Attendance(attendanceStatus,
+                                           student, event, checkBox);
+                                   // update the event attendance list of the relavant student
+                                   event.eventAttendance.add(attendance);
+                                   System.out.println("Work is success and done");
+                                   System.out.println(student.getFirstName() + " " + student.getLastName() + " " + attendanceStatus);
+                                   break;
+                               }
+                           }
+                       }
+
+                   }
+               }
+           }
+
+       }
+    }
+
 }
+
+
+
+
+
+
+
+
+
 
 
 
