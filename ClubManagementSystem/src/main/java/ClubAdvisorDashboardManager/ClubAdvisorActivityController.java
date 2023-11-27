@@ -1833,6 +1833,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Get the selected event from the combo box
         Event trackingEvent = selectAttendenceTrackingEvent(attendanceEventNameComboBox.getValue());
 
+        // the method is returned if the event is null
         if (trackingEvent == null) {
             return;
         }
@@ -2932,12 +2933,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     @FXML
+    // method to generate the report for attendance marking
     void GenerateAttendanceMarking(ActionEvent event) throws IOException {
-        ClubAdvisor clubAdvisor = new ClubAdvisor();
+        ClubAdvisor clubAdvisor = new ClubAdvisor(); // an object is created of data type Club Advisor
+        // if the combo box value is "Please select"
         if(!(ReportAttendanceEventName.getValue().equals("Please Select") ||
                 ReportAttendanceClubName.getValue().equals("Please Select"))){
             clubAdvisor.generateStudentAttendanceReport(generateReportAttendanceTable, stage);
         }else{
+            // an alert is prompted
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("School Club Management System");
             alert.setHeaderText("Please Select an event to generate a report.");
@@ -2945,20 +2949,26 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // method to generate the CSV file for the attendance
     public static void generateAttendanceCsv(TableView<Attendance> tableView, Stage stage) throws IOException {
-        FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser(); //
+        // the file extension is chosen
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File file = fileChooser.showSaveDialog(stage);
 
+        // If a file is selected, proceed to write the attendance data to the CSV file
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
+                // Call the method writeAttendanceContent to actually write the content to the CSV file
                 writeAttendanceContent(writer, tableView);
                 System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
             }
         }else{
+            // If no file is selected, return from the method
             return;
         }
 
+        // alert to show the report has been generated successfully
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
         alert.setHeaderText("Report Generated Successfully");
@@ -2987,16 +2997,20 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.show();
     }
 
+
+    // method to write content to the CSV file
     private static void writeAttendanceContent(FileWriter writer, TableView<Attendance> tableView) throws IOException {
+        // an observable list is created to set the values to the table
         ObservableList<TableColumn<Attendance, ?>> columns = tableView.getColumns();
 
-        // Write headers
+        // the column headings are set
         for (TableColumn<Attendance, ?> column : columns) {
+            // write function is used to write details onto the file
             writer.write(column.getText() + ",");
         }
         writer.write("\n");
 
-        // Write data
+        // for each entry in the table view the data is written using the write function of the FileWriter.
         for (Attendance attendance : tableView.getItems()) {
             for (TableColumn<Attendance, ?> column : columns) {
                 String cellValue = column.getCellData(attendance).toString();
@@ -3180,48 +3194,60 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     @FXML
     void populateGenerateReportAttendanceEventName(ActionEvent event) {
-        int totalAttended = 0;
-        int totalAbsent = 0;
+        int totalAttended = 0; // variable to set the total attended students
+        int totalAbsent = 0; // variable to set the total absent students
 
         totalAbsentStudents.setText("");
         totalAttendedStudents.setText("");
         generateReportAttendanceTable.getItems().clear();
         String eventName = ReportAttendanceEventName.getValue();
 
+        // return from the method if the event name is null
         if(eventName == null){
             return;
         }
 
+        // if the event name is Please select, return from the method
         if(eventName.equals("Please Select")){
             return;
         }
 
-        for(Event eventVall : Event.eventDetails){
-              if(eventVall.getEventName().equals(eventName)){
+        // for each entry in the eventDetails Array List
+        for(Event eventVal : Event.eventDetails){
+              // if the event name entered is equal to the name in the array list
+              if(eventVal.getEventName().equals(eventName)){
 
+                  // an observable list is created with data type attendance
                   ObservableList<Attendance> observableMembersList;
-                  for(Attendance attendance : eventVall.eventAttendance){
-                          CheckBox checkBox = new CheckBox();
+                  // for each entry in the eventAttendance Array list
+                  for(Attendance attendance : eventVal.eventAttendance){
+                          CheckBox checkBox = new CheckBox(); // a checkbox is defined
                           Attendance tableMembers = new Attendance(attendance.attendanceStatusProperty(),
                                   attendance.getStudent(), attendance.getEvent(), checkBox);
+                          // the items from the table are retrieved to the observable list
                           observableMembersList = generateReportAttendanceTable.getItems();
+                          // the new members are added to the Observable list
                           observableMembersList.add(tableMembers);
+                          // the values are set to the table
                           generateReportAttendanceTable.setItems(observableMembersList);
 
+                          // if the boolean value is true
                           if(attendance.attendanceStatusProperty()){
-                              totalAttended++;
+                              totalAttended++; // value of attended students is increased by 1
                           }else{
-                              totalAbsent++;
+                              totalAbsent++; // value of absent students is increased by 1
                           }
                   }
               }
-
+             // the text are set
             totalAbsentStudents.setText(totalAbsent + " students");
             totalAttendedStudents.setText(totalAttended + " students");
+            // total attendance is the sum of attended and absent students
             int totalAttendance = (totalAttended  + totalAbsent);
             totalStudentCountAttendance.setText(totalAttendance+ " students");
         }
 
+        // the button is enabled
         generateReportAttendanceButton.setDisable(false);
 
     }
