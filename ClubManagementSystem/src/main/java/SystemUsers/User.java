@@ -69,7 +69,6 @@ abstract public class User implements UserValidator {
     }
 
     public String getPassword() {
-        System.out.println(password);
         return password;
     }
 
@@ -102,8 +101,8 @@ abstract public class User implements UserValidator {
     }
 
     abstract public void registerToSystem();
-    abstract public String studentLoginToSystem();
-    abstract public String advisorLoginToSystem();
+    abstract public String LoginToSystem();
+
 //    abstract public String studentRegisteringToSystem();
 //    abstract public String advisorRegisteringToSystem();
     @Override

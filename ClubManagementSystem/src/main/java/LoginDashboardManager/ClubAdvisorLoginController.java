@@ -151,7 +151,11 @@ public class ClubAdvisorLoginController {
     boolean fieldsChecker() {
         loginStatus = true;
         clubAdvisortLoginPageUserName = advisorLoginUserName.getText();
-        clubAdvisorLoginPagePassword = advisorLoginPassword.getText();
+        if(advisorLoginPassword.isVisible()){
+            clubAdvisorLoginPagePassword = advisorLoginPassword.getText(); // receiving password from user in login page
+        }else{
+            clubAdvisorLoginPagePassword =  PasswordTextField.getText(); // receiving password from user in login page
+        }
 
         userNameForShowInAdvisorDashboard = clubAdvisortLoginPageUserName;
         if(clubAdvisortLoginPageUserName.isEmpty()){
@@ -168,7 +172,7 @@ public class ClubAdvisorLoginController {
     //advisorCredentialsChecker will check whether entered credentials are correct according to the given values
     boolean advisorCredentialsChecker() {
         ClubAdvisor advisor = new ClubAdvisor(clubAdvisortLoginPageUserName,clubAdvisorLoginPagePassword);
-        String correctPassword = advisor.advisorLoginToSystem();
+        String correctPassword = advisor.LoginToSystem();
         loginStatus = true;
         if(!clubAdvisorLoginPagePassword.equals(correctPassword)){
             loginStatus = false;
@@ -199,8 +203,9 @@ public class ClubAdvisorLoginController {
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
         Parent root = loader. load();
         ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
-        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setText(userNameForShowInAdvisorDashboard);
-        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
+        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setText(userNameForShowInAdvisorDashboard); /*
+         setting username label in advisor dashboard*/
+        clubAdvisorDashboardControlller.showUserNameClubAdvisor.setStyle("-fx-text-alignment: center"); // centering username in dashboard
         clubAdvisorDashboardControlller.clubAdvisorId = clubAdvisorDataBaseManager.selectClubAdvisorId(userNameForShowInAdvisorDashboard);
         clubAdvisorDashboardControlller.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
         clubAdvisorDashboardControlller.ViewEventButton.setStyle("-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779); " +
