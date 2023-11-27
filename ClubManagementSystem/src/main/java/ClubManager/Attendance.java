@@ -14,6 +14,7 @@ public class Attendance {
     private String eventName;
     private Event event;
     private boolean attendanceStatusProperty;
+    public static ArrayList<Attendance> atdTracker = new ArrayList<>();
     private String nameAttendanceStatus;
 
     @FXML
