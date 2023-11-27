@@ -69,6 +69,7 @@ abstract public class User implements UserValidator {
     }
 
     public String getPassword() {
+        System.out.println(password);
         return password;
     }
 

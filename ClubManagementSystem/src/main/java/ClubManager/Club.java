@@ -20,6 +20,7 @@ public class Club implements ClubValidator {
     public static ArrayList<Club> clubDetailsList = new ArrayList<>();   //Arraylist which is used to save club details
 
 
+
     public Club(int clubId, String clubName, String clubDescription) {
         this.clubId = clubId;
         this.clubName = clubName;
