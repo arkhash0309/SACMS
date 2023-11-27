@@ -2916,7 +2916,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     void GeneratePdfReportForEvents(ActionEvent event) throws IOException {
         // Creating and object of clubAdvisor
         ClubAdvisor clubAdvisor = new ClubAdvisor();
-        // Call the generate report method 
+        // Call the generate report method
         clubAdvisor.generateEventDetailReport(generateReportEventViewTable, stage);
     }
 
@@ -3024,42 +3024,53 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // This method generate csv for event objects
     public static void generateCsv(TableView<Event> tableView, Stage stage) throws IOException {
-        FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser(); // Calling the file chooser
+        // Filter only to make csv files
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        // Show the file chooser dialog box
         File file = fileChooser.showSaveDialog(stage);
 
+        // Check whether looking file is null
         if (file != null) {
+            // Use file writer to write the content
             try (FileWriter writer = new FileWriter(file)) {
+                // write the csv content to the file
                 writeCsvContent(writer, tableView);
                 System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
             }
+        // If file is null return the method
         }else{
             return;
         }
 
+        // Show the report generated successfully massage
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
         alert.setHeaderText("Report Generated Successfully");
         alert.show();
     }
 
-
+   // This method will write the event table content to the csv file
     private static void writeCsvContent(FileWriter writer, TableView<Event> tableView) throws IOException {
+        // get the column wise details from the observable list
         ObservableList<TableColumn<Event, ?>> columns = tableView.getColumns();
 
-        // Write headers
+        // Write headers of the table
         for (TableColumn<Event, ?> column : columns) {
             writer.write(column.getText() + ",");
         }
+        // go to next line
         writer.write("\n");
 
-        // Write data
+        // Write data to csv file
         for (Event event : tableView.getItems()) {
             for (TableColumn<Event, ?> column : columns) {
                 String cellValue = column.getCellData(event).toString();
                 writer.write(cellValue + ",");
             }
+            // go to the next line
             writer.write("\n");
         }
     }
