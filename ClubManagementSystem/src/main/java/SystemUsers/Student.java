@@ -60,10 +60,7 @@ public class Student extends User implements StudentValidator {
                    String updatedContactNum, String updatedAdmissionNum) {
         super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
     }
-    @Override
-    public String advisorLoginToSystem(){
-        return null;
-    }
+
 //    @Override
 //    public String advisorRegisteringToSystem(){
 //        return null;
@@ -106,7 +103,7 @@ public class Student extends User implements StudentValidator {
     }
 
     @Override
-    public String studentLoginToSystem() { // this method will check whether entered password is correct
+    public String LoginToSystem() { // this method will check whether entered password is correct
         String correctPassword = null; // store correct password from database
         String credentialChdeckQuery = "select studentPassword from studentCredentials where studentUserName = ?"; // sql query
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(credentialChdeckQuery)) { // prepare the statement to execute the code
@@ -219,6 +216,33 @@ public class Student extends User implements StudentValidator {
         alert.setTitle("School Club Management System");
         alert.setHeaderText("You have successfully joined " + clubToJoin.getClubName());
         alert.show();
+
+        giveAttendanceForJoinedClubs(clubToJoin);
+    }
+
+    public void giveAttendanceForJoinedClubs(Club club){
+        for(Event event : Event.eventDetails){
+            if(club.getClubName().equals(event.getClubName())){
+                String sql = "INSERT INTO StudentAttendance (studentAdmissionNum, clubId, EventId, attendanceStatus) VALUES (?, ?, ?, ?)";
+
+                try (PreparedStatement statement = HelloApplication.connection.prepareStatement(sql)) {
+                    // Set values for the parameters in the prepared statement
+                    statement.setInt(1, Student.studentDetailArray.get(0).getStudentAdmissionNum());
+                    statement.setInt(2, club.getClubId());
+                    statement.setInt(3, event.getEventId());
+                    statement.setBoolean(4, false);
+
+                    System.out.println(Student.studentDetailArray.get(0).getUserName());
+                    // Execute the insert query
+                    statement.executeUpdate();
+                    System.out.println("Done and dusted join");
+
+                } catch (SQLException e) {
+                    System.out.println("Wrong work !!!!!!");
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 

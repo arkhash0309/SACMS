@@ -160,16 +160,22 @@ public class StudentLoginController {
                                   empty or not */
         loginStatus = true;
         studentLoginPageUserName = LoginStudentUserName.getText(); // receiving username from user in login page
-        studentLoginPagePassword = studentLoginPassword.getText(); // receiving password from user in login page
+        if(studentLoginPassword.isVisible()){
+            studentLoginPagePassword = studentLoginPassword.getText(); // receiving password from user in login page
+        }else{
+            studentLoginPagePassword =  PasswordTextField.getText(); // receiving password from user in login page
+        }
 
         userNameForShowInStudentDashboard = studentLoginPageUserName;
         if (studentLoginPageUserName.isEmpty()) { // if username is empty, error label will be set
+            System.out.println("Empty user name !!!");
             loginStatus = false;
             studentLoginUserNameErrorLabel.setText("This field cannot be empty");
         }
         if (studentLoginPagePassword.isEmpty()) { // if password is field is empty, error label will be set
             loginStatus = false; // loginStatus will be false
             studentLoginPasswordErrorLabel.setText("This field cannot be empty");
+            System.out.println("Empty password !!!");
         }
         return loginStatus;
     }
@@ -177,8 +183,8 @@ public class StudentLoginController {
     //studentCredentialChecker will check whether entered credentials are correct according to the given values
     boolean studentCredentialChecker() { /* this method will check, whether entered username and password are correct
                                             according to the existing values*/
-        Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
-       String correctPassword = student.studentLoginToSystem(); // calling studentLoginToSystem method
+       Student student = new Student(studentLoginPageUserName, studentLoginPagePassword);
+       String correctPassword = student.LoginToSystem(); // calling studentLoginToSystem method
         loginStatus = true;
         if (!studentLoginPagePassword.equals(correctPassword)) { // entered password is incorrect, error label will be set
             loginStatus = false;
