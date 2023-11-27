@@ -12,15 +12,13 @@ import SystemDataValidator.ClubValidator;
 
 
 public class Club implements ClubValidator {
-    private String clubAdvisorName;
-
     private int clubId;
     private String clubName;
     private String clubDescription;
     private String clubLogo;
     private ImageView absoluteImage;
     public static ArrayList<Club> clubDetailsList = new ArrayList<>();
-
+    private String clubAdvisorName;
 
     public Club(int clubId, String clubName, String clubDescription) {
         this.clubId = clubId;
