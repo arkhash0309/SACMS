@@ -226,6 +226,8 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public ImageView updateClubImage;
     @FXML
     public Button updateClubImageButton;
+    @FXML
+    public Button updateClubButton;
   
     @FXML
     protected Label updateErrorLabelEventLocation;
