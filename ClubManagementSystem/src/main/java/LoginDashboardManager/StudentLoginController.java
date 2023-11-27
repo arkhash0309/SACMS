@@ -289,7 +289,8 @@ public class StudentLoginController {
                 throw new Exception(); // general exception is thrown
             }
             Double.parseDouble(contactNum.trim()); // the string is converted to a double and it is trimmed
-            Student std1 = new Student(tempContactVal); // a new object is created of data type Student with only the temporary holder as the parameter
+            Student std1 = new Student(tempContactVal); /* a new object is created of data type Student with only
+                                                                the temporary holder as the parameter */
             if (!std1.validateContactNumber()) {
                 validateStatus = false; // the boolean value is set to false as there is an error
                 System.out.println("Invalid Contact Number 1");
@@ -447,7 +448,7 @@ public class StudentLoginController {
         }
         return gender;
     }
-    public void displayNameError(String nameType) {// entered name checking
+    public void displayNameError(String nameType) { // entered name checking
         if (nameType.equals("FName")) { // checking first name
             if (Student.fNameValidateStatus.equals("empty")) { // if first name field is empty
                 studentRegisterFNameErrorLabel.setText("First Name cannot be empty."); // setting an error label to studentRegisterFNameErrorLabel

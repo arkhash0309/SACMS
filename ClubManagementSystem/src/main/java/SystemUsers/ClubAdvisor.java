@@ -46,6 +46,10 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         super(contactNumber);
     }
 
+    public ClubAdvisor(String username, String password, int clubAdvisorId){
+        super(username,password);
+        this.clubAdvisorId = clubAdvisorId;
+    }
     public ClubAdvisor(){
 
     }

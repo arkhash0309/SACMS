@@ -25,8 +25,6 @@ public class HelloApplication extends Application {
             stage.setScene(scene);
             stage.show();
 
-            System.out.println("Lakshan200");
-            System.out.println("Lakshan1234");
         }catch (Exception E){
             E.printStackTrace();
         }
@@ -54,7 +52,6 @@ public class HelloApplication extends Application {
 
         // Closing the database connection after terminating the application
         connection.close();
-        System.out.println("LakshanCooray");
     }
 
 }
