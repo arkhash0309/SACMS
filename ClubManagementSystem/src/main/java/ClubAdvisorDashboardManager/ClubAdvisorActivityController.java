@@ -310,6 +310,242 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             populateClubAdvisorTable(); //
         }
     }
+    @FXML
+    void advisorProfileUpdateChecker(ActionEvent event) {
+        //Setting the valid state as true
+        validStat = true;
+
+        //Getting the advisor id
+        int advisorId = Integer.parseInt(profileAdvisorId.getText());
+        //Getting the new advisor details to update
+        String advisorFirstName = profileAdvisorFname.getText();
+        String advisorLastName = profileAdvisorLname.getText();
+        String advisorUsername = profileAdvisorUsername.getText();
+        String advisorContactNumber = profileAdvisorCnumber.getText();
+        //Getting the advisor password from arraylist to create the object
+        String advisorPassword = clubAdvisorDetailsList.get(0).getPassword();
+
+        //Creating a ClubAdvisor object to validate data entered by the user
+        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
+
+        //Setting all validate statuses as correct before validation
+        ClubAdvisor.fNameValidateStatus = "correct";
+        ClubAdvisor.lNameValidateStatus = "correct";
+        ClubAdvisor.contactNumberValidateStatus = "correct";
+        ClubAdvisor.passwordValidateStatus = "correct";
+        ClubAdvisor.userNameValidateStatus = "correct";
+
+        // the  first name is validated using the validator interface
+        if (!clubAdvisor.validateFirstName()) {
+            validStat = false; // the boolean value is set to false as there is an error
+        }
+        //the error field is specified as the first and last names follow the same validation
+        displayNameError("firstName");
+
+        // the last name is validated using the validator interface
+        if (!clubAdvisor.validateLastName()) {
+            validStat = false; // the boolean value is set to false as there is an error
+        }
+        displayNameError("lastName");
+
+        try {
+            String tempContactNum = advisorContactNumber; // the contact number is stored in a temporary variable
+            // check if the value is empty
+            if (tempContactNum.isEmpty()) {
+                User.contactNumberValidateStatus = "empty";
+                throw new Exception(); // general exception is thrown
+            }
+            Double.parseDouble(advisorContactNumber.trim());  // the string is converted to a double and it is trimmed
+            ClubAdvisor clubAdvisor1 = new ClubAdvisor(tempContactNum);  /* a new object is created of
+                                                        data type Student with only the temporary holder as the */
+            if (!clubAdvisor1.validateContactNumber()) {
+                validStat = false; // the boolean value is set to false as there is an error
+                System.out.println("Invalid Contact Number 1");
+            } else {
+                // the contact number is validated
+                User.contactNumberValidateStatus = "";
+            }
+            // catching number format exceptions
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ContactNumber 2");
+            User.contactNumberValidateStatus = "format";
+            validStat = false; // the boolean value is set to false as there is an error
+        } catch (Exception e) {
+            validStat = false;  // the boolean value is set to false as there is an error
+        }
+        displayContactNumError();  // the error method is called to specify what type of error is produced
+
+        if (!clubAdvisor.validateUserName("updation", "advisor")) {/* passing parameters to
+                                            validateUserName method, and if username did not
+                                             meet system standards */
+            System.out.println("Wrong user name.");
+            validStat = false;
+        } else {
+            User.userNameValidateStatus = ""; // when entered username is valid
+        }
+        displayUserNameError();
+
+        System.out.println("Valid state : " + validStat);
+        if (validStat) {
+            for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
+                if (advisorId == foundClubAdvisor.getClubAdvisorId()) { // updating clubAdvisorDetailsList ArrayList
+                    foundClubAdvisor.setClubAdvisorId(advisorId);
+                    foundClubAdvisor.setFirstName(advisorFirstName);
+                    foundClubAdvisor.setLastName(advisorLastName);
+                    foundClubAdvisor.setUserName(advisorUsername);
+                    foundClubAdvisor.setContactNumber(advisorContactNumber);
+
+                    String updatedPersonalDetailsQuery = "UPDATE TeacherInCharge set TICFName = ?, TICLName = ?, " +
+                            "teacherContactNum = ? where teacherInChargeId = ?";
+                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
+                        preparedStatement.setString(1, advisorFirstName); // setting advisor first name
+                        preparedStatement.setString(2, advisorLastName); // setting advisor last name
+                        preparedStatement.setInt(3, Integer.parseInt(advisorContactNumber)); // setting advisor contact number
+                        preparedStatement.setString(4, String.valueOf(advisorId)); // setting advisor ID
+                        preparedStatement.executeUpdate();
+
+                        System.out.println("Personal Details, Working as desired");
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
+
+                    String updateTeacherUserNameQuery = "update TeacherCredentials set teacherUserName = ? " + "where teacherInChargeId = ?";
+                    // advisor username update query
+                    try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateTeacherUserNameQuery)){
+                        preparedStatement.setString(1, advisorUsername); // setting advisor username
+                        preparedStatement.setString(2, String.valueOf(advisorId)); // setting advisor ID in order to map the connectio between table
+                        preparedStatement.executeUpdate();
+                        showUserNameClubAdvisor.setText(advisorUsername); // setting newly updated username to dashboard
+                        showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
+                        System.out.println("Username, Working as desired");
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
+
+                    Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+                    clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+                    clubUpdateAlert.setTitle("School Club Management System");
+                    clubUpdateAlert.setHeaderText("Profile details successfully updated!!!");
+                    clubUpdateAlert.show();
+
+                    //Update database
+                }
+            }
+        }
+    }
+
+    @FXML
+    void advisorProfilePasswordChecker(ActionEvent event) throws SQLException {
+        validStat = true;
+        int advisorId = Integer.parseInt(profileAdvisorId.getText());
+        String advisorUsername = profileAdvisorUsername.getText();
+        String advisorExistingPassword = profileAdvisorExistingpw.getText();
+        String advisorNewPassword = profileAdvisorNewpw.getText();
+        String advisorConfirmPassword = profileAdvisorConfirmpw.getText();
+
+        for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
+            if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
+                profileAdvisorExistingpw.setText("");
+                profileAdvisorExistingpwError.setText("");
+                ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorId);
+
+                if (!clubAdvisor.validatePassword("update")) {
+                    System.out.println("Wrong password.");
+                    validStat = false;
+                }
+                displayPasswordError();
+
+                String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; /* this variable is used to check
+                                                    whether new password containing special characters */
+                if(advisorNewPassword.equals("")){ // if new password is empty
+                    profileAdvisorNewpwError.setText("Password cannot be empty");
+                    validStat = false;
+                    return;
+                }else {
+                    validStat = true;
+                    profileAdvisorNewpwError.setText("");
+                    profileAdvisorNewpw.setText("");// clearing password text field, to sure privacy measurements
+                }
+                validStat = false;
+                for (char specialChar : specialCharacters.toCharArray()) { /* here it is iterating character by character
+                                                            of the new password to check whether it is containing special characters */
+                    if(advisorNewPassword.contains(String.valueOf(specialChar))){
+                        validStat = true;
+                    }
+                }
+                if(advisorNewPassword.length() >= 8 && advisorNewPassword.length() <= 20){  /* here we are checking whether
+                                                                        new password consist of more than 8 characters */
+                    if(!validStat){
+                        profileAdvisorNewpwError.setText("""
+                                    Password should consist of special 
+                                    characters""");
+                        profileAdvisorConfirmpw.setText(""); // clearing profileAdvisorConfirmpw text field
+                    }else {
+                        validStat = true;
+                        profileAdvisorNewpwError.setText("");
+                        profileAdvisorNewpw.setText("");// clearing password text field, to sure privacy measurements
+                    }
+                }else{
+                    validStat = false;
+                    profileAdvisorNewpwError.setText("Password should consist of 8 characters");
+                    profileAdvisorConfirmpw.setText("");
+                    return;
+                }
+                if (advisorConfirmPassword.isEmpty()) { // checking whether advisorConfirmPassword is empty
+                    profileAdvisorConfirmpwError.setText("Cannot be empty.");
+                    validStat = false;
+                    return;
+                } else if (!advisorConfirmPassword.equals(advisorNewPassword)) { /* checking whether advisorConfirmPassword
+                                                                                        is equal to new password */
+                    profileAdvisorConfirmpwError.setText("Passwords do not match");
+                    validStat = false;
+                    return;
+                } else {
+                    profileAdvisorConfirmpw.setText("");
+                    profileAdvisorConfirmpwError.setText("");
+                }
+
+                System.out.println("Valid state : " + validStat);
+                if (validStat) {
+                    for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
+                        if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
+                            foundClubAdvisor.setPassword(advisorNewPassword);
+
+                            String updatedAdvisorCredentialsQueryt = "update TeacherCredentials set teacherUserName = ?, teacherPassword  = ?  where teacherInChargeId = ?";
+
+                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedAdvisorCredentialsQueryt)) {
+                                preparedStatement.setString(1, advisorUsername); // setting username
+                                preparedStatement.setString(2, advisorConfirmPassword); // setting  new password
+                                preparedStatement.setString(3, String.valueOf(advisorId)); // setting advisor ID to map tables
+                                preparedStatement.executeUpdate();
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+                            // showing alert window to user, to confirm password change successfully
+                            Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
+                            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
+                            clubUpdateAlert.setTitle("School Club Management System");
+                            clubUpdateAlert.setHeaderText("Profile password successfully changed!!!");
+                            clubUpdateAlert.show();
+
+                            profileAdvisorExistingpw.setText(""); // clearing profileAdvisorExistingpw
+                            profileAdvisorNewpw.setText(""); // clearing profileAdvisorNewpw
+                            profileAdvisorConfirmpw.setText(""); // clearing profileAdvisorConfirmpw
+
+                            //Update database
+                        }
+                    }
+                }
+            } else {
+                profileAdvisorExistingpwError.setText("Wrong password!"); // when existing password is incorrect
+                profileAdvisorNewpwError.setText("");
+                profileAdvisorConfirmpwError.setText("");
+                profileAdvisorConfirmpw.setText("");
+            }
+        }
+
+
+    }
     public void setCreateTable() {
         // Check whether the sortedList is null and return the method, if it is null
         if (clubDetailsList == null) {
@@ -2382,199 +2618,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-    @FXML
-    void advisorProfileUpdateChecker(ActionEvent event) {
-        //Setting the valid state as true
-        validStat = true;
-
-        //Getting the advisor id
-        int advisorId = Integer.parseInt(profileAdvisorId.getText());
-        //Getting the new advisor details to update
-        String advisorFirstName = profileAdvisorFname.getText();
-        String advisorLastName = profileAdvisorLname.getText();
-        String advisorUsername = profileAdvisorUsername.getText();
-        String advisorContactNumber = profileAdvisorCnumber.getText();
-        //Getting the advisor password from arraylist to create the object
-        String advisorPassword = clubAdvisorDetailsList.get(0).getPassword();
-
-        //Creating a ClubAdvisor object to validate data entered by the user
-        ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorPassword, advisorFirstName, advisorLastName, advisorContactNumber, advisorId);
-
-        //Setting all validate statuses as correct before validation
-        ClubAdvisor.fNameValidateStatus = "correct";
-        ClubAdvisor.lNameValidateStatus = "correct";
-        ClubAdvisor.contactNumberValidateStatus = "correct";
-        ClubAdvisor.passwordValidateStatus = "correct";
-        ClubAdvisor.userNameValidateStatus = "correct";
-
-        // the  first name is validated using the validator interface
-        if (!clubAdvisor.validateFirstName()) {
-            validStat = false; // the boolean value is set to false as there is an error
-        }
-        //the error field is specified as the first and last names follow the same validation
-        displayNameError("firstName");
-
-        // the last name is validated using the validator interface
-        if (!clubAdvisor.validateLastName()) {
-            validStat = false; // the boolean value is set to false as there is an error
-        }
-        displayNameError("lastName");
-
-        try {
-            String tempContactNum = advisorContactNumber; // the contact number is stored in a temporary variable
-            // check if the value is empty
-            if (tempContactNum.isEmpty()) {
-                User.contactNumberValidateStatus = "empty";
-                throw new Exception(); // general exception is thrown
-            }
-            Double.parseDouble(advisorContactNumber.trim());  // the string is converted to a double and it is trimmed
-            ClubAdvisor clubAdvisor1 = new ClubAdvisor(tempContactNum);  /* a new object is created of
-                                                        data type Student with only the temporary holder as the */
-            if (!clubAdvisor1.validateContactNumber()) {
-                validStat = false; // the boolean value is set to false as there is an error
-                System.out.println("Invalid Contact Number 1");
-            } else {
-                // the contact number is validated
-                User.contactNumberValidateStatus = "";
-            }
-            // catching number format exceptions
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid ContactNumber 2");
-            User.contactNumberValidateStatus = "format";
-            validStat = false; // the boolean value is set to false as there is an error
-        } catch (Exception e) {
-            validStat = false;  // the boolean value is set to false as there is an error
-        }
-        displayContactNumError();  // the error method is called to specify what type of error is produced
-
-        if (!clubAdvisor.validateUserName("updation", "advisor")) {/* passing parameters to
-                                            validateUserName method, and if username did not
-                                             meet system standards */
-            System.out.println("Wrong user name.");
-            validStat = false;
-        } else {
-            User.userNameValidateStatus = ""; // when entered username is valid
-        }
-        displayUserNameError();
-
-        System.out.println("Valid state : " + validStat);
-        if (validStat) {
-            for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
-                if (advisorId == foundClubAdvisor.getClubAdvisorId()) { // updating clubAdvisorDetailsList ArrayList
-                    foundClubAdvisor.setClubAdvisorId(advisorId);
-                    foundClubAdvisor.setFirstName(advisorFirstName);
-                    foundClubAdvisor.setLastName(advisorLastName);
-                    foundClubAdvisor.setUserName(advisorUsername);
-                    foundClubAdvisor.setContactNumber(advisorContactNumber);
-
-                    String updatedPersonalDetailsQuery = "UPDATE TeacherInCharge set TICFName = ?, TICLName = ?, " +
-                            "teacherContactNum = ? where teacherInChargeId = ?";
-                    try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
-                        preparedStatement.setString(1, advisorFirstName); // setting advisor first name
-                        preparedStatement.setString(2, advisorLastName); // setting advisor last name
-                        preparedStatement.setInt(3, Integer.parseInt(advisorContactNumber)); // setting advisor contact number
-                        preparedStatement.setString(4, String.valueOf(advisorId)); // setting advisor ID
-                        preparedStatement.executeUpdate();
-
-                        System.out.println("Personal Details, Working as desired");
-                    }catch (Exception e){
-                        System.out.println(e);
-                    }
-
-                    String updateTeacherUserNameQuery = "update TeacherCredentials set teacherUserName = ? " + "where teacherInChargeId = ?";
-                    // advisor username update query
-                    try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateTeacherUserNameQuery)){
-                        preparedStatement.setString(1, advisorUsername); // setting advisor username
-                        preparedStatement.setString(2, String.valueOf(advisorId)); // setting advisor ID in order to map the connectio between table
-                        preparedStatement.executeUpdate();
-                        showUserNameClubAdvisor.setText(advisorUsername); // setting newly updated username to dashboard
-                        showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
-                        System.out.println("Username, Working as desired");
-                    }catch (Exception e){
-                        System.out.println(e);
-                    }
-
-                    Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
-                    clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
-                    clubUpdateAlert.setTitle("School Club Management System");
-                    clubUpdateAlert.setHeaderText("Profile details successfully updated!!!");
-                    clubUpdateAlert.show();
-
-                    //Update database
-                }
-            }
-        }
-    }
-
-    @FXML
-    void advisorProfilePasswordChecker(ActionEvent event) throws SQLException {
-        validStat = true;
-        int advisorId = Integer.parseInt(profileAdvisorId.getText());
-        String advisorUsername = profileAdvisorUsername.getText();
-        String advisorExistingPassword = profileAdvisorExistingpw.getText();
-        String advisorNewPassword = profileAdvisorNewpw.getText();
-        String advisorConfirmPassword = profileAdvisorConfirmpw.getText();
-
-        for (ClubAdvisor foundAdvisor : clubAdvisorDetailsList) {
-            if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
-                profileAdvisorExistingpw.setText("");
-                profileAdvisorExistingpwError.setText("");
-                ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorId);
-
-                if (!clubAdvisor.validatePassword("update")) {
-                    System.out.println("Wrong password.");
-                    validStat = false;
-                }
-                displayPasswordError();
-
-                if (advisorConfirmPassword.isEmpty()) {
-                    profileAdvisorConfirmpwError.setText("Cannot be empty.");
-                    validStat = false;
-                } else if (!advisorConfirmPassword.equals(advisorNewPassword)) {
-                    profileAdvisorConfirmpwError.setText("Passwords do not match");
-                    validStat = false;
-                } else {
-                    profileAdvisorConfirmpw.setText("");
-                    profileAdvisorConfirmpwError.setText("");
-                }
-
-                System.out.println("Valid state : " + validStat);
-                if (validStat) {
-                    for (ClubAdvisor foundClubAdvisor : clubAdvisorDetailsList) {
-                        if (advisorId == foundClubAdvisor.getClubAdvisorId()) {
-                            foundClubAdvisor.setPassword(advisorNewPassword);
-
-                            String updatedAdvisorCredentialsQueryt = "update TeacherCredentials set teacherUserName = ?, teacherPassword  = ?  where teacherInChargeId = ?";
-
-                            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedAdvisorCredentialsQueryt)) {
-                                preparedStatement.setString(1, advisorUsername);
-                                preparedStatement.setString(2, advisorConfirmPassword);
-                                preparedStatement.setString(3, String.valueOf(advisorId));
-                                preparedStatement.executeUpdate();
-                            } catch (Exception e) {
-                                System.out.println(e);
-                            }
-                            Alert clubUpdateAlert = new Alert(Alert.AlertType.INFORMATION);
-                            clubUpdateAlert.initModality(Modality.APPLICATION_MODAL);
-                            clubUpdateAlert.setTitle("School Club Management System");
-                            clubUpdateAlert.setHeaderText("Profile password successfully changed!!!");
-                            clubUpdateAlert.show();
-
-                            profileAdvisorExistingpw.setText("");
-                            profileAdvisorNewpw.setText("");
-                            profileAdvisorConfirmpw.setText("");
-
-                            //Update database
-                        }
-                    }
-                }
-            } else {
-                profileAdvisorExistingpwError.setText("Wrong password!");
-            }
-        }
-
-
-    }
 
     public void displayUserNameError() { // username checking
         if (User.userNameValidateStatus.equals("empty")) { // when username field is empty
@@ -2633,7 +2676,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     including numbers and special characters.""");
             } else {
                 profileAdvisorNewpw.setText(""); // clearing password text field, in order meet security features
-                profileAdvisorNewpwError.setText(""); // setting t0 an empty string 
+                profileAdvisorNewpwError.setText(""); // setting t0 an empty string
             }
         }
 

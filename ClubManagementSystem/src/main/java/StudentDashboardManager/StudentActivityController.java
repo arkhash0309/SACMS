@@ -370,7 +370,8 @@ public class StudentActivityController extends StudentDashboardController {
 
 //     this method is used to validate student new password
     void PasswordChecker(String studentUpdatedPassword){
-        String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; // this variable is used to check whether new password containing special characters
+        String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; /* this variable is used to check
+                                                    whether new password containing special characters */
         if(studentUpdatedPassword.equals("")){ // if new password is empty
             studentUpdateNewPasswordLabel.setText("Password cannot be empty");
             validStat = false;
@@ -382,12 +383,14 @@ public class StudentActivityController extends StudentDashboardController {
         }
 
         validStat = false;
-        for (char specialChar : specialCharacters.toCharArray()) { // here it is iterating character by character of the new password to check whether it is containing special characters.
+        for (char specialChar : specialCharacters.toCharArray()) { /* here it is iterating character by character
+                                                            of the new password to check whether it is containing special characters */
             if(studentUpdatedPassword.contains(String.valueOf(specialChar))){
                 validStat = true;
             }
         }
-        if(studentUpdatedPassword.length() >= 8 && studentUpdatedPassword.length() <= 20){ // here we are checking whether new password consist of more than 8 characters
+        if(studentUpdatedPassword.length() >= 8 && studentUpdatedPassword.length() <= 20){ /* here we are checking whether
+                                                                        new password consist of more than 8 characters */
             if(!validStat){
                 studentUpdateNewPasswordLabel.setText("""
                                     Password should consist of special 
