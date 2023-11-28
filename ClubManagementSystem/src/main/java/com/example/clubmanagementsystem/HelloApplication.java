@@ -48,6 +48,7 @@ public class HelloApplication extends Application {
             throw new RuntimeException(e);
         }
         System.out.println("Sumihiri Pane");
+        System.out.println("Padamata Gahala");
 
         launch();
 
