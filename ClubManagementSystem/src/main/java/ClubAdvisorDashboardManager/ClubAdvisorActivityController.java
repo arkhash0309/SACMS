@@ -1432,7 +1432,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // work done by- Lakshan
-    // This method is used to search the cancel event
+    // This method is used to search the cancel events
+    // event cancel sequence - 1 search cancel event
     @FXML
     void searchCancelEvent(ActionEvent event) {
         // giving the searchbar and the table to be searched
@@ -1545,6 +1546,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // work done by- Lakshan
     // This method selects a club from the ComboBox and populate the relevant details to a table
+    // Track attendance sequence - 1.1 : populateEventList()
     public void populateEventList(TableView<Event> table, ComboBox<String> comboBoxName) {
         // List to store dates of the selected events
         ArrayList<LocalDate> selectedEventDates = new ArrayList<>();
@@ -1763,6 +1765,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     // work done by- Arkhash
+    // Track attendance sequence 1.1.1.2.1 : selectStudentsForEvents
     @FXML
     void selectStudentsForEvents(ActionEvent event) {
 
@@ -1857,6 +1860,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     // work done by-Arkhash
+    // Track attendance sequence - 1.1.1.2.1.2.1 : onAttendanceSubmitButtonClick()
     @FXML
     void onAttendanceSubmitButtonClick(ActionEvent event) {
         // Get the selected event from the combo box
@@ -1870,6 +1874,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Iterate through the rows and update the boolean status based on checkbox state
         for (Attendance attendance : attendanceTrackerTable.getItems()) {
             boolean isChecked = attendance.getAttendanceTracker().isSelected(); // Assuming getAttendanceTracker() returns the checkbox state
+            // Track attendance sequence : 1.1.1.2.1.2.1.1 :  setAttendanceStatusProperty
             attendance.setAttendanceStatusProperty(isChecked); ; // Assuming setAttendanceStatus(boolean) sets the boolean status
         }
 
@@ -1882,6 +1887,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(attendanceData.size());
 
         ClubAdvisor clubAdvisor = new ClubAdvisor();
+        // Attendance tracking sequence : 1.1.1.2.1.2.1.1.1.1 : TrackAttendance()
         clubAdvisor.TrackAttendance(trackingEvent, attendanceData);
 
         // Repopulate the attendanceTrackerTable if necessary

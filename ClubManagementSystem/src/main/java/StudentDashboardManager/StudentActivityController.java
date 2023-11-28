@@ -587,12 +587,14 @@ public class StudentActivityController extends StudentDashboardController {
         studentJoinClubDropDownList.getSelectionModel().selectFirst();
     }
 
-    // work done by- Lakshan
+    // work done by- Deelaka and Lakshan
+    // this method is used to populate all events in student dashboard
     @FXML
     void OnStudentClubSelection(ActionEvent event) {
-        studentJoinClubID.setText(" ");
-        studentJoinClubName.setText(" ");
-        studentJoinClubAdvisorName.setText(" ");
+        studentJoinClubID.setText(" "); // setting the club ID of the student selected club
+        studentJoinClubName.setText(" "); // setting the club name of the student selected club
+        studentJoinClubAdvisorName.setText(" "); // setting club advisor name of the respective club
+
 
         String selectedClub = studentJoinClubDropDownList.getSelectionModel().getSelectedItem();
 
@@ -617,7 +619,7 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
 
-    // work done by- Lakshan
+    // work done by- Deelaka and Lakshan
     @FXML
     void joinClubController(){
        String clubToJoin = studentJoinClubDropDownList.getSelectionModel().getSelectedItem();

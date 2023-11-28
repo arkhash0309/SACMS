@@ -53,6 +53,7 @@ public class LoginController implements Initializable {
     }
 
     // work done by- Lakshan and Deelaka
+    // Login sequence diagram : 1.1 : DirectClubAdvisor()
     @FXML
     void DirectClubAdvisor(ActionEvent event) throws IOException {
         System.out.println("Direct to club Advisor");
