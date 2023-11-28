@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+// work done by- Lakshan
 public class Event {
     // The following private variables representing the attributes of an event
     private String eventName; //Store name of the event variable
