@@ -26,6 +26,7 @@ import java.util.Map;
 
 import static ClubManager.Club.clubDetailsList;
 
+// work done by- Lakshan, Pramuditha and some parts by Arkhash
 public class ClubAdvisor extends User implements ClubAdvisorValidator {
     private int clubAdvisorId;
     public static ArrayList<ClubAdvisor> clubAdvisorDetailsList = new ArrayList<>();
