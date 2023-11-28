@@ -287,20 +287,20 @@ public class StudentActivityController extends StudentDashboardController {
             String updatedPersonalDetailsQuery = "UPDATE Student set studentFName = ?, studentLName = ?, studentGrade = ?,Gender = ?, studentContactNum = ? where studentAdmissionNum = ?";
             try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedPersonalDetailsQuery)) {
 
-                preparedStatement.setString(1, updatedFirstName);
-                preparedStatement.setString(2, updatedLastName);
-                preparedStatement.setInt(3, updatedGrade);
-                preparedStatement.setString(4, String.valueOf(studentGender));
-                preparedStatement.setInt(5, Integer.parseInt(updatedContactNum));
-                preparedStatement.setString(6, String.valueOf(studentAdmissionNum));
+                preparedStatement.setString(1, updatedFirstName); // setting updatedFirstName
+                preparedStatement.setString(2, updatedLastName); // setting updatedLastName
+                preparedStatement.setInt(3, updatedGrade); // setting updatedGrade
+                preparedStatement.setString(4, String.valueOf(studentGender)); // setting studentGender
+                preparedStatement.setInt(5, Integer.parseInt(updatedContactNum)); // setting updatedContactNum
+                preparedStatement.setString(6, String.valueOf(studentAdmissionNum)); // setting studentAdmissionNum
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 System.out.println(e);
             }
             String updateStudentUserNameQuery = "update studentCredentials set studentUserName = ? " + "where studentAdmissionNum = ?"; // student username update query
             try(PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateStudentUserNameQuery)){
-                preparedStatement.setString(1, updatedUserName);
-                preparedStatement.setString(2, String.valueOf(updatedAdmissionNumber));
+                preparedStatement.setString(1, updatedUserName); // setting updatedUserName
+                preparedStatement.setString(2, String.valueOf(updatedAdmissionNumber)); // setting updatedAdmissionNumber to map tables
                 preparedStatement.executeUpdate();
                 studentUpdateProfileUserName.setText(updatedUserName);
                 showUserName.setText(updatedUserName); // setting newly updated username to dashboard
@@ -331,7 +331,7 @@ public class StudentActivityController extends StudentDashboardController {
         // getting student studentEnteredExistingPassword from studentUpdateProfileExistingPassword text field
         studentEnteredExistingPassword = studentUpdateProfileExistingPassword.getText();
 
-
+        // passwords validation process
         existingPasswordChecker(studentExistingPassword, studentEnteredExistingPassword);
         if(validStat){
             PasswordChecker(updatedPassword);
@@ -342,31 +342,16 @@ public class StudentActivityController extends StudentDashboardController {
 
         // inserting updated credentials to database
         if(validStat) {
-            String updatedStudentCredentialsQueryt = "update studentCredentials set studentUserName = ?, studentPassword = ?  where studentAdmissionNum = ?";
+            String updatedStudentCredentialsQuery = "update studentCredentials set studentUserName = ?, studentPassword = ?  where studentAdmissionNum = ?";
 
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedStudentCredentialsQueryt)) {
-                preparedStatement.setString(1, updatedUserName);
-                preparedStatement.setString(2, updateConfirmPassword);
-                preparedStatement.setString(3, String.valueOf(admissionNumber));
+            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updatedStudentCredentialsQuery)) {
+                preparedStatement.setString(1, updatedUserName); // setting updatedUserName
+                preparedStatement.setString(2, updateConfirmPassword); // setting updateConfirmPassword
+                preparedStatement.setString(3, String.valueOf(admissionNumber)); // setting admissionNumber to map table
                 preparedStatement.executeUpdate();
 
             } catch (Exception e) {
                 System.out.println(e);
-            }
-
-            String updateUserNameQuery = "UPDATE studentCredentials SET studentUserName = ? WHERE studentAdmissionNum = ?";
-
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(updateUserNameQuery)) {
-
-                preparedStatement.setString(1, updatedUserName);
-                preparedStatement.setInt(2, admissionNumber);
-
-                preparedStatement.executeUpdate();
-
-            } catch (SQLException e) {
-                System.out.println("error updation");
-                e.printStackTrace(); // Handle the exception as needed
-                return;
             }
 
             StudentDataBaseManager.setStudentUserName(updatedUserName);
@@ -385,7 +370,8 @@ public class StudentActivityController extends StudentDashboardController {
     // work done by- Deelaka
 //     this method is used to validate student new password
     void PasswordChecker(String studentUpdatedPassword){
-        String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; // this variable is used to check whether new password containing special characters
+        String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; /* this variable is used to check
+                                                    whether new password containing special characters */
         if(studentUpdatedPassword.equals("")){ // if new password is empty
             studentUpdateNewPasswordLabel.setText("Password cannot be empty");
             validStat = false;
@@ -397,12 +383,14 @@ public class StudentActivityController extends StudentDashboardController {
         }
 
         validStat = false;
-        for (char specialChar : specialCharacters.toCharArray()) { // here it is iterating character by character of the new password to check whether it is containing special characters.
+        for (char specialChar : specialCharacters.toCharArray()) { /* here it is iterating character by character
+                                                            of the new password to check whether it is containing special characters */
             if(studentUpdatedPassword.contains(String.valueOf(specialChar))){
                 validStat = true;
             }
         }
-        if(studentUpdatedPassword.length() >= 8 && studentUpdatedPassword.length() <= 20){ // here we are checking whether new password consist of more than 8 characters
+        if(studentUpdatedPassword.length() >= 8 && studentUpdatedPassword.length() <= 20){ /* here we are checking whether
+                                                                        new password consist of more than 8 characters */
             if(!validStat){
                 studentUpdateNewPasswordLabel.setText("""
                                     Password should consist of special 

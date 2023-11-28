@@ -33,12 +33,6 @@ public class Student extends User implements StudentValidator {
     public Student(){
 
     }
-//    public Student(Integer studentAdmissionNum, String firstName, String lastName, Integer grade, String contactNumber, Character gender){
-////        super(firstName,lastName,contactNumber);
-//        this.studentAdmissionNum = studentAdmissionNum;
-//        this.studentGrade = studentGrade;
-//        this.setStudentGender(studentGender);
-//    }
 
     public Student(String userName, String password, String firstName, String lastName) {
         super(userName, password, firstName, lastName);
@@ -118,39 +112,8 @@ public class Student extends User implements StudentValidator {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return correctPassword;
     }
-
-//    @Override
-//    public String studentRegisteringToSystem(){
-//        String studentPersonalDetailsQuery = "INSERT INTO Student (studentAdmissionNum, studentFName, studentLName, " +
-//                "studentGrade, studentContactNum, Gender) VALUES (?, ?, ?, ?, ?, ?)";
-//        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentPersonalDetailsQuery)) {
-//            preparedStatement.setInt(1, Integer.parseInt(String.valueOf(this.getStudentAdmissionNum())));
-//            preparedStatement.setString(2, this.getFirstName());
-//            preparedStatement.setString(3, this.getLastName());
-//            preparedStatement.setInt(4, this.studentGrade); // Assuming grade is an INT
-//            preparedStatement.setInt(5, Integer.parseInt(this.getContactNumber()));
-//            preparedStatement.setString(6, String.valueOf(this.studentGender));
-//            preparedStatement.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println("Error 1");
-//            System.out.println(e);
-//        }
-//        String studentCredentialsDetailsQuery = "INSERT INTO studentCredentials (studentUserName," +
-//                " studentPassword, studentAdmissionNum) VALUES (?, ?, ?)";
-//        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentCredentialsDetailsQuery)) {
-//            preparedStatement.setString(1, this.getUserName());
-//            preparedStatement.setString(2, this.getPassword());
-//            preparedStatement.setInt(3, Integer.parseInt(String.valueOf(this.getStudentAdmissionNum())));
-//            preparedStatement.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println("Error 2");
-//            System.out.println(e);
-//        }
-//        return studentPersonalDetailsQuery;
-//    }
 
     @Override
     public boolean validateStudentAdmissionNumber() throws SQLException {
