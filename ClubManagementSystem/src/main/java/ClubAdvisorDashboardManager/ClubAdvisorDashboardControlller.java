@@ -34,12 +34,14 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected double xPosition;
     protected double yPosition;
 
+    @FXML
+    protected DatePicker scheduleEventDatePicker;
     protected Scene scene;
     protected Stage stage;
     protected Parent root;
     @FXML
     protected StackPane ClubAdvisorDashboard;
-
+    // FXML elements defined in the associated FXML file
     @FXML
     protected AnchorPane dashboardMainPane;
 
@@ -127,7 +129,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected Button AdvisorProfileButton;
-
+    // Text fields and labels for student profile information
     @FXML
     protected TextField scheduleEventNameTextField;
 
@@ -139,9 +141,6 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
     protected Button scheduleEventClearButton;
-
-    @FXML
-    protected DatePicker scheduleEventDatePicker;
 
     @FXML
     protected TextField scheduleCreatedEventsSearchBar;
@@ -203,6 +202,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public Label updateClubDescriptionError;
     @FXML
     public TextField updateClubSearch;
+    // Table and columns for updating club
     @FXML
     public TableView<Club> updateClubDetailsTable;
     @FXML
@@ -223,7 +223,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public ImageView updateClubImage;
     @FXML
     public Button updateClubImageButton;
-  
+  // setting labels from FXML
     @FXML
     protected Label updateErrorLabelEventLocation;
 
@@ -736,6 +736,4 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     abstract void clubCreationReset(ActionEvent event);
   
     abstract protected void clearUpdateEventFields(ActionEvent event);
-
-
 }
