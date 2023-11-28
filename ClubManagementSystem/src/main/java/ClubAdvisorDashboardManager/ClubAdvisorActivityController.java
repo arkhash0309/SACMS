@@ -447,7 +447,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             if (advisorExistingPassword.equals(foundAdvisor.getPassword())) {
                 profileAdvisorExistingpw.setText("");
                 profileAdvisorExistingpwError.setText("");
-                ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorId);
+                ClubAdvisor clubAdvisor = new ClubAdvisor(advisorUsername, advisorNewPassword, advisorId); // creating an object to validate password
 
                 if (!clubAdvisor.validatePassword("update")) {
                     System.out.println("Wrong password.");
