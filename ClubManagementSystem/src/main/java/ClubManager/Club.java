@@ -11,7 +11,6 @@ import SystemDataValidator.ClubValidator;
 
 // work done by- Pramuditha
 public class Club implements ClubValidator {
-
     private String clubAdvisorName;          //Respective Club Advisor who created the club
     private int clubId;                      //The unique identifier of the Club
     private String clubName;                 //Name of the Club
@@ -37,6 +36,8 @@ public class Club implements ClubValidator {
         setClubAdvisorName(this.clubName);           // Set the club advisor name
         setAbsoluteImage(clubLogo);                  // Set the ImageView to display the club's logo in a JavaFX application
     }
+
+    public Club(){}
 
     //Gets the unique identifier of the club
     public int getClubId() {
@@ -188,8 +189,8 @@ public class Club implements ClubValidator {
         clubDescriptionValidateStatus = "";
     }
 
-
     public String getClubAdvisorName() {
         return clubAdvisorName;
     }
+
 }
