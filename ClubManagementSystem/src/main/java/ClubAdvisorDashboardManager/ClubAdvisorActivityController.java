@@ -83,7 +83,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         memberGender.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
         memberContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
 
-        // setting values to generate report registration advisor table
+        // setting values to generate report registration advisor table, in order load these values when Generate Page is loading
         registrationAdvisorID.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorId")); // setting values to registrationAdvisorID column
         registrationAdvisorUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         registrationAdvisorFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -92,7 +92,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorTable.setVisible(true);  // loading registrationAdvisorTable table when the respective FXML is loading
         populateClubAdvisorTable();
         registrationStudentTable.setVisible(false);
-
 
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
