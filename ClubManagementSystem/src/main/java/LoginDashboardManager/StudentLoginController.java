@@ -358,6 +358,8 @@ public class StudentLoginController {
             validateStatus = false;
         }
         displayAdmissionNumError();
+        Student studentData = new Student(userName, password, firstName, lastName); // creating a student and adding to studentDetailArray
+        Student.studentDetailArray.add(studentData);
         if (!student.validateUserName("registration", "student")) { /* passing parameters to validateUserName method,
                                                                          and if username did not meet system standards */
             System.out.println("Wrong user name");
@@ -399,35 +401,12 @@ public class StudentLoginController {
         }
         System.out.println(validateStatus + " : Valid Stat");
         if (validateStatus) { // if there is no issue in entered data
-            Student studentData = new Student(userName, password, firstName, lastName); // creating a student and adding to studentDetailArray
-            Student.studentDetailArray.add(studentData);
-            // inserting newly registered student's personal details to database
-            String studentPersonalDetailsQuery = "INSERT INTO Student (studentAdmissionNum, studentFName, studentLName, " +
-                    "studentGrade, studentContactNum, Gender) VALUES (?, ?, ?, ?, ?, ?)"; // SQL query
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentPersonalDetailsQuery)) {
-                preparedStatement.setInt(1, Integer.parseInt(admissionNum)); // setting admission number
-                preparedStatement.setString(2, firstName); // setting first name
-                preparedStatement.setString(3, lastName); // setting last name
-                preparedStatement.setInt(4, grade);  // setting grade
-                preparedStatement.setInt(5, Integer.parseInt(contactNum)); // setting contact number
-                preparedStatement.setString(6, gender); // setting gender
-                preparedStatement.executeUpdate();
-                System.out.println("Personal details inserting perfectly");
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            // inserting newly registered student's credentials to the database
-            String studentCredentialsDetailsQuery = "INSERT INTO studentCredentials (studentUserName," +
-                    " studentPassword, studentAdmissionNum) VALUES (?, ?, ?)"; // SQL query
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentCredentialsDetailsQuery)) {
-                preparedStatement.setString(1, userName); // setting username
-                preparedStatement.setString(2, passwordConfirm); // setting lastname
-                preparedStatement.setInt(3, Integer.parseInt(admissionNum)); // setting admission number in order to map two tables
-                preparedStatement.executeUpdate();
-                System.out.println("Credentials inserting perfectly");
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+
+
+            Student studentDataForInsertQuery = new Student(userName,password,firstName,lastName,contactNum,
+                    Integer.parseInt(admissionNum),grade, gender.charAt(0));
+            studentDataForInsertQuery.registerToSystem();
+
             // delaying the alert window process, in order make it user friendly
             try{
                 Thread.sleep(1000); // delaying by 1000 milliseconds

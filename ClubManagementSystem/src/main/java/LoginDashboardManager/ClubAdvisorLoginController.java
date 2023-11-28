@@ -375,29 +375,8 @@ public class ClubAdvisorLoginController {
         if(validStat){ // if there is no issue in entered data
             ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName, contactNum, Integer.parseInt(advisorId));
             ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisorData);
-            // inserting newly registered advisor's personal details to database
-            String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum)" +
-                    " VALUES (?, ?, ?, ?)"; // SQL query
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
-                preparedStatement.setInt(1, Integer.parseInt(advisorId));
-                preparedStatement.setString(2, firstName); // setting first name
-                preparedStatement.setString(3, lastName); // setting last name
-                preparedStatement.setString(4, contactNum); // setting contact number
-                preparedStatement.executeUpdate();
-                System.out.println("Personal details inserting perfectly");
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            // inserting newly registered advisor's credentials to the database
-            String clubAdvisorCredentialsDetailsQuery = "INSERT INTO TeacherCredentials (teacherUserName, teacherPassword, teacherInChargeId) VALUES (?, ?, ?)";
-            try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
-                preparedStatement.setString(1, userName); // setting username
-                preparedStatement.setString(2, confirmPassword); // setting password
-                preparedStatement.setInt(3, Integer.parseInt(advisorId)); // setting advisor ID in order to map two tables
-                preparedStatement.executeUpdate(); // Remove the query string argument
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+
+            clubAdvisorData.registerToSystem();
             // delaying the alert window process, in order make it user friendly
             try{
                 Thread.sleep(1000);

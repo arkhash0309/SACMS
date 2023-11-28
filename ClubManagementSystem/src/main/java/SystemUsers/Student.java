@@ -70,7 +70,35 @@ public class Student extends User implements StudentValidator {
     }
     @Override
     public void registerToSystem() {
-
+        // inserting newly registered student's personal details to database
+        String studentPersonalDetailsQuery = "INSERT INTO Student (studentAdmissionNum, studentFName, studentLName, " +
+                "studentGrade, studentContactNum, Gender) VALUES (?, ?, ?, ?, ?, ?)"; // SQL query
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentPersonalDetailsQuery)) {
+            preparedStatement.setInt(1, this.getStudentAdmissionNum()); // setting admission number
+            preparedStatement.setString(2, this.getFirstName()); // setting first name
+            preparedStatement.setString(3, this.getLastName()); // setting last name
+            preparedStatement.setInt(4, this.getStudentGrade());  // setting grade
+            preparedStatement.setInt(5, Integer.parseInt(this.getContactNumber())); // setting contact number
+            System.out.println("Coming till contact number");
+            preparedStatement.setString(6, String.valueOf(this.getGender())); // setting gender
+            System.out.println("going after gender");
+            preparedStatement.executeUpdate();
+            System.out.println("Personal details inserting perfectly");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        // inserting newly registered student's credentials to the database
+        String studentCredentialsDetailsQuery = "INSERT INTO studentCredentials (studentUserName," +
+                " studentPassword, studentAdmissionNum) VALUES (?, ?, ?)"; // SQL query
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(studentCredentialsDetailsQuery)) {
+            preparedStatement.setString(1, this.getUserName()); // setting username
+            preparedStatement.setString(2, this.getPassword()); // setting lastname
+            preparedStatement.setInt(3, this.getStudentAdmissionNum()); // setting admission number in order to map two tables
+            preparedStatement.executeUpdate();
+            System.out.println("Credentials inserting perfectly");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public int getStudentAdmissionNum() {

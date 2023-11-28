@@ -55,8 +55,28 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     @Override
     public void registerToSystem() {
-
-
+        String clubAdvisorPersonalDetailsQuery = "INSERT INTO TeacherInCharge(teacherInChargeId, TICFName, TICLName, teacherContactNum)" +
+                " VALUES (?, ?, ?, ?)"; // SQL query
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorPersonalDetailsQuery)) {
+            preparedStatement.setInt(1, this.clubAdvisorId);
+            preparedStatement.setString(2, this.getFirstName()); // setting first name
+            preparedStatement.setString(3, this.getLastName()); // setting last name
+            preparedStatement.setString(4, this.getContactNumber()); // setting contact number
+            preparedStatement.executeUpdate();
+            System.out.println("Personal details inserting perfectly");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        // inserting newly registered advisor's credentials to the database
+        String clubAdvisorCredentialsDetailsQuery = "INSERT INTO TeacherCredentials (teacherUserName, teacherPassword, teacherInChargeId) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(clubAdvisorCredentialsDetailsQuery)) {
+            preparedStatement.setString(1, this.getUserName()); // setting username
+            preparedStatement.setString(2, this.getPassword()); // setting password
+            preparedStatement.setInt(3, this.getClubAdvisorId()); // setting advisor ID in order to map two tables
+            preparedStatement.executeUpdate(); // Remove the query string argument
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 
