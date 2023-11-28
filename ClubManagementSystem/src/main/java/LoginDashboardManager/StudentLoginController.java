@@ -271,6 +271,7 @@ public class StudentLoginController {
     }
 
     // This method direct the user to the student login page
+    @FXML
     void DirectToLoginPane(MouseEvent event) throws IOException { // directing user to student login page
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
