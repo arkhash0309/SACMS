@@ -3000,22 +3000,28 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.show();
     }
 
-
-
-        public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
+    //Generates and saves a CSV file containing the data from a TableView
+    public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
+        // Create a FileChooser for selecting the location to save the CSV file
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        // Show the save dialog and get the selected file
         File file = fileChooser.showSaveDialog(stage);
 
+        // Check if a file was selected
         if (file != null) {
+            // Try-with-resources to ensure the FileWriter is properly closed
             try (FileWriter writer = new FileWriter(file)) {
+                // Call the method to write the TableView content to the CSV file
                 writeMembershipCsvContent(writer, tableView);
-                System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
             }
         }else{
+            // If no file was selected, return from the method
             return;
         }
 
+        // Display an information alert to notify the user about successful report generation
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
         alert.setHeaderText("Report Generated Successfully");

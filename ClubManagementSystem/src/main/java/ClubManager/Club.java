@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import SystemDataValidator.ClubValidator;
 
 public class Club implements ClubValidator {
-
     private String clubAdvisorName;          //Respective Club Advisor who created the club
     private int clubId;                      //The unique identifier of the Club
     private String clubName;                 //Name of the Club
@@ -18,8 +17,6 @@ public class Club implements ClubValidator {
     private String clubLogo;                 //The file path or URL to the club's logo image
     private ImageView absoluteImage;         //An ImageView object to display the club's logo in a JavaFX application
     public static ArrayList<Club> clubDetailsList = new ArrayList<>();   //Arraylist which is used to save club details
-
-
 
     public Club(int clubId, String clubName, String clubDescription) {
         this.clubId = clubId;
@@ -35,6 +32,8 @@ public class Club implements ClubValidator {
         setClubAdvisorName(this.clubName);           // Set the club advisor name
         setAbsoluteImage(clubLogo);                  // Set the ImageView to display the club's logo in a JavaFX application
     }
+
+    public Club(){}
 
     //Gets the unique identifier of the club
     public int getClubId() {
@@ -183,11 +182,4 @@ public class Club implements ClubValidator {
         clubNameValidateStatus = "";
         clubDescriptionValidateStatus = "";
     }
-
-
-
-
-
-
-
 }
