@@ -47,6 +47,7 @@ public class StudentActivityController extends StudentDashboardController {
     String studentExistingPassword;
     static int clubIndexStudentLeave;
 
+    // work done by- Arkhash, Lakshan and Deelaka
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { // initialize method is used to load the details when studnetDashboard FXML is loading
 
@@ -88,6 +89,7 @@ public class StudentActivityController extends StudentDashboardController {
         setUpdateTextFields();
     }
 
+    // work done by- Lakshan
     @Override
     void StudentLogout(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
@@ -98,6 +100,7 @@ public class StudentActivityController extends StudentDashboardController {
         stage.show();
     }
 
+    // work done by- Lakshan
     @Override
     public void StudentDashboardDragDetected(MouseEvent mouseEvent) {
         Stage stage = (Stage) StudentDashboard.getScene().getWindow();
@@ -105,12 +108,14 @@ public class StudentActivityController extends StudentDashboardController {
         stage.setY(mouseEvent.getScreenY() - yPosition);
     }
 
+    // work done by- Lakshan
     @Override
     public void StudentPanePressed(MouseEvent mouseEvent) {
         xPosition = mouseEvent.getSceneX();
         yPosition = mouseEvent.getSceneY();
     }
 
+    // work done by- Lakshan
     @Override
     void MinimizePane(ActionEvent event) {
         ApplicationController applicationController = new ApplicationController();
@@ -118,12 +123,14 @@ public class StudentActivityController extends StudentDashboardController {
     }
 
 
+    // work done by- Lakshan
     @Override
     void ClosePane(ActionEvent event) {
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
 
+    // work done by- Lakshan
     @Override
     public void makeAllStudentDashBoardPanesInvisible() {
         EventStudentPane.setVisible(false);
@@ -132,6 +139,7 @@ public class StudentActivityController extends StudentDashboardController {
         StudentProfilePane.setVisible(false);
     }
 
+    // work done by- Lakshan
     @Override
     void GoToDashBoard(ActionEvent event) {
         makeAllStudentDashBoardPanesInvisible();
@@ -144,6 +152,7 @@ public class StudentActivityController extends StudentDashboardController {
         displayEventCountPerClub();
     }
 
+    // work done by- Lakshan
     @Override
     public void GoToJoinLeaveClub(ActionEvent actionEvent) {
         makeAllStudentDashBoardPanesInvisible();
@@ -155,6 +164,7 @@ public class StudentActivityController extends StudentDashboardController {
     }
 
 
+    // work done by- Lakshan
     @Override
     public void GoToEvents(ActionEvent actionEvent) {
         makeAllStudentDashBoardPanesInvisible();
@@ -165,6 +175,7 @@ public class StudentActivityController extends StudentDashboardController {
         populateStudentJoinedClubsComboBox();
     }
 
+    // work done by- Lakshan
     @FXML
     void studentProfileDirector(ActionEvent event) {
         updatedGrade = -1;
@@ -174,6 +185,7 @@ public class StudentActivityController extends StudentDashboardController {
         ProfileDirectorButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2)");
     }
 
+    // work done by- Deelaka
     public void setUpdateTextFields() { // this will set the values to student dashboard update profile
 
         studentExistingAdmission = String.valueOf(studentDetailArray.get(0).getStudentAdmissionNum());
@@ -190,6 +202,7 @@ public class StudentActivityController extends StudentDashboardController {
     }
 
 
+    // work done by- Arkhash, Deelaka and Lakshan
     public void onStudentProfileUpdateButtonClick() {
         validStat = true;
 
@@ -307,6 +320,7 @@ public class StudentActivityController extends StudentDashboardController {
 
     }
 
+    // work done by- Deelaka, Arkhash and Lakshan
     public void onStudentProfilePasswordChangeButtonClick() throws SQLException {
         validStat = true;
 
@@ -368,6 +382,7 @@ public class StudentActivityController extends StudentDashboardController {
         //Update database
     }
 
+    // work done by- Deelaka
 //     this method is used to validate student new password
     void PasswordChecker(String studentUpdatedPassword){
         String specialCharacters = "!@#$%^&*()_+-=[]{};':\",./<>?"; // this variable is used to check whether new password containing special characters
@@ -402,6 +417,8 @@ public class StudentActivityController extends StudentDashboardController {
             studentUpdateNewPasswordLabel.setText("Password should consist of 8 characters");
         }
     }
+
+    // work done by- Deelaka
     // this method is to check confirm password is entered correctly
     void ConfirmPasswordChecker(String studentUpdatedPassword, String studentConfirmPassword){
 
@@ -423,6 +440,8 @@ public class StudentActivityController extends StudentDashboardController {
             studentUpdateProfileConfirmPassword.setText("");// clearing password text field, to sure privacy measurements
         }
     }
+
+    // work done by- Deelaka
     // this method will check whether existing password
     void existingPasswordChecker(String realExistingPassword, String enteredExistingPassword){
 
@@ -449,6 +468,7 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
 
+    // work done by- Deelaka
     // this method will ensure that student chose his or her grade in student profile update section
     private int validateGradeSelection(){
         selectedGrade = studentUpdateProfileGrade.getValue();
@@ -462,6 +482,8 @@ public class StudentActivityController extends StudentDashboardController {
             return updatedGrade;
         }
     }
+
+    // work done by- Deelaka
     // this method is to set zero to contact number, because when we retrieve the contact number from database, we will receive a 9 digit number, since the format is int in database
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
@@ -476,6 +498,8 @@ public class StudentActivityController extends StudentDashboardController {
             studentUpdateUserNameLabel.setText("");
         }
     }
+
+    // work done by- Arkhash
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
             if (Student.fNameValidateStatus.equals("empty")) {
@@ -495,6 +519,8 @@ public class StudentActivityController extends StudentDashboardController {
             }
         }
     }
+
+    // work done by- Arkhash
     public void displayContactNumError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
             studentUpdateContactNumLabel.setText("Contact number cannot be empty.");
@@ -506,6 +532,8 @@ public class StudentActivityController extends StudentDashboardController {
             studentUpdateContactNumLabel.setText("");
         }
     }
+
+    // work done by- Arkhash and Deelaka
     public static String makeTenDigitsForNumber(int number) {
         // Convert the number to string
         String strNumber = Integer.toString(number);
@@ -523,6 +551,7 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
 
+    // work done by- Lakshan
     @Override
     public void makeAllStudentButtonsColoured(){
         dashboardButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
@@ -535,6 +564,7 @@ public class StudentActivityController extends StudentDashboardController {
 
 
 
+    // work done by- Lakshan
     public void getCreatedClubs(){
 
         if(!studentJoinClubDropDownList.getItems().contains("None")){
@@ -557,6 +587,7 @@ public class StudentActivityController extends StudentDashboardController {
         studentJoinClubDropDownList.getSelectionModel().selectFirst();
     }
 
+    // work done by- Lakshan
     @FXML
     void OnStudentClubSelection(ActionEvent event) {
         studentJoinClubID.setText(" ");
@@ -586,6 +617,7 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
 
+    // work done by- Lakshan
     @FXML
     void joinClubController(){
        String clubToJoin = studentJoinClubDropDownList.getSelectionModel().getSelectedItem();
@@ -619,6 +651,7 @@ public class StudentActivityController extends StudentDashboardController {
 
     }
 
+    // work done by- Lakshan
     public void populateLeaveClubDetails(){
         leaveClubTable.getItems().clear();
         for(Club club : Student.studentJoinedClubs){
@@ -629,12 +662,14 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
 
+    // work done by- Deelaka
     @FXML
     void leaveClubController(ActionEvent event){ // leave club method
         leaveClubController();
     }
 
 
+    // work done by- Lakshan and Deelaka
     public void leaveClubController(){ // student leave club method
         try{
             Club selectedClub = leaveClubTable.getSelectionModel().getSelectedItem();
@@ -672,11 +707,13 @@ public class StudentActivityController extends StudentDashboardController {
     }
 
 
+    // work done by- Lakshan
     @FXML
     void searchJoinedClubs(ActionEvent event) {
         searchJoinedClubs(leaveClubTable, studentLeaveClubSearch);
     }
 
+    // work done by- Lakshan
     public void searchJoinedClubs(TableView<Club> tableView, TextField searchBar){
 
         String clubName = searchBar.getText();
@@ -710,6 +747,7 @@ public class StudentActivityController extends StudentDashboardController {
 
     }
 
+    // work done by- Lakshan
     public void populateStudentEvents(){
         Student.studentEvent.clear();
         for(Club club: Student.studentJoinedClubs){
@@ -721,6 +759,7 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
 
+    // work done by- Lakshan
     public void populateStudentJoinedClubsComboBox(){
         studentEventSelector.getItems().clear();
 
@@ -734,6 +773,7 @@ public class StudentActivityController extends StudentDashboardController {
         studentEventSelector.getSelectionModel().selectFirst();
     }
 
+    // work done by- Lakshan
     @FXML
     void populateStudentViewEventTable(ActionEvent event) {
        populateStudentViewEventTable();
@@ -775,6 +815,7 @@ public class StudentActivityController extends StudentDashboardController {
 
     }
 
+    // work done by- Lakshan
     public void populateAllEvents(){
         for(Event value : Student.studentEvent){
             Club hostingClubDetail = value.getHostingClub();
@@ -788,10 +829,12 @@ public class StudentActivityController extends StudentDashboardController {
         }
     }
 
+    // work done by- Lakshan
     public void displayNumberOfEnrolledClubs(){
       EnrolledClubCountStudent.setText(String.valueOf(Student.studentJoinedClubs.size()));
     }
 
+    // work done by- Lakshan
     public void displayNumberOfUpcomingEvents(){
         int count = 0;
         for(Event event : Student.studentEvent){
@@ -804,6 +847,7 @@ public class StudentActivityController extends StudentDashboardController {
     }
 
 
+    // work done by- Lakshan
     public void findNextEventDateForStudent(){
         if (Student.studentEvent.isEmpty()) {
             nextEventDateForStudent.setText("   No events");
@@ -829,6 +873,7 @@ public class StudentActivityController extends StudentDashboardController {
     }
 
 
+    // work done by- Lakshan
     public void displayEventCountPerClub() {
         HashMap<String, Integer> clubEventCount = new HashMap<>();
 

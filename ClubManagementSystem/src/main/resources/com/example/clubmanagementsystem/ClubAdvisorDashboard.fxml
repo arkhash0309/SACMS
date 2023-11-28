@@ -268,7 +268,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="ManageClubPane" prefHeight="572.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane fx:id="createClubPane" layoutY="-2.0" prefHeight="575.0" prefWidth="872.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+                              <AnchorPane fx:id="createClubPane" layoutY="-2.0" prefHeight="575.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
                                  <children>
                                     <AnchorPane layoutX="21.0" layoutY="307.0" prefHeight="255.0" prefWidth="823.0" styleClass="dashboardPane" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="307.0">
                                        <children>
@@ -391,7 +391,7 @@
                                     </Button>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="UpdateClubDetailPane" layoutY="50.0" prefHeight="522.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                              <AnchorPane fx:id="UpdateClubDetailPane" layoutY="50.0" prefHeight="522.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                  <children>
                                     <AnchorPane prefHeight="255.0" prefWidth="823.0" styleClass="dashboardPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
                                        <children>
@@ -464,7 +464,7 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="695.0" layoutY="88.0" mnemonicParsing="false" onAction="#clubUpdateChecker" prefHeight="35.0" prefWidth="111.0" styleClass="CreateClubsButtons" text="Update" textFill="WHITE">
+                                          <Button fx:id="updateClubButton" layoutX="696.0" layoutY="96.0" mnemonicParsing="false" onAction="#clubUpdateChecker" prefHeight="35.0" prefWidth="111.0" styleClass="CreateClubsButtons" text="Update" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
@@ -975,11 +975,6 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="589.0" layoutY="93.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" styleClass="button2" text="Track Attendance">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Button>
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="24.0" layoutY="206.0" prefHeight="349.0" prefWidth="827.0" styleClass="EventMainPane">
@@ -1051,7 +1046,7 @@
                               </AnchorPane>
                               <AnchorPane layoutY="50.0" prefHeight="519.0" prefWidth="862.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                  <children>
-                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="ClubActivitiesPane" prefHeight="517.0" prefWidth="861.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="22.0" layoutY="19.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
@@ -1081,7 +1076,7 @@
                                                       <TableColumn fx:id="generateReportEventDescription" prefWidth="161.42852783203125" text="Event Description" />
                                                    </columns>
                                                 </TableView>
-                                                <Label layoutX="8.0" layoutY="7.0" prefHeight="36.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report" textFill="WHITE" AnchorPane.bottomAnchor="438.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
+                                                <Label layoutX="8.0" layoutY="7.0" prefHeight="36.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Generate The Report" textFill="WHITE" AnchorPane.bottomAnchor="438.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -1130,7 +1125,7 @@
                                                       <TableColumn fx:id="generateReportAttendanceStatus" prefWidth="175.42852783203125" text="Attendance Status" />
                                                    </columns>
                                                 </TableView>
-                                                <Label layoutX="8.0" layoutY="6.0" prefHeight="40.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club and Event To Genrate The Report" textFill="WHITE">
+                                                <Label layoutX="8.0" layoutY="6.0" prefHeight="40.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club and Event To Generate The Report" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -1180,7 +1175,7 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="MembershipReportPane" prefHeight="517.0" prefWidth="861.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane layoutX="24.0" layoutY="14.0" prefHeight="481.0" prefWidth="820.0" styleClass="viewPane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="19.0">
                                              <children>
@@ -1203,7 +1198,7 @@
                                                       </RadialGradient>
                                                    </textFill>
                                                 </Label>
-                                                <Label layoutX="8.0" layoutY="7.0" prefHeight="38.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Genrate The Report" textFill="WHITE" AnchorPane.bottomAnchor="439.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
+                                                <Label layoutX="8.0" layoutY="7.0" prefHeight="38.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select Your Club To Generate The Report" textFill="WHITE" AnchorPane.bottomAnchor="439.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -1264,7 +1259,7 @@
                                                       </RadialGradient>
                                                    </textFill>
                                                 </Label>
-                                                <Label layoutX="8.0" layoutY="7.0" prefHeight="38.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select the type of User to Genrate the Report" textFill="WHITE" AnchorPane.bottomAnchor="439.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
+                                                <Label layoutX="8.0" layoutY="7.0" prefHeight="38.0" prefWidth="804.0" styleClass="updateClubLabels" text="   Select the type of User to Generate the Report" textFill="WHITE" AnchorPane.bottomAnchor="439.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>

@@ -122,6 +122,7 @@ public class StudentLoginController {
     @FXML
     private Label studentRegisterPasswordErrorLabel;
 
+    // work done by- Lakshan
     @FXML
     void DirectToStartPage(ActionEvent event) throws IOException { // method to direct user to back to main login page
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -131,6 +132,7 @@ public class StudentLoginController {
         stage.show();
     }
 
+    // work done by- Lakshan
     @FXML
     void StudentLoginPaneDragDetected(MouseEvent event) {
         Stage stage = (Stage) StudentLoginForm.getScene().getWindow();
@@ -138,24 +140,28 @@ public class StudentLoginController {
         stage.setY(event.getScreenY() - yPosition);
     }
 
+    // work done by- Lakshan
     @FXML
     void studentLoginPanePressedDetected(MouseEvent event) {
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
     }
 
+    // work done by- Lakshan
     @FXML
     void minimizeTheProgram(ActionEvent event) { // minimize button in registration page
         ApplicationController applicationController = new ApplicationController();
         applicationController.MinimizeApp(StudentLoginForm);
     }
 
+    // work done by- Lakshan
     @FXML
     void ExitTheProgram(ActionEvent event) { // back button of student registration page
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
 
+    // work done by- Deelaka
     boolean fieldsChecker() { /* this method is used to check whether both studentLoginPagePassword and studentLoginPageUserName field are
                                   empty or not */
         loginStatus = true;
@@ -180,6 +186,7 @@ public class StudentLoginController {
         return loginStatus;
     }
 
+    // work done by- Deelaka
     //studentCredentialChecker will check whether entered credentials are correct according to the given values
     boolean studentCredentialChecker() { /* this method will check, whether entered username and password are correct
                                             according to the existing values*/
@@ -193,6 +200,7 @@ public class StudentLoginController {
         return loginStatus;
     }
 
+    // work done by- Deelaka
     public void showTypedPassword() {
         if (showPasswordCheckBox.isSelected()) { // when user select show password checkbox
             studentLoginPassword.setVisible(false); //studentLoginPassword textfield will disable
@@ -207,6 +215,7 @@ public class StudentLoginController {
     }
 
 
+    // work done by- Deelaka
     @FXML
     void DirectToStudentDashboard(ActionEvent event) throws IOException, SQLException { // when user click on
 
@@ -242,6 +251,7 @@ public class StudentLoginController {
         stage.show();
     }
 
+    // work done by- Lakshan
     @FXML
     void GoToStudentRegistration(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/RegisterManager/StudentRegistration.fxml"));
@@ -254,6 +264,7 @@ public class StudentLoginController {
     }
 
 
+    // work done by- Lakshan
     @FXML
     void DirectToLoginPane(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
@@ -263,6 +274,7 @@ public class StudentLoginController {
         stage.show();
     }
 
+    // work done by- Deelaka and Arkhash
     @FXML
     public void StudentRegistrationChecker(MouseEvent event) throws SQLException, IOException {
         validateStatus = true; //a boolean value is set to true initially
@@ -458,6 +470,7 @@ public class StudentLoginController {
 
 
 
+    // work done by- Arkhash and Deelaka
     public void displayNameError(String nameType) {
         if (nameType.equals("FName")) {
             if (Student.fNameValidateStatus.equals("empty")) {
@@ -478,6 +491,7 @@ public class StudentLoginController {
         }
     }
 
+    // work done by- Arkhash and Deelaka
     public void displayAdmissionNumError() {
         if (Student.admissionNumStatus.equals("empty")) {
             studentRegisterAdmissionNumErrorLabel.setText("Admission Number cannot be empty.");
@@ -493,6 +507,7 @@ public class StudentLoginController {
     }
 
 
+    // work done by- Arkhash and Deelaka
     public void displayPasswordError() {
         if (User.passwordValidateStatus.equals("empty")) {
             studentRegisterPasswordErrorLabel.setText("Password cannot be empty.");
@@ -507,6 +522,7 @@ public class StudentLoginController {
         }
     }
 
+    // work done by- Deelaka
     public void setComboBoxValuesStudentRegistration(){
         Grade.getItems().add("Select Grade");
         for (int ComboGrade = 6; ComboGrade<14; ComboGrade++) {
@@ -521,6 +537,8 @@ public class StudentLoginController {
        Grade.setOnAction(event -> validateGradeSelection());
        Gender.setOnAction(event -> validateGenderSelection());
     }
+
+    // work done by- Deelaka
     private int validateGradeSelection() {
         selectedGradeVal = Grade.getValue();
         String selectedGrade = Grade.getValue();
@@ -535,6 +553,8 @@ public class StudentLoginController {
         }
         return grade;
     }
+
+    // work done by- Deelaka
     private String validateGenderSelection() {
         selcetedGenderVal = Gender.getValue();
         String selectedGender = Gender.getValue();
@@ -553,6 +573,7 @@ public class StudentLoginController {
     }
 
 
+    // work done by- Deelaka
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
             studentRegisterUserNameErrorLabel.setText("User Name cannot be empty");
@@ -567,8 +588,7 @@ public class StudentLoginController {
         }
     }
 
-
-
+    // work done by- Deelaka
     public void displayContactValError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
             studentRegisterContactNumErrorLabel.setText("Contact Number cannot be empty.");
