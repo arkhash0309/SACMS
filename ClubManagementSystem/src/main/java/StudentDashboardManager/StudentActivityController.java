@@ -273,7 +273,8 @@ public class StudentActivityController extends StudentDashboardController {
 
         System.out.println(validStat + " : Valid Stat");
         if (validStat) {
-            for (Student foundStudent : studentDetailArray) { // here we are updating the studentDetailArray list , adding updated personal details of the student
+            for (Student foundStudent : studentDetailArray) { /* here we are updating the studentDetailArray list,
+                                                adding updated personal details of the student */
                 if (foundStudent.getStudentAdmissionNum() == Integer.parseInt(updatedAdmissionNumber)) {
                     foundStudent.setFirstName(updatedFirstName);
                     foundStudent.setLastName(updatedLastName);
