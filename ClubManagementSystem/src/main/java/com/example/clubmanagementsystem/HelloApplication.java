@@ -47,6 +47,7 @@ public class HelloApplication extends Application {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.println("Sumihiri Pane");
 
         launch();
 
