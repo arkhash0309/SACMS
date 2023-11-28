@@ -93,15 +93,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         populateClubAdvisorTable();
         registrationStudentTable.setVisible(false);
 
-        // setting values to generate report registration student table
-        registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
-        registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
-        registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
-        registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
-
 
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
