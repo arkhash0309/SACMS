@@ -186,9 +186,7 @@ public class Club implements ClubValidator {
     }
 
 
-
-
-
-
-
+    public String getClubAdvisorName() {
+        return clubAdvisorName;
+    }
 }
