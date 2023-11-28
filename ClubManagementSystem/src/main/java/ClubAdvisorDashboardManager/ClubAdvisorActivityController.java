@@ -2459,7 +2459,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
         //Displaying an error if the user entered data for advisor contact number is invalid
         displayContactNumError();
-        System.out.println("rgrg");
 
         //Validating advisor username
         if (!clubAdvisor.validateUserName("updation", "advisor")) {
