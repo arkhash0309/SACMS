@@ -3108,12 +3108,17 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     // work done by- Pramuditha
+    // This method will generate the csv file for club advisor
     public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
+        // Calling the file chooser
         FileChooser fileChooser = new FileChooser();
+        // Filter only to make csv files
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        // Show the file chooser dialog box
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
+            // Use file writer to write the content
             try (FileWriter writer = new FileWriter(file)) {
                 writeMembershipCsvContent(writer, tableView);
                 System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
@@ -3121,7 +3126,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }else{
             return;
         }
-
+        // Show the report generated successfully massage
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
         alert.setHeaderText("Report Generated Successfully");
@@ -3217,6 +3222,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Write headers of the table
         for (TableColumn<Event, ?> column : columns) {
+            // Write each column header followed by a comma
             writer.write(column.getText() + ",");
         }
         // go to next line
@@ -3224,8 +3230,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Write data to csv file
         for (Event event : tableView.getItems()) {
+            // Iterate through each row in the Table
             for (TableColumn<Event, ?> column : columns) {
+                // Get the cell value for the current row and column
                 String cellValue = column.getCellData(event).toString();
+                // Write each cell value followed by a comma
                 writer.write(cellValue + ",");
             }
             // go to the next line
@@ -3234,19 +3243,25 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // work done by- Lakshan
+    // This method will generate the csv file for club advisor
     private static void writeClubAdvisorCsvContent(FileWriter writer, TableView<ClubAdvisor> tableView) throws IOException {
         ObservableList<TableColumn<ClubAdvisor, ?>> columns = tableView.getColumns();
 
         // Write headers
         for (TableColumn<ClubAdvisor, ?> column : columns) {
+            // Write each column header followed by a comma
             writer.write(column.getText() + ",");
         }
+        // Move to the next line after writing all headers
         writer.write("\n");
 
         // Write data
         for (ClubAdvisor clubAdvisor: tableView.getItems()) {
+            // Iterate through each row in the Table
             for (TableColumn<ClubAdvisor, ?> column : columns) {
+                // Get the cell value for the current row and column
                 String cellValue = column.getCellData(clubAdvisor).toString();
+                // Write each cell value followed by a comma
                 writer.write(cellValue + ",");
             }
             writer.write("\n");
@@ -3254,13 +3269,18 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // work done by- Lakshan
+    // This method will generate the csv file for club advisor
     public static void generateAdvisorCsv(TableView<ClubAdvisor> tableView, Stage stage) throws IOException {
-        FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser(); // Calling the file chooser
+        // Filter only to make csv files
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        // Show the file chooser dialog box
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
+            // Use file writer to write the content
             try (FileWriter writer = new FileWriter(file)) {
+                // write the csv content to the file
                 writeClubAdvisorCsvContent(writer, tableView);
                 System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
             }
@@ -3268,6 +3288,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             return;
         }
 
+        // Show the report generated successfully massage
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
         alert.setHeaderText("Report Generated Successfully");
