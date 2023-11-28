@@ -64,6 +64,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public LocalDate selectedUpcomingDate; // Represents the selected upcoming date
     public LocalDate selectedMostFutureDate;  // Represents the selected most future date
 
+    // work done by- Arkhash, Deelaka, Lakshan and Pramuditha
     // This method initializes all variables and call methods when loading club advisor dashboard
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,6 +82,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         memberGender.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
         memberContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
 
+        // setting values to generate report registration advisor table, in order load these values when Generate Page is loading
         registrationAdvisorID.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorId")); // setting values to registrationAdvisorID column
         registrationAdvisorUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         registrationAdvisorFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -89,14 +91,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorTable.setVisible(true);  // loading registrationAdvisorTable table when the respective FXML is loading
         populateClubAdvisorTable();
         registrationStudentTable.setVisible(false);
-
-        registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
-        registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
-        registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
-        registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
 
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
@@ -147,6 +141,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Lakshan
     // this method populate the combo boxes with entity types  and its tables
     public void populateComboBoxes() {
         // Initialize the event related combo boxes
@@ -244,6 +239,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Pramuditha
     public void setCreateTable() {
         // Check whether the sortedList is null and return the method, if it is null
         if (clubDetailsList == null) {
@@ -263,6 +259,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     public void setUpdateTable() {
         // Check whether the sortedList is null and return the method, if it is null
         if (clubDetailsList == null) {
@@ -283,6 +280,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     // This method is responsible on populating various event tables with data from Event.event details list
     public void populateEventsTables() {
         // Check if Event.eventDetails is null, if it is return without populating tables
@@ -336,7 +334,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-
+    // work done by- Pramuditha
     @Override
     public void clubCreationChecker(ActionEvent event) {
         //Setting the valid state to true
@@ -411,6 +409,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     //Resetting the club details text fields and error labels
     @Override
     void clubCreationReset(ActionEvent event) {
@@ -421,6 +420,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clubDescriptionError.setText("");
     }
 
+    // work done by- Pramuditha
     public void clubUpdateChecker(ActionEvent event) {
         //Setting the valid state to true
         validStat = true;
@@ -490,6 +490,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     //Resetting the club details text fields and error labels
     @FXML
     void clubUpdationReset(ActionEvent event) {
@@ -501,6 +502,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateClubDescriptionError.setText("");
     }
 
+    // work done by- Pramuditha
     @FXML
     void searchUpdateTable(ActionEvent event) {
         //Get the club name to search from the search bar
@@ -531,6 +533,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     //Method which displays the club name error
     public void displayClubNameError(Label labelID) {
         if (Club.clubNameValidateStatus.equals("empty")) {
@@ -548,6 +551,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     //Method which displays the club Description error
     public void displayClubDecriptionError(Label labelID) {
         if (Club.clubDescriptionValidateStatus.equals("empty")) {
@@ -559,6 +563,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     @FXML
     public void updateClubTableSelect(MouseEvent event) {
         updateClubTableSelect();
@@ -571,6 +576,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateClubDescriptionError.setText("");
     }
 
+    // work done by- Pramuditha
     public void updateClubTableSelect() {
         //Getting the row in the table which user selected
         int row = updateClubDetailsTable.getSelectionModel().getSelectedIndex();
@@ -584,6 +590,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Pramuditha
     public void OpenImageHandler(ActionEvent event) {
         fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
 
@@ -624,6 +631,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     public void updateOpenImageHandler(ActionEvent event) {
         fileChooser.setTitle("File Chooser"); //Set the title of the file chooser dialog
 
@@ -664,13 +672,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-
+    // work done by- Lakshan
     // This method is used to clear all schedule event fields in event scheduling
     @Override
     public void clearScheduleEventFields(ActionEvent event) {
         clearEventScheduleFieldsDefault();
     }
 
+    // work done by- Lakshan
     // This method will be used to clear scheduled event fields when creating event details
     public void clearEventScheduleFieldsDefault() {
         scheduleEventNameTextField.setText(""); // set schedule EventName field empty
@@ -716,12 +725,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clearAllUpdateEventLabels();
     }
 
+    // work done by- Lakshan
     // This method will clear all the update related event fields
     @Override
     protected void clearUpdateEventFields(ActionEvent event) {
         clearUpdateEventFields();
     }
 
+    // work done by- Lakshan
     // This method will check whether there are validation errors in the user given event name in both create and update
     @FXML
     void CheckNameError(KeyEvent event) {
@@ -763,6 +774,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     /* This method will check whether user given event location is according to the validation standards in
     both schedule and update text fields */
     @FXML
@@ -805,6 +817,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     /*This method will check whether user given event type is according to the event type validations*/
     @FXML
     void CheckEventTypeError(ActionEvent event) {
@@ -844,6 +857,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     /* This method will check whether event delivery type is according to the validation standards*/
     @FXML
     void checkDeliveryTypeError(ActionEvent event) {
@@ -881,6 +895,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Lakshan
     @FXML
     void checkSelectedEventDate(ActionEvent event) {
         // set the selected date picker
@@ -922,6 +937,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Lakshan
     @FXML
     void checkClubName(ActionEvent event) {
         // set the selected club Name
@@ -960,6 +976,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(event.getTarget());
     }
 
+    // work done by- Lakshan
     // Method to populate comboBoxes with their club names for scheduling and updating events
     public void getCreatedClubs() {
         // Check if None is already their in the scheduleEventsClubName ComboBox
@@ -1019,6 +1036,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Lakshan
     /*This method is responsible on taking the user inputs and
     show error and information messages when scheduling events*/
     @FXML
@@ -1075,6 +1093,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         DisplayEventErrors();
     }
 
+    // work done by- Lakshan
     // This method is responsible on displaying event scheduling and updating error labels
     public void DisplayEventErrors() {
         // Check if the event date is not set to a future date
@@ -1145,6 +1164,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Lakshan
     // This method clears all error labels in scheduling events
     public void clearAllScheduleEventLabels() {
         scheduleErrorLabelEventName.setText(""); // clear event name error label
@@ -1155,6 +1175,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         scheduleErrorLabelClubName.setText(" ");  // clear event hosting club error label
     }
 
+    // work done by- Lakshan
     // This method clear all error labels in updating events
     public void clearAllUpdateEventLabels() {
         updateErrorLabelEventDate.setText(" "); // clear update event date error label
@@ -1165,12 +1186,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateErrorLabelClubName.setText(" "); // clear update event hosting club error label
     }
 
+    // work done by- Lakshan
     // Overloading method of below updateRowSelection method to handle update row selections
     @FXML
     public void updateRowSelection(MouseEvent event) {
         updateRowSelection();
     }
 
+    // work done by- Lakshan
     /*This table selects the row that has to be updated in updateEventTable,
      * and it is responsible on enabling updating fields for events and populate them with the selected event details.
      * and, its sets the selected event value and Id for do the updates in the database.*/
@@ -1235,6 +1258,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Lakshan
     // This method disables all update fields in event updating
     public void disableAllUpdateEventFields() {
         updateEventClubCombo.setDisable(true); // Disable update event club combo box
@@ -1250,6 +1274,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventClubCombo.setDisable(true); // Disable update event club name combo box
     }
 
+    // work done by- Lakshan
     // This method enables all update fields in event updating
     public void enableAllUpdateEventFields() {
         updateEventClubCombo.setDisable(false); // Enable update event club combo box
@@ -1264,6 +1289,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateEventClubCombo.setDisable(false); // Enable update event club name combo box
     }
 
+    // work done by- Lakshan
     /*This method is responsible on  updating event related details*/
     @FXML
     void updateEventsController(ActionEvent event) {
@@ -1350,6 +1376,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(stat);
     }
 
+    // work done by- Lakshan
     /*This method is responsible on cancel an event.*/
     @FXML
     void cancelEventController(ActionEvent event) {
@@ -1397,13 +1424,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
-    // This method is used to search the cancel event
+    // work done by- Lakshan
+    // This method is used to search the cancel events
+    // event cancel sequence - 1 search cancel event
     @FXML
     void searchCancelEvent(ActionEvent event) {
         // giving the searchbar and the table to be searched
         searchEvents(cancelEventTable, cancelEventSearchBar);
     }
 
+    // work done by- Lakshan
     // This method is used to search for update events
     @FXML
     void searchUpdateEventDetails(ActionEvent event) {
@@ -1411,12 +1441,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         searchEvents(updateEventTable, updateEventSearchBar);
     }
 
+    // work done by- Lakshan
     // This method is used to search events in create view
     @FXML
     void searchScheduledEventsInCreate(ActionEvent event) {
         searchEvents(scheduleCreatedEventTable, createdEventSearchBar);
     }
 
+    // work done by- Lakshan
     // This method searches for an event in the given table based on the given search bar input
     public void searchEvents(TableView<Event> tableView, TextField searchBar) {
         // Get the event name from the search bar
@@ -1456,11 +1488,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     // This method display the number of scheduled events
     public void displayNumberOfScheduledEvents() {
         numberOfScheduledEvents.setText(String.valueOf(Event.eventDetails.size()));
     }
 
+    // work done by- Lakshan
     // This method finds and displays the date of the next scheduled event
     public void getNextEventDate() {
         // If there are no events, set the nextEventDate label to "No events"
@@ -1490,18 +1524,22 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     // Display number of club advisors
     public void displayNumberOfClubAdvisors() {
         numberOfClubs.setText(String.valueOf(Club.clubDetailsList.size()));
     }
 
+    // work done by- Lakshan
     // This method is responsible on filtering selected club related event details and put them into a table
     @FXML
     void filterSelectedClubEvents(ActionEvent event) {
         populateEventList(viewCreatedEventsTable, viewCreatedEventsSortComboBox);
     }
 
+    // work done by- Lakshan
     // This method selects a club from the ComboBox and populate the relevant details to a table
+    // Track attendance sequence - 1.1 : populateEventList()
     public void populateEventList(TableView<Event> table, ComboBox<String> comboBoxName) {
         // List to store dates of the selected events
         ArrayList<LocalDate> selectedEventDates = new ArrayList<>();
@@ -1595,7 +1633,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-
+    // work done by- Lakshan
     // This method calculates and displays the count of male and female students in a bar chart
     public void findMaleFemaleStudentCount() {
         // Initialize the count for both male and female students
@@ -1625,6 +1663,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Lakshan
     // This method displays the count of enrolled students in each grade using a bar chart
     public void displayEnrolledStudentCount() {
         // Create a HashMap to store the count of students for each grade
@@ -1654,7 +1693,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
-
+    // work done by- Arkhash
     public void populateAttendanceClubNameComboBox() {
         // the club name combo box is cleared
         attendanceClubNameComboBox.getItems().clear();
@@ -1673,6 +1712,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         attendanceClubNameComboBox.getSelectionModel().selectFirst();
     }
 
+    // work done by- Arkhash
     @FXML
     void populateEventList(ActionEvent event) {
         // a new array list to hold the events filtered to the respective club
@@ -1717,6 +1757,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
 
+    // work done by- Arkhash
+    // Track attendance sequence 1.1.1.2.1 : selectStudentsForEvents
     @FXML
     void selectStudentsForEvents(ActionEvent event) {
 
@@ -1810,6 +1852,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by-Arkhash
+    // Track attendance sequence - 1.1.1.2.1.2.1 : onAttendanceSubmitButtonClick()
     @FXML
     void onAttendanceSubmitButtonClick(ActionEvent event) {
         // Get the selected event from the combo box
@@ -1823,6 +1867,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Iterate through the rows and update the boolean status based on checkbox state
         for (Attendance attendance : attendanceTrackerTable.getItems()) {
             boolean isChecked = attendance.getAttendanceTracker().isSelected(); // Assuming getAttendanceTracker() returns the checkbox state
+            // Track attendance sequence : 1.1.1.2.1.2.1.1 :  setAttendanceStatusProperty
             attendance.setAttendanceStatusProperty(isChecked); ; // Assuming setAttendanceStatus(boolean) sets the boolean status
         }
 
@@ -1835,6 +1880,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         System.out.println(attendanceData.size());
 
         ClubAdvisor clubAdvisor = new ClubAdvisor();
+        // Attendance tracking sequence : 1.1.1.2.1.2.1.1.1.1 : TrackAttendance()
         clubAdvisor.TrackAttendance(trackingEvent, attendanceData);
 
         // Repopulate the attendanceTrackerTable if necessary
@@ -1855,6 +1901,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Arkhash
     public Event selectAttendenceTrackingEvent(String eventName){
         for(Event event : Event.eventDetails){
             if(event.getEventName().equals(eventName)){
@@ -1865,7 +1912,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         return null;
     }
 
-
+    // work done by- Lakshan
     // This method handles dragging of the club advisor dashboard when the mouse is detected
     @Override
     void ClubAdvisorDashboardDetected(MouseEvent event) {
@@ -1877,6 +1924,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         stage.setY(event.getScreenY() - yPosition);
     }
 
+    // work done by- Lakshan
     // This method is used to set the initial mouse coordinates when the club advisor pane is pressed
     @Override
     void ClubAdvisorPanePressed(MouseEvent event) {
@@ -1885,6 +1933,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         yPosition = event.getSceneY();
     }
 
+    // work done by- Lakshan
     // This method handles logging out the club Advisor dashboard and navigates to the club advisor login page
     @Override
     void dashBoardLogOut(MouseEvent event) throws IOException {
@@ -1901,6 +1950,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         stage.show();
     }
 
+    // work done by- Lakshan
     // This method minimize the application when called
     @Override
     void MinimizePane(ActionEvent event) {
@@ -1909,6 +1959,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         applicationController.MinimizeApp(ClubAdvisorDashboard);
     }
 
+    // work done by- Lakshan
     // This method closes the application when called
     @Override
     void ClosePane(ActionEvent event) {
@@ -1917,6 +1968,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         applicationController.closingApp();
     }
 
+    // work done by- Lakshan
     // This method will make all club advisor panes invisible
     @Override
     public void makeAllClubAdvisorPanesInvisible() {
@@ -1928,6 +1980,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ProfilePane.setVisible(false); // set  ProfilePane invisible
     }
 
+    // work done by- Lakshan
     /* This method will set all the club advisor dashboard left pane buttons to linear gradient color,
      * This is done to highlight the currently working pane related buttons */
     @Override
@@ -1940,6 +1993,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         AdvisorProfileButton.setStyle("-fx-background-color: linear-gradient(#ffffd2, #f6d59a, #f6d59a);");
     }
 
+    // work done by- Lakshan
     // This method will direct to the dashboard club advisor pane
     @Override
     void GoToDashBoardClubAdvisor(ActionEvent event) {
@@ -1955,6 +2009,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         displayNumberOfClubAdvisors();
     }
 
+    // work done by- Lakshan
     // This method will direct to the ManageClubPane pane
     @Override
     void GoToManageClubPane(ActionEvent event) {
@@ -1978,6 +2033,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         setUpdateTable();
     }
 
+    // work done by- Lakshan
     // This method will direct to the ScheduleEvents pane
     @Override
     void GoToScheduleEvents(ActionEvent event) {
@@ -2001,6 +2057,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clearAllScheduleEventLabels();
     }
 
+    // work done by- Lakshan
     // This method will direct to the TrackAttendance pane
     @Override
     void GoToTrackAttendance(ActionEvent event) {
@@ -2022,6 +2079,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         attendanceTrackerTable.getItems().clear();
     }
 
+    // work done by- Lakshan
     @Override
     void GoToGenerateReports(ActionEvent event) {
         // Making all club advisor panes invisible
@@ -2050,6 +2108,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Lakshan
     // This method will direct to the club advisor profile pane
     @Override
     void GoToClubAdvisorProfile(ActionEvent event) {
@@ -2069,6 +2128,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         displayStudentUpdateDetails();
     }
 
+    // work done by- Lakshan
     // This method will direct to the EventAttendance pane
     @Override
     void GoToEventAttendance(ActionEvent event) {
@@ -2088,6 +2148,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         generateReportAttendanceButton.setDisable(true);
     }
 
+    // work done by- Lakshan
     // This method will direct to the ClubActivities pane
     @Override
     void GoToClubActivities(ActionEvent event) {
@@ -2108,6 +2169,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         populateGenerateReportEventsTable();
     }
 
+    // work done by- Lakshan
     // This method will direct to club membership report pane
     @Override
     void GoToClubMembership(ActionEvent event) {
@@ -2122,6 +2184,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    // work done by- Lakshan
     // This method will make all generate report panes invisible
     @Override
     public void makeAllPanesInvisibleGeneratingReport() {
@@ -2146,6 +2209,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-text-fill: black;");
     }
 
+    // work done by- Lakshan
     // This make all event panes invisible
     @Override
     public void makeAllPanesInvisibleEventPane() {
@@ -2171,6 +2235,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-text-fill: black");
     }
 
+    // work done by- Lakshan
     // This method will direct to update events pane
     @Override
     void GoToUpdateEventsPanes(ActionEvent event) {
@@ -2201,6 +2266,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clearEventFieldButton.setDisable(true);
     }
 
+    // work done by- Lakshan
     // Direct to view events pane
     @Override
     void GoToViewEventsPane(ActionEvent event) {
@@ -2215,6 +2281,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    // work done by- Lakshan
     // Direct to schedule events pane
     @Override
     void GoToScheduleEventsPane(ActionEvent event) {
@@ -2235,6 +2302,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clearAllScheduleEventLabels();
     }
 
+    // work done by- Lakshan
     // Direct to cancel events pane
     @Override
     void GoToCancelEventsPane(ActionEvent event) {
@@ -2249,6 +2317,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-background-color: linear-gradient(to right, #2b6779, #003543, #003543, #2b6779);");
     }
 
+    // work done by- Lakshan
     // Make all club creation panes invisible
     @Override
     public void makeAllClubCreationPanesInvisible() {
@@ -2262,6 +2331,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 "-fx-text-fill: black;");
     }
 
+    // work done by- Lakshan
     // Direct to create club pane
     @Override
     void GoToCreateClubPane(ActionEvent event) {
@@ -2276,6 +2346,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clubDescriptionError.setText("");
     }
 
+    // work done by- Lakshan
     // Direct to update club details pane
     @Override
     void GoToUpdateClubDetailsPane(ActionEvent event) {
@@ -2301,6 +2372,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         updateClubButton.setDisable(true);
     }
 
+    // work done by- Lakshan
     // Direct to registration pane
     @FXML
     void GoToRegistration(ActionEvent event) {
@@ -2322,6 +2394,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha and Deelaka
     @FXML
     void advisorProfileUpdateChecker(ActionEvent event) {
         //Setting the valid state as true
@@ -2449,6 +2522,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha and Deelaka
     @FXML
     void advisorProfilePasswordChecker(ActionEvent event) throws SQLException {
         //Setting default validStat as true
@@ -2539,6 +2613,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Pramuditha
     public void displayUserNameError() {
         if (User.userNameValidateStatus.equals("empty")) {
             //If the username is empty an error will show
@@ -2558,6 +2633,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha and Deelaka
     public void displayContactNumError() {
         if (User.contactNumberValidateStatus.equals("empty")) {
             //If the contact number field is empty an error will display
@@ -2574,6 +2650,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     public void displayNameError(String nameType) {
         if (nameType.equals("firstName")) {
             //when name type is first name
@@ -2602,6 +2679,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     public void displayPasswordError() {
         if (User.passwordValidateStatus.equals("empty")) {
             //If the password state is "empty" respective error will be displayed
@@ -2615,7 +2693,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
-
+    // work done by- Lakshan
     public void displayStudentUpdateDetails(){
 
         profileAdvisorId.setText(String.valueOf(ClubAdvisor.clubAdvisorDetailsList.get(0).getClubAdvisorId()));
@@ -2628,6 +2706,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Lakshan
     /* This method ensures that the input number is represented
      * as ten digit string, if not put zeros to the beginning*/
     public static String makeTenDigitsForNumber(int number) {
@@ -2647,6 +2726,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     public void populateMembershipCombo(ComboBox<String> selectedCombo) {
         //Clearing the values in combo box
         selectedCombo.getItems().clear();
@@ -2662,6 +2742,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         selectedCombo.getSelectionModel().selectFirst();
     }
 
+    // work done by- Pramuditha
     @FXML
     public void clubMembershipReportGenerator(ActionEvent event) {
         //Getting the selected club from the combo box
@@ -2711,6 +2792,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     public void setMembershipTable() {
         // Check whether the sortedList is null and return the method, if it is null
         if (studentDetailArray == null) {
@@ -2738,6 +2820,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         membershipReportNumber.setText("Number of Members : " + observableMembersList.size());
     }
 
+    // work done by- Pramuditha
     // Populate the given combo box with club names, including an option for "All clubs"
     public void populateGenerateReportClubs(ComboBox<String> selectedCombo) {
         selectedCombo.getItems().clear();
@@ -2756,12 +2839,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         selectedCombo.getSelectionModel().selectFirst();
     }
 
+    // work done by- Lakshan
     // Populate the generateReportEventViewTable with events based on the selected club filter
     @FXML
     void populateGenerateReportsEventsFilteredTable(ActionEvent event) {
         populateEventList(generateReportEventViewTable, generateReportClubNameComboBox);
     }
 
+    // work done by- Lakshan
     // Populate the generateReportEventViewTable with all events and updates relevant UI elements
     public void populateGenerateReportEventsTable() {
         ArrayList<LocalDate> selectedEventDates = new ArrayList<>();
@@ -2816,6 +2901,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         eventDateRange.setText(selectedUpcomingDate + " - " + selectedMostFutureDate);
     }
 
+    // work done by- Lakshan
     // This method find and return the most future date from the given list of dates
     public static LocalDate findMostFutureDate(List<LocalDate> givenDateList) {
         // Checks if the input date list is null or empty
@@ -2840,6 +2926,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         return mostFutureDate;
     }
 
+    // work done by- Lakshan
     // This method finds and returns the earliest date from the given list of dates
     public static LocalDate findEarliestDate(List<LocalDate> givenDateList) {
         // Checks if the input date list is null or empty
@@ -2863,6 +2950,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         return earliestDate;
     }
 
+    // work done by- Deelaka
     public void populateClubAdvisorTable() {
         numberofAdvisors = 0; // for counting purpose of number of club advisors
         if (clubAdvisorDetailsList == null) {
@@ -2883,6 +2971,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
         userCountLabel.setText("No of Advisors: " + (numberofAdvisors));
     }
+
+    // work done by- Deelaka
     public void populateStudentRegisterTable(){
         numbeOfStudents = 0;
         if(studentDetailArray == null){
@@ -2900,18 +2990,28 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             ObservableList<Student> observableStudentRegistrationList = registrationStudentTable.getItems();
             observableStudentRegistrationList.add(student1);
+            registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
+            registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName")); // setting values to registrationStudentUserName column
+            registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName")); // setting values to registrationStudentFirstNameColumn column
+            registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName")); // setting values to registrationStudentLastNameColumn column
+            registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade")); // setting values to registrationStudentGradeColumn column
+            registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber")); // setting values to registrationStudentContactNumberColumn column
+            registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender")); // setting values to registrationStudentGenderColumn column
             registrationStudentTable.setItems(observableStudentRegistrationList);
+
         }
         userCountLabel.setText("No of Students: " + (numbeOfStudents));
     }
 
 
+    // work done by- Deelaka
     public void selectUserGettingFromComboBox(){ // this method is to obtain selected user from registrationUserSelectComboBox
         registrationUserSelectComboBox.getItems().addAll("Club Advisor","Student"); // passing values to registrationUserSelectComboBox
         registrationUserSelectComboBox.getSelectionModel().selectFirst(); // passing a default values to registrationUserSelectComboBox
     }
 
 
+    // work done by- Deelaka
     public void onClickRegistrationGenerateReportButton(ActionEvent event){
         selectedUser = registrationUserSelectComboBox.getValue();
         if(selectedUser == "Student"){ // if selected user is Student
@@ -2931,12 +3031,14 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Pramuditha
     @FXML
     void GeneratePdfReportForMembership(ActionEvent event) throws IOException {
         ClubAdvisor clubAdvisor = new ClubAdvisor();
         clubAdvisor.generateMembershipDetailReport(clubMembershipTable, stage);
     }
 
+    // work done by- Lakshan
     // This method handles generating report for events
     @FXML
     void GeneratePdfReportForEvents(ActionEvent event) throws IOException {
@@ -2946,6 +3048,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         clubAdvisor.generateEventDetailReport(generateReportEventViewTable, stage);
     }
 
+    // work done by- Deelaka
     @FXML
     void GenerateRegistrationReport(ActionEvent event) throws IOException {
         ClubAdvisor clubAdvisor = new ClubAdvisor();
@@ -2957,6 +3060,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Arkhash
     @FXML
     // method to generate the report for attendance marking
     void GenerateAttendanceMarking(ActionEvent event) throws IOException {
@@ -2974,6 +3078,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Arkhash
     // method to generate the CSV file for the attendance
     public static void generateAttendanceCsv(TableView<Attendance> tableView, Stage stage) throws IOException {
         FileChooser fileChooser = new FileChooser(); //
@@ -3000,9 +3105,11 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.show();
     }
 
+     // work done by- Pramuditha
     //Generates and saves a CSV file containing the data from a TableView
     public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
         // Create a FileChooser for selecting the location to save the CSV file
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
 
@@ -3029,6 +3136,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Arkhash
     // method to write content to the CSV file
     //Writes the contents of a TableView to a CSV file using the provided FileWriter
     private static void writeAttendanceContent(FileWriter writer, TableView<Attendance> tableView) throws IOException {
@@ -3052,6 +3160,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Pramuditha
     private static void writeMembershipCsvContent(FileWriter writer, TableView<Student> tableView) throws IOException {
         // Get the list of columns in the Table
         ObservableList<TableColumn<Student, ?>> columns = tableView.getColumns();
@@ -3078,6 +3187,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     // This method generate csv for event objects
     public static void generateCsv(TableView<Event> tableView, Stage stage) throws IOException {
         FileChooser fileChooser = new FileChooser(); // Calling the file chooser
@@ -3094,7 +3204,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 writeCsvContent(writer, tableView);
                 System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
             }
-        // If file is null return the method
+            // If file is null return the method
         }else{
             return;
         }
@@ -3106,7 +3216,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         alert.show();
     }
 
-   // This method will write the event table content to the csv file
+    // work done by- Lakshan
+    // This method will write the event table content to the csv file
     private static void writeCsvContent(FileWriter writer, TableView<Event> tableView) throws IOException {
         // get the column wise details from the observable list
         ObservableList<TableColumn<Event, ?>> columns = tableView.getColumns();
@@ -3129,6 +3240,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     private static void writeClubAdvisorCsvContent(FileWriter writer, TableView<ClubAdvisor> tableView) throws IOException {
         ObservableList<TableColumn<ClubAdvisor, ?>> columns = tableView.getColumns();
 
@@ -3148,6 +3260,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
     }
 
+    // work done by- Lakshan
     public static void generateAdvisorCsv(TableView<ClubAdvisor> tableView, Stage stage) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -3169,6 +3282,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
 
+    // work done by- Arkhash
     @FXML
     void populateGenerateReportAttendanceClubName(ActionEvent event) {
         // a new array list to hold the events filtered to the respective club
@@ -3213,6 +3327,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     }
 
+    // work done by- Arkhash
     public void populateGenerateReportClubNameComboBox(){
         // the club name combo box is cleared
         ReportAttendanceClubName.getItems().clear();
@@ -3232,6 +3347,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         generateReportAttendanceButton.setDisable(true);
     }
 
+    // work done by- Arkhash
     @FXML
     void populateGenerateReportAttendanceEventName(ActionEvent event) {
         int totalAttended = 0; // variable to set the total attended students
@@ -3254,32 +3370,32 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // for each entry in the eventDetails Array List
         for(Event eventVal : Event.eventDetails){
-              // if the event name entered is equal to the name in the array list
-              if(eventVal.getEventName().equals(eventName)){
+            // if the event name entered is equal to the name in the array list
+            if(eventVal.getEventName().equals(eventName)){
 
-                  // an observable list is created with data type attendance
-                  ObservableList<Attendance> observableMembersList;
-                  // for each entry in the eventAttendance Array list
-                  for(Attendance attendance : eventVal.eventAttendance){
-                          CheckBox checkBox = new CheckBox(); // a checkbox is defined
-                          Attendance tableMembers = new Attendance(attendance.attendanceStatusProperty(),
-                                  attendance.getStudent(), attendance.getEvent(), checkBox);
-                          // the items from the table are retrieved to the observable list
-                          observableMembersList = generateReportAttendanceTable.getItems();
-                          // the new members are added to the Observable list
-                          observableMembersList.add(tableMembers);
-                          // the values are set to the table
-                          generateReportAttendanceTable.setItems(observableMembersList);
+                // an observable list is created with data type attendance
+                ObservableList<Attendance> observableMembersList;
+                // for each entry in the eventAttendance Array list
+                for(Attendance attendance : eventVal.eventAttendance){
+                    CheckBox checkBox = new CheckBox(); // a checkbox is defined
+                    Attendance tableMembers = new Attendance(attendance.attendanceStatusProperty(),
+                            attendance.getStudent(), attendance.getEvent(), checkBox);
+                    // the items from the table are retrieved to the observable list
+                    observableMembersList = generateReportAttendanceTable.getItems();
+                    // the new members are added to the Observable list
+                    observableMembersList.add(tableMembers);
+                    // the values are set to the table
+                    generateReportAttendanceTable.setItems(observableMembersList);
 
-                          // if the boolean value is true
-                          if(attendance.attendanceStatusProperty()){
-                              totalAttended++; // value of attended students is increased by 1
-                          }else{
-                              totalAbsent++; // value of absent students is increased by 1
-                          }
-                  }
-              }
-             // the text are set
+                    // if the boolean value is true
+                    if(attendance.attendanceStatusProperty()){
+                        totalAttended++; // value of attended students is increased by 1
+                    }else{
+                        totalAbsent++; // value of absent students is increased by 1
+                    }
+                }
+            }
+            // the text are set
             totalAbsentStudents.setText(totalAbsent + " students");
             totalAttendedStudents.setText(totalAttended + " students");
             // total attendance is the sum of attended and absent students

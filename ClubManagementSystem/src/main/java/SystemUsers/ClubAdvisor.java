@@ -10,8 +10,6 @@ import SystemDataValidator.ClubAdvisorValidator;
 import com.example.clubmanagementsystem.HelloApplication;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,6 +24,7 @@ import java.util.Map;
 
 import static ClubManager.Club.clubDetailsList;
 
+// work done by- Lakshan, Pramuditha and some parts by Arkhash
 public class ClubAdvisor extends User implements ClubAdvisorValidator {
     private int clubAdvisorId;
     public static ArrayList<ClubAdvisor> clubAdvisorDetailsList = new ArrayList<>();
@@ -46,6 +45,10 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         super(contactNumber);
     }
 
+    public ClubAdvisor(String username, String password, int clubAdvisorId){
+        super(username,password);
+        this.clubAdvisorId = clubAdvisorId;
+    }
     public ClubAdvisor(){
 
     }

@@ -6,6 +6,7 @@ import javafx.scene.control.CheckBox;
 
 import java.util.ArrayList;
 
+// work done by- Arkhash
 public class Attendance {
     public Student student;
     private String studentName;
@@ -13,13 +14,14 @@ public class Attendance {
     private String clubName;
     private String eventName;
     private Event event;
-    private boolean attendanceStatusProperty;
-    public static ArrayList<Attendance> atdTracker = new ArrayList<>();
+    private boolean attendanceStatusProperty; // a boolean value for the attendance
+    public static ArrayList<Attendance> atdTracker = new ArrayList<>(); // an array list of data type Atttendance
     private String nameAttendanceStatus;
 
     @FXML
     private CheckBox attendanceTracker;
 
+    // method to track the check boxes
     public void checkboxStatusTracker() {
         if (this.attendanceStatusProperty == true) {
             attendanceTracker.setSelected(true);
@@ -68,6 +70,7 @@ public class Attendance {
         this.eventName = eventName.getEventName();
     }
 
+    // the main constructor for attendance
     public Attendance(boolean attendanceStatus, Student student, Event event, CheckBox attendanceTracker) {
         this.attendanceStatusProperty = attendanceStatus;
         this.student = student;
@@ -81,34 +84,37 @@ public class Attendance {
         setNameAttendanceStatus();
     }
 
+    // another constructor for attendance
     public Attendance(boolean attendanceStatus, CheckBox stat) {
         this.attendanceStatusProperty = attendanceStatus;
         // Assuming you want to initialize the CheckBox in the constructor
         this.attendanceTracker = stat;
     }
 
+
     public CheckBox getAttendanceTracker() {
         return attendanceTracker;
-    }
+    }  // a getter method to get the attendance tracker
 
     public void setAttendanceTracker (CheckBox attendanceTracker) {
         this.attendanceTracker = attendanceTracker;
-    }
+    }// a setter method to set the attendance tracker
 
     public boolean attendanceStatusProperty() {
         return attendanceStatusProperty;
-    }
+    } // a getter method to get the attendance status
 
 
     public void setAttendanceStatusProperty(boolean attendanceStatusProperty) {
         this.attendanceStatusProperty = attendanceStatusProperty;
-    }
+    } // a setter method to set the attendance status
 
 
     public String getNameAttendanceStatus() {
         return nameAttendanceStatus;
     }
 
+    // a setter method to define attended and absent
     public void setNameAttendanceStatus() {
         if(this.attendanceStatusProperty){
             this.nameAttendanceStatus = "Attended";

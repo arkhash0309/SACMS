@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import SystemDataValidator.ClubValidator;
 
+// work done by- Pramuditha
 public class Club implements ClubValidator {
     private String clubAdvisorName;          //Respective Club Advisor who created the club
     private int clubId;                      //The unique identifier of the Club
@@ -18,12 +19,15 @@ public class Club implements ClubValidator {
     private ImageView absoluteImage;         //An ImageView object to display the club's logo in a JavaFX application
     public static ArrayList<Club> clubDetailsList = new ArrayList<>();   //Arraylist which is used to save club details
 
+
+    // Default constructor for the Club class
     public Club(int clubId, String clubName, String clubDescription) {
         this.clubId = clubId;
         this.clubName = clubName;
         this.clubDescription = clubDescription;
     }
 
+    // Parameterized constructor for the Club class
     public Club(int clubId, String clubName, String clubDescription, String clubLogo){
         this.clubId = clubId;                        // Set the unique identifier for the club
         this.clubName = clubName;                    // Set the name of the club
@@ -68,6 +72,7 @@ public class Club implements ClubValidator {
         return absoluteImage;
     }
 
+    // Sets the ImageView representing the club's logo
     public void setAbsoluteImage(String path) {
         // Check whether the image path is null
         if (path != null) {
@@ -97,11 +102,12 @@ public class Club implements ClubValidator {
             this.absoluteImage = new ImageView(image);
 
             // Set the absolute image width and height
-            absoluteImage.setFitWidth(width);
-            absoluteImage.setFitHeight(height);
+            absoluteImage.setFitWidth(width);  // Set the image width
+            absoluteImage.setFitHeight(height); // Set the image height
         }
     }
 
+    //Gets the validate club Id
     @Override
     public boolean validateClubId() {
         return false;
@@ -182,4 +188,9 @@ public class Club implements ClubValidator {
         clubNameValidateStatus = "";
         clubDescriptionValidateStatus = "";
     }
+
+    public String getClubAdvisorName() {
+        return clubAdvisorName;
+    }
+
 }

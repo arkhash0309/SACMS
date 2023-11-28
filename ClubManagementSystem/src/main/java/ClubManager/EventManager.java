@@ -6,7 +6,7 @@ import SystemUsers.ClubAdvisor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
+// work done by- Lakshan
 public class EventManager implements EventValidator {
 
     // keep track on event name validation status
