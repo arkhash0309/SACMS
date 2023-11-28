@@ -561,7 +561,7 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public ComboBox<String> generateReportClubNameComboBox; // Combo box for the club name
 
     @FXML
-    public Label UpcomingEventCountGenerateReports;
+    public Label UpcomingEventCountGenerateReports; // Label for the upcoming event count
 
     @FXML
     public Label eventDateRange;
