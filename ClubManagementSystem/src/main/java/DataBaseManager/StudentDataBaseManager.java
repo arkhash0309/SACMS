@@ -86,6 +86,7 @@ public class StudentDataBaseManager {
                     Student.studentDetailArray.add(student);
                 }
             }
+            // Handle the exception appropriately
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -104,6 +105,7 @@ public class StudentDataBaseManager {
 
         // Execute the statement
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(query)) {
+            // Get the result of the prepared statement
             try (ResultSet result = preparedStatement.executeQuery()) {
                 while (result.next()) {
                     // Create a club object by populating the retrieved club details
@@ -121,7 +123,9 @@ public class StudentDataBaseManager {
                     System.out.println("Elama Elama");
                 }
             }
+            // Handle the exception appropriately
         } catch (SQLException e) {
+            // Handle the exception appropriately
             throw new RuntimeException(e);
         }
     }

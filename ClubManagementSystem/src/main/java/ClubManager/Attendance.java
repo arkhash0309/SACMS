@@ -91,22 +91,23 @@ public class Attendance {
         this.attendanceTracker = stat;
     }
 
+
     public CheckBox getAttendanceTracker() {
         return attendanceTracker;
-    }
+    }  // a getter method to get the attendance tracker
 
     public void setAttendanceTracker (CheckBox attendanceTracker) {
         this.attendanceTracker = attendanceTracker;
-    }
+    }// a setter method to set the attendance tracker
 
     public boolean attendanceStatusProperty() {
         return attendanceStatusProperty;
-    }
+    } // a getter method to get the attendance status
 
 
     public void setAttendanceStatusProperty(boolean attendanceStatusProperty) {
         this.attendanceStatusProperty = attendanceStatusProperty;
-    }
+    } // a setter method to set the attendance status
 
 
     public String getNameAttendanceStatus() {

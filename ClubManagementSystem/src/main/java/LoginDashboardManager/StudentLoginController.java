@@ -39,89 +39,91 @@ public class StudentLoginController {
     String studentLoginPageUserName; // holds user entered user name in login page
     String studentLoginPagePassword; // hold user entered password in login page
     public static String userNameForShowInStudentDashboard; // hold username to show in student dashboard when it loads
-    private Scene scene;
-    private Stage stage;
-    private double xPosition;
-    private double yPosition;
+    private Scene scene; // uses to load scenes
+    private Stage stage; // uses to load stages
+    private double xPosition; // uses to drag the window
+    private double yPosition; // uses to drag the window
 
     @FXML
-    private Label studentLoginUserNameErrorLabel;
+    private Label studentLoginUserNameErrorLabel; // uses to show error messages in login page
 
     @FXML
-    private Label studentRegisterConfirmPasswordErrorLabel;
+    private Label studentRegisterConfirmPasswordErrorLabel; // uses to show error messages in registration page
 
     @FXML
-    private Label studentIncorrectCredential;
+    private Label studentIncorrectCredential; // uses to show error messages in login page
 
     @FXML
-    private Label studentLoginPasswordErrorLabel;
+    private Label studentLoginPasswordErrorLabel; // uses to show error messages in login page
 
     @FXML
-    private Label studentRegistrationGradeEmptyLabel;
+    private Label studentRegistrationGradeEmptyLabel; // uses to show error messages in registration page
 
     @FXML
-    private Label studentRegistrationGenderEmptyLabel;
+    private Label studentRegistrationGenderEmptyLabel; // uses to show error messages in registration page
 
     @FXML
-    private CheckBox showPasswordCheckBox;
+    private CheckBox showPasswordCheckBox; // uses to show typed password
 
     @FXML
-    private StackPane StudentLoginForm;
+    private StackPane StudentLoginForm; // uses to drag the window
 
     @FXML
-    private PasswordField studentRegisterPassword;
+    private PasswordField studentRegisterPassword; // uses to get password from user in registration page
 
     @FXML
-    private PasswordField studentRegisterConfirmPassword;
+    private PasswordField studentRegisterConfirmPassword; // uses to get confirm password from user in registration page
 
     @FXML
-    private TextField studentRegisterLastName;
+    private TextField studentRegisterLastName; // uses to get last name from user in registration page
 
     @FXML
-    private TextField PasswordTextField;
+    private TextField PasswordTextField; // uses to show typed password
 
     @FXML
-    private TextField studentRegisterAdmissionNumber;
+    private TextField studentRegisterAdmissionNumber; // uses to get admission number from user in registration page
 
     @FXML
-    private TextField studentRegisterFirstName;
+    private TextField studentRegisterFirstName; // uses to get first name from user in registration page
 
     @FXML
-    private TextField studentRegisterContactNumber;
+    private TextField studentRegisterContactNumber; // uses to get contact number from user in registration page
 
     @FXML
-    private TextField studentRegisterUserName;
+    private TextField studentRegisterUserName; // uses to get user name from user in registration page
 
     @FXML
-    private TextField LoginStudentUserName;
+    private TextField LoginStudentUserName; // uses to get user name from user in login page
 
     @FXML
-    private TextField studentLoginPassword;
+    private TextField studentLoginPassword; // uses to get password from user in login page
 
     @FXML
-    private ComboBox<String> Grade;
+    private ComboBox<String> Grade; // uses to get grade from user in registration page
 
     @FXML
-    private ComboBox<String> Gender;
+    private ComboBox<String> Gender; // combo box
 
     @FXML
-    private Label studentRegisterAdmissionNumErrorLabel;
+    private Label studentRegisterAdmissionNumErrorLabel; // uses to show error messages in registration page
 
     @FXML
-    private Label studentRegisterFNameErrorLabel;
+    private Label studentRegisterFNameErrorLabel; // uses to show error messages in registration page
 
     @FXML
-    private Label studentRegisterLNameErrorLabel;
+    private Label studentRegisterLNameErrorLabel; // uses to show error messages in registration page
 
     @FXML
-    private Label studentRegisterContactNumErrorLabel;
+    private Label studentRegisterContactNumErrorLabel; // uses to show error messages in registration page
 
     @FXML
-    private Label studentRegisterUserNameErrorLabel;
+    private Label studentRegisterUserNameErrorLabel; // uses to show error messages in registration page
 
     @FXML
     private Label studentRegisterPasswordErrorLabel;
 
+    // work done by- Lakshan and Deelaka
+    // This method direct the user to the start page
     @FXML
     void DirectToStartPage(ActionEvent event) throws IOException { // method to direct user to back to main login page
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -131,30 +133,40 @@ public class StudentLoginController {
         stage.show();
     }
 
+    // This method is responsible for dragging the login window
     @FXML
     void StudentLoginPaneDragDetected(MouseEvent event) {
+        // Getting the current stage associated with the provided stackPane
         Stage stage = (Stage) StudentLoginForm.getScene().getWindow();
         stage.setX(event.getScreenX() - xPosition);
         stage.setY(event.getScreenY() - yPosition);
     }
 
+    // This method is responsible for dragging the login window detection
     @FXML
     void studentLoginPanePressedDetected(MouseEvent event) {
+        // Getting the current stage associated with the provided stackPane
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
     }
 
+    // This method minimize the program
     @FXML
     void minimizeTheProgram(ActionEvent event) { // minimize button in registration page
         ApplicationController applicationController = new ApplicationController();
+        // calling to minimizeApp method in ApplicationController class
         applicationController.MinimizeApp(StudentLoginForm);
     }
 
+    // This method close the program
     @FXML
     void ExitTheProgram(ActionEvent event) { // back button of student registration page
         ApplicationController applicationController = new ApplicationController();
+        // calling to closingApp method in ApplicationController class
         applicationController.closingApp();
     }
+
+    // This method show the typed password
     public void showTypedPassword() {
         if (showPasswordCheckBox.isSelected()) { // when user select show password checkbox
             studentLoginPassword.setVisible(false); //studentLoginPassword textfield will disable
@@ -167,6 +179,8 @@ public class StudentLoginController {
             studentLoginPassword.setText(PasswordTextField.getText());
         }
     }
+
+    // This method check student credentials fields
     boolean fieldsChecker() { /* this method is used to check whether both studentLoginPagePassword and studentLoginPageUserName field are
                                   empty or not */
         loginStatus = true;
@@ -202,6 +216,8 @@ public class StudentLoginController {
         }
         return loginStatus;
     }
+
+    // This method direct the user to the student dashboard
     @FXML
     void DirectToStudentDashboard(ActionEvent event) throws IOException, SQLException { // when user click on DirectToStudentDashboard button
         if (!fieldsChecker()) { // calling to fieldsChecker
@@ -216,11 +232,14 @@ public class StudentLoginController {
         studentLoginPasswordErrorLabel.setText("");
         System.out.println("Directing to student dashboard");
 
+        // loading student dashboard
         StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard); /* this is the
                                                                                                         place data load form the database */
         FXMLLoader loader = new FXMLLoader();
+        // loading student dashboard
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/StudentDashboard.fxml"));
         Parent root = loader.load();
+        // setting username to student dashboard
         StudentActivityController controller = loader.getController(); // This is done to set login userName to dashboard
         controller.showUserName.setText(userNameForShowInStudentDashboard); /* controller variable will get the access
                                                                                   to control student activity controller
@@ -228,6 +247,7 @@ public class StudentLoginController {
                                                                                    when it loads*/
         controller.showUserName.setStyle("-fx-text-alignment: center"); // centering showUserName label
         controller.displayEventCountPerClub();
+        // setting student admission number to student dashboard
         controller.studentAdmission = studentDataBaseManager.getStudentAdmissionNum(userNameForShowInStudentDashboard);
         StudentDashboardManager.StudentActivityController studentDashboardController = loader.getController();
         studentDashboardController.dashboardButton.setStyle("-fx-background-color: linear-gradient(#fafada, #ffffd2);");
@@ -237,6 +257,8 @@ public class StudentLoginController {
         stage.centerOnScreen();
         stage.show();
     }
+
+    // This method direct the user to the student registration page
     @FXML
     void GoToStudentRegistration(ActionEvent event) throws IOException { // when user click on register button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/RegisterManager/StudentRegistration.fxml"));
@@ -247,6 +269,8 @@ public class StudentLoginController {
         scene = new Scene(root);
         stage.setScene(scene);
     }
+
+    // This method direct the user to the student login page
     void DirectToLoginPane(MouseEvent event) throws IOException { // directing user to student login page
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/StudentLogin.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -254,6 +278,8 @@ public class StudentLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
+    // This method checks student registration fields
     public void StudentRegistrationChecker(MouseEvent event) throws SQLException, IOException {
         //a boolean value is set to true initially
         validateStatus = true;
@@ -416,6 +442,9 @@ public class StudentLoginController {
         }
         System.out.println("\n\n\n");
     }
+
+    // work done by- Deelaka
+    // This method is responsible for loading the combo boxes in student registration page
     public void setComboBoxValuesStudentRegistration(){ // setting values to grade and gender combo boxes
         Grade.getItems().add("Select Grade");
         for (int ComboGrade = 6; ComboGrade<14; ComboGrade++) { // grades are from 6 to 13
@@ -429,6 +458,9 @@ public class StudentLoginController {
         Grade.setOnAction(event -> validateGradeSelection()); // calling validateGradeSelection method
         Gender.setOnAction(event -> validateGenderSelection()); // calling validateGenderSelection method
     }
+
+    // work done by- Deelaka
+    // This method is responsible for validating the grade selection
     private int validateGradeSelection() {
         selectedGradeVal = Grade.getValue(); // getting the user selected value from the grade combo box
         if (!(selectedGradeVal == "Select Grade")) { // if selectedGradeVal is not equal to Select Grade
@@ -438,6 +470,8 @@ public class StudentLoginController {
         }
         return grade;
     }
+
+    // work done by- Deelaka
     private String validateGenderSelection() {
         selcetedGenderVal = Gender.getValue(); // getting the user selected value from the gender combo box
         if (!(selcetedGenderVal == "Select Gender")) { // if selcetedGenderVal is not equal to Select Gender
@@ -448,6 +482,9 @@ public class StudentLoginController {
         }
         return gender;
     }
+
+    // work done by- Deelaka
+    // This method is responsible for validating the first name
     public void displayNameError(String nameType) { // entered name checking
         if (nameType.equals("FName")) { // checking first name
             if (Student.fNameValidateStatus.equals("empty")) { // if first name field is empty
@@ -468,6 +505,8 @@ public class StudentLoginController {
             }
         }
     }
+    // work done by- Deelaka
+    // This method is responsible for validating the admission number
     public void displayAdmissionNumError() { // admission number checking
         if (Student.admissionNumStatus.equals("empty")) { // when admission number field is empty
             studentRegisterAdmissionNumErrorLabel.setText("Admission Number cannot be empty.");
@@ -481,6 +520,9 @@ public class StudentLoginController {
             studentRegisterAdmissionNumErrorLabel.setText(""); // when user enter admission number correctly
         }
     }
+
+    // work done by- Deelaka
+    // This method is responsible for validating the user name
     public void displayUserNameError() { // username checking
         if (User.userNameValidateStatus.equals("empty")) { // when username field is empty
             studentRegisterUserNameErrorLabel.setText("User Name cannot be empty");
@@ -494,6 +536,9 @@ public class StudentLoginController {
             studentRegisterUserNameErrorLabel.setText(""); // when entered username is correct
         }
     }
+
+    // work done by- Deelaka
+    // This method is responsible for validating the password
     public void displayPasswordError() { // password checking
         if (User.passwordValidateStatus.equals("empty")) { // when password field is empty
             studentRegisterPasswordErrorLabel.setText("Password cannot be empty.");
@@ -507,6 +552,9 @@ public class StudentLoginController {
             studentRegisterPasswordErrorLabel.setText(""); // when user entered password is valid
         }
     }
+
+    // work done by- Deelaka
+    // This method is responsible for validating the contact number
     public void displayContactValError() { // contact number checking
         if (User.contactNumberValidateStatus.equals("empty")) { // when contact number field is empty
             studentRegisterContactNumErrorLabel.setText("Contact Number cannot be empty.");

@@ -21,13 +21,14 @@ public class Club implements ClubValidator {
     public static ArrayList<Club> clubDetailsList = new ArrayList<>();   //Arraylist which is used to save club details
 
 
-
+    // Default constructor for the Club class
     public Club(int clubId, String clubName, String clubDescription) {
         this.clubId = clubId;
         this.clubName = clubName;
         this.clubDescription = clubDescription;
     }
 
+    // Parameterized constructor for the Club class
     public Club(int clubId, String clubName, String clubDescription, String clubLogo){
         this.clubId = clubId;                        // Set the unique identifier for the club
         this.clubName = clubName;                    // Set the name of the club
@@ -70,6 +71,7 @@ public class Club implements ClubValidator {
         return absoluteImage;
     }
 
+    // Sets the ImageView representing the club's logo
     public void setAbsoluteImage(String path) {
         // Check whether the image path is null
         if (path != null) {
@@ -99,11 +101,12 @@ public class Club implements ClubValidator {
             this.absoluteImage = new ImageView(image);
 
             // Set the absolute image width and height
-            absoluteImage.setFitWidth(width);
-            absoluteImage.setFitHeight(height);
+            absoluteImage.setFitWidth(width);  // Set the image width
+            absoluteImage.setFitHeight(height); // Set the image height
         }
     }
 
+    //Gets the validate club Id
     @Override
     public boolean validateClubId() {
         return false;

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 // work done by- Lakshan
 public interface ClubAdvisorValidator{
-    // this
+    // Method to validate the club advisor id
     boolean validateClubAdvisorId() throws SQLException;
 
 }

@@ -107,7 +107,7 @@ public class ClubAdvisorLoginController {
     private Label passwordCommentLogin;
 
     public static boolean validStat = true;
-
+    // This method direct  the user to the main login page
     @FXML
     void DirectToStartPane(ActionEvent event) throws IOException { // method to direct user to back to main login page
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/clubmanagementsystem/Login.fxml"));
@@ -117,31 +117,39 @@ public class ClubAdvisorLoginController {
         stage.show();
     }
 
+    // This method is responsible for dragging the login page
     @FXML
     void clubAdvisorPaneDragDetector(MouseEvent event) {
+        // getting the current stage associated with the provided stackPane
         Stage stage =  (Stage)clubAdvisorStackPane.getScene().getWindow();
+        // setting the stage position according to the mouse movement
         stage.setX(event.getScreenX()- xPosition);
         stage.setY(event.getScreenY() - yPosition);
     }
 
+    // This method is responsible for pressing the login page
     @FXML
     void clubAdvisorPanePressDetector(MouseEvent event) {
+        // getting the current stage associated with the provided stackPane
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
     }
-
+    // This method is responsible for minimizing the login page
     @FXML
     void MinimizeClubAdvisorLogin(ActionEvent event) { // minimize button in registration page
         ApplicationController applicationController = new ApplicationController();
+        //
         applicationController.MinimizeApp(clubAdvisorStackPane);
     }
 
-
+    // This method is responsible for closing the login page
     @FXML
     void ClubAdvisorLoginExit(ActionEvent event) { // back button of student registration page
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
+
+    // This method is responsible for showing the password
     @FXML
     void showTypedPassword(ActionEvent event) {
         if(showPassword.isSelected()){ // when user select show password checkbox
@@ -155,6 +163,7 @@ public class ClubAdvisorLoginController {
             advisorLoginPassword.setText(PasswordTextField.getText());
         }
     }
+
     boolean fieldsChecker() {  /* this method is used to check whether both studentLoginPagePassword and studentLoginPageUserName field are
                                   empty or not */
         loginStatus = true;
@@ -189,6 +198,8 @@ public class ClubAdvisorLoginController {
         }
         return loginStatus;
     }
+
+    // This method
     @FXML
     public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException, SQLException { // when user click on DirectToStudentDashboard button
         if(!fieldsChecker()){ // calling to fieldsChecker
@@ -202,8 +213,10 @@ public class ClubAdvisorLoginController {
         }
         clubAdvisorIncorrectCredential.setText("");
         System.out.println("Directing to advisor dashboard");
+        // creating an object in ClubAdvisorDataBaseManager class
         ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager(userNameForShowInAdvisorDashboard);
         FXMLLoader loader = new FXMLLoader();
+        // loading ClubAdvisorDashboard.fxml file
         loader.setLocation(getClass().getResource("/com/example/clubmanagementsystem/ClubAdvisorDashboard.fxml"));
         Parent root = loader. load();
         ClubAdvisorDashboardManager.ClubAdvisorActivityController clubAdvisorDashboardControlller = loader.getController();
@@ -226,6 +239,8 @@ public class ClubAdvisorLoginController {
         stage.centerOnScreen();
         stage.show();
     }
+
+    // This method is responsible for directing the user to the registration page
     @FXML
     void GoToRegisterForm(ActionEvent event) throws IOException { // direct user to club advisor registration page
         ClubAdvisor.advisorIdStatus = "";
@@ -235,10 +250,14 @@ public class ClubAdvisorLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
+    // This method is responsible for directing the user to the login pane
     @FXML
     void DirectToLoginPane(MouseEvent event) throws IOException { // go to main login page
         this.goToLoginPage(event);
     }
+
+    // This method is responsible for directing the user to the login page
     public void goToLoginPage(MouseEvent event) throws IOException { // direct user to advisor login page
         Parent root = FXMLLoader.load(getClass().getResource("/LoginDashboardManager/ClubAdvisorLogin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -246,6 +265,8 @@ public class ClubAdvisorLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
+    // This method checks advisor details registration
     public void AdvisorRegistrationChecker(MouseEvent event) throws SQLException, IOException {
         validStat = true;
         // the entered details are retrieved into variables

@@ -149,7 +149,7 @@ public class Student extends User implements StudentValidator {
         }
     }
 
-
+    // This method handles student join club functionality
     public void joinClub(Club clubToJoin) {
         if (Student.studentJoinedClubs.contains(clubToJoin)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -159,13 +159,13 @@ public class Student extends User implements StudentValidator {
             return;
         }
 
-
+        // This query will insert the club to the StudentClub table
         String insertQuery = "INSERT INTO StudentClub (studentAdmissionNum, clubId) VALUES (?, ?)";
 
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(insertQuery)) {
             System.out.println("studentAdmissionNum: " + Student.studentDetailArray.get(0).getStudentAdmissionNum());
             System.out.println("clubId: " + clubToJoin.getClubId());
-
+            // prepared statement will set the values for the parameters
             preparedStatement.setInt(1, Student.studentDetailArray.get(0).getStudentAdmissionNum());
             preparedStatement.setInt(2, clubToJoin.getClubId());
             preparedStatement.executeUpdate();
@@ -173,9 +173,9 @@ public class Student extends User implements StudentValidator {
             e.printStackTrace();
         }
 
-
+        // This will add the club to the studentJoinedClubs array list
         Student.studentJoinedClubs.add(clubToJoin);
-
+        // Alert for the deleted event
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("School Club Management System");
         alert.setHeaderText("You have successfully joined " + clubToJoin.getClubName());
@@ -183,10 +183,12 @@ public class Student extends User implements StudentValidator {
 
         giveAttendanceForJoinedClubs(clubToJoin);
     }
-
+    // This method will give attendance for the joined clubs
     public void giveAttendanceForJoinedClubs(Club club){
+        // This loop will check whether the club name is equal to the event club name
         for(Event event : Event.eventDetails){
             if(club.getClubName().equals(event.getClubName())){
+                // This query will insert the attendance for the student
                 String sql = "INSERT INTO StudentAttendance (studentAdmissionNum, clubId, EventId, attendanceStatus) VALUES (?, ?, ?, ?)";
 
                 try (PreparedStatement statement = HelloApplication.connection.prepareStatement(sql)) {
@@ -209,10 +211,12 @@ public class Student extends User implements StudentValidator {
         }
     }
 
-
+    // This method handle leaving club functionality
     public void leaveClub(Club club, int tableIndex){
+        // This loop will remove the club from the studentJoinedClubs array list
         for(Club clubVal : Student.studentJoinedClubs){
             if(clubVal.getClubName().equals(club.getClubName())){
+                // This will remove the club from the array list
                 Student.studentJoinedClubs.remove(tableIndex);
                 for(Club x : Student.studentJoinedClubs){
                     System.out.println(x);
@@ -221,26 +225,29 @@ public class Student extends User implements StudentValidator {
             }
         }
 
+        // this query will delete the club from the StudentClub table
         String deleteQuery = "DELETE FROM StudentClub WHERE studentAdmissionNum = ? AND clubId = ?";
 
         try (PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(deleteQuery)) {
+            // prepared statement will set the values for the parameters
             preparedStatement.setInt(1, Student.studentDetailArray.get(0).getStudentAdmissionNum());
-            preparedStatement.setInt(2, club.getClubId());
+            preparedStatement.setInt(2, club.getClubId()); // this will get the club id from the club object
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // Alert for the deleted event
         Alert deletedEvent = new Alert(Alert.AlertType.INFORMATION);
         deletedEvent.setHeaderText("You have successfully left the club!!!");
         deletedEvent.setTitle("School Club Management System");
         deletedEvent.show();
     }
-
+    // This method will get the student gender
     public char getStudentGender() {
         return studentGender;
     }
-
+    // This method set student gender
     public void setStudentGender(char studentGender) {
         this.studentGender = studentGender;
     }
