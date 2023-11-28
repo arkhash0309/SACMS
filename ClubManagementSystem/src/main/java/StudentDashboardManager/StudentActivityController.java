@@ -601,6 +601,7 @@ public class StudentActivityController extends StudentDashboardController {
 
     // work done by- Deelaka and Lakshan
     // this method is used to populate all events in student dashboard
+    // Join Club Sequence : 1 : OnStudentClubSelection()
     @FXML
     void OnStudentClubSelection(ActionEvent event) {
         studentJoinClubID.setText(" "); // setting the club ID of the student selected club
@@ -615,7 +616,9 @@ public class StudentActivityController extends StudentDashboardController {
             for (Club club : Club.clubDetailsList) {
                 // checking whether selected club name is equal to club name in club details list
                 if (club.getClubName().equals(selectedClub)) {
+                    // Join Club Sequence 1.1.1 : getClubId()
                     studentJoinClubID.setText(String.valueOf(club.getClubId())); // setting the club ID of the student selected club
+                    // Join Club Sequence 1.1 : getClubName()
                     studentJoinClubName.setText(club.getClubName()); // setting the club name of the student selected club
 
                     // iterating through club advisor details list
@@ -624,6 +627,8 @@ public class StudentActivityController extends StudentDashboardController {
                         for (Club clubName : advisor.createdClubDetailsList) {
                             System.out.println("Incharge clubName ");
                             if (clubName.getClubName().equals(selectedClub)) {
+                                // Join Club Sequence 1.1.2.1 : getFirstName()
+                                // Join Club Sequence 1.1.2.1.1 : getLastName()
                                 studentJoinClubAdvisorName.setText(advisor.getFirstName() + " " + advisor.getLastName()); // setting club advisor name of the respective club
                                 System.out.println("Incharge clubName " + "Hello");
                                 break;
@@ -637,6 +642,7 @@ public class StudentActivityController extends StudentDashboardController {
 
     // work done by- Deelaka and Lakshan
     // This method handles joining to the club
+    // Join Club Sequence : 1.1.2.1.2.1.2.1 : joinClubController()
     @FXML
     void joinClubController(){
         // getting selected club name from studentJoinClubDropDownList combo box
@@ -666,6 +672,7 @@ public class StudentActivityController extends StudentDashboardController {
            for(Club club : Club.clubDetailsList){
                if(club.getClubName().equals(clubToJoin)){
                    Student student = new Student(); // creating new student object
+                   // Join Club Sequence : 1.1.2.1.2.1.2.1.1 : joinClub()
                    student.joinClub(club); // calling joinClub method
                    populateLeaveClubDetails(); // populating leave club details
                    populateStudentEvents(); // populating student events

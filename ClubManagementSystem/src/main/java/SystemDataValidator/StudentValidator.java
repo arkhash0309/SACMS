@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 // work done by- Lakshan
 public interface StudentValidator {
-
-    boolean validateStudentAdmissionNumber() throws SQLException; //
+    // Method to validate the student admission number
+    boolean validateStudentAdmissionNumber() throws SQLException;
 
 }

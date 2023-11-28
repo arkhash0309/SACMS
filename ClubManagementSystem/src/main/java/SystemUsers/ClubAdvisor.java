@@ -32,23 +32,29 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     public ArrayList<Club> createdClubDetailsList = new ArrayList<>();
 
+    // defined constructor for the club advisor
     public ClubAdvisor(String userName,String password, String firstName, String lastName, String contactNumber, int clubAdvisorId){
         super(userName, password, firstName, lastName, contactNumber);
         this.clubAdvisorId = clubAdvisorId;
     }
 
-
+    // defined constructor for the club advisor
     public ClubAdvisor(String userName, String password){
         super(userName, password);
     }
+
+    // defined constructor for the club advisor
     public ClubAdvisor(String contactNumber){
         super(contactNumber);
     }
 
+    // defined constructor for the club advisor
     public ClubAdvisor(String username, String password, int clubAdvisorId){
         super(username,password);
         this.clubAdvisorId = clubAdvisorId;
     }
+
+    // default constructor for the club advisor
     public ClubAdvisor(){
 
     }
@@ -59,13 +65,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
-
-//    @Override
-//    public String studentRegisteringToSystem(){
-//        return null;
-//    }
-
-
+   // This method is responsible for the club advisor login
     @Override
     public String LoginToSystem(){
         String correctPassword = null; // store correct password from database
@@ -84,7 +84,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         return correctPassword;
     }
 
-
+    // This method handles creating a new club
     public void createClub(int clubId, String clubName, String clubDescription, String imagePath, int clubAdvisorId){
         //Creating a new club object with the correct user given data
         Club clubData = new Club(clubId, clubName, clubDescription, imagePath);
@@ -107,6 +107,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         }
     }
 
+    // This method handles updating the club details
     public void updateClub(int clubId, String clubName, String clubDescription, String imagePath, int clubAdvisorId){
 //        //Update database
         String updateQuery = "UPDATE Club SET clubName=?, clubDescription=?, clubLogo=?, teacherInChargeId=? WHERE clubId=?";
@@ -134,6 +135,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         // Creating a club object to get the hosting club
         Club selectedClub = EventManager.userSelectedClubChooser(clubName);
 
+        // Event scheduling sequence : 1.1.1.1.1 : Event()
         // Creating an event object to track the event
         Event event = new Event(eventName, eventLocation, eventType,eventDeliveryType, eventDate, eventTime,
                 selectedClub, eventDescription, 0);
@@ -233,7 +235,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
-
+    // This method update the attendance details when user wants to update event
     public void updateAttendanceDetails(Event event , Club club){
         String query = "UPDATE StudentAttendance SET clubId = ? WHERE EventId = ?";
 
@@ -267,6 +269,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         // This print statement is done just for the testing
         for(Event eventVal : Event.eventDetails){
             if(eventVal.getEventName().equals(event.getEventName())){
+                // Event Cancel sequence : 1.1.1.2.1.2.1.1 : remove event
                 Event.eventDetails.remove(selectedEventId);
                 for(Event x : Event.eventDetails){
                     System.out.println(x);
@@ -297,6 +300,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
     }
 
+    // This method handles cancelling the attendance sheet of the event
     public void cancelAttendanceSheet(Event event){
         // SQL delete query
         String sql = "DELETE FROM StudentAttendance WHERE EventId = ?";
@@ -320,42 +324,45 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         }
     }
 
-
+    // Defined constructor for the club advisor
     public ClubAdvisor(String userName,String password,
                        String firstName, String lastName){
         super(userName, password, firstName, lastName);
     }
 
+    // Defined Constructor for the club advisor
     public ClubAdvisor(int clubAdvisorId){
         super();
         this.clubAdvisorId = clubAdvisorId;
     }
 
+    // This method get the club advisor id
     public int getClubAdvisorId() {
         return clubAdvisorId;
     }
 
+    // This method set the club advisor id
     public void setClubAdvisorId(int clubAdvisorId) {
         this.clubAdvisorId = clubAdvisorId;
     }
 
-    public void passwordChecker(){
-
-    }
-
+    // This method validates the club advisor id
     @Override
     public boolean validateClubAdvisorId() throws SQLException {
+        // Check if the club advisor id is empty
         if(String.valueOf(this.getClubAdvisorId()).isEmpty()){
             advisorIdStatus = "empty";
             System.out.println("Empty");
             return false;
         }
 
+        // Check if the club advisor id is less than 6 digits
         if(String.valueOf(this.getClubAdvisorId()).length() != 6){
             advisorIdStatus = "length";
             System.out.println("more than 6");
             return false;
         }
+
 
         String sql = "SELECT * FROM TeacherInCharge  WHERE teacherInChargeId = ?";
         PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
@@ -363,6 +370,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         ResultSet results = preparedStatement.executeQuery();
 
         int dbClubAdvisorId = 0;
+        // Check if the club advisor id is already exists
         while(results.next()){
             dbClubAdvisorId = Integer.parseInt(results.getString(1));
             System.out.println(dbClubAdvisorId);
@@ -378,27 +386,35 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
     }
 
     //This method generates the membership details report
+    // Generate Report sequence : 5.1 : generateReport()
     public void generateMembershipDetailReport(TableView<Student> tableView, Stage stage) throws IOException {
         ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
     }
 
     // This method generates the event details report
+    // Generate Report sequence : 5.1 : generateReport()
     public void generateEventDetailReport(TableView<Event> tableView, Stage stage) throws IOException {
         ClubAdvisorActivityController.generateCsv(tableView, stage);
     }
 
+    // This method generates the club advisor registration report
+    // Generate Report sequence : 5.1 : generateReport()
     public void generateClubAdvisorRegistrationDetailReport(TableView<ClubAdvisor> tableView, Stage stage) throws IOException {
         ClubAdvisorActivityController.generateAdvisorCsv(tableView, stage);
     }
-
+    // This method generates the student registration details report
+    // Generate Report sequence : 5.1 : generateReport()
     public void generateStudentRegistrationReport(TableView<Student> tableView, Stage stage) throws IOException {
         ClubAdvisorActivityController.generateMembershipCsv(tableView, stage);
     }
 
+    // This method generates the student attendance details report
+    // Generate Report sequence : 5.1 : generateReport()
     public void generateStudentAttendanceReport(TableView<Attendance> tableView, Stage stage) throws IOException{
         ClubAdvisorActivityController.generateAttendanceCsv(tableView, stage);
     }
 
+    // This method track the attendance of the students
     public void TrackAttendance(Event trackingEvent, ObservableList<Attendance> attendanceData) {
         // Update the eventAttendance list in the selected event
         trackingEvent.eventAttendance.clear();
@@ -444,12 +460,16 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         }
     }
 
+    // This method handles marking student attendance
     public void studentAttendanceMaker(Event event, Club club) {
+        // Loop through the joinedClubForEachStudent map to update the attendance of the given event
         for (Map.Entry<Student, ArrayList<Club>> entry : ClubAdvisorDataBaseManager.joinedClubForEachStudent.entrySet()) {
-            Student student = entry.getKey();
-            ArrayList<Club> clubs = entry.getValue();
+            Student student = entry.getKey(); // Get the student object
+            ArrayList<Club> clubs = entry.getValue(); // Get the clubs the student has joined
 
+            // Loop through the clubs the student has joined
             for (Club clubVal : clubs) {
+                // Check if the club name matches the club name of the event
                 if (clubVal.getClubName().equals(event.getClubName())) {
                     // SQL query to insert values into StudentAttendance table
                     String sql = "INSERT INTO StudentAttendance (studentAdmissionNum, clubId, EventId, attendanceStatus) VALUES (?, ?, ?, ?)";

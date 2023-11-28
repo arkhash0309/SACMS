@@ -20,6 +20,7 @@ public class Student extends User implements StudentValidator {
     public static ArrayList<Club> studentJoinedClubs = new ArrayList<>();
     public static ArrayList<Event> studentEvent = new ArrayList<>();
 
+    // defined constructor for Student class
     public Student(String userName,String password,
                    String firstName, String lastName,
                    String contactNumber, int studentAdmissionNum,
@@ -30,36 +31,38 @@ public class Student extends User implements StudentValidator {
         this.setStudentGender(studentGender);
     }
 
+    // default constructor for Student class
     public Student(){
 
     }
 
+    // defined constructor for Student class
     public Student(String userName, String password, String firstName, String lastName) {
         super(userName, password, firstName, lastName);
     }
 
+    // defined constructor for Student class
     public Student(String contactNumber){
         super(contactNumber);
     }
 
+    // defined constructor for Student class
     public Student(int admissionNumValue) {
         super();
         this.studentAdmissionNum = admissionNumValue;
     }
 
+    // defined constructor for Student class
     public Student(String userName, String password){
         super(userName, password);
     }
 
+    // defined constructor for Student class
     public Student(String updatedUserName, String updatedFirstName, String updatedLastName,
                    String updatedContactNum, String updatedAdmissionNum) {
         super(updatedUserName,updatedFirstName,updatedLastName, updatedContactNum, updatedAdmissionNum);
     }
 
-//    @Override
-//    public String advisorRegisteringToSystem(){
-//        return null;
-//    }
 
     //Created for inserting details into generate report membership table
     public Student(int memberAdmissionNum, String memberUserName, String memberFirstName, String memberLastName,int memberGrade,char memberGender, String memberContactNum) {
@@ -73,30 +76,37 @@ public class Student extends User implements StudentValidator {
 
     }
 
+    // This method will get the student admission number
     public int getStudentAdmissionNum() {
         return studentAdmissionNum;
     }
 
+    // This method will set the student admission number
     public void setStudentAdmissionNum(int studentAdmissionNum) {
         this.studentAdmissionNum = studentAdmissionNum;
     }
 
+    // This method will get the student grade
     public int getStudentGrade() {
         return studentGrade;
     }
 
+    // This method will set the student grade
     public void setStudentGrade(int studentGrade) {
         this.studentGrade = studentGrade;
     }
 
+    // This method get the gender
     public char getGender() {
         return getStudentGender();
     }
 
+    // Thus method set the gender
     public void setGender(char studentGender) {
         this.setStudentGender(studentGender);
     }
 
+    // This method handles login to the system
     @Override
     public String LoginToSystem() { // this method will check whether entered password is correct
         String correctPassword = null; // store correct password from database
@@ -115,21 +125,24 @@ public class Student extends User implements StudentValidator {
         return correctPassword;
     }
 
+    // This method handles validate student admission number
     @Override
     public boolean validateStudentAdmissionNumber() throws SQLException {
+        // This will check whether the student admission number is empty
         if(String.valueOf(this.getStudentAdmissionNum()).isEmpty()){
             admissionNumStatus = "empty";
             System.out.println(this.getStudentAdmissionNum());
             return false;
         }
-
+         // This will check whether the student admission number is less than 6
         if(String.valueOf(this.getStudentAdmissionNum()).length() != 6){
             admissionNumStatus = "length";
             System.out.println("more than 6");
             return false;
         }
-
+         // This will check whether the student admission number already exist
         int dbStudentAdmissionNum  = 0;
+        // This query will get the student admission number from the Student table
         String sql = "SELECT * FROM Student WHERE studentAdmissionNum = ?";
         PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
         preparedStatement.setString(1, String.valueOf(this.getStudentAdmissionNum()));

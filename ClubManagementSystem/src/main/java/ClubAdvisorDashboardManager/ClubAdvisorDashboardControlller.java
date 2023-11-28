@@ -36,221 +36,220 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected double yPosition;
 
     @FXML
-    protected DatePicker scheduleEventDatePicker;
-    protected Scene scene;
-    protected Stage stage;
-    protected Parent root;
+    protected DatePicker scheduleEventDatePicker; // Date picker for the schedule event pane
+    protected Scene scene; // scene of the current stage
+    protected Stage stage; // current stage
+    protected Parent root; // root of the current stage
     @FXML
     protected StackPane ClubAdvisorDashboard;
     // FXML elements defined in the associated FXML file
     @FXML
-    protected AnchorPane dashboardMainPane;
+    protected AnchorPane dashboardMainPane; // Main pane of the dashboard
 
     @FXML
-    protected AnchorPane ManageClubPane;
+    protected AnchorPane ManageClubPane;  // Pane for managing clubs
 
     @FXML
-    protected AnchorPane ScheduleEventsPane;
+    protected AnchorPane ScheduleEventsPane; // Pane for scheduling events
 
     @FXML
-    protected AnchorPane GenerateReportsPane;
+    protected AnchorPane GenerateReportsPane; // Pane for generating reports
 
     @FXML
-    protected Button ManageclubButton;
+    protected Button ManageclubButton; // Button for managing clubs
 
     @FXML
-    protected AnchorPane AttendancePane;
+    protected AnchorPane AttendancePane; // Pane for tracking attendance
     @FXML
-    public Button dashboardButton;
+    public Button dashboardButton; // Button for going to the dashboard
 
     @FXML
-    protected Button ScheduleEventsButton;
+    protected Button ScheduleEventsButton; // Button for scheduling events
 
     @FXML
-    protected Button AttendanceButton;
+    protected Button AttendanceButton; // Button for tracking attendance
 
     @FXML
-    protected Button GenerateReportsButton;
+    protected Button GenerateReportsButton; // Button for generating reports
 
     @FXML
-    protected AnchorPane ClubActivitiesPane;
+    protected AnchorPane ClubActivitiesPane; // Pane for club activities
 
     @FXML
-    protected AnchorPane EventAttendancePane;
+    protected AnchorPane EventAttendancePane; // Pane for event attendance
 
     @FXML
-    protected AnchorPane MembershipReportPane;
+    protected AnchorPane MembershipReportPane; // Pane for membership report
 
     @FXML
-    protected AnchorPane ViewEventsPane;
+    protected AnchorPane ViewEventsPane; // Pane for viewing events
 
     @FXML
-    protected AnchorPane ScheduleEventsInnerPane;
+    protected AnchorPane ScheduleEventsInnerPane; // Inner pane for scheduling events
 
     @FXML
-    protected AnchorPane CancelEventsPane;
+    protected AnchorPane CancelEventsPane; // Pane for cancelling events
 
     @FXML
-    protected AnchorPane UpdatesEventPane;
+    protected AnchorPane UpdatesEventPane; // Pane for updating events
 
     @FXML
-    protected AnchorPane UpdateClubDetailPane;
+    protected AnchorPane UpdateClubDetailPane; // Pane for updating club details
 
     @FXML
-    protected AnchorPane ProfilePane;
+    protected AnchorPane ProfilePane; // Pane for viewing profile
 
     @FXML
-    protected AnchorPane createClubPane;
+    protected AnchorPane createClubPane; // Pane for creating a club
     @FXML
-    public Button ViewEventButton;
+    public Button ViewEventButton; // Button for viewing events
 
     @FXML
-    protected Button ScheduleEventButton;
+    protected Button ScheduleEventButton; // Button for scheduling events
 
     @FXML
-    protected Button CancelEventButton;
+    protected Button CancelEventButton; // Button for cancelling events
 
     @FXML
-    protected Button UpdateEventButton;
+    protected Button UpdateEventButton; // Button for updating events
     @FXML
-    public Button GoToClubMembershipButton;
+    public Button GoToClubMembershipButton; // Button for going to the club membership pane
 
     @FXML
-    protected Button GoToEventAttendanceButton;
+    protected Button GoToEventAttendanceButton; // Button for going to the event attendance pane
 
     @FXML
-    protected Button GoToClubActivitiesButton;
+    protected Button GoToClubActivitiesButton; // Button for going to the club activities pane
 
     @FXML
-    public Button CreateClubDirectorButton;
+    public Button CreateClubDirectorButton; // Button for creating a club
 
 
     @FXML
-    protected Button UpdateClubDirectorButton;
+    protected Button UpdateClubDirectorButton; // Button for updating club details
 
     @FXML
     protected Button AdvisorProfileButton;
     // Text fields and labels for student profile information
     @FXML
-    protected TextField scheduleEventNameTextField;
+    protected TextField scheduleEventNameTextField; // Text field for the event name
 
     @FXML
-    protected TextField scheduleEventsLocationTextField;
+    protected TextField scheduleEventsLocationTextField; // Text field for the event location
 
     @FXML
-    protected Button scheduleEventScheduleButton;
+    protected Button scheduleEventScheduleButton; // Button for scheduling an event
 
     @FXML
-    protected Button scheduleEventClearButton;
+    protected Button scheduleEventClearButton; // Button for clearing the event details
 
     @FXML
-    protected TextField scheduleCreatedEventsSearchBar;
+    protected TextField scheduleCreatedEventsSearchBar; // Search bar for searching scheduled events
 
     @FXML
-    protected Button scheduleCreatedEventsSearchButton;
+    protected Button scheduleCreatedEventsSearchButton; // Button for searching scheduled events
 
     @FXML
-    protected TextField viewCreatedEventsSearchPane;
+    protected TextField viewCreatedEventsSearchPane; // Search bar for searching created events
 
     @FXML
-    protected Button ViewCreatedEventsSearchButton;
+    protected Button ViewCreatedEventsSearchButton; // Button for searching created events
 
     @FXML
-    protected ComboBox<String> scheduleEventTypeCombo;
+    protected ComboBox<String> scheduleEventTypeCombo; // Combo box for the event type
 
     @FXML
-    protected ComboBox<String> ScheduleEventsDeliveryType;
+    protected ComboBox<String> ScheduleEventsDeliveryType; // Combo box for the event delivery type
 
     @FXML
-    public ComboBox<String> updateEventClubCombo;
+    public ComboBox<String> updateEventClubCombo; // Combo box for the club name
     @FXML
-    public ComboBox<String> viewCreatedEventsSortComboBox;
+    public ComboBox<String> viewCreatedEventsSortComboBox; // Combo box for sorting created events
 
     @FXML
-    protected TextArea scheduleEventDescriptionTextField;
+    protected TextArea scheduleEventDescriptionTextField; // Text area for the event description
     @FXML
-    public Label showUserNameClubAdvisor;
-  
+    public Label showUserNameClubAdvisor; // Label for showing the username of the club advisor
     @FXML
-    public TextField clubName;
+    public TextField clubName; // Text field for the club name
     @FXML
-    public TextField clubId;
+    public TextField clubId; // Text field for the club ID
     @FXML
-    public TextArea clubDescription;
+    public TextArea clubDescription; // Text area for the club description
     @FXML
-    public ImageView createClubImage;
+    public ImageView createClubImage; // Image view for the club logo
     @FXML
-    public Button createClubImageButton;
+    public Button createClubImageButton; // Button for uploading the club logo
     @FXML
-    public Label clubLogoError;
+    public Label clubLogoError; // Label for the club logo error
     @FXML
-    public Label clubNameError;
+    public Label clubNameError; // Label for the club name error
     @FXML
-    public Label clubDescriptionError;
+    public Label clubDescriptionError; // Label for the club description error
     @FXML
-    public TableView<Club> createClubDetailsTable;
+    public TableView<Club> createClubDetailsTable;  // Table for the club details
     @FXML
-    public TableColumn<Club, String> createClubTableDescription;
+    public TableColumn<Club, String> createClubTableDescription; // Column for the club details
     @FXML
-    public TableColumn<Club, Integer> createClubTableId;
+    public TableColumn<Club, Integer> createClubTableId; // Column for the club details
     @FXML
-    public TableColumn<Club, ImageView> createClubTableLogo;
+    public TableColumn<Club, ImageView> createClubTableLogo; // Column for the club details
     @FXML
-    public TableColumn<Club, String> createClubTableName;
+    public TableColumn<Club, String> createClubTableName; // Column for the club details
     @FXML
-    public Label updateClubNameError;
+    public Label updateClubNameError;  // Label for the club name error
     @FXML
-    public Label updateClubDescriptionError;
+    public Label updateClubDescriptionError; // Label for the club description error
     @FXML
     public TextField updateClubSearch;
     // Table and columns for updating club
     @FXML
-    public TableView<Club> updateClubDetailsTable;
+    public TableView<Club> updateClubDetailsTable; // Table for the club details
     @FXML
-    public TableColumn<Club, String> updateClubTableDescription;
+    public TableColumn<Club, String> updateClubTableDescription; // Column for the club details
     @FXML
-    public TableColumn<Club, Integer> updateClubTableId;
+    public TableColumn<Club, Integer> updateClubTableId; // Column for the club details
     @FXML
-    public TableColumn<Club, String> updateClubTableLogo;
+    public TableColumn<Club, String> updateClubTableLogo; // Column for the club details
     @FXML
     public TableColumn<Club, String> updateClubTableName;
     @FXML
-    public TextField updateClubID;
+    public TextField updateClubID; // Text field for the club ID
     @FXML
-    public TextField updateClubName;
+    public TextField updateClubName; // Text field for the club name
     @FXML
-    public TextArea updateClubDescription;
+    public TextArea updateClubDescription; // Text area for the club description
     @FXML
-    public ImageView updateClubImage;
+    public ImageView updateClubImage; // Image view for the club logo
     @FXML
-    public Button updateClubImageButton;
+    public Button updateClubImageButton; // Button for uploading the club logo
 
   // setting labels from FXML
 
     @FXML
-    public Button updateClubButton;
+    public Button updateClubButton; // Button for updating the club details
   
 
     @FXML
-    protected Label updateErrorLabelEventLocation;
+    protected Label updateErrorLabelEventLocation; // Label for the event location error
 
     @FXML
-    protected Label updateErrorLabelEventName;
+    protected Label updateErrorLabelEventName; // Label for the event name error
 
     @FXML
-    protected Label updateErrorLabelEventType;
+    protected Label updateErrorLabelEventType; // Label for the event type error
 
     @FXML
-    protected Label updateErrorLabelEventDate;
+    protected Label updateErrorLabelEventDate; // Label for the event date error
 
     @FXML
-    protected Label updateErrorLabelDeliveryType;
+    protected Label updateErrorLabelDeliveryType; // Label for the event delivery type error
 
     @FXML
-    protected Label updateErrorLabelEventDescription;
+    protected Label updateErrorLabelEventDescription; // Label for the event description error
 
     @FXML
-    protected Label scheduleErrorLabelClubName;
+    protected Label scheduleErrorLabelClubName; // Label for the club name error
 
     @FXML
     protected Label scheduleErrorLabelEventName;
@@ -421,147 +420,145 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     protected TableColumn<Event, LocalTime> viewEventTimeColumn;
 
     @FXML
-    protected TextField cancelEventSearchBar;
+    protected TextField cancelEventSearchBar; // Search bar for searching cancelled events
 
     @FXML
-    protected TextField updateEventSearchBar;
+    protected TextField updateEventSearchBar; // Search bar for searching updated events
 
     @FXML
-    protected Button scheduleEventSearchButton;
+    protected Button scheduleEventSearchButton; // Button for searching scheduled events
 
     @FXML
-    protected TextField createdEventSearchBar;
+    protected TextField createdEventSearchBar; // Search bar for searching created events
 
     @FXML
-    protected Label numberOfScheduledEvents;
+    protected Label numberOfScheduledEvents; // Label for the number of scheduled events
 
     @FXML
-    protected Label nextEventDate;
+    protected Label nextEventDate; // Label for the next event date
 
     @FXML
-    protected Label numberOfClubs;
+    protected Label numberOfClubs; // Label for the number of clubs
 
     @FXML
-    protected Button GoToRegistrationButton;
+    protected Button GoToRegistrationButton; // Button for going to the registration pane
 
     @FXML
-    protected AnchorPane RegistrationReportPane;
+    protected AnchorPane RegistrationReportPane; // Pane for the registration report
 
     @FXML
-    protected TableView<Attendance> tb1;
+    protected TableView<Attendance> tb1; // Table for the attendance tracker
 
     @FXML
-    protected TableColumn<Attendance, Boolean> atColumn;
+    protected TableColumn<Attendance, Boolean> atColumn; // Column for the attendance tracker
 
     @FXML
-    protected TableColumn<Attendance, CheckBox> stColumn;
+    protected TableColumn<Attendance, CheckBox> stColumn; // Column for the attendance tracker
 
     @FXML
-    public TextField profileAdvisorUsername;
+    public TextField profileAdvisorUsername; // Text field for the username
     @FXML
-    public TextField profileAdvisorLname;
+    public TextField profileAdvisorLname; // Text field for the last name
     @FXML
-    public TextField profileAdvisorId;
+    public TextField profileAdvisorId;  // Text field for the ID
     @FXML
-    public TextField profileAdvisorFname;
-
-
+    public TextField profileAdvisorFname; // Text field for the first name
     @FXML
-    public TextField profileAdvisorCnumber;
+    public TextField profileAdvisorCnumber; // Text field for the contact number
     @FXML
-    public Label profileAdvisorCnumberError;
+    public Label profileAdvisorCnumberError; // Label for the contact number error
     @FXML
-    public Label profileAdvisorFnameError;
+    public Label profileAdvisorFnameError; // Label for the first name error
     @FXML
-    public Label profileAdvisorIdError;
+    public Label profileAdvisorIdError; // Label for the ID error
     @FXML
-    public Label profileAdvisorLnameError;
+    public Label profileAdvisorLnameError; // Label for the last name error
     @FXML
-    public Label profileAdvisorUsernameError;
+    public Label profileAdvisorUsernameError; // Label for the username error
 
     @FXML
-    public PasswordField profileAdvisorExistingpw;
+    public PasswordField profileAdvisorExistingpw; // Password field for the existing password
     @FXML
-    public Label profileAdvisorExistingpwError;
+    public Label profileAdvisorExistingpwError; // Label for the existing password error
     @FXML
-    public PasswordField profileAdvisorNewpw;
+    public PasswordField profileAdvisorNewpw; // Password field for the new password
     @FXML
-    public Label profileAdvisorNewpwError;
+    public Label profileAdvisorNewpwError; // Label for the new password error
     @FXML
-    public PasswordField profileAdvisorConfirmpw;
+    public PasswordField profileAdvisorConfirmpw; // Password field for the confirm password
     @FXML
-    public Label profileAdvisorConfirmpwError;
+    public Label profileAdvisorConfirmpwError; // Label for the confirm password error
     @FXML
-    public ComboBox<String> clubMembershipCombo;
+    public ComboBox<String> clubMembershipCombo; // Combo box for the club membership
     
     @FXML
-    protected BarChart<?, ?> GenderRatioChart;
+    protected BarChart<?, ?> GenderRatioChart; // Bar chart
 
     @FXML
-    protected CategoryAxis GenderOfStudent;
+    protected CategoryAxis GenderOfStudent; // Category axis for the bar chart
 
     @FXML
-    protected NumberAxis NumberOfStudents;
+    protected NumberAxis NumberOfStudents; // Number axis for the bar chart
 
     @FXML
-    protected BarChart<?, ?> EnrollStudentCountEachGrade;
+    protected BarChart<?, ?> EnrollStudentCountEachGrade; // Bar chart for the enrollment count of each grade
 
     @FXML
-    protected CategoryAxis gradeDetail;
+    protected CategoryAxis gradeDetail; // Category axis for the bar chart
 
     @FXML
-    protected NumberAxis NumberOfStudentsEachGrade;
+    protected NumberAxis NumberOfStudentsEachGrade; // Number axis for the bar chart
     @FXML
-    protected ComboBox<String> attendanceClubNameComboBox;
+    protected ComboBox<String> attendanceClubNameComboBox; // Combo box for the club name
 
     @FXML
-    protected ComboBox<String> attendanceEventNameComboBox;
+    protected ComboBox<String> attendanceEventNameComboBox; // Combo box for the event name
 
     @FXML
-    protected TableColumn<Attendance, String> attendanceClubNameColumn;
+    protected TableColumn<Attendance, String> attendanceClubNameColumn; // Column for the attendance tracker
 
     @FXML
-    protected TableColumn<Attendance, String> attendanceEventNameColumn;
+    protected TableColumn<Attendance, String> attendanceEventNameColumn; // Column for the attendance tracker
 
     @FXML
-    protected TableColumn<Attendance, Integer> attendanceStudentAdmissionNumColumn;
+    protected TableColumn<Attendance, Integer> attendanceStudentAdmissionNumColumn; // Column for the attendance tracker
 
     @FXML
-    protected TableColumn<Attendance, String> attendanceStudentNameColumn;
+    protected TableColumn<Attendance, String> attendanceStudentNameColumn; // Column for the attendance tracker
 
     @FXML
-    protected TableColumn<Attendance, CheckBox> attendanceStatusColumn;
+    protected TableColumn<Attendance, CheckBox> attendanceStatusColumn; // Column for the attendance tracker
 
     @FXML
-    protected TableView<Attendance> attendanceTrackerTable;
+    protected TableView<Attendance> attendanceTrackerTable; // Table for the attendance tracker
     @FXML
-    public TableView<Event> generateReportEventViewTable;
+    public TableView<Event> generateReportEventViewTable; // Table for the event view
     @FXML
-    public TableColumn<Event, String> generateReportClubName;
+    public TableColumn<Event, String> generateReportClubName; // Column for the event view
 
     @FXML
-    public TableColumn<Event, String> generateReportEventName;
+    public TableColumn<Event, String> generateReportEventName; // Column for the event view
 
     @FXML
-    public TableColumn<Event, LocalDate> generateReportEventDate;
+    public TableColumn<Event, LocalDate> generateReportEventDate; // Column for the event view
 
     @FXML
-    public TableColumn<Event, LocalTime> generateReportEventTime;
+    public TableColumn<Event, LocalTime> generateReportEventTime; // Column for the event view
 
     @FXML
-    public TableColumn<Event, String> generateReportEventLocation;
+    public TableColumn<Event, String> generateReportEventLocation; // Column for the event view
 
     @FXML
-    public TableColumn<Event, String> generateReportEventType;
+    public TableColumn<Event, String> generateReportEventType; // Column for the event view
 
     @FXML
-    public TableColumn<Event, String> generateReportDeliveryType;
+    public TableColumn<Event, String> generateReportDeliveryType; // Column for the event view
 
     @FXML
-    public TableColumn<Event, String> generateReportEventDescription;
+    public TableColumn<Event, String> generateReportEventDescription; // Column for the event view
 
     @FXML
-    public ComboBox<String> generateReportClubNameComboBox;
+    public ComboBox<String> generateReportClubNameComboBox; // Combo box for the club name
 
     @FXML
     public Label UpcomingEventCountGenerateReports;

@@ -24,7 +24,7 @@ abstract public class User implements UserValidator {
     public static String passwordValidateStatus;
     public static String userNameValidateStatus;
 
-
+    // Defined constructor for the User class
     public User(String userName, String password,
                 String firstName, String lastName, String contactNumber){
         this.userName = userName;
@@ -34,6 +34,7 @@ abstract public class User implements UserValidator {
         this.contactNumber = contactNumber;
     }
 
+    // Defined constructor for the User class
     public User(String userName, String password,
                 String firstName, String lastName){
         this.userName = userName;
@@ -43,6 +44,8 @@ abstract public class User implements UserValidator {
         System.out.println("first name  :" + this.firstName);
         System.out.println("last name : " + this.lastName);
     }
+
+    // Defined constructor for the User class
     public User(String contactNumber){
         this.contactNumber = contactNumber;
     }
@@ -52,28 +55,34 @@ abstract public class User implements UserValidator {
 //        this.password = password;
 //   }
 
+    // Defined constructor for the User class
     public User(String UserName,String password){
         this.userName = UserName;
         this.password = password;
     }
 
+    // Defined constructor for the User class
     public User(){
 
     }
 
+    // This method is used to get the username
     public String getUserName() {
         return userName;
     }
 
+    // This method is used to set the username
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    // This method is used to get the password
     public String getPassword() {
         System.out.println(password);
         return password;
     }
 
+    // This method is used to set the password
     public void setPassword(String password) {
         this.password = password;
     }
@@ -82,29 +91,38 @@ abstract public class User implements UserValidator {
         return firstName;
     }
 
+    // This method is used to set the first name
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    // This method is used to get the last name
     public String getLastName() {
         return lastName;
     }
 
+    // This method is used to set the last name
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    // This method is used to get the contact number
     public String getContactNumber() {
         return contactNumber;
     }
 
+    // This method is used to set the contact number
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
+    // This method is used to register to the system
     abstract public void registerToSystem();
+
+    // This method is used to login to the system
     abstract public String LoginToSystem();
 
+    // This method is used to validate first name
     @Override
     public boolean validateFirstName(){ // validating first name
         if(this.firstName.isEmpty()){ // if first name is empty
@@ -121,6 +139,7 @@ abstract public class User implements UserValidator {
         }
     }
 
+    // This method is used to validate last name
     @Override
     public  boolean validateLastName(){ // validating last name
         if(this.lastName.isEmpty()){ // if last name field is empty
@@ -137,6 +156,7 @@ abstract public class User implements UserValidator {
         }
     }
 
+    // This method is used to validate contact number
     @Override
     public boolean validateContactNumber(){ // validating contact number
         int contactLength = String.valueOf(this.contactNumber).length(); // taking the length of the contact number
@@ -150,13 +170,16 @@ abstract public class User implements UserValidator {
         }
     }
 
+    // This method is used to check whether the value contains special characters and digits
     public static boolean containsSpecialCharactersAndDigits(String value){
+        // checking whether the value contains special characters and digits
         String patterCheck = "[\\d\\p{Punct}]";
         Pattern compiledPattern = Pattern.compile(patterCheck);
         Matcher matcher = compiledPattern.matcher(value);
         return matcher.find();
     }
 
+    // This method is used to validate username
     @Override
     public boolean validateUserName(String requiredWork, String user){ /* requiredWork is to check whether it is registration
                                                                                     or updating, user is for advisor and student */
@@ -243,6 +266,8 @@ abstract public class User implements UserValidator {
             return false;
         }
     }
+
+    // This method is used to validate password
     @Override
     public boolean validatePassword(String requiredWork) throws SQLException{ // validating password
         if(requiredWork.equals("registration")){
@@ -272,6 +297,7 @@ abstract public class User implements UserValidator {
         }
     }
 
+    // This method is used to check whether the password is valid
     protected static boolean checkPasswordIsValid(String password) { // checking whether password contains special characters
         // at least 8 digits, can add chars, numbers
         String pattern = "^(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
@@ -286,6 +312,7 @@ abstract public class User implements UserValidator {
         return matcher.matches();
     }
 
+    // default pan of the user
     {
        fNameValidateStatus = "correct";
        lNameValidateStatus = "correct";

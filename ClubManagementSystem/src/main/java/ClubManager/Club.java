@@ -115,6 +115,8 @@ public class Club implements ClubValidator {
 
     //Represents the validation status for the club name
     public static String clubNameValidateStatus;
+
+    // Club creation sequence : 1.1.1.1: validateClubName()
     public boolean validateClubName(){
         if (this.clubName.isEmpty()){
             // Check if the club name is empty
@@ -144,6 +146,7 @@ public class Club implements ClubValidator {
 
     //Represents the validation status for the club description
     public static String clubDescriptionValidateStatus;
+    // Club creation sequence : 1.1.1.1.1 : validateClubDescription()
     public boolean validateClubDescription(){
         // Check if the club description is empty
         if (this.clubDescription.isEmpty()){

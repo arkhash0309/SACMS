@@ -335,6 +335,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // work done by- Pramuditha
+    // Club creation sequence 1.1 :clubCreationChecker()
     @Override
     public void clubCreationChecker(ActionEvent event) {
         //Setting the valid state to true
@@ -345,14 +346,16 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String clubName = this.clubName.getText();
         String clubDescription = this.clubDescription.getText();
 
-
+        // Club creation sequence 1.1.1  : club( )
         //Creating a Club Object to validate details
         Club club = new Club(clubId,clubName,clubDescription);
 
+        // Club creation sequence 1.1.1.1  : validateClubName()
         //Validating club name using validateClubName method
         if (!club.validateClubName()){
             validStat = false;
         }
+
         //Displaying relevant club name error if there is
         displayClubNameError(clubNameError);
 
@@ -360,6 +363,8 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (!club.validateClubDescription()){
             validStat = false;
         }
+
+        // Club creation sequence 1.1.1.1  : displayClubDecriptionError()
         //Displaying relevant club description error if there is
         displayClubDecriptionError(clubDescriptionError);
 
@@ -378,6 +383,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (validStat) {
             //Creating a new club in the system using the user given data
             ClubAdvisor clubAdvisor = new ClubAdvisor();
+            // Club creation sequence :1.1.1.1.1.1.1 :createClub()
             clubAdvisor.createClub(clubIdSetterValue,clubName,clubDescription,imagePath,clubAdvisorId);
 
             //Setting tables and combo boxes that is related to club
@@ -421,6 +427,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // work done by- Pramuditha
+    // Club update sequence : 1.1.2.1 : clubUpdateChecker()
     public void clubUpdateChecker(ActionEvent event) {
         //Setting the valid state to true
         validStat = true;
@@ -430,6 +437,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         String clubName = updateClubName.getText();
         String clubDescription = updateClubDescription.getText();
 
+        // Club update sequence : 1.1.2.1.1 : Club()
         //Creating a Club Object to validate details
         Club club = new Club(clubId,clubName,clubDescription);
 
@@ -452,10 +460,13 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             //Searching through the club details list to find the relevant club
             for (Club foundClub : clubDetailsList){
                 if (clubId == foundClub.getClubId()){
+                    // Club update sequence : 1.1.2.1.1.1.1.2setClubName()
                     foundClub.setClubName(clubName);                    //Changing the club name to new club name
+                    // Club update sequence : 1.1.2.1.1.1.1.2.1.setClubDescription()
                     foundClub.setClubDescription(clubDescription);      //Changing the club description to the new one
                     //Setting the new club logo
                     String clubLogo = this.updateClubImage.getImage().getUrl();
+                    // Club update sequence : 1.1.2.1.1.1.1.2.1.1 : setClubLogo()
                     foundClub.setClubLogo(clubLogo);
 
                     //Alerting when the user enters correct details
@@ -477,6 +488,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
                     //Update database
                     ClubAdvisor clubAdvisor = new ClubAdvisor();
+                    // Club update sequence :  1.1.2.1.1.1.1.2.1.2.1 : updateClub()
                     clubAdvisor.updateClub(clubIdSetterValue,clubName,clubDescription,imagePath,clubAdvisorId);
                 }
             }
@@ -564,6 +576,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // work done by- Pramuditha
+    // Update Club sequence : 1.1 : updateClubTableSelect()
     @FXML
     public void updateClubTableSelect(MouseEvent event) {
         updateClubTableSelect();
@@ -1039,6 +1052,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     // work done by- Lakshan
     /*This method is responsible on taking the user inputs and
     show error and information messages when scheduling events*/
+    // Event scheduling sequence : 1.1 : scheduleEventController()
     @FXML
     void scheduleEventController(ActionEvent event) {
 
@@ -1072,6 +1086,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // This EventManager object is used to user given event scheduling input
         EventManager eventManager = new EventManager();
 
+        // Event Scheduling sequence : 1.1.1 : validateAllEventDetails()
         // stat variables checks whether all the event scheduling inputs are correct
         boolean stat = eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,
                 eventDate, clubName, eventStartHour, eventStartMinute, "create", eventDescription);
@@ -1188,6 +1203,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // work done by- Lakshan
     // Overloading method of below updateRowSelection method to handle update row selections
+    // Event update sequence :
     @FXML
     public void updateRowSelection(MouseEvent event) {
         updateRowSelection();
@@ -1291,6 +1307,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // work done by- Lakshan
     /*This method is responsible on  updating event related details*/
+    // Update Events Sequence : 3.1 : updateEventsController()
     @FXML
     void updateEventsController(ActionEvent event) {
         // set the event name by getting the value from updateEventNameTextField
@@ -1323,28 +1340,38 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Calling event manager object to check whether all the event update details are according to validation standards
         EventManager eventManager = new EventManager();
 
+        // Update Events3.1.1 : validateAllEventDetails()
         // calling the validateAllDetails method in event manager class to validate details
         boolean stat = eventManager.validateAllEventDetails(eventName, eventLocation, eventType, deliveryType,
                 eventDate, clubName, eventStartHour, eventStartMinute, "update", eventDescription);
 
         if (stat) {
             // Passing the updated eventName to Event class using its setter
+            // Update Events sequence : 3.1.2.1 : setEventName()
             selectedEventValue.setEventName(eventName);
+            // Update Events sequence : 3.1.2.1.1 : setEventLocation()
             // Passing the updated eventLocation to Event class using its setter
             selectedEventValue.setEventLocation(eventLocation);
+            // Update Events sequence : 3.1.2.1.1.1 : setEventDate()
             // Passing the updated eventDate to Event class using its setter
             selectedEventValue.setEventDate(eventDate);
+            // Update Events sequence : 3.1.2.1.1.1.1 : setEventDeliveryType()
             // Passing the updated eventDeliveryType to Event class using its setter
             selectedEventValue.setEventDeliveryType(deliveryType);
+            // Update Events sequence : 3.1.2.1.1.1.1.1 : setEventType()
             // Passing the updated eventType to Event class using its setter
             selectedEventValue.setEventType(eventType);
+            // Update Events sequence : 3.1.2.1.1.1.1.1.1 : setHostingClub()
             // Passing the updated eventHostingClub to Event class using its setter
             selectedEventValue.setHostingClub(EventManager.userSelectedClubChooser(clubName));
+            // Update Events sequence : 3.1.2.1.1.1.1.1.1.1 : setEventTime()
             // Passing the updated eventTime to Event class using its setter
             selectedEventValue.setEventTime(eventManager.makeDateTime(eventStartHour, eventStartMinute));
+            // Update Events sequence : 3.1.2.1.1.1.1.1.1.1 : setEventDescription()
             // Passing the updated eventDescription to Event class using its setter
             selectedEventValue.setEventDescription(eventDescription);
 
+            // Update Events sequence : 3.1.2.1.1.1.1.1.1.2.1 : updateEventDetails()
             // create the given seperated hour and minute to Local time
             LocalTime eventStaringTime = eventManager.makeDateTime(eventStartHour, eventStartMinute);
             selectedEventValue.setEventTime(eventStaringTime);
@@ -1378,6 +1405,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // work done by- Lakshan
     /*This method is responsible on cancel an event.*/
+    // Event Cancel Sequence : 1.1.1.2.1 : cancelEventController()
     @FXML
     void cancelEventController(ActionEvent event) {
         try {
@@ -1402,6 +1430,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             // Create a clubAdvisor object
             ClubAdvisor clubAdvisor = new ClubAdvisor();
+            // Event cancel sequence : 1.1.1.2.1.2.1 : cancelEvent()
             // call the cancel event method to update the database from ClubAdvisor class
             clubAdvisor.cancelEvent(selectedEvent, selectedEventId);
 
@@ -1426,9 +1455,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
     // work done by- Lakshan
     // This method is used to search the cancel events
-    // event cancel sequence - 1 search cancel event
+    // Event Cancel Sequences sequence - 1 search cancel event
     @FXML
     void searchCancelEvent(ActionEvent event) {
+        //  Event Cancel Sequence 1.1 : searchEvents()
         // giving the searchbar and the table to be searched
         searchEvents(cancelEventTable, cancelEventSearchBar);
     }
@@ -1476,6 +1506,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             tableView.scrollTo(foundEvent);
 
             // If the table is UpdateEventTable, call the updateRowSelection method
+            // Event Cancel sequence - 1.1.1 : updateRowSelection()
             if (tableView == updateEventTable) {
                 updateRowSelection();
             }
@@ -2782,13 +2813,22 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                         //The object created above will be added to the observable list and sent to the table
                         observableMembersList = clubMembershipTable.getItems();
                         observableMembersList.add(tableStudent);
+
                         clubMembershipTable.setItems(observableMembersList);
 
                     }
                 }
             }
-            //Displaying the number of members
-            membershipReportNumber.setText("Number of Members : " + observableMembersList.size());
+
+            //Checking if the observable list is null
+            if(observableMembersList != null){
+                //Displaying the number of members
+                membershipReportNumber.setText("Number of Members : " + observableMembersList.size());
+            }else{
+                //Displaying the number of members
+                membershipReportNumber.setText("Number of Members : " + 0);
+            }
+
         }
     }
 
