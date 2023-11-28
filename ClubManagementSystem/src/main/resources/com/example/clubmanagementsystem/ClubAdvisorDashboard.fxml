@@ -268,7 +268,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="ManageClubPane" prefHeight="572.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane fx:id="createClubPane" layoutY="-2.0" prefHeight="575.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+                              <AnchorPane fx:id="createClubPane" layoutY="-2.0" prefHeight="575.0" prefWidth="872.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
                                  <children>
                                     <AnchorPane layoutX="21.0" layoutY="307.0" prefHeight="255.0" prefWidth="823.0" styleClass="dashboardPane" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="307.0">
                                        <children>
@@ -391,7 +391,7 @@
                                     </Button>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="UpdateClubDetailPane" layoutY="50.0" prefHeight="522.0" prefWidth="872.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                              <AnchorPane fx:id="UpdateClubDetailPane" layoutY="50.0" prefHeight="522.0" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                  <children>
                                     <AnchorPane prefHeight="255.0" prefWidth="823.0" styleClass="dashboardPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
                                        <children>
