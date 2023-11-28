@@ -37,19 +37,22 @@ public class LoginController implements Initializable {
     private Circle studentCircle;
 
 
+    // work done by- Lakshan
     @FXML
     void LoginDragDetected(MouseEvent event) {
         Stage stage = (Stage) LoginPane.getScene().getWindow();
         stage.setX(event.getScreenX() - xPosition);
         stage.setY(event.getScreenY() - yPosition);
     }
-
+    
+    // work done by- Lakshan
     @FXML
     void LoginPanePressed(MouseEvent event) {
         xPosition = event.getSceneX();
         yPosition = event.getSceneY();
     }
 
+    // work done by- Lakshan and Deelaka
     @FXML
     void DirectClubAdvisor(ActionEvent event) throws IOException {
         System.out.println("Direct to club Advisor");
@@ -61,6 +64,7 @@ public class LoginController implements Initializable {
 
     }
 
+    // work done by- Lakshan and Deelaka
     @FXML
     void DirectStudent(ActionEvent event) throws IOException {
         System.out.println("Direct to student");
@@ -72,17 +76,20 @@ public class LoginController implements Initializable {
 
     }
 
+    // work done by- Lakshan
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    // work done by- Lakshan
     @FXML
     void ClosePane(ActionEvent event) {
         ApplicationController applicationController = new ApplicationController();
         applicationController.closingApp();
     }
 
+    // work done by- Lakshan
     @FXML
     void MinimizePane(ActionEvent event) {
         ApplicationController applicationController = new ApplicationController();

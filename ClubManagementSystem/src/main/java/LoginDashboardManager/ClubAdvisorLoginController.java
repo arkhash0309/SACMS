@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+// work done by- Deelaka and Lakshan
 public class ClubAdvisorLoginController {
     public static String userNameForShowInAdvisorDashboard;  // hold username to show in advisor dashboard when it loads
     static boolean loginStatus;  // uses to validate user entered username and password in login screen

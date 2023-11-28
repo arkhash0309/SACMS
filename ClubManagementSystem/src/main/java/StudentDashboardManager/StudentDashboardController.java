@@ -28,6 +28,8 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 // Abstract class representing the controller for the student dashboard
+
+// work done by- Lakshan, Arkhash and Deelaka
 abstract public class StudentDashboardController implements Initializable {
     // Variables to store mouse position
     protected double xPosition;

@@ -10,6 +10,7 @@ import java.util.Optional;
 
 // This class is responsible on handling the application ribbon for all the stages
 public class ApplicationController{
+    // work done by- Lakshan
     // This method is responsible for closing the application
     public void closingApp(){
         // Conformation alert for closing the application
@@ -27,6 +28,7 @@ public class ApplicationController{
         }
     }
 
+    // work done by- Lakshan
     // This method is responsible for closing the window
     public void MinimizeApp(StackPane paneName){
         // Getting the current stage associated with the provided stackPane
@@ -35,6 +37,4 @@ public class ApplicationController{
         // Minimizing the stage
         stage.setIconified(true);
     }
-
-
 }

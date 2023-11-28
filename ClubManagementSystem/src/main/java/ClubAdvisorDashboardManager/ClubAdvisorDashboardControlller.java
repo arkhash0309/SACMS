@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
+// work done by- Pramuditha, Arkhash, Lakshan and Deelaka
 abstract public class ClubAdvisorDashboardControlller implements Initializable {
 
     @FXML
@@ -223,7 +224,13 @@ abstract public class ClubAdvisorDashboardControlller implements Initializable {
     public ImageView updateClubImage;
     @FXML
     public Button updateClubImageButton;
+
   // setting labels from FXML
+
+    @FXML
+    public Button updateClubButton;
+  
+
     @FXML
     protected Label updateErrorLabelEventLocation;
 
