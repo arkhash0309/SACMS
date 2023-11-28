@@ -82,6 +82,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         memberGender.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
         memberContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
 
+        // setting values to generate report registration advisor table, in order load these values when Generate Page is loading
         registrationAdvisorID.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorId")); // setting values to registrationAdvisorID column
         registrationAdvisorUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         registrationAdvisorFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -90,14 +91,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorTable.setVisible(true);  // loading registrationAdvisorTable table when the respective FXML is loading
         populateClubAdvisorTable();
         registrationStudentTable.setVisible(false);
-
-        registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
-        registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
-        registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
-        registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
 
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
@@ -2991,7 +2984,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             ObservableList<Student> observableStudentRegistrationList = registrationStudentTable.getItems();
             observableStudentRegistrationList.add(student1);
+            registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
+            registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName")); // setting values to registrationStudentUserName column
+            registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName")); // setting values to registrationStudentFirstNameColumn column
+            registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName")); // setting values to registrationStudentLastNameColumn column
+            registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade")); // setting values to registrationStudentGradeColumn column
+            registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber")); // setting values to registrationStudentContactNumberColumn column
+            registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender")); // setting values to registrationStudentGenderColumn column
             registrationStudentTable.setItems(observableStudentRegistrationList);
+
         }
         userCountLabel.setText("No of Students: " + (numbeOfStudents));
     }

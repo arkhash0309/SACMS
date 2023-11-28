@@ -144,19 +144,21 @@ public class ClubAdvisorLoginController {
     }
     @FXML
     void showTypedPassword(ActionEvent event) {
-        if(showPassword.isSelected()){
-            advisorLoginPassword.setVisible(false);
-            PasswordTextField.setVisible(true);
-            PasswordTextField.setText(advisorLoginPassword.getText());
-        }else{
+        if(showPassword.isSelected()){ // when user select show password checkbox
+            advisorLoginPassword.setVisible(false);  //studentLoginPassword textfield will disable
+            PasswordTextField.setVisible(true); // PasswordTextField textfield will enable
+            PasswordTextField.setText(advisorLoginPassword.getText()); /* this will take the values from studnetLoginPassword
+                                                                           textfield and will set to PasswordTextField*/
+        }else{ // this will execute if user keep the checkbox as it is
             PasswordTextField.setVisible(false);
             advisorLoginPassword.setVisible(true);
             advisorLoginPassword.setText(PasswordTextField.getText());
         }
     }
-    boolean fieldsChecker() {
+    boolean fieldsChecker() {  /* this method is used to check whether both studentLoginPagePassword and studentLoginPageUserName field are
+                                  empty or not */
         loginStatus = true;
-        clubAdvisorLoginPageUserName = advisorLoginUserName.getText();
+        clubAdvisorLoginPageUserName = advisorLoginUserName.getText(); // receiving username from user in login page
         if(advisorLoginPassword.isVisible()){
             clubAdvisorLoginPagePassword = advisorLoginPassword.getText(); // receiving password from user in login page
         }else{
@@ -188,12 +190,13 @@ public class ClubAdvisorLoginController {
         return loginStatus;
     }
     @FXML
-    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException, SQLException {
-        if(!fieldsChecker()){
+    public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException, SQLException { // when user click on DirectToStudentDashboard button
+        if(!fieldsChecker()){ // calling to fieldsChecker
             return;
         }
-        advisorUserNameEmpty.setText("");
-        advisorPasswordEmpty.setText("");
+        advisorUserNameEmpty.setText(""); // clearing set values of respective labels
+        advisorPasswordEmpty.setText(""); // clearing set values of respective labels
+
         if(!advisorCredentialsChecker()){
             return;
         }
