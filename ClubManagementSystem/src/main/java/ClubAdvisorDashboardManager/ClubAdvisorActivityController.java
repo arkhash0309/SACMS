@@ -761,7 +761,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // if it is the schedule event text field get the text from text field
             eventName = scheduleEventNameTextField.getText();
 
-            System.out.println(event.getTarget());
             // validate the event name using validate event name method in eventManager class
             if (!eventManager.validateEventName(eventName)) {
                 // set the error label if the event name is null
@@ -774,7 +773,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // if the selected textfield is not event scheduling text field, update error labels
             // get the text input of update textfield
             eventName = updateEventNameTextField.getText();
-            System.out.println(event.getTarget());
 
             // validate the event name using validate event name method in event manager class
             if (!eventManager.validateEventName(eventName)) {
@@ -806,7 +804,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // if it is the schedule event text field get the text from text field
             eventLocation = scheduleEventsLocationTextField.getText();
 
-            System.out.println(event.getTarget());
             // validate the event location using validate event location method in eventManager class
             if (!eventManager.validateEventLocation(eventLocation)) {
                 // set the error label if the event location is null
@@ -847,7 +844,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         if (String.valueOf(event.getTarget()).equals(targetType)) {
             // get the current event scheduling type value to declared variable
             selectedOption = scheduleEventTypeCombo.getSelectionModel().getSelectedItem();
-            System.out.println(event.getTarget());
 
             // do the event type validation
             if (eventManager.validateEventType(selectedOption)) {
@@ -881,7 +877,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Create an event manager object to check whether event delivery type is according to the validation standard
         EventManager eventManager = new EventManager();
-        System.out.println(event.getTarget());
 
         // check whether the user typing text field
         if (String.valueOf(event.getTarget()).equals(targetDelivery)) {
@@ -925,7 +920,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // If the selected date is in the scheduling get its value
             selectedDate = scheduleEventDatePicker.getValue();
 
-            System.out.println(event.getTarget());
             if (!eventManager.validateEventDate(selectedDate)) {
                 // display error, if the event date is not valid
                 scheduleErrorLabelEventDate.setText("Event date cannot be a past date");
@@ -937,7 +931,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             // get the current date value if the update option is selected
             selectedDate = updateEventDateDatePicker.getValue();
 
-            System.out.println(event.getTarget());
             if (!eventManager.validateEventDate(selectedDate)) {
                 // display error if the event date is not valid
                 updateErrorLabelEventDate.setText("Event date cannot be a past date");
@@ -961,7 +954,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Create EventManger object to check whether selected club name is valid
         EventManager eventManager = new EventManager();
-        System.out.println(event.getTarget());
 
         // Check the selected club is in the update or schedule field
         if (String.valueOf(event.getTarget()).equals(targetClub)) {
@@ -986,7 +978,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 updateErrorLabelClubName.setText(" ");
             }
         }
-        System.out.println(event.getTarget());
     }
 
     // work done by- Lakshan
@@ -1265,8 +1256,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
 
 
-            System.out.println(selectedEventValue.getClubName());
-
         } catch (NullPointerException E) {
             // Handling the case where no values are selected
             System.out.println("No values");
@@ -1400,7 +1389,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // Calling the method that displays update error labels
         DisplayEventErrors();
-        System.out.println(stat);
     }
 
     // work done by- Lakshan
@@ -1414,7 +1402,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             // Get the event ID of the event to be canceled
             selectedEventId = cancelEventTable.getSelectionModel().getSelectedIndex();
-            System.out.println(selectedEvent.getEventName());
 
             // Ask the user whether they really want to cancel the event by sending an alert
             Alert cancelEvent = new Alert(Alert.AlertType.CONFIRMATION);
@@ -1483,7 +1470,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void searchEvents(TableView<Event> tableView, TextField searchBar) {
         // Get the event name from the search bar
         String eventName = searchBar.getText();
-        System.out.println(eventName);
+
 
         // Initializing foundEvent to null
         Event foundEvent = null;
@@ -1750,7 +1737,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ArrayList<Event> filteredEvents = new ArrayList<>();
         // the selected club name is retrieved from the club name combo box
         String selectedClub = attendanceClubNameComboBox.getSelectionModel().getSelectedItem();
-        System.out.println(selectedClub + "ding dong bell");
 
         // if no club is selected, the method is returned (not executed)
         if(selectedClub == null){
@@ -1797,7 +1783,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         Event eventToBeTracked = null;
         // the name of the event is retrieved from the combo box value
         String eventName = attendanceEventNameComboBox.getValue();
-        System.out.println(eventName);
+
         // the string value is set to null
         String eventRelatedClubName = null;
         // a for loop is iterated for each entry in the eventDetails Array list
@@ -1833,8 +1819,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             }
         }
 
-        System.out.println("Length of student attendance : " + studentAttendanceList.size());
-        System.out.println("Size....... :" +  eventToBeTracked.eventAttendance.size());
         // Create attendance objects
         for (Student student : studentAttendanceList) {
             CheckBox attendanceCheckBox = new CheckBox();  // a checkbox is created
@@ -1908,16 +1892,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         // Clear the current items in the attendanceTrackerTable
         attendanceTrackerTable.getItems().clear();
 
-        System.out.println(attendanceData.size());
-
         ClubAdvisor clubAdvisor = new ClubAdvisor();
         // Attendance tracking sequence : 1.1.1.2.1.2.1.1.1.1 : TrackAttendance()
         clubAdvisor.TrackAttendance(trackingEvent, attendanceData);
 
         // Repopulate the attendanceTrackerTable if necessary
         populateAttendanceClubNameComboBox();
-
-        System.out.println("Hello Lakshan Attendance Lesi");
 
         // Loop through the eventAttendance list of the trackingEvent
         for (Attendance attendance : trackingEvent.eventAttendance) {
@@ -2522,7 +2502,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                         preparedStatement.setString(4, String.valueOf(advisorId));
                         preparedStatement.executeUpdate();
 
-                        System.out.println("Personal Details, Working as desired");
                     }catch (Exception e){
                         System.out.println(e);
                     }
@@ -2536,7 +2515,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                         profileAdvisorUsername.setText(advisorUsername);
                         showUserNameClubAdvisor.setText(advisorUsername); // setting newly updated username to dashboard
                         showUserNameClubAdvisor.setStyle("-fx-text-alignment: center");
-                        System.out.println("Username, Working as desired");
                     }catch (Exception e){
                         System.out.println(e);
                     }
@@ -3055,7 +3033,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     public void onClickRegistrationGenerateReportButton(ActionEvent event){
         selectedUser = registrationUserSelectComboBox.getValue();
         if(selectedUser == "Student"){ // if selected user is Student
-            System.out.println("User is " + selectedUser);
             registrationAdvisorTable.setVisible(false); // setting registrationAdvisorTable in-order to make visible student table
             registrationStudentTable.setVisible(true); // setting registrationStudentTable table visible
             populateStudentRegisterTable(); // when Student selected as the user respective table will visible
@@ -3063,7 +3040,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         }
 
         if(selectedUser == "Club Advisor"){
-            System.out.println("User is " + selectedUser);
             registrationStudentTable.setVisible(false);// setting registrationStudentTable in-order to make visible student table
             registrationAdvisorTable.setVisible(true);// setting registrationAdvisorTable table visible
             populateClubAdvisorTable(); //
@@ -3353,7 +3329,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         ArrayList<Event> filteredEvents = new ArrayList<>();
         // the selected club name is retrieved from the club name combo box
         String selectedClub = ReportAttendanceClubName.getSelectionModel().getSelectedItem();
-        System.out.println(selectedClub + "ding dong bell");
 
         // if no club is selected, the method is returned (not executed)
         if(selectedClub == null){

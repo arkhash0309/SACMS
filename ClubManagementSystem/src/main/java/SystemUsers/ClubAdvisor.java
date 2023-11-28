@@ -206,7 +206,6 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         eventCreateAlert.setHeaderText("Event successfully created !!!");
         eventCreateAlert.show();
 
-        System.out.println("Correct");
         // Make an attendance sheet for all the students
         studentAttendanceMaker(event, selectedClub);
     }
@@ -217,9 +216,6 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
         Event.eventDetails.set(eventId, event);
         // get the hosting club of the event to be updated
         Club selectedClub = event.getHostingClub();
-
-        // just for testing
-        System.out.println("Lakhan  event name" +  event.getEventName() + " Id : " + event.getEventId());
 
         // This statement update all event related details of the selected event
         String updateEventQuery = "UPDATE EventDetails SET eventName = ?, eventDate = ?, eventTime = ?, eventLocation = ?, eventType = ?, eventDeliveryType = ?, eventDescription = ?, clubId = ? WHERE EventId = ?";
@@ -503,7 +499,6 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
 
                         // Execute the insert query
                         statement.executeUpdate();
-                        System.out.println("Done and dusted");
 
                     } catch (SQLException e) {
                         e.printStackTrace();

@@ -192,14 +192,12 @@ public class StudentLoginController {
         }
         userNameForShowInStudentDashboard = studentLoginPageUserName;
         if (studentLoginPageUserName.isEmpty()) { // if username is empty, error label will be set
-            System.out.println("Empty user name !!!");
             loginStatus = false;
             studentLoginUserNameErrorLabel.setText("This field cannot be empty");
         }
         if (studentLoginPagePassword.isEmpty()) { // if psword is field is empty, error label will be set
             loginStatus = false; // loginStatus will be false
             studentLoginPasswordErrorLabel.setText("This field cannot be empty");
-            System.out.println("Empty password !!!");
         }
         return loginStatus;
     }
@@ -292,18 +290,17 @@ public class StudentLoginController {
         String userName = this.studentRegisterUserName.getText();
         String password = this.studentRegisterPassword.getText();
         String passwordConfirm = this.studentRegisterConfirmPassword.getText();
-        System.out.println(admissionNum);
+
         // an object called student is created of data type Student
         Student student = new Student(userName, password, firstName, lastName);
         // the  first name is validated using the validator interface
         if (!student.validateFirstName()) {
-            System.out.println("Wrong first name");
+
             validateStatus = false; // the boolean value is set to false as there is an error
         }
         displayNameError("FName"); //the error field is specified as the first and last names follow the same validation
         // the last name is validated using the validator interface
         if (!student.validateLastName()) {
-            System.out.println("Wrong last name");
             validateStatus = false; // the boolean value is set to false as there is an error
         }
         displayNameError("LName"); //the error field is specified as the first and last names follow the same validation
@@ -320,14 +317,12 @@ public class StudentLoginController {
                                                                 the temporary holder as the parameter */
             if (!std1.validateContactNumber()) {
                 validateStatus = false; // the boolean value is set to false as there is an error
-                System.out.println("Invalid Contact Number 1");
             } else {
                 // the contact number is validated
                 User.contactNumberValidateStatus = "";
             }
             // catching number format exceptions
         } catch (NumberFormatException e) {
-            System.out.println("Invalid ContactNumber 2");
             User.contactNumberValidateStatus = "format";
             validateStatus = false; // the boolean value is set to false as there is an error
         } catch (Exception e) {
@@ -351,7 +346,6 @@ public class StudentLoginController {
             }
         }catch(NumberFormatException e){ // when entered admission number got unknown errors in number format
             Student.admissionNumStatus ="format"; // admissionNumStatus will set to "format"
-            System.out.println("Invalid Advisor Id");
             validateStatus  = false;
         }
         catch (Exception e) { // if unknown errors occur
@@ -362,7 +356,6 @@ public class StudentLoginController {
         Student.studentDetailArray.add(studentData);
         if (!student.validateUserName("registration", "student")) { /* passing parameters to validateUserName method,
                                                                          and if username did not meet system standards */
-            System.out.println("Wrong user name");
             validateStatus = false;
         } else {
             User.userNameValidateStatus = ""; // when entered username is valid
@@ -370,7 +363,6 @@ public class StudentLoginController {
         displayUserNameError(); // calling to displayUserNameError method
         if (!student.validatePassword("registration")) { /* passing values to validatePassword method, and if
                                                                    password didn't meet system standards */
-            System.out.println("Wrong password");
             validateStatus = false;
         } else {
             User.passwordValidateStatus = ""; // when entered password is valid
@@ -399,7 +391,6 @@ public class StudentLoginController {
                                         studentRegistrationGradeEmptyLabel */
             validateStatus = false;
         }
-        System.out.println(validateStatus + " : Valid Stat");
         if (validateStatus) { // if there is no issue in entered data
 
 
@@ -420,7 +411,7 @@ public class StudentLoginController {
             alert.showAndWait();
             this.DirectToLoginPane(event);
         }
-        System.out.println("\n\n\n");
+
     }
 
     // work done by- Deelaka
@@ -457,7 +448,6 @@ public class StudentLoginController {
         if (!(selcetedGenderVal == "Select Gender")) { // if selcetedGenderVal is not equal to Select Gender
             studentRegistrationGenderEmptyLabel.setText("");
             gender = this.Gender.getValue(); // setting value to gender
-            System.out.println("Gender is "+ gender);
             return gender; // returning gender
         }
         return gender;

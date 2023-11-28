@@ -212,7 +212,6 @@ public class ClubAdvisorLoginController {
             return;
         }
         clubAdvisorIncorrectCredential.setText("");
-        System.out.println("Directing to advisor dashboard");
         // creating an object in ClubAdvisorDataBaseManager class
         ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager(userNameForShowInAdvisorDashboard);
         FXMLLoader loader = new FXMLLoader();
@@ -277,19 +276,16 @@ public class ClubAdvisorLoginController {
         String userName = this.advisorUserName.getText();
         String password = this.advisorPassword.getText();
         String confirmPassword = this.advisorConfirmPassword.getText();
-        System.out.println(advisorId);
         // an object called clubAdvisor is created of data type ClubAdvisor
         ClubAdvisor clubAdvisor = new ClubAdvisor(userName, password, firstName, lastName);
         // the  first name is validated using the validator interface
         if(!clubAdvisor.validateFirstName()){
-            System.out.println("Wrong First Name");
             // the boolean value is set to false as there is an error
             validStat = false;
         }
         displayNameError("Fname");
         // the last name is validated using the validator interface
         if(!clubAdvisor.validateLastName()){
-            System.out.println("Wrong Last Name");
             validStat = false;  // the boolean value is set to false as there is an error
         }
         displayNameError("Lname"); //the error field is specified as the first and last names follow the same validation
@@ -305,13 +301,11 @@ public class ClubAdvisorLoginController {
             // the contact number is validated
             if (!cb.validateContactNumber()) {
                 validStat = false;  // the boolean value is set to false as there is an error
-                System.out.println("Invalid Contact Number 1");
             }else{
                 User.contactNumberValidateStatus ="";
             }
             // catching number format exceptions
         }catch(NumberFormatException e){
-            System.out.println("Invalid Contact Number 2");
             User.contactNumberValidateStatus = "format";
             validStat = false;
         } catch (Exception e) {
@@ -328,14 +322,12 @@ public class ClubAdvisorLoginController {
             ClubAdvisor cb2 = new ClubAdvisor(advisorIdValue); // creating an object to validate advisor ID
 
             if (!cb2.validateClubAdvisorId()) {  // if advisor ID is not under system validation standards
-                System.out.println("Invalid Advisor Id 111");
                 validStat = false;  // validStat will be false
             }else{
                 ClubAdvisor.advisorIdStatus = "";  // when entered advisor ID has no issues
             }
         }catch(NumberFormatException e){ // when entered advisor ID got unknown errors in number format
             ClubAdvisor.advisorIdStatus ="format"; // advisorIdStatus will set to "format"
-            System.out.println("Invalid Advisor Id");
             validStat = false;
         }
         catch (Exception e) { // if unknown errors occur
@@ -344,7 +336,6 @@ public class ClubAdvisorLoginController {
         displayIdError();
         if(!clubAdvisor.validateUserName("registration", "clubAdvisor")){  /* passing parameters to validateUserName method,
                                                       and if username did not meet system standards*/
-            System.out.println("Wrong User Name");
             validStat = false;
         }else{
             User.userNameValidateStatus = ""; // when entered username is valid
@@ -353,7 +344,6 @@ public class ClubAdvisorLoginController {
 
         if(!clubAdvisor.validatePassword("registration")){  /* passing values to validatePassword method, and if
                                                                    password didn't meet system standards */
-            System.out.println("Wrong Password Name");
             validStat = false;
         }else{
             User.passwordValidateStatus = ""; // when entered password is valid
@@ -371,7 +361,6 @@ public class ClubAdvisorLoginController {
         }else{
             confirmPasswordLabel.setText(" "); // when entered password has no issues
         }
-        System.out.println(validStat + " : Valid Stat");
         if(validStat){ // if there is no issue in entered data
             ClubAdvisor clubAdvisorData = new ClubAdvisor(userName, password, firstName, lastName, contactNum, Integer.parseInt(advisorId));
             ClubAdvisor.clubAdvisorDetailsList.add(clubAdvisorData);
@@ -391,7 +380,6 @@ public class ClubAdvisorLoginController {
 
             this.goToLoginPage(event);
         }
-        System.out.println("\n\n\n");
     }
     public void displayNameError(String nameType){ // entered name checking
         if(nameType.equals("Fname")){  // checking first name
