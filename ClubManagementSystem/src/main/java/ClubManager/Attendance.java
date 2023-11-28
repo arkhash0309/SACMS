@@ -30,18 +30,22 @@ public class Attendance {
         }
     }
 
+    // getter to get the student object
     public Student getStudent() {
         return student;
     }
 
+    // setter to set the student object
     public void setStudent(Student student) {
         this.student = student;
     }
 
+    // getter to get the student name
     public String getStudentName() {
         return studentName;
     }
 
+    // setter to set the student name
     public void setStudentName(Student student) {
         this.studentName = student.getFirstName() + " " + student.getLastName();
     }
@@ -50,22 +54,27 @@ public class Attendance {
         return studentAdmissionNum;
     }
 
+    // setter to set the admission num
     public void setStudentAdmissionNum(Student student) {
         this.studentAdmissionNum = student.getStudentAdmissionNum();
     }
 
+    // getter to get the club name
     public String getClubName() {
         return clubName;
     }
 
+    // setter to get the club name
     public void setClubName(Event clubName) {
         this.clubName = clubName.getClubName();
     }
 
+    // getter to get the event name
     public String getEventName() {
         return eventName;
     }
 
+    // setter to  set the event name
     public void setEventName(Event eventName) {
         this.eventName = eventName.getEventName();
     }
@@ -92,24 +101,28 @@ public class Attendance {
     }
 
 
+    //getter to get the checkbox
     public CheckBox getAttendanceTracker() {
         return attendanceTracker;
     }  // a getter method to get the attendance tracker
 
+    // setter to set the checkbox
     public void setAttendanceTracker (CheckBox attendanceTracker) {
         this.attendanceTracker = attendanceTracker;
     }// a setter method to set the attendance tracker
 
+    // boolean method to decide the attendance
     public boolean attendanceStatusProperty() {
         return attendanceStatusProperty;
     } // a getter method to get the attendance status
 
 
+    // setter to set the attendance value
     public void setAttendanceStatusProperty(boolean attendanceStatusProperty) {
         this.attendanceStatusProperty = attendanceStatusProperty;
     } // a setter method to set the attendance status
 
-
+    
     public String getNameAttendanceStatus() {
         return nameAttendanceStatus;
     }
