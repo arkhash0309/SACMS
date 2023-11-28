@@ -13,13 +13,14 @@ public class Attendance {
     private String clubName;
     private String eventName;
     private Event event;
-    private boolean attendanceStatusProperty;
-    public static ArrayList<Attendance> atdTracker = new ArrayList<>();
+    private boolean attendanceStatusProperty; // a boolean value for the attendance
+    public static ArrayList<Attendance> atdTracker = new ArrayList<>(); // an array list of data type Atttendance
     private String nameAttendanceStatus;
 
     @FXML
     private CheckBox attendanceTracker;
 
+    // method to track the check boxes
     public void checkboxStatusTracker() {
         if (this.attendanceStatusProperty == true) {
             attendanceTracker.setSelected(true);
@@ -68,6 +69,7 @@ public class Attendance {
         this.eventName = eventName.getEventName();
     }
 
+    // the main constructor for attendance
     public Attendance(boolean attendanceStatus, Student student, Event event, CheckBox attendanceTracker) {
         this.attendanceStatusProperty = attendanceStatus;
         this.student = student;
@@ -81,6 +83,7 @@ public class Attendance {
         setNameAttendanceStatus();
     }
 
+    // another constructor for attendance
     public Attendance(boolean attendanceStatus, CheckBox stat) {
         this.attendanceStatusProperty = attendanceStatus;
         // Assuming you want to initialize the CheckBox in the constructor
@@ -109,6 +112,7 @@ public class Attendance {
         return nameAttendanceStatus;
     }
 
+    // a setter method to define attended and absent
     public void setNameAttendanceStatus() {
         if(this.attendanceStatusProperty){
             this.nameAttendanceStatus = "Attended";
