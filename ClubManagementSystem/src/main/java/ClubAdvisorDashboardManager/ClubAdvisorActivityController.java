@@ -82,6 +82,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         memberGender.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
         memberContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
 
+        // setting values to generate report registration advisor table, in order load these values when Generate Page is loading
         registrationAdvisorID.setCellValueFactory(new PropertyValueFactory<>("clubAdvisorId")); // setting values to registrationAdvisorID column
         registrationAdvisorUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         registrationAdvisorFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -90,14 +91,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         registrationAdvisorTable.setVisible(true);  // loading registrationAdvisorTable table when the respective FXML is loading
         populateClubAdvisorTable();
         registrationStudentTable.setVisible(false);
-
-        registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
-        registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
-        registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
-        registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender"));
 
         // make text fields not editable
         scheduleEventDatePicker.setEditable(false);
@@ -2997,7 +2990,15 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
             ObservableList<Student> observableStudentRegistrationList = registrationStudentTable.getItems();
             observableStudentRegistrationList.add(student1);
+            registrationStudentAdmissionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("studentAdmissionNum")); // setting values to registrationStudentTable column
+            registrationStudentUserName.setCellValueFactory(new PropertyValueFactory<>("userName")); // setting values to registrationStudentUserName column
+            registrationStudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName")); // setting values to registrationStudentFirstNameColumn column
+            registrationStudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName")); // setting values to registrationStudentLastNameColumn column
+            registrationStudentGradeColumn.setCellValueFactory(new PropertyValueFactory<>("studentGrade")); // setting values to registrationStudentGradeColumn column
+            registrationStudentContactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber")); // setting values to registrationStudentContactNumberColumn column
+            registrationStudentGenderColumn.setCellValueFactory(new PropertyValueFactory<>("studentGender")); // setting values to registrationStudentGenderColumn column
             registrationStudentTable.setItems(observableStudentRegistrationList);
+
         }
         userCountLabel.setText("No of Students: " + (numbeOfStudents));
     }
@@ -3107,7 +3108,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
 
     // work done by- Pramuditha
-        public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
+    public static void generateMembershipCsv(TableView<Student> tableView, Stage stage) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File file = fileChooser.showSaveDialog(stage);
@@ -3196,7 +3197,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                 writeCsvContent(writer, tableView);
                 System.out.println("CSV generated and saved to: " + file.getAbsolutePath());
             }
-        // If file is null return the method
+            // If file is null return the method
         }else{
             return;
         }
@@ -3209,7 +3210,7 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     }
 
     // work done by- Lakshan
-   // This method will write the event table content to the csv file
+    // This method will write the event table content to the csv file
     private static void writeCsvContent(FileWriter writer, TableView<Event> tableView) throws IOException {
         // get the column wise details from the observable list
         ObservableList<TableColumn<Event, ?>> columns = tableView.getColumns();
@@ -3362,32 +3363,32 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
 
         // for each entry in the eventDetails Array List
         for(Event eventVal : Event.eventDetails){
-              // if the event name entered is equal to the name in the array list
-              if(eventVal.getEventName().equals(eventName)){
+            // if the event name entered is equal to the name in the array list
+            if(eventVal.getEventName().equals(eventName)){
 
-                  // an observable list is created with data type attendance
-                  ObservableList<Attendance> observableMembersList;
-                  // for each entry in the eventAttendance Array list
-                  for(Attendance attendance : eventVal.eventAttendance){
-                          CheckBox checkBox = new CheckBox(); // a checkbox is defined
-                          Attendance tableMembers = new Attendance(attendance.attendanceStatusProperty(),
-                                  attendance.getStudent(), attendance.getEvent(), checkBox);
-                          // the items from the table are retrieved to the observable list
-                          observableMembersList = generateReportAttendanceTable.getItems();
-                          // the new members are added to the Observable list
-                          observableMembersList.add(tableMembers);
-                          // the values are set to the table
-                          generateReportAttendanceTable.setItems(observableMembersList);
+                // an observable list is created with data type attendance
+                ObservableList<Attendance> observableMembersList;
+                // for each entry in the eventAttendance Array list
+                for(Attendance attendance : eventVal.eventAttendance){
+                    CheckBox checkBox = new CheckBox(); // a checkbox is defined
+                    Attendance tableMembers = new Attendance(attendance.attendanceStatusProperty(),
+                            attendance.getStudent(), attendance.getEvent(), checkBox);
+                    // the items from the table are retrieved to the observable list
+                    observableMembersList = generateReportAttendanceTable.getItems();
+                    // the new members are added to the Observable list
+                    observableMembersList.add(tableMembers);
+                    // the values are set to the table
+                    generateReportAttendanceTable.setItems(observableMembersList);
 
-                          // if the boolean value is true
-                          if(attendance.attendanceStatusProperty()){
-                              totalAttended++; // value of attended students is increased by 1
-                          }else{
-                              totalAbsent++; // value of absent students is increased by 1
-                          }
-                  }
-              }
-             // the text are set
+                    // if the boolean value is true
+                    if(attendance.attendanceStatusProperty()){
+                        totalAttended++; // value of attended students is increased by 1
+                    }else{
+                        totalAbsent++; // value of absent students is increased by 1
+                    }
+                }
+            }
+            // the text are set
             totalAbsentStudents.setText(totalAbsent + " students");
             totalAttendedStudents.setText(totalAttended + " students");
             // total attendance is the sum of attended and absent students

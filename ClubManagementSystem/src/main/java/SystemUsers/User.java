@@ -105,51 +105,47 @@ abstract public class User implements UserValidator {
     abstract public void registerToSystem();
     abstract public String LoginToSystem();
 
-//    abstract public String studentRegisteringToSystem();
-//    abstract public String advisorRegisteringToSystem();
     @Override
-    public boolean validateFirstName(){
-        if(this.firstName.isEmpty()){
-            fNameValidateStatus = "empty";
+    public boolean validateFirstName(){ // validating first name
+        if(this.firstName.isEmpty()){ // if first name is empty
+            fNameValidateStatus = "empty"; // setting fNameValidateStatus to "empty"
             return false;
         }else{
-            if(containsSpecialCharactersAndDigits(this.firstName)){
-                fNameValidateStatus = "format";
+            if(containsSpecialCharactersAndDigits(this.firstName)){ // if first name field contains numbers and special characters
+                fNameValidateStatus = "format"; // setting fNameValidateStatus to "format"
                 return false;
             }else{
-                fNameValidateStatus = "correct";
+                fNameValidateStatus = "correct"; // if first name is entered correctly
                 return true;
             }
         }
     }
 
     @Override
-    public  boolean validateLastName(){
-        if(this.lastName.isEmpty()){
-            lNameValidateStatus = "empty";
+    public  boolean validateLastName(){ // validating last name
+        if(this.lastName.isEmpty()){ // if last name field is empty
+            lNameValidateStatus = "empty"; // setting lNameValidateStatus to "empty"
             return false;
         }else{
-            if(containsSpecialCharactersAndDigits(this.lastName)){
-                lNameValidateStatus = "format";
+            if(containsSpecialCharactersAndDigits(this.lastName)){ // if last name field contains numbers and special characters
+                lNameValidateStatus = "format"; // setting lNameValidateStatus to "format"
                 return false;
             }else{
-                lNameValidateStatus = "correct";
-                return true;
+                lNameValidateStatus = "correct"; // if last name is entered correctly
+                return true; // returning
             }
         }
     }
 
     @Override
-    public boolean validateContactNumber(){
-        System.out.println(this.contactNumber);
-        int contactLength = String.valueOf(this.contactNumber).length();
-        System.out.println(contactLength);
-        if(contactLength != 10){
-            contactNumberValidateStatus = "length";
+    public boolean validateContactNumber(){ // validating contact number
+        int contactLength = String.valueOf(this.contactNumber).length(); // taking the length of the contact number
+        if(contactLength != 10){ // if length of the contact number is not equal to 10
+            contactNumberValidateStatus = "length"; // setting contactNumberValidateStatus to "length"
             System.out.println("Not up to the length !!!");
             return false;
         }else{
-            contactNumberValidateStatus = "correct";
+            contactNumberValidateStatus = "correct"; // if contact number entered correctly
             return true;
         }
     }
@@ -162,78 +158,80 @@ abstract public class User implements UserValidator {
     }
 
     @Override
-    public boolean validateUserName(String requiredWork, String user){
+    public boolean validateUserName(String requiredWork, String user){ /* requiredWork is to check whether it is registration
+                                                                                    or updating, user is for advisor and student */
 
-        if(this.userName.isEmpty()){
-            userNameValidateStatus = "empty";
+        if(this.userName.isEmpty()){ // if username is empty
+            userNameValidateStatus = "empty"; // setting userNameValidateStatus to "empty"
             return false;
         }
-
-        String columnName = null;
-
+        // hold a row from database
+        String rowName = null;
         try {
             String sql;
+            // Determine the SQL query based on the user type
             if(user.equals("student")){
                 sql = "SELECT * FROM studentCredentials  WHERE studentUserName = ?";
             }else{
                 sql = "SELECT * FROM TeacherCredentials WHERE teacherUserName = ?";
             }
-
-            System.out.println("Laka" + this.getUserName());
             PreparedStatement preparedStatement = HelloApplication.connection.prepareStatement(sql);
-            preparedStatement.setString(1, this.getUserName());
+            preparedStatement.setString(1, this.getUserName()); // setting username
             ResultSet results = preparedStatement.executeQuery();
 
             if (results.next()) {
-                columnName = results.getString(1);
+                rowName = results.getString(1); // retrieving a row from database
             }
-
-            System.out.println(columnName + "data base");
-
+            // validation for registration or updating
             if (requiredWork.equals("registration") || requiredWork.equals("updation")) {
+                // updating for advisor
                 if(requiredWork.equals("updation") && !user.equals("student")){
                     if(this.userName.equals(ClubAdvisorActivityController.username)){
-                        System.out.println("Buwa Buwa");
                         userNameValidateStatus = "correct";
                         return true;
                     }
                 }
-
                 if(requiredWork.equals("updation") && user.equals("student")){
+                    // Updating for student
                     if(this.getUserName().equals(StudentDataBaseManager.getStudentUserName())){
                         userNameValidateStatus = "correct";
                         return true;
                     }
                 }
-
-                System.out.println(this.userName);
-                if (columnName != null && columnName.equals(this.getUserName())) {
-                    userNameValidateStatus = "exist";
+                if (rowName != null && rowName.equals(this.getUserName())) {
+                    // username already exists
+                    userNameValidateStatus = "exist"; // setting userNameValidateStatus to "exist"
                     System.out.println("That user name already exists !!!");
                     return false;
                 } else if (this.getUserName().isEmpty()) {
-                    userNameValidateStatus = "empty";
+                    // empty username
+                    userNameValidateStatus = "empty"; // setting userNameValidateStatus to "empty"
                     System.out.println("Empty !!!");
                     return false;
                 } else if ( this.getUserName().contains(" ")) {
-                    userNameValidateStatus = "blank";
+                    // username contains spaces
+                    userNameValidateStatus = "blank"; // setting userNameValidateStatus to "blank"
                     System.out.println("Blank !!!!");
                     return false;
                 } else if (this.getUserName().length() > 10 || this.getUserName().length() < 5) {
                     System.out.println(this.getUserName().length());
-                    userNameValidateStatus = "length";
-                    System.out.println("Lenght !!");
+                    // username length is not within the specified range
+                    userNameValidateStatus = "length"; // setting userNameValidateStatus to "length"
+                    System.out.println("Length !!");
                     return false;
                 } else {
-                    userNameValidateStatus = "correct";
+                    // username meets all criteria
+                    userNameValidateStatus = "correct"; // setting userNameValidateStatus to "correct"
                     return true;
                 }
             } else if (requiredWork.equals("login")) {
-                if (columnName != null && columnName.equals(this.getUserName())) {
+                // validating login
+                if (rowName != null && rowName.equals(this.getUserName())) {
                     System.out.println("That user name already exists !!!");
                     userNameValidateStatus = "correct";
                     return true;
                 } else {
+                    // username doesn't exist for login
                     userNameValidateStatus = "exist";
                     return false;
                 }
@@ -245,25 +243,24 @@ abstract public class User implements UserValidator {
             return false;
         }
     }
-
     @Override
-    public boolean validatePassword(String requiredWork) throws SQLException{
+    public boolean validatePassword(String requiredWork) throws SQLException{ // validating password
         if(requiredWork.equals("registration")){
-            if(this.getPassword().isEmpty()){
+            if(this.getPassword().isEmpty()){ // if password is empty
                 System.out.println("Empty empty !!!!!!!");
                 passwordValidateStatus = "empty";
                 return false;
-            } else if(checkPasswordIsValid(this.getPassword())){
+            } else if(checkPasswordIsValid(this.getPassword())){ // if password is valid according to checkPasswordIsValid method
                 return true;
             }else{
-                System.out.println(" format format format");
-                passwordValidateStatus = "format";
+                System.out.println("format");
+                passwordValidateStatus = "format"; // setting passwordValidateStatus to "format"
                 return false;
             }
         }else{
             // login and edit password
             if(this.getPassword().isEmpty()){
-                System.out.println("Empty empty !!!!!!!");
+                System.out.println("Empty !!!!!!!");
                 passwordValidateStatus = "empty";
                 return false;
             }else if(checkPasswordIsValid(this.getPassword())){
@@ -275,7 +272,7 @@ abstract public class User implements UserValidator {
         }
     }
 
-    protected static boolean checkPasswordIsValid(String password) {
+    protected static boolean checkPasswordIsValid(String password) { // checking whether password contains special characters
         // at least 8 digits, can add chars, numbers
         String pattern = "^(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
 
