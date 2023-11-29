@@ -226,7 +226,7 @@ public class ClubAdvisor extends User implements ClubAdvisorValidator {
             preparedStatement.setString(4, event.getEventLocation()); // get the event location and set
             preparedStatement.setString(5, event.getEventType()); // get the event type and set
             preparedStatement.setString(6, event.getEventDeliveryType()); // get the event delivery type and set
-            preparedStatement.setString(7, event.getEventDeliveryType()); // get the event delivery type and set
+            preparedStatement.setString(7, event.getEventDescription()); // get the event delivery type and set
 
             assert selectedClub != null;
             preparedStatement.setInt(8, selectedClub.getClubId()); // get and set the club id

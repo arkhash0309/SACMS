@@ -2621,6 +2621,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                             clubUpdateAlert.setHeaderText("Profile password successfully changed!!!");
                             clubUpdateAlert.show();
 
+                            //Clearing existing password error
+                            profileAdvisorExistingpwError.setText("");
+
                             //Clearing the text fields
                             profileAdvisorExistingpw.setText("");
                             profileAdvisorNewpw.setText("");
