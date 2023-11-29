@@ -594,6 +594,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         //Getting the row in the table which user selected
         int row = updateClubDetailsTable.getSelectionModel().getSelectedIndex();
 
+        if(row < 0){
+            return;
+        }
+
         //Setting the details of the user selected club to the update data fields
         String clubID = String.valueOf(clubDetailsList.get(row).getClubId());
         updateClubID.setText(clubID);
