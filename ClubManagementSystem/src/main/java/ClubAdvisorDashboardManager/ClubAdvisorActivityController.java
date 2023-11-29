@@ -476,6 +476,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
                     clubUpdateAlert.setHeaderText("Club details successfully updated!!!");
                     clubUpdateAlert.show();
 
+                    //Disable the update buttons when the user finished updating details
+                    updateClubImageButton.setDisable(true);
+                    updateClubButton.setDisable(true);
+
                     //Clearing the update text-fields
                     this.updateClubID.setText(String.valueOf(""));
                     this.updateClubName.setText("");
@@ -535,6 +539,10 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             updateClubDetailsTable.scrollTo(foundClub);
             // Update the input fields with the selected item's details for updating
             updateClubTableSelect();
+
+            //Enable the update buttons when the user selects a club to update
+            updateClubImageButton.setDisable(false);
+            updateClubButton.setDisable(false);
         } else {
             // Show alert for non-existent Club Name
             Alert alert = new Alert(Alert.AlertType.ERROR);
