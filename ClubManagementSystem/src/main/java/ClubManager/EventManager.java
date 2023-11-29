@@ -55,8 +55,9 @@ public class EventManager implements EventValidator {
     @Override
     public boolean validateEventType(String EventType) {
         // return true if the event type is not "None"
-        return (EventType.equals("None"));
+        return (EventType == null || EventType.equals("None"));
     }
+
 
     // Override method from EventValidator interface to validate event delivery type
     @Override

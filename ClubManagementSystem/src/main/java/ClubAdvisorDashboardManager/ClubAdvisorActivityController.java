@@ -995,6 +995,9 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
     // work done by- Lakshan
     // Method to populate comboBoxes with their club names for scheduling and updating events
     public void getCreatedClubs() {
+        scheduleEventsClubName.getItems().clear();
+        updateEventClubCombo.getItems().clear();
+        viewCreatedEventsSortComboBox.getItems().clear();
         // Check if None is already their in the scheduleEventsClubName ComboBox
         if (!scheduleEventsClubName.getItems().contains("None")) {
             // If not exist add it to scheduleEventsClubName comboBox
@@ -1017,7 +1020,6 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
         for (Club club : Club.clubDetailsList) {
             String clubName;
             clubName = club.getClubName();
-
             // Check if the clubName is already present in each ComboBox
             boolean scheduleContainStatus = scheduleEventsClubName.getItems().contains(clubName);
             boolean updateContainsStatus = updateEventClubCombo.getItems().contains(clubName);
