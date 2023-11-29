@@ -2834,6 +2834,12 @@ public class ClubAdvisorActivityController extends ClubAdvisorDashboardControlll
             observableMembersList.add(tableStudent);
             clubMembershipTable.setItems(observableMembersList);
         }
+        if(observableMembersList == null){
+            //Displaying the number of members
+            membershipReportNumber.setText("Number of Members : " + 0);
+            return;
+        }
+
         //Displaying the number of members
         membershipReportNumber.setText("Number of Members : " + observableMembersList.size());
     }
