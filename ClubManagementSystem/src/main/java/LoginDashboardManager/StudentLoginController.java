@@ -216,14 +216,17 @@ public class StudentLoginController {
     }
 
     // This method direct the user to the student dashboard
+    // Login sequence : 1.1.2.1.1.1.2.1.1.1.2.1 : DirectToStudentDashboard()
     @FXML
     void DirectToStudentDashboard(ActionEvent event) throws IOException, SQLException { // when user click on DirectToStudentDashboard button
+        // Login sequence : 1.1.2.1.1.1.2.1.1.1.2.1.1 : fieldsChecker()
         if (!fieldsChecker()) { // calling to fieldsChecker
             return;
         }
         studentLoginUserNameErrorLabel.setText(""); // clearing set values of respective labels
         studentLoginPasswordErrorLabel.setText("");  // clearing set values of respective labels
 
+        // Login sequence : 1.1.2.1.1.1.2.1.1.1.2.1.1.1: studentCredentialChecker()
         if (!studentCredentialChecker()) { // calling studentCredentialChecker method
             return;
         }
@@ -231,6 +234,7 @@ public class StudentLoginController {
         System.out.println("Directing to student dashboard");
 
         // loading student dashboard
+        // Login sequence :1.1.2.1.1.1.2.1.1.1.2.1.1.1.1 : studentDataBaseManager()
         StudentDataBaseManager studentDataBaseManager = new StudentDataBaseManager(userNameForShowInStudentDashboard); /* this is the
                                                                                                         place data load form the database */
         FXMLLoader loader = new FXMLLoader();
@@ -279,6 +283,7 @@ public class StudentLoginController {
     }
 
     // This method checks student registration fields
+    // Login sequence : 1.1.1.1.1.4.1.1.1.1.2 .1 : StudentRegistrationChecker()
     public void StudentRegistrationChecker(MouseEvent event) throws SQLException, IOException {
         //a boolean value is set to true initially
         validateStatus = true;
@@ -291,6 +296,7 @@ public class StudentLoginController {
         String password = this.studentRegisterPassword.getText();
         String passwordConfirm = this.studentRegisterConfirmPassword.getText();
 
+        // Login Sequence : 1.1.1.1.1.4.1.1.1.1.2.1.3 : Student()
         // an object called student is created of data type Student
         Student student = new Student(userName, password, firstName, lastName);
         // the  first name is validated using the validator interface

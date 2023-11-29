@@ -200,19 +200,23 @@ public class ClubAdvisorLoginController {
     }
 
     // This method
+    // Login sequence : 1.1.2.1 :DirectToClubAdvisorDashBoard()
     @FXML
     public void DirectToClubAdvisorDashBoard(ActionEvent event) throws IOException, SQLException { // when user click on DirectToStudentDashboard button
+        // Login sequence : 1.1.2.1.1 : fieldsChecker()
         if(!fieldsChecker()){ // calling to fieldsChecker
             return;
         }
         advisorUserNameEmpty.setText(""); // clearing set values of respective labels
         advisorPasswordEmpty.setText(""); // clearing set values of respective labels
 
+        // Login sequence : 1.1.2.1.1.1 : advisorCredentialsChecker()
         if(!advisorCredentialsChecker()){
             return;
         }
         clubAdvisorIncorrectCredential.setText("");
         // creating an object in ClubAdvisorDataBaseManager class
+        // login sequence : 1.1.2.1.1.1.1 : clubAdvisorDataBaseManager()
         ClubAdvisorDataBaseManager clubAdvisorDataBaseManager = new ClubAdvisorDataBaseManager(userNameForShowInAdvisorDashboard);
         FXMLLoader loader = new FXMLLoader();
         // loading ClubAdvisorDashboard.fxml file
@@ -266,6 +270,7 @@ public class ClubAdvisorLoginController {
     }
 
     // This method checks advisor details registration
+    // Login sequence : 1.1.1.1.1 : advisorRegistrationChecker()
     public void AdvisorRegistrationChecker(MouseEvent event) throws SQLException, IOException {
         validStat = true;
         // the entered details are retrieved into variables
@@ -276,6 +281,7 @@ public class ClubAdvisorLoginController {
         String userName = this.advisorUserName.getText();
         String password = this.advisorPassword.getText();
         String confirmPassword = this.advisorConfirmPassword.getText();
+        // Login sequence :  1.1.1.1.1.3 : ClubAdvisor()
         // an object called clubAdvisor is created of data type ClubAdvisor
         ClubAdvisor clubAdvisor = new ClubAdvisor(userName, password, firstName, lastName);
         // the  first name is validated using the validator interface

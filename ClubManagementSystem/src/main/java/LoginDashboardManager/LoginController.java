@@ -59,6 +59,7 @@ public class LoginController implements Initializable {
     // work done by- Lakshan and Deelaka
     // Login sequence diagram : 1.1 : DirectClubAdvisor()
     // This method is responsible for directing the user to the club advisor login page
+    // Registration sequence : 1.1 : DirectClubAdvisor()
     @FXML
     void DirectClubAdvisor(ActionEvent event) throws IOException {
         System.out.println("Direct to club Advisor");
@@ -73,6 +74,8 @@ public class LoginController implements Initializable {
 
     // work done by- Lakshan and Deelaka
     // This method is responsible for directing the user to the student login page
+    // Registration sequence : 1.1.1.1.1.4.1.1.1.1 : DirectStudent()
+    // Login student :  1.1.2.1.1.1.2.1.1.1 : DirectStudent()
     @FXML
     void DirectStudent(ActionEvent event) throws IOException {
         System.out.println("Direct to student");
